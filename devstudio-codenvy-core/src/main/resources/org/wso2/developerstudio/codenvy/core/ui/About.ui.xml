@@ -1,0 +1,38 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+    xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <ui:style>
+        .panel {
+            position:fixed;
+            top:40%;
+            right:40%;
+            width:20%;
+            text-align:center;
+        }
+        .htmlPanel {
+            text-align:center;
+        }
+    </ui:style>
+    <g:FlowPanel styleName='{style.panel}'>
+    
+       <g:DialogBox autoHide="true" modal="true">
+            <g:caption><b>WSO2 Developer Studio</b></g:caption>
+            <g:HTMLPanel styleName='{style.htmlPanel}'>
+              
+              <br></br> <br></br>
+              <g:Image url='http://b.content.wso2.com/wp-content/themes/wso2ng-v3/images-new/product-devs-logo.png'/>
+              
+              <br></br> <br></br>
+              
+              A major step forward in providing a complete Codenvy-based SOA development environment for the award-winning WSO2 Carbon platform.
+              <br></br> <br></br>
+              <g:Button ui:field='okButton'>Close</g:Button>
+              <br></br> <br></br>
+            </g:HTMLPanel>
+            
+       </g:DialogBox>
+       
+       
+    
+     </g:FlowPanel>
+</ui:UiBinder>
