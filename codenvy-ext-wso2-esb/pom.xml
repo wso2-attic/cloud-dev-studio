@@ -11,7 +11,7 @@
 
     <artifactId>esb-extension</artifactId>
     <packaging>jar</packaging>
-    <name>Codenvy Extension :: ESB</name>
+    <name>Codenvy Extension :: WSO2 - ESB</name>
 
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>

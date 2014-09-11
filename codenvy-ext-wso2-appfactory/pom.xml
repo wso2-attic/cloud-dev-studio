@@ -6,10 +6,10 @@
         <artifactId>cloud-studio-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <groupId>org.wso2.developerstudio.codenvy</groupId>
-    <artifactId>core-extension</artifactId>
+
+    <artifactId>appfactory-extension</artifactId>
     <packaging>jar</packaging>
-    <name>Codenvy Extension :: Wso2 Developer Studio - Core</name>
+    <name>Codenvy Extension :: WSO2 - App Factory</name>
 
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>

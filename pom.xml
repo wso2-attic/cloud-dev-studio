@@ -7,7 +7,7 @@
         <groupId>org.wso2.developerstudio.cloud</groupId>
         <artifactId>depmgt-pom</artifactId>
         <version>1.0.0-SNAPSHOT</version>
-        <relativePath>devstudio-codenvy-depmgt-pom</relativePath>
+        <relativePath>cloud-studio-depmgt-pom</relativePath>
     </parent>
 
     <groupId>org.wso2.developerstudio.cloud</groupId>
@@ -17,10 +17,10 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>devstudio-codenvy-core</module>
-        <module>devstudio-codenvy-appfactory</module>
-        <module>devstudio-codenvy-esb</module>
-        <module>devstudio-codenvy-registry</module>
+        <module>codenvy-ext-cloud-studio-core</module>
+        <module>codenvy-ext-wso2-registry</module>
+        <module>codenvy-ext-wso2-esb</module>
+        <module>codenvy-ext-wso2-appfactory</module>
     </modules>
 
     <repositories>
