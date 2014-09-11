@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.wso2.developerstudio.cloud</groupId>
+        <artifactId>depmgt-pom</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>devstudio-codenvy-depmgt-pom</relativePath>
+    </parent>
 
     <groupId>org.wso2.developerstudio.cloud</groupId>
     <artifactId>cloud-studio-parent</artifactId>
@@ -15,8 +23,28 @@
         <module>devstudio-codenvy-registry</module>
     </modules>
 
+    <repositories>
+        <repository>
+            <id>codenvy-public-repo</id>
+            <name>codenvy public</name>
+            <url>https://maven.codenvycorp.com/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>wso2-public-repo</id>
+            <name>wso2 public</name>
+            <url>http://maven.wso2.org/nexus/content/groups/wso2-public/</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>codenvy-public-repo</id>
+            <name>codenvy public</name>
+            <url>https://maven.codenvycorp.com/content/groups/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
     <properties>
-        <version.codenvy.sdk>1.0.0-M20</version.codenvy.sdk>
     </properties>
 
 </project>
