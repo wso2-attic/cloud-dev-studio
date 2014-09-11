@@ -5,7 +5,6 @@
         <artifactId>codenvy-ide-parent</artifactId>
         <groupId>com.codenvy.ide</groupId>
         <version>3.0.0-M17.1</version>
-        <relativePath>../../pom.xml</relativePath>
     </parent>
     <groupId>org.wso2.developerstudio.codenvy</groupId>
     <artifactId>core-extension</artifactId>
