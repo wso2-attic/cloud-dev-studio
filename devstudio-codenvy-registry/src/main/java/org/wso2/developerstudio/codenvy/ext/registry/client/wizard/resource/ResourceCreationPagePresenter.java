@@ -46,8 +46,8 @@ public class ResourceCreationPagePresenter extends AbstractWizardPage implements
 
     private final ResourceCreationPageView view;
     private final ProjectServiceClient projectServiceClient;
-    private final ResourceProvider     resourceProvider;
-    private final DtoFactory           factory;
+    private final ResourceProvider resourceProvider;
+    private final DtoFactory factory;
     private final NotificationManager notificationManager;
     private Notification projectCreationStatusNotification;
     private final LocalizationConstants localizedConstants;
@@ -56,7 +56,6 @@ public class ResourceCreationPagePresenter extends AbstractWizardPage implements
 
     /**
      * Create wizard page with given caption and image.
-     *
      */
     @Inject
     public ResourceCreationPagePresenter(ResourceCreationPageView view,
@@ -205,15 +204,15 @@ public class ResourceCreationPagePresenter extends AbstractWizardPage implements
                             }
                         }
                 );
-   }
+    }
 
-    private void createFiles(final Project project){
+    private void createFiles(final Project project) {
 
         projectCreationStatusNotification = new Notification(localizedMessages.fileCreationStartedMsg(project.getName()), Notification.Status.PROGRESS);
         notificationManager.showNotification(projectCreationStatusNotification);
 
-        projectServiceClient.createFolder(project.getName()+"/src", new EmptyCallback());
-        projectServiceClient.createFolder(project.getName()+"/resources", new EmptyCallback());
+        projectServiceClient.createFolder(project.getName() + "/src", new EmptyCallback());
+        projectServiceClient.createFolder(project.getName() + "/resources", new EmptyCallback());
         projectServiceClient.createFile(project.getName(), "pom.xml", "testContent", "text/xml", new AsyncRequestCallback<Void>() {
             @Override
             protected void onSuccess(Void result) {
