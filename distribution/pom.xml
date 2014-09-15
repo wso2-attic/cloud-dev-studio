@@ -81,6 +81,18 @@
                             </tasks>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>delete-copied-extensions</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <delete dir="${basedir}/resources/extensions/${com.codenvy.sdk.version}"/>
+                            </tasks>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>

@@ -19,8 +19,8 @@
     <modules>
         <module>cloud-studio-depmgt-pom</module>
         <module>codenvy-ext-cloud-studio-core</module>
-        <module>codenvy-ext-wso2-registry</module>
-        <module>codenvy-ext-wso2-esb</module>
+        <!--<module>codenvy-ext-wso2-registry</module>-->
+        <!--<module>codenvy-ext-wso2-esb</module>-->
         <module>codenvy-ext-wso2-appfactory</module>
         <module>distribution</module>
     </modules>
