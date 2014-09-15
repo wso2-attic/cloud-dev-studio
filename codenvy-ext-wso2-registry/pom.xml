@@ -66,6 +66,22 @@
                     <verifyFail>Warn</verifyFail>
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <configuration>
+                    <tasks>
+                        <copy file="target/${project.artifactId}-${project.version}.jar" tofile="../distribution/resources/extensions/${com.codenvy.sdk.version}/${project.artifactId}-${project.version}.jar"/>
+                    </tasks>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>

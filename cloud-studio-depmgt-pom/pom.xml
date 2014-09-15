@@ -34,6 +34,7 @@
         <com.codenvy.sdk.version>3.0.0-M20</com.codenvy.sdk.version>
         <com.google.gwt.gin.version>2.1.2</com.google.gwt.gin.version>
         <com.google.gwt.version>2.6.0</com.google.gwt.version>
+        <maven.istall.plugin.version>2.5.1</maven.istall.plugin.version>
     </properties>
 
 </project>
