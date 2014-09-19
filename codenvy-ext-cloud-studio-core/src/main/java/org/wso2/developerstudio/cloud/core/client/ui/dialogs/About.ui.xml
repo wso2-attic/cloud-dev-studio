@@ -16,6 +16,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <ui:with field='resources' type='org.wso2.developerstudio.cloud.core.client.CoreExtensionResources'/>
     <ui:style>
         .panel {
             position: fixed;
@@ -39,7 +40,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 
                 <br></br>
                 <br></br>
-                <g:Image url='http://b.content.wso2.com/wp-content/themes/wso2ng-v3/images-new/product-devs-logo.png'/>
+                <g:Image url='{resources.getStudioBanner.getSafeUri.asString}'/>
 
                 <br></br>
                 <br></br>
