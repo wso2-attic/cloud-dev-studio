@@ -34,7 +34,7 @@ public class ESBEditorExtension {
                                   ESBGraphicalEditorPresenter graphicalEditor,
                                   JSBundle bundle) {
         
-        workspaceAgent.openPart(graphicalEditor, EDITING);
+        //workspaceAgent.openPart(graphicalEditor, EDITING);
         ESBJavaScriptInjector.inject(bundle.jqueryLib().getText());
         ESBJavaScriptInjector.inject(bundle.jqueryUILib().getText());
         ESBJavaScriptInjector.inject(bundle.jsPlumbLib().getText());
