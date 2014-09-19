@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.wso2.developerstudio.cloud.core.client.ui;
+package org.wso2.developerstudio.cloud.core.client.ui.dialogs;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;

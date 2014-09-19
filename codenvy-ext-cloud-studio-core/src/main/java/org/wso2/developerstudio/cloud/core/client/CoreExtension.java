@@ -15,39 +15,41 @@
 */
 package org.wso2.developerstudio.cloud.core.client;
 
-/**
- * Codenvy API imports. In this extension we'll need
- * to talk to Parts and Action API. Gin and Singleton
- * imports are obligatory as well for any extension
- */
 import com.codenvy.ide.api.extension.Extension;
 import com.codenvy.ide.api.parts.ConsolePart;
 import com.codenvy.ide.api.ui.action.ActionManager;
 import com.codenvy.ide.api.ui.action.DefaultActionGroup;
 import com.codenvy.ide.api.ui.action.IdeActions;
-import  org.wso2.developerstudio.cloud.core.client.action.AboutAction;
+import com.codenvy.ide.api.ui.workspace.PartStackType;
+import com.codenvy.ide.api.ui.workspace.WorkspaceAgent;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.wso2.developerstudio.cloud.core.shared.WSO2StudioUIConstants;
+import org.wso2.developerstudio.cloud.core.client.actions.AboutAction;
+import org.wso2.developerstudio.cloud.core.client.actions.OpenDashboardAction;
+import org.wso2.developerstudio.cloud.core.client.ui.dashboard.page.DashboardPagePresenter;
+import org.wso2.developerstudio.cloud.core.shared.CoreConstants;
 
-/**
- * @Singleton is required in case the instance is triggered several times this extension will be initialized several times as well.
- * @Extension lets us know this is an extension and code injected in it will be executed when launched
- */
 @Singleton
-@Extension(title = "WSO2 Cloud Studio :: Core", version = "1.0.0")
-public class CoreExtension
-{
+@Extension(title = CoreConstants.EXT_NAME_PREFIX + CoreConstants.CORE_EXTENSION_NAME,
+        version = CoreConstants.EXT_CORE_VERSION)
+public class CoreExtension {
+
     @Inject
-    public CoreExtension(ActionManager actionManager, AboutAction action, ConsolePart console) {
-        
-        DefaultActionGroup wso2CloudStudioActionGroup = new DefaultActionGroup(WSO2StudioUIConstants.WSO2_ACTION_GROUP_NAME, true, actionManager);
-        actionManager.registerAction(WSO2StudioUIConstants.WSO2_ACTION_GROUP_ID, wso2CloudStudioActionGroup);
-        DefaultActionGroup mainMenu = (DefaultActionGroup)actionManager.getAction(IdeActions.GROUP_MAIN_MENU);
+    public CoreExtension(ActionManager actionManager, AboutAction aboutAction, OpenDashboardAction openDashboardAction,
+                         ConsolePart console, WorkspaceAgent workspaceAgent, DashboardPagePresenter dashboardPagePresenter) {
+
+        DefaultActionGroup wso2CloudStudioActionGroup = new DefaultActionGroup(CoreConstants.WSO2_ACTION_GROUP_NAME, true, actionManager);
+        actionManager.registerAction(CoreConstants.WSO2_ACTION_GROUP_ID, wso2CloudStudioActionGroup);
+        DefaultActionGroup mainMenu = (DefaultActionGroup) actionManager.getAction(IdeActions.GROUP_MAIN_MENU);
         mainMenu.add(wso2CloudStudioActionGroup);
 
-        actionManager.registerAction(WSO2StudioUIConstants.WSO2_ABOUT_ACTION_ID, action);
-        wso2CloudStudioActionGroup.add(action);
+        actionManager.registerAction(CoreConstants.WSO2_ABOUT_ACTION_ID, aboutAction);
+        wso2CloudStudioActionGroup.add(aboutAction);
+
+        actionManager.registerAction(CoreConstants.WSO2_OPEN_DASHBOARD_ACTION_ID, openDashboardAction);
+        wso2CloudStudioActionGroup.add(openDashboardAction);
+
+        workspaceAgent.openPart(dashboardPagePresenter, PartStackType.EDITING);
 
     }
 }

@@ -18,11 +18,21 @@ package org.wso2.developerstudio.cloud.core.shared;
 /**
  * Interface to hold Core Constants
  */
-public interface WSO2StudioUIConstants {
+public interface CoreConstants {
 
     // UI constants
     String WSO2_ACTION_GROUP_ID = "wso2ActionGroup";
     String WSO2_ACTION_GROUP_NAME = "WSO2 Studio";
     String WSO2_ABOUT_ACTION_ID = "wso2AboutAction";
+    String WSO2_OPEN_DASHBOARD_ACTION_ID = "wso2OpenDashboard";
+    String WSO2_OPEN_DASHBOARD_ACTION_NAME = "Open Dashboard";
     String WSO2_ABOUT_ACTION_NAME = "About";
+
+    String EXT_NAME_PREFIX = "WSO2 Cloud Studio ::";
+    String CORE_EXTENSION_NAME = "Core Extension";
+
+    // Extension Versions
+    String EXT_CORE_VERSION = "1.0.0";
+    String EXT_APP_FACTORY_VERSION = "1.0.0";
+    String DASHBOARD_TITLE = "WSO2 Developer Studio Dashboard";
 }
