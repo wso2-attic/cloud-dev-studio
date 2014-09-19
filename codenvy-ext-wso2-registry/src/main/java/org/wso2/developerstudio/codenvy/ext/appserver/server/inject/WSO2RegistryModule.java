@@ -24,7 +24,7 @@ public class WSO2RegistryModule extends AbstractModule{
 
     @Override
     protected void configure() {
-        bind(RegistryProjectTypeDescriptionExtension.class);
         bind(RegistryProjectTypeExtension.class);
+        bind(RegistryProjectTypeDescriptionExtension.class);
     }
 }
