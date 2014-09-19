@@ -78,6 +78,18 @@
                                         <include name="*.war"/>
                                     </fileset>
                                 </copy>
+                                <unwar src="${basedir}/target/${project.artifactId}-${project.version}/webapps/api.war"
+                                       dest="${basedir}/target/${project.artifactId}-${project.version}/webapps/api"
+                                        />
+                                <copy todir="${basedir}/target/${project.artifactId}-${project.version}/webapps/api/WEB-INF/lib">
+                                    <fileset dir="${basedir}/resources/extensions/${com.codenvy.sdk.version}">
+                                        <include name="*.jar"/>
+                                    </fileset>
+                                </copy>
+                                <delete file="${basedir}/target/${project.artifactId}-${project.version}/webapps/api.war"/>
+                                <war basedir="${basedir}/target/${project.artifactId}-${project.version}/webapps/api"
+                                     destfile="${basedir}/target/${project.artifactId}-${project.version}/webapps/api.war"/>
+                                <delete file="${basedir}/target/${project.artifactId}-${project.version}/webapps/api"/>
                             </tasks>
                         </configuration>
                     </execution>
