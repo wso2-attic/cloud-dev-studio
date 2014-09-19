@@ -38,27 +38,28 @@ public class LoginViewImpl extends DialogBox implements LoginView {
 
     private ActionDelegate delegate;
 
+    private Widget rootElement;
+
     @UiField
-    RadioButton appCloud;
+    RadioButton radioBtnAppCloud;
     @UiField
-    RadioButton appFac;
+    RadioButton radioBtnAppFactory;
     @UiField
     Button btnOK;
     @UiField
     Button btnCancel;
     @UiField
-    TextBox wso2AppCloud;
+    TextBox inputHostURL;
     @UiField
-    TextBox email;
+    TextBox inputUserName;
     @UiField
-    PasswordTextBox password;
+    PasswordTextBox inputPassword;
 
 
     @Inject
-    public LoginViewImpl(LoginViewImplUiBinder ourUiBinder, PartStackUIResources resources) {
-        Widget widget = ourUiBinder.createAndBindUi(this);
-        this.setWidget(widget);
-
+    public LoginViewImpl(LoginViewImplUiBinder loginPromptUIBinder) {
+        rootElement = loginPromptUIBinder.createAndBindUi(this);
+        this.setWidget(rootElement);
     }
 
     @UiHandler("btnOK")
@@ -67,32 +68,22 @@ public class LoginViewImpl extends DialogBox implements LoginView {
     }
 
     @UiHandler("btnCancel")
-    public void onCacelButtonClicked(ClickEvent event) {
+    public void onCancelButtonClicked(ClickEvent event) {
         delegate.onCancelButtonClicked();
     }
 
-    @UiHandler("appCloud")
+    @UiHandler("radioBtnAppCloud")
     public void onAppCloudClicked(ClickEvent event) {
         delegate.onAppCloudChosen();
     }
 
-    @UiHandler("appFac")
-    public void onAppFaClicked(ClickEvent event) {
-        delegate.onAppFacChosen();
+    @UiHandler("radioBtnAppFactory")
+    public void onAppFactoryClicked(ClickEvent event) {
+        delegate.onAppFactoryChosen();
     }
 
-    @UiHandler("wso2AppCloud")
-    public void onWso2AppCloud(KeyUpEvent event) {
-        delegate.onValueChanged();
-    }
-
-    @UiHandler("email")
-    public void onEmail(KeyUpEvent event) {
-        delegate.onValueChanged();
-    }
-
-    @UiHandler("password")
-    public void onPassword(KeyUpEvent event) {
+    @UiHandler("inputHostURL")
+    public void onHostChange(KeyUpEvent event) {
         delegate.onValueChanged();
     }
 
@@ -103,99 +94,70 @@ public class LoginViewImpl extends DialogBox implements LoginView {
 
     @Override
     public Widget asWidget() {
-        // TODO Auto-generated method stub
-        return null;
+        return rootElement;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public void showDialog() {
+    public void showLoginPrompt() {
         this.center();
         this.show();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void close() {
         this.hide();
-
     }
 
     @Override
-    public boolean isAppCloud() {
-        return appCloud.getValue();
+    public boolean isAppCloudLoginRequest() {
+        return radioBtnAppCloud.getValue();
     }
 
     @Override
-    public boolean isAppFac() {
-        return appFac.getValue();
+    public boolean isAppFactoryLoginRequest() {
+        return radioBtnAppFactory.getValue();
     }
 
     @Override
-    public void setAppCloud(boolean isAppCloud) {
-        appCloud.setValue(isAppCloud);
+    public void setAppCloudMode(boolean isAppCloud) {
+        radioBtnAppCloud.setValue(isAppCloud);
     }
 
     @Override
-    public void setAppFac(boolean isAppFac) {
-        appFac.setValue(isAppFac);
+    public void setAppFactoryMode(boolean isAppFactory) {
+        radioBtnAppFactory.setValue(isAppFactory);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public String getWso2AppCloud() {
-        // TODO Auto-generated method stub
-        return null;
+    public String getHostURL() {
+        return inputHostURL.getText();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public void setWso2AppCloud(@Nonnull String wso2AppCloud) {
-        // TODO Auto-generated method stub
-
+    public void setHostURL(@Nonnull String hostURL) {
+        inputHostURL.setText(hostURL);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Nonnull
     @Override
-    public String getEmail() {
-        return email.getText();
+    public String getUserName() {
+        return inputUserName.getText();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public void setEmail(@Nonnull String email) {
-        this.email.setText(email);
+    public void setUserName(@Nonnull String userName) {
+        inputUserName.setText(userName);
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
     @Nonnull
     @Override
     public String getPassword() {
-        return password.getText();
+        return inputPassword.getText();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setPassword(@Nonnull String password) {
-        this.password.setText(password);
+        this.inputPassword.setText(password);
     }
 
 

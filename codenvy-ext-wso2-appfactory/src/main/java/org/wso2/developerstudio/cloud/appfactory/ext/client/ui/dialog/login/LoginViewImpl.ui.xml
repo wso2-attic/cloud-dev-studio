@@ -56,14 +56,14 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                 <g:center>
                     <g:SimplePanel addStyleNames="{style.space}">
                         <g:SimplePanel>
-                            <g:RadioButton ui:field="appCloud" name="type" text="App Cloud"/>
+                            <g:RadioButton ui:field="radioBtnAppCloud" name="type" text="App Cloud"/>
                         </g:SimplePanel>
                     </g:SimplePanel>
                 </g:center>
                 <g:east size="140">
                     <g:SimplePanel addStyleNames="{style.space}">
                         <g:SimplePanel>
-                            <g:RadioButton ui:field="appFac" name="type" text="App Factory"/>
+                            <g:RadioButton ui:field="radioBtnAppFactory" name="type" text="App Factory"/>
                         </g:SimplePanel>
                     </g:SimplePanel>
                 </g:east>
@@ -84,7 +84,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                 <g:center>
                     <g:SimplePanel addStyleNames="{style.space}">
                         <g:SimplePanel>
-                            <g:TextBox width="400px" height="22px" ui:field="wso2AppCloud"/>
+                            <g:TextBox width="400px" height="22px" ui:field="inputHostURL"/>
                         </g:SimplePanel>
                     </g:SimplePanel>
                 </g:center>
@@ -100,7 +100,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                 <g:center>
                     <g:SimplePanel addStyleNames="{style.space}">
                         <g:SimplePanel>
-                            <g:TextBox width="400px" height="22px" ui:field="email"/>
+                            <g:TextBox width="400px" height="22px" ui:field="inputUserName"/>
                         </g:SimplePanel>
                     </g:SimplePanel>
                 </g:center>
@@ -116,7 +116,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                 <g:center>
                     <g:SimplePanel addStyleNames="{style.space}">
                         <g:SimplePanel>
-                            <g:PasswordTextBox width="400px" height="22px" ui:field="password"/>
+                            <g:PasswordTextBox width="400px" height="22px" ui:field="inputPassword"/>
                         </g:SimplePanel>
                     </g:SimplePanel>
                 </g:center>

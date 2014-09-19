@@ -20,7 +20,7 @@ import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import org.wso2.developerstudio.cloud.appfactory.ext.client.ui.views.LoginPresenter;
+import org.wso2.developerstudio.cloud.appfactory.ext.client.ui.dialog.login.LoginPresenter;
 
 public class AppListPresenter extends BasePresenter implements AppListView.ActionDelegate {
 

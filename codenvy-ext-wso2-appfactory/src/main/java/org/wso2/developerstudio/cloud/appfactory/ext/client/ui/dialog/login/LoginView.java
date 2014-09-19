@@ -47,7 +47,7 @@ public interface LoginView extends View<LoginView.ActionDelegate> {
         /**
          * Performs some actions in response to a app fac.
          */
-        void onAppFacChosen();
+        void onAppFactoryChosen();
 
         /**
          * Performs any actions appropriate in response to the user having changed something.
@@ -59,57 +59,57 @@ public interface LoginView extends View<LoginView.ActionDelegate> {
     /**
      * Show Login dialog.
      */
-    void showDialog();
+    void showLoginPrompt();
 
     /**
      * @return <code>true</code> if app cloud is chosen, and <code>false</code> otherwise
      */
-    boolean isAppCloud();
+    boolean isAppCloudLoginRequest();
 
     /**
-     * @return <code>true</code> if a fac is chosen, and <code>false</code> otherwise
+     * @return <code>true</code> if app factory is chosen, and <code>false</code> otherwise
      */
-    boolean isAppFac();
+    boolean isAppFactoryLoginRequest();
 
     /**
      * Select app cloud button.
      *
      * @param isAppCloud <code>true</code> to select app cloud, <code>false</code> not to select
      */
-    void setAppCloud(boolean isAppCloud);
+    void setAppCloudMode(boolean isAppCloud);
 
     /**
      * Select app fac button.
      *
-     * @param isAppFac <code>true</code> to select app fac, <code>false</code> not to select
+     * @param isAppFactory <code>true</code> to select app factory, <code>false</code> not to select
      */
-    void setAppFac(boolean isAppFac);
+    void setAppFactoryMode(boolean isAppFactory);
 
     /**
      * @return Wso2 App Cloud
      */
     @Nonnull
-    String getWso2AppCloud();
+    String getHostURL();
 
     /**
      * Set Wso2 Appcloud.
      *
-     * @param AppCloud Cloud
+     * @param hostURL Cloud
      */
-    void setWso2AppCloud(@Nonnull String AppCloud);
+    void setHostURL(@Nonnull String hostURL);
 
     /**
      * @return Email
      */
     @Nonnull
-    String getEmail();
+    String getUserName();
 
     /**
      * Set Email.
      *
-     * @param email
+     * @param userName
      */
-    void setEmail(@Nonnull String email);
+    void setUserName(@Nonnull String userName);
 
     /**
      * @return Wso2 App Cloud

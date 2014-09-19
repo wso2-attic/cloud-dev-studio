@@ -37,7 +37,6 @@ public class AppDetailsPresenter extends BasePresenter implements AppListView.Ac
 
     @Override
     public void onButtonClicked() {
-
     }
 
     @Override

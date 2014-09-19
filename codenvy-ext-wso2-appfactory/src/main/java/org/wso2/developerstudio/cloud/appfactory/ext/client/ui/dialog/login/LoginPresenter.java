@@ -15,27 +15,30 @@
  */
 package org.wso2.developerstudio.cloud.appfactory.ext.client.ui.dialog.login;
 
+import com.codenvy.ide.api.parts.ConsolePart;
 import com.google.inject.Inject;
 
 public class LoginPresenter implements LoginView.ActionDelegate {
 
     private LoginView view;
+    private ConsolePart consolePart;
     private String title;
     private String wso2AppCloud;
     private String email;
     private String password;
 
     @Inject
-    public LoginPresenter(LoginView view) {
+    public LoginPresenter(LoginView view, ConsolePart consolePart) {
         this.view = view;
+        this.consolePart = consolePart;
         this.view.setDelegate(this);
     }
 
     @Override
     public void onValueChanged() {
 
-        wso2AppCloud = view.getWso2AppCloud();
-        email = view.getEmail();
+        wso2AppCloud = view.getHostURL();
+        email = view.getUserName();
         password = view.getPassword();
 
     }
@@ -44,7 +47,7 @@ public class LoginPresenter implements LoginView.ActionDelegate {
      * Show Login dialog.
      */
     public void showDialog() {
-        view.showDialog();
+        view.showLoginPrompt();
     }
 
     @Override
@@ -60,7 +63,7 @@ public class LoginPresenter implements LoginView.ActionDelegate {
     }
 
     @Override
-    public void onAppFacChosen() {
+    public void onAppFactoryChosen() {
         // TODO Auto-generated method stub
 
     }

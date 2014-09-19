@@ -17,31 +17,44 @@ package org.wso2.developerstudio.cloud.appfactory.ext.client.ui.part.applist;
 
 import com.codenvy.ide.api.parts.PartStackUIResources;
 import com.codenvy.ide.api.parts.base.BaseView;
-import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
 import com.google.inject.Inject;
+import org.wso2.developerstudio.cloud.appfactory.ext.client.AppFactoryExtensionResources;
 
 public class AppListViewImpl extends BaseView<AppListView.ActionDelegate> implements AppListView {
 
     interface AppFacPartViewImplUiBinder extends UiBinder<Widget, AppListViewImpl> {
     }
 
+    @Inject
+    AppFactoryExtensionResources re;
+
     @UiField
-    Button button;
+    HorizontalPanel btnPanel;
+    @UiField
+    HorizontalPanel loginIconPanel;
+    @UiField
+    FlowPanel infoPanel;
+    @UiField
+    FlowPanel buildPanel;
+    @UiField
+    FlowPanel teamPanel;
+    @UiField
+    FlowPanel datasourcesPanel;
 
     @Inject
     public AppListViewImpl(AppFacPartViewImplUiBinder ourUiBinder, PartStackUIResources resources) {
         super(resources);
         container.add(ourUiBinder.createAndBindUi(this));
+
+        ImageResource loginIcon = re.getLoginIcon();
+        PushButton loginBtn = new PushButton(new Image(loginIcon));
+        btnPanel.add(loginBtn);
+
     }
 
-    @UiHandler("button")
-    public void onButtonClicked(ClickEvent event) {
-        delegate.onButtonClicked();
-    }
 
 }

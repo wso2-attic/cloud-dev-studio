@@ -15,22 +15,29 @@
 */
 package org.wso2.developerstudio.cloud.appfactory.ext.client.ui.part.factory;
 
-import org.wso2.developerstudio.cloud.appfactory.ext.client.ui.part.AppFacPartPresenter;
-import org.wso2.developerstudio.cloud.appfactory.ext.client.ui.part.AppFacPartPresenterConsole;
+import org.wso2.developerstudio.cloud.appfactory.ext.client.ui.part.appdetails.AppDetailsPresenter;
+import org.wso2.developerstudio.cloud.appfactory.ext.client.ui.part.applist.AppListPresenter;
 
 import javax.validation.constraints.NotNull;
 
 public interface AppFactoryPartsFactory {
 
     /**
-     * Create an instance of a part with a given title.
+     * Factory method for Application List View
      *
-     * @param title title for part
+     * @param title  Part Title
      *
-     * @return {@link org.wso2.developerstudio.cloud.appfactory.ext.client.ui.part.AppFacPartPresenter}
+     * @return App List View
      */
-    AppFacPartPresenter create(@NotNull String title);
+    AppListPresenter createAppListPart(@NotNull String title);
 
-    AppFacPartPresenterConsole createName(@NotNull String title);
+    /**
+     * Factory method for Application Details View
+     *
+     * @param title Part Title
+     *
+     * @return App Details View
+     */
+    AppDetailsPresenter createAppDetailsPart(@NotNull String title);
 
 }
