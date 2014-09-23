@@ -29,10 +29,10 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.wso2.developerstudio.codenvy.ext.appserver.client.WSO2RegistryExtensionResources;
+import org.wso2.developerstudio.codenvy.ext.appserver.client.RegistryExtensionResources;
 import org.wso2.developerstudio.codenvy.ext.appserver.client.i18n.LocalizationConstants;
 import org.wso2.developerstudio.codenvy.ext.appserver.client.i18n.LocalizationMessages;
-import org.wso2.developerstudio.codenvy.ext.appserver.shared.Constants;
+import org.wso2.developerstudio.codenvy.ext.appserver.shared.RegistryExtConstants;
 
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
@@ -52,7 +52,7 @@ public class ResourceCreationPagePresenter extends AbstractWizardPage implements
     private Notification projectCreationStatusNotification;
     private final LocalizationConstants localizedConstants;
     private final LocalizationMessages localizedMessages;
-    private final WSO2RegistryExtensionResources resources;
+    private final RegistryExtensionResources resources;
 
     /**
      * Create wizard page with given caption and image.
@@ -64,7 +64,7 @@ public class ResourceCreationPagePresenter extends AbstractWizardPage implements
                                          DtoFactory factory, NotificationManager notificationManager,
                                          LocalizationConstants localizedConstants,
                                          LocalizationMessages localizedMessages,
-                                         WSO2RegistryExtensionResources resources) {
+                                         RegistryExtensionResources resources) {
         super(localizedConstants.createResourceWizardPageTitle(), null);
         this.view = view;
         this.notificationManager = notificationManager;
@@ -112,9 +112,9 @@ public class ResourceCreationPagePresenter extends AbstractWizardPage implements
     public void commit(@NotNull final CommitCallback callback) {
 
         Map<String, List<String>> options = new HashMap<String, List<String>>();
-        options.put(Constants.MAVEN_ARTIFACT_ID, Arrays.asList(wizardContext.getData(Constants.WKEY_MAVEN_ARTIFACT_ID)));
-        options.put(Constants.MAVEN_GROUP_ID, Arrays.asList(wizardContext.getData(Constants.WKEY_MAVEN_GROUP_ID)));
-        options.put(Constants.MAVEN_VERSION, Arrays.asList(wizardContext.getData(Constants.WKEY_MAVEN_VERSION)));
+        options.put(RegistryExtConstants.MAVEN_ARTIFACT_ID, Arrays.asList(wizardContext.getData(RegistryExtConstants.WKEY_MAVEN_ARTIFACT_ID)));
+        options.put(RegistryExtConstants.MAVEN_GROUP_ID, Arrays.asList(wizardContext.getData(RegistryExtConstants.WKEY_MAVEN_GROUP_ID)));
+        options.put(RegistryExtConstants.MAVEN_VERSION, Arrays.asList(wizardContext.getData(RegistryExtConstants.WKEY_MAVEN_VERSION)));
 
         final ProjectDescriptor projectDescriptor = factory.createDto(ProjectDescriptor.class);
         projectDescriptor.withProjectTypeId(wizardContext.getData(ProjectWizard.PROJECT_TYPE).getProjectTypeId());

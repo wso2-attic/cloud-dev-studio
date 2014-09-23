@@ -26,7 +26,7 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.wso2.developerstudio.codenvy.ext.appserver.client.i18n.LocalizationConstants;
-import org.wso2.developerstudio.codenvy.ext.appserver.shared.Constants;
+import org.wso2.developerstudio.codenvy.ext.appserver.shared.RegistryExtConstants;
 
 import javax.annotation.Nullable;
 
@@ -78,16 +78,16 @@ public class MavenSettingsPagePresenter extends AbstractWizardPage implements Ma
 
     @Override
     public void storeOptions() {
-        wizardContext.putData(Constants.WKEY_MAVEN_ARTIFACT_ID, view.getArtifactId());
-        wizardContext.putData(Constants.WKEY_MAVEN_GROUP_ID, view.getGroupId());
-        wizardContext.putData(Constants.WKEY_MAVEN_VERSION, view.getVersion());
+        wizardContext.putData(RegistryExtConstants.WKEY_MAVEN_ARTIFACT_ID, view.getArtifactId());
+        wizardContext.putData(RegistryExtConstants.WKEY_MAVEN_GROUP_ID, view.getGroupId());
+        wizardContext.putData(RegistryExtConstants.WKEY_MAVEN_VERSION, view.getVersion());
     }
 
     @Override
     public void removeOptions() {
-        wizardContext.removeData(Constants.WKEY_MAVEN_ARTIFACT_ID);
-        wizardContext.removeData(Constants.WKEY_MAVEN_VERSION);
-        wizardContext.removeData(Constants.WKEY_MAVEN_GROUP_ID);
+        wizardContext.removeData(RegistryExtConstants.WKEY_MAVEN_ARTIFACT_ID);
+        wizardContext.removeData(RegistryExtConstants.WKEY_MAVEN_VERSION);
+        wizardContext.removeData(RegistryExtConstants.WKEY_MAVEN_GROUP_ID);
     }
 
     @Override
@@ -96,9 +96,9 @@ public class MavenSettingsPagePresenter extends AbstractWizardPage implements Ma
         container.setWidget(view);
         Project project = wizardContext.getData(ProjectWizard.PROJECT);
         if (project != null) {
-            view.setArtifactId(project.getAttributeValue(Constants.MAVEN_ARTIFACT_ID));
-            view.setGroupId(project.getAttributeValue(Constants.MAVEN_GROUP_ID));
-            view.setVersion(project.getAttributeValue(Constants.MAVEN_VERSION));
+            view.setArtifactId(project.getAttributeValue(RegistryExtConstants.MAVEN_ARTIFACT_ID));
+            view.setGroupId(project.getAttributeValue(RegistryExtConstants.MAVEN_GROUP_ID));
+            view.setVersion(project.getAttributeValue(RegistryExtConstants.MAVEN_VERSION));
             Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
                 @Override
                 public void execute() {

@@ -28,14 +28,14 @@ import org.wso2.developerstudio.codenvy.ext.appserver.client.wizard.maven.MavenS
 import org.wso2.developerstudio.codenvy.ext.appserver.client.wizard.resource.ResourceCreationPagePresenter;
 import org.wso2.developerstudio.codenvy.ext.appserver.shared.RegistryExtConstants;
 
-/** WSO2 Registry Extension. */
 @Singleton
-@Extension(title = CoreExtConstants.EXT_NAME_PREFIX + RegistryExtConstants.EXT_NAME, version = RegistryExtConstants.EXT_VERSION)
+@Extension(title = CoreExtConstants.EXT_NAME_PREFIX + RegistryExtConstants.EXT_NAME,
+                                            version = RegistryExtConstants.EXT_VERSION)
 public class RegistryExtension {
 
     @Inject
     public RegistryExtension(NotificationManager notificationManager,
-                             WSO2RegistryExtensionResources resources,
+                             RegistryExtensionResources resources,
                              ProjectTypeWizardRegistry wizardRegistry,
                              Provider<MavenSettingsPagePresenter> mavenSettingsPagePresenter,
                              Provider<ResourceCreationPagePresenter> resourceCreationPagePresenter) {

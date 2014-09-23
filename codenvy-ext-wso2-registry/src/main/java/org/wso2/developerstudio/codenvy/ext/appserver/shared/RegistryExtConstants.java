@@ -19,6 +19,9 @@ import com.codenvy.ide.api.ui.wizard.WizardContext;
 
 public interface RegistryExtConstants {
 
+    String EXT_NAME = "Registry Tools";
+    String EXT_VERSION = "1.0.0";
+
     String WSO2_PROJECT_ID = "WSO2Project";
     String WSO2_REGISTRY_PROJECT = "WSO2 Registry Resources Project";
     String WSO2_REGISTRY_PROJECT_ID = "WSo2 Registry Project";
@@ -38,4 +41,5 @@ public interface RegistryExtConstants {
     WizardContext.Key<String> WKEY_MAVEN_ARTIFACT_ID = new WizardContext.Key<String>(RegistryExtConstants.MAVEN_ARTIFACT_ID);
     WizardContext.Key<String> WKEY_MAVEN_GROUP_ID = new WizardContext.Key<String>(RegistryExtConstants.MAVEN_GROUP_ID);
     WizardContext.Key<String> WKEY_MAVEN_VERSION= new WizardContext.Key<String>(RegistryExtConstants.MAVEN_VERSION);
+
 }

@@ -26,7 +26,7 @@ import com.google.inject.Singleton;
 import java.util.Arrays;
 import java.util.List;
 
-import org.wso2.developerstudio.codenvy.ext.appserver.shared.Constants;
+import org.wso2.developerstudio.codenvy.ext.appserver.shared.RegistryExtConstants;
 
 import javax.inject.Named;
 
@@ -43,22 +43,22 @@ public class RegistryProjectTypeExtension implements ProjectTypeExtension{
 
     @Override
     public ProjectType getProjectType() {
-        return new ProjectType(Constants.WSO2_REGISTRY_PROJECT_ID, Constants.WSO2_REGISTRY_PROJECT, Constants.WSO2_PROJECT_ID);
+        return new ProjectType(RegistryExtConstants.WSO2_REGISTRY_PROJECT_ID, RegistryExtConstants.WSO2_REGISTRY_PROJECT, RegistryExtConstants.WSO2_PROJECT_ID);
     }
 
     @Override
     public List<Attribute> getPredefinedAttributes() {
         return Arrays.asList(
-                new Attribute(Constants.LANGUAGE, Constants.WSO2_PROJECT_ID),
-                new Attribute(Constants.FRAMEWORK, Constants.WSO2_PROJECT_ID),
-                new Attribute(Constants.BUILDER_NAME, "maven")
+                new Attribute(RegistryExtConstants.LANGUAGE, RegistryExtConstants.WSO2_PROJECT_ID),
+                new Attribute(RegistryExtConstants.FRAMEWORK, RegistryExtConstants.WSO2_PROJECT_ID),
+                new Attribute(RegistryExtConstants.BUILDER_NAME, "maven")
         );
     }
 
     @Override
     public List<ProjectTemplateDescription> getTemplates() {
         return Arrays.asList(new ProjectTemplateDescription("zip",
-                Constants.WSO2_REGISTRY_PROJECT,
+                RegistryExtConstants.WSO2_REGISTRY_PROJECT,
                 "This is a simple Registry resources project.",
                 baseUrl+"templates/appserver-project.zip"));
     }

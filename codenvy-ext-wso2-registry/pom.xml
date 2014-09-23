@@ -19,6 +19,11 @@
             <version>3.0.0-M20</version>
         </dependency>
         <dependency>
+            <groupId>org.wso2.developerstudio.cloud</groupId>
+            <artifactId>core-extension</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.googlecode.gwtquery</groupId>
             <artifactId>gwtquery</artifactId>
             <version>1.4.2</version>

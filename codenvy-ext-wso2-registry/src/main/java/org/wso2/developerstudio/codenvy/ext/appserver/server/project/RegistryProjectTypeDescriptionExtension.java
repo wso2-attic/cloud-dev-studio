@@ -21,7 +21,7 @@ import com.codenvy.api.project.shared.AttributeDescription;
 import com.codenvy.api.project.shared.ProjectType;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.wso2.developerstudio.codenvy.ext.appserver.shared.Constants;
+import org.wso2.developerstudio.codenvy.ext.appserver.shared.RegistryExtConstants;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,12 +36,12 @@ public class RegistryProjectTypeDescriptionExtension implements ProjectTypeDescr
 
     @Override
     public List<ProjectType> getProjectTypes() {
-        return Arrays.asList(new ProjectType(Constants.WSO2_REGISTRY_PROJECT_ID, Constants.WSO2_REGISTRY_PROJECT, Constants.WSO2_PROJECT_ID));
+        return Arrays.asList(new ProjectType(RegistryExtConstants.WSO2_REGISTRY_PROJECT_ID, RegistryExtConstants.WSO2_REGISTRY_PROJECT, RegistryExtConstants.WSO2_PROJECT_ID));
     }
 
     @Override
     public List<AttributeDescription> getAttributeDescriptions() {
-        return Arrays.asList(new AttributeDescription(Constants.LANGUAGE),
-                new AttributeDescription(Constants.FRAMEWORK));
+        return Arrays.asList(new AttributeDescription(RegistryExtConstants.LANGUAGE),
+                new AttributeDescription(RegistryExtConstants.FRAMEWORK));
     }
 }
