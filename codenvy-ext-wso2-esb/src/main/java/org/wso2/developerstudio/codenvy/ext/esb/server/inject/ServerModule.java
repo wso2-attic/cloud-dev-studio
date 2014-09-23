@@ -13,20 +13,15 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.codenvy.ide.client.esb;
+package org.wso2.developerstudio.codenvy.ext.esb.server.inject;
 
-import com.codenvy.ide.api.mvp.View;
-import com.codenvy.ide.api.parts.base.BaseActionDelegate;
-import com.google.inject.ImplementedBy;
+import com.codenvy.inject.DynaModule;
+import com.google.inject.AbstractModule;
 
-@ImplementedBy(ESBGraphicalEditorViewImpl.class)
-public interface ESBGraphicalEditorView extends View<ESBGraphicalEditorView.ActionDelegate> {
-    /** Required for delegating functions in view. */
-    public interface ActionDelegate extends BaseActionDelegate {
-        /** Performs some actions in response to a user's clicking on Button */
-       
+@DynaModule
+public class ServerModule extends AbstractModule{
+
+    @Override
+    protected void configure() {
     }
-
-  
 }
-

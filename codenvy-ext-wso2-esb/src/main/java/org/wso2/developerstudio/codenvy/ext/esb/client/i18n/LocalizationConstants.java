@@ -13,28 +13,16 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.codenvy.ide.client.inject;
+package org.wso2.developerstudio.codenvy.ext.esb.client.i18n;
 
-import com.google.gwt.resources.client.ClientBundle;
-import com.google.gwt.resources.client.TextResource;
+import com.google.gwt.i18n.client.Constants;
 
-/**
-* Extend the {@link ClientBundle} to provide Javascript
-* resource linkage.
-*
-*/
-public interface JSBundle extends ClientBundle {
+public interface LocalizationConstants extends Constants {
 
-@Source("esb-extension.js")
-TextResource esbExtensionJS();
+    @Key("project.wizard.page.maven.title")
+    String mavenWizardPageTitle();
 
-@Source("jquery.min.js")
-TextResource jqueryLib();
-
-@Source("jquery.ui.min.js")
-TextResource jqueryUILib();
-
-@Source("jquery.jsPlumb-1.6.2-min.js")
-TextResource jsPlumbLib();
+    @Key("project.wizard.page.createresource.title")
+    String createResourceWizardPageTitle();
 
 }

@@ -13,6 +13,14 @@
     <packaging>jar</packaging>
     <name>Codenvy Extension :: WSO2 - ESB</name>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.wso2.developerstudio.cloud</groupId>
+            <artifactId>core-extension</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
         <outputDirectory>target/classes</outputDirectory>

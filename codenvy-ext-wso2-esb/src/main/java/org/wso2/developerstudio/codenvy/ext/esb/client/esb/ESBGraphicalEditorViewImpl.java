@@ -13,12 +13,13 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.codenvy.ide.client.esb;
+package org.wso2.developerstudio.codenvy.ext.esb.client.esb;
 
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
+import org.wso2.developerstudio.codenvy.ext.esb.client.esb.ESBGraphicalEditorView;
 
 public class ESBGraphicalEditorViewImpl extends Composite implements ESBGraphicalEditorView {
     interface ESBGraphicalEditorViewImplUiBinder extends UiBinder<Widget, ESBGraphicalEditorViewImpl> {

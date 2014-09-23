@@ -13,17 +13,12 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.codenvy.ide.client.esb;
+package org.wso2.developerstudio.codenvy.ext.esb.client.esb;
 
 import com.codenvy.ide.api.ui.workspace.AbstractPartPresenter;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ImageResource;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
-import com.google.inject.assistedinject.Assisted;
-import com.codenvy.ide.client.inject.JSBundle;
-import com.codenvy.ide.client.inject.ESBJavaScriptInjector;
 
 public class ESBGraphicalEditorPresenter extends AbstractPartPresenter implements ESBGraphicalEditorView.ActionDelegate {
     private ESBGraphicalEditorView view;
@@ -34,8 +29,6 @@ public class ESBGraphicalEditorPresenter extends AbstractPartPresenter implement
         this.view.setDelegate(this);
      }
 
-  
-    /** {@inheritDoc} */
     @Override
     public void go(AcceptsOneWidget container) {
         container.setWidget(view);

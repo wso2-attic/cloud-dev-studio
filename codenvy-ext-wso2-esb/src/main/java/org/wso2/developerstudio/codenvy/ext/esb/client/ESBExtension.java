@@ -13,35 +13,30 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.codenvy.ide;
+package org.wso2.developerstudio.codenvy.ext.esb.client;
 
 import com.codenvy.ide.api.extension.Extension;
 import com.codenvy.ide.api.ui.workspace.WorkspaceAgent;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.codenvy.ide.client.esb.ESBGraphicalEditorPresenter;
-import com.codenvy.ide.client.inject.ESBJavaScriptInjector;
-import com.codenvy.ide.client.inject.JSBundle;
-import static com.codenvy.ide.api.ui.workspace.PartStackType.EDITING;
+import org.wso2.developerstudio.cloud.core.shared.CoreExtConstants;
+import org.wso2.developerstudio.codenvy.ext.esb.client.esb.ESBGraphicalEditorPresenter;
+import org.wso2.developerstudio.codenvy.ext.esb.client.inject.ESBJavaScriptInjector;
+import org.wso2.developerstudio.codenvy.ext.esb.shared.ESBExtConstants;
 
-/** The skeleton of empty Codenvy extension. */
 @Singleton
-@Extension(title = "ESB Editor extension", version = "1.0.0")
-public class ESBEditorExtension {
+@Extension(title =  CoreExtConstants.EXT_NAME_PREFIX + ESBExtConstants.EXT_NAME,
+                    version = ESBExtConstants.EXT_VERSION)
+public class ESBExtension {
 
     @Inject
-    public ESBEditorExtension(WorkspaceAgent workspaceAgent,
-                                  ESBGraphicalEditorPresenter graphicalEditor,
-                                  JSBundle bundle) {
-        
-        //workspaceAgent.openPart(graphicalEditor, EDITING);
+    public ESBExtension(WorkspaceAgent workspaceAgent,
+                        ESBGraphicalEditorPresenter graphicalEditor,
+                        ESBExtensionResources bundle) {
+
         ESBJavaScriptInjector.inject(bundle.jqueryLib().getText());
         ESBJavaScriptInjector.inject(bundle.jqueryUILib().getText());
         ESBJavaScriptInjector.inject(bundle.jsPlumbLib().getText());
         ESBJavaScriptInjector.inject(bundle.esbExtensionJS().getText());
-        
-        
-        
-        
     }
 }
