@@ -23,26 +23,27 @@ import com.google.gwt.core.client.ScriptInjector;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import org.wso2.developerstudio.cloud.core.shared.CoreExtConstants;
 import org.wso2.developerstudio.codenvy.ext.appserver.client.wizard.maven.MavenSettingsPagePresenter;
 import org.wso2.developerstudio.codenvy.ext.appserver.client.wizard.resource.ResourceCreationPagePresenter;
-import org.wso2.developerstudio.codenvy.ext.appserver.shared.Constants;
+import org.wso2.developerstudio.codenvy.ext.appserver.shared.RegistryExtConstants;
 
 /** WSO2 Registry Extension. */
 @Singleton
-@Extension(title = "WSO2 Registry extension", version = "1.0.0")
-public class WSO2RegistryExtension {
+@Extension(title = CoreExtConstants.EXT_NAME_PREFIX + RegistryExtConstants.EXT_NAME, version = RegistryExtConstants.EXT_VERSION)
+public class RegistryExtension {
 
     @Inject
-    public WSO2RegistryExtension(NotificationManager notificationManager,
-                                 WSO2RegistryExtensionResources resources,
-                                 ProjectTypeWizardRegistry wizardRegistry,
-                                 Provider<MavenSettingsPagePresenter> mavenSettingsPagePresenter,
-                                 Provider<ResourceCreationPagePresenter> resourceCreationPagePresenter) {
+    public RegistryExtension(NotificationManager notificationManager,
+                             WSO2RegistryExtensionResources resources,
+                             ProjectTypeWizardRegistry wizardRegistry,
+                             Provider<MavenSettingsPagePresenter> mavenSettingsPagePresenter,
+                             Provider<ResourceCreationPagePresenter> resourceCreationPagePresenter) {
 
         ProjectWizard wizard = new ProjectWizard(notificationManager);
         wizard.addPage(mavenSettingsPagePresenter);
         wizard.addPage(resourceCreationPagePresenter);
-        wizardRegistry.addWizard(Constants.WSO2_REGISTRY_PROJECT_ID, wizard);
+        wizardRegistry.addWizard(RegistryExtConstants.WSO2_REGISTRY_PROJECT_ID, wizard);
 
         ScriptInjector.fromString(resources.jqueryLib().getText()).inject();
         ScriptInjector.fromString(resources.jqueryUILib().getText()).inject();

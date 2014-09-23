@@ -15,7 +15,7 @@
 */
 package org.wso2.developerstudio.cloud.appfactory.ext.shared;
 
-public interface Constants {
+public interface AppFactoryExtConstants {
 
     String EXTENSION_NAME = "App Factory Tools";
 

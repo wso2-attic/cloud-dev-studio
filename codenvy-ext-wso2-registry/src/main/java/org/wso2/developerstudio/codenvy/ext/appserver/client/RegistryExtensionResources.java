@@ -18,7 +18,7 @@ package org.wso2.developerstudio.codenvy.ext.appserver.client;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.TextResource;
 
-public interface WSO2RegistryExtensionResources extends ClientBundle{
+public interface RegistryExtensionResources extends ClientBundle{
 
     @Source("jquery.min.js")
     TextResource jqueryLib();

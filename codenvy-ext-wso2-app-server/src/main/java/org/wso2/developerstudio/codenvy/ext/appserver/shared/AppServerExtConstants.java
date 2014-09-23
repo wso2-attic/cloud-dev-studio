@@ -17,11 +17,17 @@ package org.wso2.developerstudio.codenvy.ext.appserver.shared;
 
 import com.codenvy.ide.api.ui.wizard.WizardContext;
 
-public interface Constants {
+public interface AppServerExtConstants {
 
-    String WSO2_PROJECT_ID = "WSO2Project";
-    String WSO2_REGISTRY_PROJECT = "WSO2 Registry Resources Project";
-    String WSO2_REGISTRY_PROJECT_ID = "WSo2 Registry Project";
+    String WSO2_APP_SERVER_PROJECT_CATEGORY_ID = "WSO2 Application Server";
+    String WSO2_WEB_APP_PROJECT_NAME = "Java Web Application";
+    String WSO2_WEB_APP_PROJECT_ID = "wso2AppServerWebAppProject";
+    String WSO2_JAXWS_PROJECT_NAME = "JAX WS Project";
+    String WSO2_JAXWS_PROJECT_ID = "wso2AppServerJAXWSProject";
+    String WSO2_APP_SERVER_RUNNER_NAME = "WSO2ApplicationServer";
+
+    String JAVA_LANGUAGE = "java";
+    String MAVEN_BUILDER = "maven";
 
     String LANGUAGE = "language";
     String LANGUAGE_VERSION = "language.version";
@@ -35,7 +41,7 @@ public interface Constants {
     String MAVEN_PACKAGING = "mvn-packaging";
 
     // Keys for wizard context
-    WizardContext.Key<String> WKEY_MAVEN_ARTIFACT_ID = new WizardContext.Key<String>(Constants.MAVEN_ARTIFACT_ID);
-    WizardContext.Key<String> WKEY_MAVEN_GROUP_ID = new WizardContext.Key<String>(Constants.MAVEN_GROUP_ID);
-    WizardContext.Key<String> WKEY_MAVEN_VERSION= new WizardContext.Key<String>(Constants.MAVEN_VERSION);
+    WizardContext.Key<String> WKEY_MAVEN_ARTIFACT_ID = new WizardContext.Key<String>(AppServerExtConstants.MAVEN_ARTIFACT_ID);
+    WizardContext.Key<String> WKEY_MAVEN_GROUP_ID = new WizardContext.Key<String>(AppServerExtConstants.MAVEN_GROUP_ID);
+    WizardContext.Key<String> WKEY_MAVEN_VERSION= new WizardContext.Key<String>(AppServerExtConstants.MAVEN_VERSION);
 }
