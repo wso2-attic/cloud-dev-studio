@@ -21,7 +21,7 @@ import com.codenvy.ide.api.ui.workspace.PartPresenter;
 import com.codenvy.ide.api.ui.workspace.WorkspaceAgent;
 import com.google.inject.Inject;
 import org.wso2.developerstudio.cloud.appfactory.ext.client.ui.part.factory.AppFactoryPartsFactory;
-import org.wso2.developerstudio.cloud.appfactory.ext.shared.Constants;
+import org.wso2.developerstudio.cloud.appfactory.ext.shared.AppFactoryExtConstants;
 
 import static com.codenvy.ide.api.ui.workspace.PartStackType.INFORMATION;
 import static com.codenvy.ide.api.ui.workspace.PartStackType.TOOLING;
@@ -34,18 +34,18 @@ public class LoginAction extends Action {
     private WorkspaceAgent workspaceAgent;
 
     public LoginAction() {
-        super(Constants.ACTION_LOGIN_AF_NAME);
+        super(AppFactoryExtConstants.ACTION_LOGIN_AF_NAME);
     }
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
 
-        PartPresenter appFacPartPresenter = appFactoryPartsFactory.createAppListPart(Constants.WSO2_APP_FAC_VIEW_APPLIST);
+        PartPresenter appFacPartPresenter = appFactoryPartsFactory.createAppListPart(AppFactoryExtConstants.WSO2_APP_FAC_VIEW_APPLIST);
         workspaceAgent.openPart(appFacPartPresenter, TOOLING);
         workspaceAgent.setActivePart(appFacPartPresenter);
 
-        workspaceAgent.openPart(appFactoryPartsFactory.createAppDetailsPart(Constants.WSO2_APP_FAC_VIEW_CONSOLE), INFORMATION);
-        workspaceAgent.openPart(appFactoryPartsFactory.createAppDetailsPart(Constants.WSO2_APP_FAC_VIEW_APPDETAILS), INFORMATION);
+        workspaceAgent.openPart(appFactoryPartsFactory.createAppDetailsPart(AppFactoryExtConstants.WSO2_APP_FAC_VIEW_CONSOLE), INFORMATION);
+        workspaceAgent.openPart(appFactoryPartsFactory.createAppDetailsPart(AppFactoryExtConstants.WSO2_APP_FAC_VIEW_APPDETAILS), INFORMATION);
     }
 
 }

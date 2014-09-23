@@ -17,7 +17,8 @@ package org.wso2.developerstudio.cloud.appfactory.ext.shared;
 
 public interface AppFactoryExtConstants {
 
-    String EXTENSION_NAME = "App Factory Tools";
+    String EXT_NAME = "App Factory Tools";
+    String EXT_VERSION = "1.0.0";
 
     String OPEN_AF_PERSPECTIVE_ACTION_ID = "wso2AFOpenPerspectiveAction";
     String OPEN_AF_PERSPECTIVE_ACTION_NAME = "App Factory Perspective";
@@ -31,4 +32,5 @@ public interface AppFactoryExtConstants {
 
     String AF_CLIENT_REST_SERVICE_PATH = "afclient";
     String AF_CLIENT_LOGIN_METHOD_PATH = "login";
+
 }

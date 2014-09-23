@@ -17,7 +17,7 @@ package org.wso2.developerstudio.cloud.appfactory.ext.server.rest.api;
 
 import com.google.inject.Inject;
 import org.wso2.developerstudio.cloud.appfactory.ext.server.jaggery.api.client.AppFactoryClient;
-import org.wso2.developerstudio.cloud.appfactory.ext.shared.Constants;
+import org.wso2.developerstudio.cloud.appfactory.ext.shared.AppFactoryExtConstants;
 import org.wso2.developerstudio.cloud.appfactory.ext.shared.dto.AFLoginResponse;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +46,7 @@ public class AppFactoryClientService {
 
 
     @POST
-    @Path(Constants.AF_CLIENT_LOGIN_METHOD_PATH)
+    @Path(AppFactoryExtConstants.AF_CLIENT_LOGIN_METHOD_PATH)
     public AFLoginResponse login(@FormParam("userName") String userName, @FormParam("password") String password,
                                                                             @Context HttpServletRequest request) {
         boolean loggedIn = false;

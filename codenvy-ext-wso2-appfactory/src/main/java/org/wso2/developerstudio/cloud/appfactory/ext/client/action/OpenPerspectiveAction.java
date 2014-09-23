@@ -7,7 +7,7 @@ import com.codenvy.ide.api.ui.workspace.WorkspaceAgent;
 import com.google.inject.Inject;
 import org.wso2.developerstudio.cloud.appfactory.ext.client.ui.dialog.login.LoginPresenter;
 import org.wso2.developerstudio.cloud.appfactory.ext.client.ui.part.factory.AppFactoryPartsFactory;
-import org.wso2.developerstudio.cloud.appfactory.ext.shared.Constants;
+import org.wso2.developerstudio.cloud.appfactory.ext.shared.AppFactoryExtConstants;
 
 import static com.codenvy.ide.api.ui.workspace.PartStackType.INFORMATION;
 import static com.codenvy.ide.api.ui.workspace.PartStackType.TOOLING;
@@ -25,7 +25,7 @@ public class OpenPerspectiveAction extends Action {
     private LoginPresenter loginPresenter;
 
     public OpenPerspectiveAction() {
-        super(Constants.OPEN_AF_PERSPECTIVE_ACTION_NAME);
+        super(AppFactoryExtConstants.OPEN_AF_PERSPECTIVE_ACTION_NAME);
     }
 
     @Override
@@ -33,11 +33,11 @@ public class OpenPerspectiveAction extends Action {
 
         loginPresenter.showDialog();
 
-        PartPresenter appFacPartPresenter = appFactoryPartsFactory.createAppListPart(Constants.WSO2_APP_FAC_VIEW_APPLIST);
+        PartPresenter appFacPartPresenter = appFactoryPartsFactory.createAppListPart(AppFactoryExtConstants.WSO2_APP_FAC_VIEW_APPLIST);
         workspaceAgent.openPart(appFacPartPresenter, TOOLING);
         workspaceAgent.setActivePart(appFacPartPresenter);
 
-        workspaceAgent.openPart(appFactoryPartsFactory.createAppDetailsPart(Constants.WSO2_APP_FAC_VIEW_CONSOLE), INFORMATION);
-        workspaceAgent.openPart(appFactoryPartsFactory.createAppDetailsPart(Constants.WSO2_APP_FAC_VIEW_APPDETAILS), INFORMATION);
+        workspaceAgent.openPart(appFactoryPartsFactory.createAppDetailsPart(AppFactoryExtConstants.WSO2_APP_FAC_VIEW_CONSOLE), INFORMATION);
+        workspaceAgent.openPart(appFactoryPartsFactory.createAppDetailsPart(AppFactoryExtConstants.WSO2_APP_FAC_VIEW_APPDETAILS), INFORMATION);
     }
 }

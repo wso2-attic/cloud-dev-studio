@@ -21,30 +21,21 @@ import com.codenvy.ide.api.ui.action.DefaultActionGroup;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.wso2.developerstudio.cloud.appfactory.ext.client.action.OpenPerspectiveAction;
-import org.wso2.developerstudio.cloud.appfactory.ext.shared.Constants;
-import org.wso2.developerstudio.cloud.core.shared.CoreConstants;
+import org.wso2.developerstudio.cloud.appfactory.ext.shared.AppFactoryExtConstants;
+import org.wso2.developerstudio.cloud.core.shared.CoreExtConstants;
 
 @Singleton
-@Extension(title = CoreConstants.EXT_NAME_PREFIX + Constants.EXTENSION_NAME,
-            version = CoreConstants.EXT_APP_FACTORY_VERSION)
+@Extension(title = CoreExtConstants.EXT_NAME_PREFIX + AppFactoryExtConstants.EXT_NAME,
+            version = AppFactoryExtConstants.EXT_VERSION)
 public class AppFactoryExtension {
 
     @Inject
     public AppFactoryExtension(ActionManager actionManager, OpenPerspectiveAction openAFAction) {
 
         DefaultActionGroup wso2ActionGroup = (DefaultActionGroup) actionManager
-                .getAction(CoreConstants.WSO2_ACTION_GROUP_ID);
-        actionManager.registerAction(Constants.OPEN_AF_PERSPECTIVE_ACTION_ID, openAFAction);
+                .getAction(CoreExtConstants.WSO2_ACTION_GROUP_ID);
+        actionManager.registerAction(AppFactoryExtConstants.OPEN_AF_PERSPECTIVE_ACTION_ID, openAFAction);
         wso2ActionGroup.add(openAFAction);
-
-//        AsyncRequest.build(RequestBuilder.GET, "/api/afclient/kavi").send(new AsyncRequestCallback<String>(new StringUnmarshaller()) {
-//            protected void onSuccess(String answer) {
-//
-//                Window.alert(answer);
-//            };
-//            protected void onFailure(Throwable arg0) {};
-//        });
-
     }
 }
 
