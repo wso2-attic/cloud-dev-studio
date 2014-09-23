@@ -48,6 +48,8 @@ public class MavenSettingsPageViewImpl implements MavenSettingsPageView{
 
     public MavenSettingsPageViewImpl() {
         rootElement = uiBinder.createAndBindUi(this);
+        packagingField.setSelectedIndex(0);
+        packagingField.setEnabled(false);
     }
 
     @Override

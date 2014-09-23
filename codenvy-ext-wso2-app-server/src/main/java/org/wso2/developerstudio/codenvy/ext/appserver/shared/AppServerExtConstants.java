@@ -19,6 +19,9 @@ import com.codenvy.ide.api.ui.wizard.WizardContext;
 
 public interface AppServerExtConstants {
 
+    String EXT_NAME = "Application Server Extension";
+    String EXT_VERSION = "1.0.0";
+
     String WSO2_APP_SERVER_PROJECT_CATEGORY_ID = "WSO2 Application Server";
     String WSO2_WEB_APP_PROJECT_NAME = "Java Web Application";
     String WSO2_WEB_APP_PROJECT_ID = "wso2AppServerWebAppProject";

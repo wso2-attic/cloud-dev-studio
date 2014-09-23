@@ -88,9 +88,6 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                         <g:SimplePanel>
                             <g:ListBox ui:field="packagingField" multipleSelect="false" visibleItemCount="1" selectedIndex="0"
                                        debugId="mavenPageView-packagingField">
-                                <g:item value="jar">
-                                    JAR
-                                </g:item>
                                 <g:item value="war">
                                     WAR
                                 </g:item>

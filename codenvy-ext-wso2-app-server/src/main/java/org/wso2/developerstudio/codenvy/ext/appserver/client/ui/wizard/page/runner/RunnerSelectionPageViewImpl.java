@@ -27,7 +27,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Singleton;
 
 @Singleton
-public class RunnerSelectionPageViewImpl implements MavenSettingsPageView {
+public class RunnerSelectionPageViewImpl implements RunnerSelectionPageView {
 
     private static MavenSettingsPageViewImplUiBinder uiBinder = GWT.create(MavenSettingsPageViewImplUiBinder.class);
 

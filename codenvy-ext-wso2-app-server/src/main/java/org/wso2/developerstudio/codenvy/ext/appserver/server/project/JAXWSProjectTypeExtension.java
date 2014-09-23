@@ -23,13 +23,12 @@ import com.codenvy.api.project.shared.ProjectType;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.wso2.developerstudio.codenvy.ext.appserver.shared.Constants;
+import org.wso2.developerstudio.codenvy.ext.appserver.shared.AppServerExtConstants;
 
 @Singleton
 public class JAXWSProjectTypeExtension implements ProjectTypeExtension {
@@ -40,7 +39,7 @@ public class JAXWSProjectTypeExtension implements ProjectTypeExtension {
 
     @Inject
     public JAXWSProjectTypeExtension(ProjectTypeDescriptionRegistry registry) {
-        this.projectType = new ProjectType(Constants.WSO2_JAXWS_PROJECT_ID, Constants.WSO2_JAXWS_PROJECT_NAME, Constants.WSO2_PROJECT_CATEGORY_ID);
+        this.projectType = new ProjectType(AppServerExtConstants.WSO2_JAXWS_PROJECT_ID, AppServerExtConstants.WSO2_JAXWS_PROJECT_NAME, AppServerExtConstants.WSO2_APP_SERVER_PROJECT_CATEGORY_ID);
         registry.registerProjectType(this);
     }
 
@@ -52,8 +51,9 @@ public class JAXWSProjectTypeExtension implements ProjectTypeExtension {
     @Override
     public List<Attribute> getPredefinedAttributes() {
         final List<Attribute> list = new ArrayList<Attribute>(2);
-        list.add(new Attribute(Constants.LANGUAGE, "java"));
-        list.add(new Attribute(Constants.BUILDER_NAME, "maven"));
+        list.add(new Attribute(AppServerExtConstants.LANGUAGE, AppServerExtConstants.JAVA_LANGUAGE));
+        list.add(new Attribute(AppServerExtConstants.BUILDER_NAME, AppServerExtConstants.MAVEN_BUILDER));
+        list.add(new Attribute(AppServerExtConstants.RUNNER_NAME, AppServerExtConstants.WSO2_APP_SERVER_RUNNER_NAME));
         return list;
     }
 

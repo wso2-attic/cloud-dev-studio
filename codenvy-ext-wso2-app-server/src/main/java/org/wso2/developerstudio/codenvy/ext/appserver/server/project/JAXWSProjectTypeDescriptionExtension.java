@@ -23,11 +23,10 @@ import com.codenvy.ide.extension.maven.shared.MavenAttributes;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.slf4j.LoggerFactory;
-import org.wso2.developerstudio.codenvy.ext.appserver.shared.Constants;
+import org.wso2.developerstudio.codenvy.ext.appserver.shared.AppServerExtConstants;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Singleton
 public class JAXWSProjectTypeDescriptionExtension implements ProjectTypeDescriptionExtension {
@@ -42,22 +41,22 @@ public class JAXWSProjectTypeDescriptionExtension implements ProjectTypeDescript
     @Override
     public List<ProjectType> getProjectTypes() {
         final List<ProjectType> list = new ArrayList<ProjectType>(1);
-        list.add(new ProjectType(Constants.WSO2_JAXWS_PROJECT_ID, Constants.WSO2_JAXWS_PROJECT_NAME, Constants.WSO2_PROJECT_CATEGORY_ID));
+        list.add(new ProjectType(AppServerExtConstants.WSO2_JAXWS_PROJECT_ID, AppServerExtConstants.WSO2_JAXWS_PROJECT_NAME, AppServerExtConstants.WSO2_APP_SERVER_PROJECT_CATEGORY_ID));
         return list;
     }
 
     @Override
     public List<AttributeDescription> getAttributeDescriptions() {
         final List<AttributeDescription> list = new ArrayList<AttributeDescription>();
-        list.add(new AttributeDescription(Constants.LANGUAGE));
-        list.add(new AttributeDescription(Constants.BUILDER_NAME));
+        list.add(new AttributeDescription(AppServerExtConstants.LANGUAGE));
+        list.add(new AttributeDescription(AppServerExtConstants.BUILDER_NAME));
         list.add(new AttributeDescription(MavenAttributes.MAVEN_GROUP_ID));
         list.add(new AttributeDescription(MavenAttributes.MAVEN_ARTIFACT_ID));
         list.add(new AttributeDescription(MavenAttributes.MAVEN_VERSION));
-        list.add(new AttributeDescription(Constants.LANGUAGE_VERSION));
-        list.add(new AttributeDescription(Constants.FRAMEWORK));
-        list.add(new AttributeDescription(Constants.BUILDER_MAVEN_SOURCE_FOLDERS));
-        list.add(new AttributeDescription(Constants.RUNNER_NAME));
+        list.add(new AttributeDescription(AppServerExtConstants.LANGUAGE_VERSION));
+        list.add(new AttributeDescription(AppServerExtConstants.FRAMEWORK));
+        list.add(new AttributeDescription(AppServerExtConstants.BUILDER_MAVEN_SOURCE_FOLDERS));
+        list.add(new AttributeDescription(AppServerExtConstants.RUNNER_NAME));
         list.add(new AttributeDescription(MavenAttributes.MAVEN_PACKAGING));
         return list;
     }

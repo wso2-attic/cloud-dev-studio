@@ -27,5 +27,7 @@ public class ServerModule extends AbstractModule{
     protected void configure() {
         bind(JAXWSProjectTypeExtension.class);
         bind(JAXWSProjectTypeDescriptionExtension.class);
+        bind(JavaWebApplicationProjectTypeExtension.class);
+        bind(JavaWebApplicationProjectTypeDescriptionExtension.class);
     }
 }

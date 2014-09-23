@@ -34,6 +34,11 @@
             <artifactId>codenvy-ext-maven</artifactId>
             <version>${com.codenvy.sdk.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.wso2.developerstudio.cloud</groupId>
+            <artifactId>core-extension</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
