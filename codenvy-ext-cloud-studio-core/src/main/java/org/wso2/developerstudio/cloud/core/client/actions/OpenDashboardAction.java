@@ -21,7 +21,7 @@ import com.codenvy.ide.api.ui.workspace.PartStackType;
 import com.codenvy.ide.api.ui.workspace.WorkspaceAgent;
 import com.google.inject.Inject;
 import org.wso2.developerstudio.cloud.core.client.ui.dashboard.page.DashboardPagePresenter;
-import org.wso2.developerstudio.cloud.core.shared.CoreConstants;
+import org.wso2.developerstudio.cloud.core.shared.CoreExtConstants;
 
 public class OpenDashboardAction extends Action {
 
@@ -32,7 +32,7 @@ public class OpenDashboardAction extends Action {
     private WorkspaceAgent workspaceAgent;
 
     public OpenDashboardAction() {
-        super(CoreConstants.WSO2_OPEN_DASHBOARD_ACTION_NAME);
+        super(CoreExtConstants.WSO2_OPEN_DASHBOARD_ACTION_NAME);
     }
 
     @Override

@@ -18,7 +18,7 @@ package org.wso2.developerstudio.cloud.core.shared;
 /**
  * Interface to hold Core Constants
  */
-public interface CoreConstants {
+public interface CoreExtConstants {
 
     // UI constants
     String WSO2_ACTION_GROUP_ID = "wso2ActionGroup";

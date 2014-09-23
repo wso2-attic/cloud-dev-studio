@@ -23,7 +23,7 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.wso2.developerstudio.cloud.core.client.ui.dashboard.DashboardItemRegistry;
-import org.wso2.developerstudio.cloud.core.shared.CoreConstants;
+import org.wso2.developerstudio.cloud.core.shared.CoreExtConstants;
 
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
@@ -53,7 +53,7 @@ public class DashboardPagePresenter extends AbstractEditorPresenter {
 
     @Override
     public String getTitle() {
-        return CoreConstants.DASHBOARD_TITLE;
+        return CoreExtConstants.DASHBOARD_TITLE;
     }
 
     @Nullable

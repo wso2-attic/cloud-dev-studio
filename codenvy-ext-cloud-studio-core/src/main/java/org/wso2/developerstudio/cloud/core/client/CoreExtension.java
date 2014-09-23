@@ -27,26 +27,26 @@ import com.google.inject.Singleton;
 import org.wso2.developerstudio.cloud.core.client.actions.AboutAction;
 import org.wso2.developerstudio.cloud.core.client.actions.OpenDashboardAction;
 import org.wso2.developerstudio.cloud.core.client.ui.dashboard.page.DashboardPagePresenter;
-import org.wso2.developerstudio.cloud.core.shared.CoreConstants;
+import org.wso2.developerstudio.cloud.core.shared.CoreExtConstants;
 
 @Singleton
-@Extension(title = CoreConstants.EXT_NAME_PREFIX + CoreConstants.CORE_EXTENSION_NAME,
-        version = CoreConstants.EXT_CORE_VERSION)
+@Extension(title = CoreExtConstants.EXT_NAME_PREFIX + CoreExtConstants.CORE_EXTENSION_NAME,
+        version = CoreExtConstants.EXT_CORE_VERSION)
 public class CoreExtension {
 
     @Inject
     public CoreExtension(ActionManager actionManager, AboutAction aboutAction, OpenDashboardAction openDashboardAction,
                          ConsolePart console, WorkspaceAgent workspaceAgent, DashboardPagePresenter dashboardPagePresenter) {
 
-        DefaultActionGroup wso2CloudStudioActionGroup = new DefaultActionGroup(CoreConstants.WSO2_ACTION_GROUP_NAME, true, actionManager);
-        actionManager.registerAction(CoreConstants.WSO2_ACTION_GROUP_ID, wso2CloudStudioActionGroup);
+        DefaultActionGroup wso2CloudStudioActionGroup = new DefaultActionGroup(CoreExtConstants.WSO2_ACTION_GROUP_NAME, true, actionManager);
+        actionManager.registerAction(CoreExtConstants.WSO2_ACTION_GROUP_ID, wso2CloudStudioActionGroup);
         DefaultActionGroup mainMenu = (DefaultActionGroup) actionManager.getAction(IdeActions.GROUP_MAIN_MENU);
         mainMenu.add(wso2CloudStudioActionGroup);
 
-        actionManager.registerAction(CoreConstants.WSO2_ABOUT_ACTION_ID, aboutAction);
+        actionManager.registerAction(CoreExtConstants.WSO2_ABOUT_ACTION_ID, aboutAction);
         wso2CloudStudioActionGroup.add(aboutAction);
 
-        actionManager.registerAction(CoreConstants.WSO2_OPEN_DASHBOARD_ACTION_ID, openDashboardAction);
+        actionManager.registerAction(CoreExtConstants.WSO2_OPEN_DASHBOARD_ACTION_ID, openDashboardAction);
         wso2CloudStudioActionGroup.add(openDashboardAction);
 
         workspaceAgent.openPart(dashboardPagePresenter, PartStackType.EDITING);

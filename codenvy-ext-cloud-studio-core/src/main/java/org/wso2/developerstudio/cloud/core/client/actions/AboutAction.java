@@ -19,14 +19,14 @@ import com.codenvy.ide.api.ui.action.Action;
 import com.codenvy.ide.api.ui.action.ActionEvent;
 import org.wso2.developerstudio.cloud.core.client.ui.dialogs.About;
 import com.google.inject.Inject;
-import org.wso2.developerstudio.cloud.core.shared.CoreConstants;
+import org.wso2.developerstudio.cloud.core.shared.CoreExtConstants;
 
 
 public class AboutAction extends Action
 {
     @Inject
     public AboutAction() {
-        super(CoreConstants.WSO2_ABOUT_ACTION_NAME);
+        super(CoreExtConstants.WSO2_ABOUT_ACTION_NAME);
     }
 
     @Override
