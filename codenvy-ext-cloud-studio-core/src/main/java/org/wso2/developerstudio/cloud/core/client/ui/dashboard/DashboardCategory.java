@@ -15,12 +15,20 @@
 */
 package org.wso2.developerstudio.cloud.core.client.ui.dashboard;
 
+import com.google.gwt.resources.client.ImageResource;
+
+import javax.annotation.Nullable;
+import javax.validation.constraints.NotNull;
+
 public class DashboardCategory {
 
     private String categoryName;
 
-    public DashboardCategory(String categoryName) {
+    private ImageResource imageResource;
+
+    public DashboardCategory(@NotNull String categoryName, @Nullable ImageResource imageResource) {
         this.categoryName = categoryName;
+        this.imageResource = imageResource;
     }
 
     public String getCategoryName() {

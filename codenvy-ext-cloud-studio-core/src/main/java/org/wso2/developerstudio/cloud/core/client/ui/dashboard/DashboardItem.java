@@ -16,17 +16,30 @@
 package org.wso2.developerstudio.cloud.core.client.ui.dashboard;
 
 import com.codenvy.ide.api.ui.action.Action;
+import com.google.gwt.resources.client.ImageResource;
+
+import javax.annotation.Nullable;
 
 public class DashboardItem {
 
     private DashboardCategory category;
-    private String  name;
+    private String name;
     private Action action;
+    private ImageResource imageResource;
 
-    public DashboardItem(DashboardCategory category, String name, Action action) {
+    public DashboardItem(DashboardCategory category, String name, Action action, @Nullable ImageResource imageResource) {
         this.category = category;
         this.name = name;
         this.action = action;
+        this.imageResource = imageResource;
+    }
+
+    public ImageResource getImageResource() {
+        return imageResource;
+    }
+
+    public void setImageResource(ImageResource imageResource) {
+        this.imageResource = imageResource;
     }
 
     public DashboardCategory getCategory() {

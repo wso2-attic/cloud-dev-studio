@@ -25,6 +25,4 @@ public interface DashboardItemRegistry {
     public void registerItem(DashboardItem item);
 
     public List<DashboardItem> getDashboardItems();
-
-
 }

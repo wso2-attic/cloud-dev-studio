@@ -27,11 +27,6 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
             margin-right: 8px;
         }
     </ui:style>
-    <g:DockLayoutPanel unit="PX" debugId="mavenPageView-mainPanel">
-        <g:north size="50">
-            <g:FlowPanel>
-                <g:Image url='{resources.getStudioBanner.getSafeUri.asString}'/>
-            </g:FlowPanel>
-        </g:north>
-    </g:DockLayoutPanel>
+    <g:FlowPanel width="100%" height="100%"  ui:field="mainPanel">
+    </g:FlowPanel>
 </ui:UiBinder>

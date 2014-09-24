@@ -29,7 +29,7 @@ import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
 
 @Singleton
-public class DashboardPagePresenter extends AbstractEditorPresenter {
+public class DashboardPagePresenter extends AbstractEditorPresenter implements DashboardPageView.ActionDelegate{
 
 
     private final DashboardItemRegistry itemRegistry;
@@ -39,6 +39,7 @@ public class DashboardPagePresenter extends AbstractEditorPresenter {
     public DashboardPagePresenter(DashboardItemRegistry itemRegistry, DashboardPageView view) {
         this.itemRegistry = itemRegistry;
         this.view = view;
+        view.setDelegate(this);
     }
 
     @Override

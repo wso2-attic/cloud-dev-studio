@@ -18,7 +18,11 @@ package org.wso2.developerstudio.cloud.core.client.ui.dashboard.page;
 
 import com.codenvy.ide.api.mvp.View;
 import com.google.inject.ImplementedBy;
+import org.wso2.developerstudio.cloud.core.client.ui.dashboard.DashboardCategory;
 import org.wso2.developerstudio.cloud.core.client.ui.dashboard.DashboardItem;
+
+import java.util.List;
+import java.util.Map;
 
 @ImplementedBy(DashboardPageViewImpl.class)
 public interface DashboardPageView extends View<DashboardPageView.ActionDelegate>{
@@ -26,4 +30,8 @@ public interface DashboardPageView extends View<DashboardPageView.ActionDelegate
     interface ActionDelegate{}
 
     void addDashboardItem(DashboardItem item);
+
+    void addDashboardCategory(DashboardCategory category);
+
+    void setDashboardItemCategoryMap(Map<DashboardCategory, List<DashboardItem>> itemCatMap);
 }

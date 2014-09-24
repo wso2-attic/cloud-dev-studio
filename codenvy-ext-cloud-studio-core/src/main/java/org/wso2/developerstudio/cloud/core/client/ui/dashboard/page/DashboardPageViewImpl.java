@@ -17,9 +17,16 @@ package org.wso2.developerstudio.cloud.core.client.ui.dashboard.page;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Frame;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Singleton;
+import org.wso2.developerstudio.cloud.core.client.ui.dashboard.DashboardCategory;
 import org.wso2.developerstudio.cloud.core.client.ui.dashboard.DashboardItem;
+
+import java.util.List;
+import java.util.Map;
 
 @Singleton
 public class DashboardPageViewImpl implements DashboardPageView {
@@ -31,6 +38,9 @@ public class DashboardPageViewImpl implements DashboardPageView {
     private final Widget rootElement;
 
     private ActionDelegate delegate;
+
+    @UiField
+    FlowPanel mainPanel;
 
     public DashboardPageViewImpl() {
         rootElement = uiBinder.createAndBindUi(this);
@@ -50,4 +60,15 @@ public class DashboardPageViewImpl implements DashboardPageView {
     public void addDashboardItem(DashboardItem item) {
 
     }
+
+    @Override
+    public void addDashboardCategory(DashboardCategory category) {
+
+    }
+
+    @Override
+    public void setDashboardItemCategoryMap(Map<DashboardCategory, List<DashboardItem>> itemCatMap) {
+
+    }
+
 }
