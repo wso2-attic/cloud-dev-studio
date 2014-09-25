@@ -16,27 +16,36 @@
 package org.wso2.developerstudio.codenvy.ext.appfactory.client;
 
 import com.codenvy.ide.api.extension.Extension;
+import com.codenvy.ide.api.notification.Notification;
+import com.codenvy.ide.api.notification.NotificationManager;
 import com.codenvy.ide.api.ui.action.ActionManager;
 import com.codenvy.ide.api.ui.action.DefaultActionGroup;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.wso2.developerstudio.codenvy.core.shared.CoreExtConstants;
 import org.wso2.developerstudio.codenvy.ext.appfactory.client.action.OpenPerspectiveAction;
 import org.wso2.developerstudio.codenvy.ext.appfactory.shared.AppFactoryExtConstants;
-import org.wso2.developerstudio.codenvy.core.shared.CoreExtConstants;
 
 
 @Singleton
 @Extension(title = CoreExtConstants.EXT_NAME_PREFIX + AppFactoryExtConstants.EXT_NAME,
-            version = AppFactoryExtConstants.EXT_VERSION)
+        version = AppFactoryExtConstants.EXT_VERSION)
 public class AppFactoryExtension {
 
     @Inject
-    public AppFactoryExtension(ActionManager actionManager, OpenPerspectiveAction openAFAction) {
+    public AppFactoryExtension(ActionManager actManager, OpenPerspectiveAction openAFAction, NotificationManager notificationManager) {
 
-        DefaultActionGroup wso2ActionGroup = (DefaultActionGroup) actionManager
-                .getAction(CoreExtConstants.WSO2_ACTION_GROUP_ID);
-        actionManager.registerAction(AppFactoryExtConstants.OPEN_AF_PERSPECTIVE_ACTION_ID, openAFAction);
-        wso2ActionGroup.add(openAFAction);
+        try {
+            DefaultActionGroup wso2ActionGroup = (DefaultActionGroup) actManager
+                    .getAction(CoreExtConstants.WSO2_ACTION_GROUP_ID);
+            actManager.registerAction(AppFactoryExtConstants.OPEN_AF_PERSPECTIVE_ACTION_ID, openAFAction);
+            wso2ActionGroup.add(openAFAction);
+
+        } catch (Exception ex) {
+            notificationManager.showNotification(new Notification("App Factory tools initiation failed.",
+                    Notification.Type.ERROR));
+        }
+
     }
 }
 
