@@ -20,12 +20,11 @@ limitations under the License.
 
     <groupId>org.wso2.developerstudio</groupId>
     <artifactId>developerstudio-parent</artifactId>
-    <name>WSO2 Developer Studio :: Parent</name>
+    <name>WSO2 Developer Studio :: Parent POM</name>
     <version>4.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>depmgt-pom</module>
         <module>codenvy-ext-developer-studio-core</module>
         <module>codenvy-ext-runner-carbon</module>
         <module>codenvy-ext-wso2-app-server</module>

@@ -7,7 +7,7 @@
         <version>4.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>appfactory-extension</artifactId>
+    <artifactId>app-factory-extension</artifactId>
     <packaging>jar</packaging>
     <name>WSO2 Developer Studio :: App Factory Extension</name>
 
