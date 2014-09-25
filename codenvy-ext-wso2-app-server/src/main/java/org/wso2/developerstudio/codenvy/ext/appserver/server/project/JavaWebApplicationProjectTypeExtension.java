@@ -33,13 +33,13 @@ import org.wso2.developerstudio.codenvy.ext.appserver.shared.AppServerExtConstan
 @Singleton
 public class JavaWebApplicationProjectTypeExtension implements ProjectTypeExtension {
 
-    private static final Logger LOG = LoggerFactory.getLogger(JAXWSProjectTypeExtension.class);
     private final ProjectType projectType;
-
 
     @Inject
     public JavaWebApplicationProjectTypeExtension(ProjectTypeDescriptionRegistry registry) {
-        this.projectType = new ProjectType(AppServerExtConstants.WSO2_WEB_APP_PROJECT_ID, AppServerExtConstants.WSO2_WEB_APP_PROJECT_NAME, AppServerExtConstants.WSO2_APP_SERVER_PROJECT_CATEGORY_ID);
+        this.projectType = new ProjectType(AppServerExtConstants.WSO2_WEB_APP_PROJECT_ID,
+                                                AppServerExtConstants.WSO2_WEB_APP_PROJECT_NAME,
+                                                AppServerExtConstants.WSO2_APP_SERVER_PROJECT_CATEGORY_ID);
         registry.registerProjectType(this);
     }
 

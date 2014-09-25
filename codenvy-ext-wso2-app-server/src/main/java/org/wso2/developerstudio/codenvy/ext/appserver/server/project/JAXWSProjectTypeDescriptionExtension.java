@@ -31,8 +31,6 @@ import java.util.List;
 @Singleton
 public class JAXWSProjectTypeDescriptionExtension implements ProjectTypeDescriptionExtension {
 
-    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(JAXWSProjectTypeDescriptionExtension.class);
-
     @Inject
     public JAXWSProjectTypeDescriptionExtension(ProjectTypeDescriptionRegistry registry) {
         registry.registerDescription(this);
@@ -41,7 +39,9 @@ public class JAXWSProjectTypeDescriptionExtension implements ProjectTypeDescript
     @Override
     public List<ProjectType> getProjectTypes() {
         final List<ProjectType> list = new ArrayList<ProjectType>(1);
-        list.add(new ProjectType(AppServerExtConstants.WSO2_JAXWS_PROJECT_ID, AppServerExtConstants.WSO2_JAXWS_PROJECT_NAME, AppServerExtConstants.WSO2_APP_SERVER_PROJECT_CATEGORY_ID));
+        list.add(new ProjectType(AppServerExtConstants.WSO2_JAX_WS_PROJECT_ID,
+                                    AppServerExtConstants.WSO2_JAX_WS_PROJECT_NAME,
+                                    AppServerExtConstants.WSO2_APP_SERVER_PROJECT_CATEGORY_ID));
         return list;
     }
 

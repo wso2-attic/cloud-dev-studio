@@ -18,13 +18,14 @@ package org.wso2.developerstudio.codenvy.ext.runner.client;
 import com.codenvy.ide.api.extension.Extension;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.wso2.developerstudio.cloud.core.shared.CoreExtConstants;
+import org.wso2.developerstudio.codenvy.core.shared.CoreExtConstants;
 import org.wso2.developerstudio.codenvy.ext.runner.shared.CarbonRunnerExtConstants;
 
 @Singleton
 @Extension(title = CoreExtConstants.EXT_NAME_PREFIX + CarbonRunnerExtConstants.EXT_NAME,
         version = CarbonRunnerExtConstants.EXT_VERSION)
 public class CarbonRunnerExtension {
+
     @Inject
     public CarbonRunnerExtension() {
     }

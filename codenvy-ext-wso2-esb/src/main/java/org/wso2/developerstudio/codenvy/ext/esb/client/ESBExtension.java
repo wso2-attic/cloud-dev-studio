@@ -19,7 +19,7 @@ import com.codenvy.ide.api.extension.Extension;
 import com.codenvy.ide.api.ui.workspace.WorkspaceAgent;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.wso2.developerstudio.cloud.core.shared.CoreExtConstants;
+import org.wso2.developerstudio.codenvy.core.shared.CoreExtConstants;
 import org.wso2.developerstudio.codenvy.ext.esb.client.esb.ESBGraphicalEditorPresenter;
 import org.wso2.developerstudio.codenvy.ext.esb.client.inject.ESBJavaScriptInjector;
 import org.wso2.developerstudio.codenvy.ext.esb.shared.ESBExtConstants;
@@ -34,9 +34,9 @@ public class ESBExtension {
                         ESBGraphicalEditorPresenter graphicalEditor,
                         ESBExtensionResources bundle) {
 
-        ESBJavaScriptInjector.inject(bundle.jqueryLib().getText());
-        ESBJavaScriptInjector.inject(bundle.jqueryUILib().getText());
-        ESBJavaScriptInjector.inject(bundle.jsPlumbLib().getText());
-        ESBJavaScriptInjector.inject(bundle.esbExtensionJS().getText());
+//        ESBJavaScriptInjector.inject(bundle.jqueryLib().getText());
+//        ESBJavaScriptInjector.inject(bundle.jqueryUILib().getText());
+//        ESBJavaScriptInjector.inject(bundle.jsPlumbLib().getText());
+//        ESBJavaScriptInjector.inject(bundle.esbExtensionJS().getText());
     }
 }

@@ -15,15 +15,11 @@
 */
 package org.wso2.developerstudio.codenvy.ext.runner.shared;
 
-import com.codenvy.ide.api.ui.wizard.WizardContext;
-
 public interface CarbonRunnerExtConstants {
 
     String EXT_NAME = "Carbon Runner Extension";
     String EXT_VERSION = "1.0.0";
-    String WSO2_APP_SERVER_RUNNER_NAME = "WSO2ApplicationServer";
 
-    String JAVA_LANGUAGE = "java";
-    String MAVEN_BUILDER = "maven";
-
+    String RUNNER_NAME = "";
+    String RUNNER_ENV_ID = "";
 }

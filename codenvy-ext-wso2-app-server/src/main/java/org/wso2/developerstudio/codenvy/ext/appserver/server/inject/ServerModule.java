@@ -17,7 +17,6 @@ package org.wso2.developerstudio.codenvy.ext.appserver.server.inject;
 
 import com.codenvy.inject.DynaModule;
 import com.google.inject.AbstractModule;
-import org.slf4j.LoggerFactory;
 import org.wso2.developerstudio.codenvy.ext.appserver.server.project.*;
 
 @DynaModule
@@ -29,5 +28,6 @@ public class ServerModule extends AbstractModule{
         bind(JAXWSProjectTypeDescriptionExtension.class);
         bind(JavaWebApplicationProjectTypeExtension.class);
         bind(JavaWebApplicationProjectTypeDescriptionExtension.class);
+        bind(WSO2AppServerProjectGenerator.class);
     }
 }

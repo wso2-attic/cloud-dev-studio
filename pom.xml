@@ -1,31 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.wso2.developerstudio.cloud</groupId>
-        <artifactId>depmgt-pom</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-        <relativePath>cloud-studio-depmgt-pom</relativePath>
-    </parent>
-
-    <groupId>org.wso2.developerstudio.cloud</groupId>
-    <artifactId>cloud-studio-parent</artifactId>
-    <name>WSO2 Cloud Developer Studio</name>
-    <version>1.0.0-SNAPSHOT</version>
+    <groupId>org.wso2.developerstudio</groupId>
+    <artifactId>developerstudio-parent</artifactId>
+    <name>WSO2 Developer Studio :: Parent</name>
+    <version>4.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>cloud-studio-depmgt-pom</module>
-        <module>codenvy-ext-cloud-studio-core</module>
+        <module>depmgt-pom</module>
+        <module>codenvy-ext-developer-studio-core</module>
         <module>codenvy-ext-runner-carbon</module>
+        <module>codenvy-ext-wso2-app-server</module>
         <module>codenvy-ext-wso2-registry</module>
         <module>codenvy-ext-wso2-esb</module>
-        <module>codenvy-ext-wso2-app-server</module>
-        <module>codenvy-ext-wso2-appfactory</module>
+        <module>codenvy-ext-wso2-app-factory</module>
         <module>distribution</module>
     </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.codenvy.ide</groupId>
+                <artifactId>codenvy-ide-api</artifactId>
+                <version>${com.codenvy.sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.gwt.inject</groupId>
+                <artifactId>gin</artifactId>
+                <version>${com.google.gwt.gin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.gwt</groupId>
+                <artifactId>gwt-user</artifactId>
+                <version>${com.google.gwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.codenvy.ide</groupId>
+                <artifactId>codenvy-maven-tools</artifactId>
+                <version>${com.codenvy.sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.codenvy.ide</groupId>
+                <artifactId>codenvy-ext-maven</artifactId>
+                <version>${com.codenvy.sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.googlecode.gwtquery</groupId>
+                <artifactId>gwtquery</artifactId>
+                <version>${com.googlecode.gwtquery.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <repositories>
         <repository>
@@ -49,6 +92,14 @@
     </pluginRepositories>
 
     <properties>
+        <com.codenvy.sdk.version>3.0.0-M20</com.codenvy.sdk.version>
+        <com.google.gwt.gin.version>2.1.2</com.google.gwt.gin.version>
+        <com.google.gwt.version>2.6.0</com.google.gwt.version>
+        <maven.istall.plugin.version>2.5.1</maven.istall.plugin.version>
+        <com.googlecode.gwtquery.version>1.4.2</com.googlecode.gwtquery.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
 
 </project>

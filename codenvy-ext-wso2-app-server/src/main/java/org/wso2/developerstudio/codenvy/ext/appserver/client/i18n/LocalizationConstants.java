@@ -22,7 +22,4 @@ public interface LocalizationConstants extends Constants {
     @Key("project.wizard.page.maven.title")
     String mavenWizardPageTitle();
 
-    @Key("project.wizard.page.createresource.title")
-    String createResourceWizardPageTitle();
-
 }

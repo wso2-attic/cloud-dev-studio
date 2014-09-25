@@ -19,10 +19,7 @@ import com.google.gwt.i18n.client.Constants;
 
 public interface LocalizationConstants extends Constants {
 
-    @Key("project.wizard.page.maven.title")
-    String mavenWizardPageTitle();
-
-    @Key("project.wizard.page.createresource.title")
-    String createResourceWizardPageTitle();
+    @Key("project.wizard.page.runner.selection.title")
+    String carbonRunnerSelectionWizardTitle();
 
 }

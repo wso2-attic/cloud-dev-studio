@@ -1,0 +1,107 @@
+<!--
+Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <ui:style>
+        .projectNamePosition {
+            position: relative;
+            line-height: 29px;
+            margin-left: 20px;
+
+        }
+        .spaceRight {
+            margin-right: 8px;
+        }
+        .container{
+            margin-top: 29px;
+        }
+    </ui:style>
+    <g:DockLayoutPanel unit="PX" debugId="mavenPageView-mainPanel" styleName="{style.container}">
+        <g:north size="50">
+            <g:DockLayoutPanel unit="PX" width="100%" height="100%">
+                <g:west size="138">
+                    <g:FlowPanel>
+                        <g:Label text="Artifact Id:" addStyleNames="{style.projectNamePosition}"/>
+                    </g:FlowPanel>
+                </g:west>
+                <g:center>
+                    <g:SimplePanel addStyleNames="{style.spaceRight}">
+                        <g:SimplePanel>
+                            <g:TextBox width="390px" height="29px" ui:field="artifactId" debugId="mavenPageView-artifactId"/>
+                        </g:SimplePanel>
+                    </g:SimplePanel>
+                </g:center>
+            </g:DockLayoutPanel>
+        </g:north>
+        <g:north size="50">
+            <g:DockLayoutPanel unit="PX" width="100%" height="100%">
+                <g:west size="138">
+                    <g:FlowPanel>
+                        <g:Label text="Group Id:" addStyleNames="{style.projectNamePosition}"/>
+                    </g:FlowPanel>
+                </g:west>
+                <g:center>
+                    <g:SimplePanel addStyleNames="{style.spaceRight}">
+                        <g:SimplePanel>
+                            <g:TextBox width="390px" height="29px" ui:field="groupId" debugId="mavenPageView-groupId"/>
+                        </g:SimplePanel>
+                    </g:SimplePanel>
+                </g:center>
+            </g:DockLayoutPanel>
+        </g:north>
+        <g:north size="50">
+            <g:DockLayoutPanel unit="PX" width="100%" height="100%">
+                <g:west size="138">
+                    <g:FlowPanel>
+                        <g:Label text="Version:" addStyleNames="{style.projectNamePosition}"/>
+                    </g:FlowPanel>
+                </g:west>
+                <g:center>
+                    <g:SimplePanel addStyleNames="{style.spaceRight}">
+                        <g:SimplePanel>
+                            <g:TextBox width="390px" height="29px" ui:field="versionField" debugId="mavenPageView-version">1.0-SNAPSHOT</g:TextBox>
+                        </g:SimplePanel>
+                    </g:SimplePanel>
+                </g:center>
+            </g:DockLayoutPanel>
+        </g:north>
+        <g:north size="50">
+            <g:DockLayoutPanel unit="PX" width="100%" height="100%">
+                <g:west size="138">
+                    <g:FlowPanel>
+                        <g:Label text="Packaging:"
+                                 addStyleNames="{style.projectNamePosition}"/>
+                    </g:FlowPanel>
+                </g:west>
+                <g:center>
+                    <g:SimplePanel addStyleNames="{style.spaceRight}">
+                        <g:SimplePanel>
+                            <g:ListBox ui:field="packagingField" multipleSelect="false" visibleItemCount="1" selectedIndex="0"
+                                       debugId="mavenPageView-packagingField">
+                                <g:item value="war">
+                                    WAR
+                                </g:item>
+                                <g:item value="pom">
+                                    POM
+                                </g:item>
+                            </g:ListBox>
+                        </g:SimplePanel>
+                    </g:SimplePanel>
+                </g:center>
+            </g:DockLayoutPanel>
+        </g:north>
+    </g:DockLayoutPanel>
+</ui:UiBinder>

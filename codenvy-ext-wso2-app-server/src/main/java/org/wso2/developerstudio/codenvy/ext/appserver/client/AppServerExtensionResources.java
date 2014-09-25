@@ -20,5 +20,4 @@ import com.google.gwt.resources.client.TextResource;
 
 public interface AppServerExtensionResources extends ClientBundle{
 
-
 }

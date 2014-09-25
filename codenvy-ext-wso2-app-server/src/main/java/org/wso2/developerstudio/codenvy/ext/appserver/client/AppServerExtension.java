@@ -22,10 +22,10 @@ import com.codenvy.ide.api.ui.wizard.ProjectWizard;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import org.wso2.developerstudio.cloud.core.shared.CoreExtConstants;
-import org.wso2.developerstudio.codenvy.ext.appserver.client.ui.wizard.page.maven.MavenSettingsPagePresenter;
-import org.wso2.developerstudio.codenvy.ext.appserver.client.ui.wizard.page.runner.RunnerSelectionPagePresenter;
+import org.wso2.developerstudio.codenvy.core.shared.CoreExtConstants;
+import org.wso2.developerstudio.codenvy.ext.appserver.client.ui.wizard.page.maven.MavenConfigurationPagePresenter;
 import org.wso2.developerstudio.codenvy.ext.appserver.shared.AppServerExtConstants;
+import org.wso2.developerstudio.codenvy.ext.runner.client.ui.wizard.page.runner.CarbonRunnerSelectionPagePresenter;
 
 /** WSO2 Registry Extension. */
 @Singleton
@@ -37,17 +37,15 @@ public class AppServerExtension {
     public AppServerExtension(NotificationManager notificationManager,
                               AppServerExtensionResources resources,
                               ProjectTypeWizardRegistry wizardRegistry,
-                              Provider<MavenSettingsPagePresenter> mavenSettingsPagePresenter,
-                              Provider<RunnerSelectionPagePresenter> runnerSelectionPagePresenterProvider) {
+                              Provider<MavenConfigurationPagePresenter> mavenSettingsPagePresenter,
+                              Provider<CarbonRunnerSelectionPagePresenter> runnerSelectionPagePresenterProvider) {
 
         ProjectWizard wizard = new ProjectWizard(notificationManager);
         wizard.addPage(mavenSettingsPagePresenter);
         wizard.addPage(runnerSelectionPagePresenterProvider);
 
-
         wizardRegistry.addWizard(AppServerExtConstants.WSO2_WEB_APP_PROJECT_ID, wizard);
-        wizardRegistry.addWizard(AppServerExtConstants.WSO2_JAXWS_PROJECT_ID, wizard);
-
+        wizardRegistry.addWizard(AppServerExtConstants.WSO2_JAX_WS_PROJECT_ID, wizard);
 
     }
 }
