@@ -21,6 +21,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Singleton;
@@ -31,20 +32,20 @@ public class MavenConfigurationPageViewImpl implements MavenConfigurationPageVie
     private static MavenSettingsPageViewImplUiBinder uiBinder = GWT.create(MavenSettingsPageViewImplUiBinder.class);
 
     private final DockLayoutPanel rootElement;
-
-    private ActionDelegate delegate;
-
     @UiField
     TextBox versionField;
     @UiField
     TextBox groupId;
     @UiField
     TextBox artifactId;
+    @UiField
+    ListBox packagingField;
 
-    interface MavenSettingsPageViewImplUiBinder extends UiBinder<DockLayoutPanel, MavenConfigurationPageViewImpl>{}
+    private ActionDelegate delegate;
 
     public MavenConfigurationPageViewImpl() {
         rootElement = uiBinder.createAndBindUi(this);
+        packagingField.setEnabled(false);
     }
 
     @Override
@@ -58,8 +59,8 @@ public class MavenConfigurationPageViewImpl implements MavenConfigurationPageVie
     }
 
     @Override
-    public void setArtifactId(String artifact) {
-        this.artifactId.setText(artifact);
+    public String getGroupId() {
+        return groupId.getText();
     }
 
     @Override
@@ -68,23 +69,38 @@ public class MavenConfigurationPageViewImpl implements MavenConfigurationPageVie
     }
 
     @Override
-    public void setVersion(String value) {
-        this.versionField.setText(value);
-    }
-
-    @Override
-    public String getGroupId() {
-        return groupId.getText();
-    }
-
-    @Override
     public String getArtifactId() {
         return artifactId.getText();
     }
 
     @Override
+    public void setArtifactId(String artifact) {
+        this.artifactId.setText(artifact);
+    }
+
+    @Override
     public String getVersion() {
         return versionField.getText();
+    }
+
+    @Override
+    public void setVersion(String value) {
+        this.versionField.setText(value);
+    }
+
+    @Override
+    public String getPackaging() {
+        return packagingField.getValue(packagingField.getSelectedIndex());
+    }
+
+    @Override
+    public void setPackaging(String value) {
+        for (int i = 0; i < packagingField.getItemCount(); i++) {
+            if (value.equals(packagingField.getValue(i))) {
+                packagingField.setSelectedIndex(i);
+                break;
+            }
+        }
     }
 
     @Override
@@ -97,6 +113,9 @@ public class MavenConfigurationPageViewImpl implements MavenConfigurationPageVie
     @UiHandler({"versionField", "groupId", "artifactId"})
     void onKeyUp(KeyUpEvent event) {
         delegate.onTextChange();
+    }
+
+    interface MavenSettingsPageViewImplUiBinder extends UiBinder<DockLayoutPanel, MavenConfigurationPageViewImpl> {
     }
 
 }

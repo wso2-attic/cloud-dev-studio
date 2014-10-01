@@ -25,6 +25,10 @@ public interface AppServerExtConstants {
     String WSO2_WEB_APP_PROJECT_ID = "wso2AppServerWebAppProject";
     String WSO2_JAX_WS_PROJECT_NAME = "JAX WS Project";
     String WSO2_JAX_WS_PROJECT_ID = "wso2AppServerJAXWSProject";
+    String WSO2_JAX_RS_PROJECT_NAME = "JAX RS Project";
+    String WSO2_JAX_RS_PROJECT_ID = "wso2AppServerJAXRSProject";
+
+    String WAR_PACKAGING = "war";
 
     String WSO2_APP_SERVER_RUNNER_NAME = "WSO2ApplicationServer";
     String WSO2_APP_SERVER_PROJECT_GENERATOR_ID = "wso2AppServerProjectGenerator";
@@ -38,5 +42,16 @@ public interface AppServerExtConstants {
     String BUILDER_NAME = "builder.name";
     String BUILDER_MAVEN_SOURCE_FOLDERS = "builder.maven.source_folders";
     String RUNNER_NAME = "runner.name";
+
+    // Project Generator Options
+    String PROJECT_TYPE_ID = "ProjectType";
+
+    String PUBLIC_VISIBILITY = "public";
+    String PRIVATE_VISIBILITY = "private";
+
+    // Sample project file names
+    String WEB_APP_SAMPLE_PROJECT = "HelloWorldWebapp.zip";
+    String JAX_RS_SAMPLE_PROJECT = "JAXRSSampleService.zip";
+    String JAX_WS_SAMPLE_PROJECT = "JAXWSSampleService.zip";
 
 }

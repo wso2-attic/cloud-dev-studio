@@ -22,7 +22,9 @@ import com.codenvy.ide.api.resources.ResourceProvider;
 import com.codenvy.ide.api.resources.model.Project;
 import com.codenvy.ide.api.ui.wizard.AbstractWizardPage;
 import com.codenvy.ide.api.ui.wizard.ProjectWizard;
+import com.codenvy.ide.collections.Collections;
 import com.codenvy.ide.collections.Jso;
+import com.codenvy.ide.collections.StringMap;
 import com.codenvy.ide.dto.DtoFactory;
 import com.codenvy.ide.extension.maven.client.wizard.MavenPomReaderClient;
 import com.codenvy.ide.extension.maven.shared.MavenAttributes;
@@ -54,6 +56,7 @@ public class MavenConfigurationPagePresenter extends AbstractWizardPage implemen
     private final LocalizationConstants localizedConstants;
     private final PreferencesManager preferencesManager;
     private final MavenPomReaderClient pomReaderClient;
+    private final StringMap<String> projectGeneratorOptions;
 
     @Inject
     public MavenConfigurationPagePresenter(MavenConfigurationPageView view,
@@ -71,6 +74,7 @@ public class MavenConfigurationPagePresenter extends AbstractWizardPage implemen
         this.projectServiceClient = projectServiceClient;
         this.resourceProvider = resourceProvider;
         this.factory = factory;
+        this.projectGeneratorOptions = Collections.createStringMap();
     }
 
     @Nullable
@@ -105,6 +109,7 @@ public class MavenConfigurationPagePresenter extends AbstractWizardPage implemen
                 view.setArtifactId(project.getAttributeValue(MavenAttributes.MAVEN_ARTIFACT_ID));
                 view.setGroupId(project.getAttributeValue(MavenAttributes.MAVEN_GROUP_ID));
                 view.setVersion(project.getAttributeValue(MavenAttributes.MAVEN_VERSION));
+                view.setVersion(project.getAttributeValue(MavenAttributes.MAVEN_PACKAGING));
                 scheduleTextChanges();
             } else {
                 pomReaderClient.readPomAttributes(project.getPath(), new AsyncRequestCallback<String>(new StringUnmarshaller()) {
@@ -114,6 +119,7 @@ public class MavenConfigurationPagePresenter extends AbstractWizardPage implemen
                         view.setArtifactId(jso.getStringField(MavenAttributes.MAVEN_ARTIFACT_ID));
                         view.setGroupId(jso.getStringField(MavenAttributes.MAVEN_GROUP_ID));
                         view.setVersion(jso.getStringField(MavenAttributes.MAVEN_VERSION));
+                        view.setPackaging(jso.getStringField(MavenAttributes.MAVEN_PACKAGING));
                         scheduleTextChanges();
                     }
 
@@ -141,15 +147,22 @@ public class MavenConfigurationPagePresenter extends AbstractWizardPage implemen
         options.put(MavenAttributes.MAVEN_ARTIFACT_ID, Arrays.asList(view.getArtifactId()));
         options.put(MavenAttributes.MAVEN_GROUP_ID, Arrays.asList(view.getGroupId()));
         options.put(MavenAttributes.MAVEN_VERSION, Arrays.asList(view.getVersion()));
+        options.put(MavenAttributes.MAVEN_PACKAGING, Arrays.asList(view.getPackaging()));
 
         final ProjectDescriptor projectDescriptor = factory.createDto(ProjectDescriptor.class);
-        projectDescriptor.withProjectTypeId(wizardContext.getData(ProjectWizard.PROJECT_TYPE).getProjectTypeId());
+        final String projectTypeID = wizardContext.getData(ProjectWizard.PROJECT_TYPE).getProjectTypeId();
+        projectDescriptor.withProjectTypeId(projectTypeID);
         projectDescriptor.setAttributes(options);
         boolean visibility = wizardContext.getData(ProjectWizard.PROJECT_VISIBILITY);
-        projectDescriptor.setVisibility(visibility ? "public" : "private");
+        projectDescriptor.setVisibility(visibility ? AppServerExtConstants.PUBLIC_VISIBILITY : AppServerExtConstants
+                .PRIVATE_VISIBILITY);
         projectDescriptor.setDescription(wizardContext.getData(ProjectWizard.PROJECT_DESCRIPTION));
+
         final String name = wizardContext.getData(ProjectWizard.PROJECT_NAME);
         final Project project = wizardContext.getData(ProjectWizard.PROJECT);
+
+        projectGeneratorOptions.put(AppServerExtConstants.PROJECT_TYPE_ID, projectTypeID);
+
         if (project != null) {
             if (project.getName().equals(name)) {
                 updateProject(project, projectDescriptor, callback);
@@ -174,7 +187,8 @@ public class MavenConfigurationPagePresenter extends AbstractWizardPage implemen
     }
 
     private void updateProject(final Project project, ProjectDescriptor projectDescriptor, final CommitCallback callback) {
-        projectServiceClient.updateProject(project.getPath(), projectDescriptor, new AsyncRequestCallback<ProjectDescriptor>() {
+        projectServiceClient.updateProject(project.getPath(), projectDescriptor,
+                                                                new AsyncRequestCallback<ProjectDescriptor>() {
             @Override
             protected void onSuccess(ProjectDescriptor result) {
                 resourceProvider.getProject(project.getName(), new AsyncCallback<Project>() {
@@ -214,7 +228,7 @@ public class MavenConfigurationPagePresenter extends AbstractWizardPage implemen
 
                                         // generate project contents
                                         projectServiceClient.generateProject(project.getPath(),
-                                                AppServerExtConstants.WSO2_APP_SERVER_PROJECT_GENERATOR_ID, null,
+                                                AppServerExtConstants.WSO2_APP_SERVER_PROJECT_GENERATOR_ID, projectGeneratorOptions,
 
                                                 new AsyncRequestCallback<ProjectDescriptor>() {
                                                     @Override

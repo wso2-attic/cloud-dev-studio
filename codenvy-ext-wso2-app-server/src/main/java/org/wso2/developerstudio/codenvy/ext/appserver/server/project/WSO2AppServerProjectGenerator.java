@@ -23,6 +23,8 @@ import com.codenvy.api.project.server.ProjectGenerator;
 import com.codenvy.api.project.server.ProjectGeneratorRegistry;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.wso2.developerstudio.codenvy.ext.appserver.shared.AppServerExtConstants;
 
 import java.util.Map;
@@ -32,6 +34,8 @@ import java.util.Map;
  */
 @Singleton
 public class WSO2AppServerProjectGenerator implements ProjectGenerator {
+
+    private static final Logger LOG = LoggerFactory.getLogger(WSO2AppServerProjectGenerator.class);
 
     @Inject
     public WSO2AppServerProjectGenerator(ProjectGeneratorRegistry registry) {
@@ -44,10 +48,34 @@ public class WSO2AppServerProjectGenerator implements ProjectGenerator {
     }
 
     @Override
-    public void generateProject(FolderEntry folderEntry, Map<String, String> options)
-            throws ForbiddenException, ConflictException, ServerException {
+    public void generateProject(FolderEntry folderEntry, Map<String, String> options) throws ForbiddenException,
+            ConflictException, ServerException {
 
-        folderEntry.createFile("test.txt", "testContent".getBytes(), "text/plain");
+        // TODO: Change below sample code to create sample projects as necessary
+        try {
+
+            if (options.get(AppServerExtConstants.PROJECT_TYPE_ID).equals(AppServerExtConstants
+                    .WSO2_WEB_APP_PROJECT_ID)) {
+
+                folderEntry.createFile("webapp.txt", "App Server Web App Artifact.".getBytes(), "text/plain");
+
+            } else if (options.get(AppServerExtConstants.PROJECT_TYPE_ID).equals(AppServerExtConstants
+                    .WSO2_JAX_WS_PROJECT_ID)) {
+                folderEntry.createFile("jaxws.txt", "App Server JAXWS Service Artifact.".getBytes(), "text/plain");
+
+            } else if (options.get(AppServerExtConstants.PROJECT_TYPE_ID).equals(AppServerExtConstants
+                    .WSO2_JAX_RS_PROJECT_ID)) {
+                folderEntry.createFile("jaxrs.txt", "App Server JAXRS Service Artifact.".getBytes(), "text/plain");
+            } else {
+                LOG.error("Error generating project " + folderEntry.getName() + ".\nError : Project type is not " +
+                        "supported by " + getId() + ".");
+            }
+
+        } catch (Exception e) {
+            LOG.error("Error generating project " + folderEntry.getName() + "\nError Msg : " + e.getLocalizedMessage());
+            e.printStackTrace();
+        }
 
     }
+
 }

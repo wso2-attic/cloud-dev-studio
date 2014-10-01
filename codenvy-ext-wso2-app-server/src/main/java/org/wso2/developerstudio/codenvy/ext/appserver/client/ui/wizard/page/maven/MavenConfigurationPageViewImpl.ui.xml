@@ -94,6 +94,9 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                                 <g:item value="war">
                                     WAR
                                 </g:item>
+                                <g:item value="jar">
+                                    JAR
+                                </g:item>
                                 <g:item value="pom">
                                     POM
                                 </g:item>

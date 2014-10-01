@@ -26,8 +26,10 @@ public class ServerModule extends AbstractModule{
     protected void configure() {
         bind(JAXWSProjectTypeExtension.class);
         bind(JAXWSProjectTypeDescriptionExtension.class);
-        bind(JavaWebApplicationProjectTypeExtension.class);
-        bind(JavaWebApplicationProjectTypeDescriptionExtension.class);
+        bind(JAXRSProjectTypeExtension.class);
+        bind(JAXRSProjectTypeDescriptionExtension.class);
+        bind(WebAppProjectTypeExtension.class);
+        bind(WebAppProjectTypeDescriptionExtension.class);
         bind(WSO2AppServerProjectGenerator.class);
     }
 }

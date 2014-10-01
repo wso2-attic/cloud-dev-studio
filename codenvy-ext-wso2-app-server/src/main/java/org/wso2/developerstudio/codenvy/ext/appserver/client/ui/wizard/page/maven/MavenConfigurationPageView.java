@@ -31,11 +31,15 @@ public interface MavenConfigurationPageView extends View<MavenConfigurationPageV
 
     void setVersion(String value);
 
+    void setPackaging(String value);
+
     String getGroupId();
 
     String getArtifactId();
 
     String getVersion();
+
+    String getPackaging();
 
     void reset();
 }

@@ -46,6 +46,7 @@ public class AppServerExtension {
 
         wizardRegistry.addWizard(AppServerExtConstants.WSO2_WEB_APP_PROJECT_ID, wizard);
         wizardRegistry.addWizard(AppServerExtConstants.WSO2_JAX_WS_PROJECT_ID, wizard);
+        wizardRegistry.addWizard(AppServerExtConstants.WSO2_JAX_RS_PROJECT_ID, wizard);
 
     }
 }
