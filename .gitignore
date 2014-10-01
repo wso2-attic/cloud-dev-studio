@@ -16,3 +16,6 @@ hs_err_pid*
 */.idea/*
 target/
 distribution/extensions/
+
+# exclude sample zips from ignored files
+!**/samples/*.zip
