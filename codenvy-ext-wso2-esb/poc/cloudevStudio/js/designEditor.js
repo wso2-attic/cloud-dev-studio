@@ -1,4 +1,3 @@
-//try to get the canvas inside the switch mediator item!!! :( :P Awanthikooo
 function selectDeleteFunction() {
     if (CurElement != null) {
         CurElement.removeClass('selected'); //deselect old
@@ -13,7 +12,7 @@ function selectDeleteFunction() {
 function designViewKeyDown(e) {
 
     //alert(e.which); //run to find the keycode of the key you want, don't use backspace, that is used to go back in browser history
-    if (e.keyCode == 46 && CurElement != null) {
+    if (e.keyCode == 46 && CurElement != null) { //46 is the key code for the key DELETE
         var connectionList = jsPlumb.getAllConnections();
         for (var connection in connectionList) {
             if (connectionList.hasOwnProperty(connection)) {
@@ -46,7 +45,7 @@ function designViewKeyDown(e) {
 
 
 function createDiv(objName, image, type, topLoc) {
-    var xLoc = CurXLoc - 400;
+    var xLoc = CurXLoc - leftOffset;
     var element = $("<div></div>");
 
     element.click(selectDeleteFunction);
@@ -80,7 +79,7 @@ function AddDiv(logMediatorObj) {
     console.log('Adding a log mediator' + newElemCreated + '  ' + jsonStr);
     console.log(jsonObj1);
     var element = $("<div></div>");
-    element.css({'top': x, 'left': 250 + xSpace});
+    element.css({'top': x, 'left': xOffset + xSpace});
     element.attr('id', newElemCreated);
     element.addClass("draggable");
     element.prepend('<img src="icons/log-mediator.gif" />')
@@ -90,7 +89,7 @@ function AddDiv(logMediatorObj) {
     element.addClass("wso2Mediator_style");
     $("#jsPlumbContainer").append(element);
     lastItem = $("#" + newElemCreated);
-    xSpace += 200;
+    xSpace += xSpaceBuffer;
     return newElemCreated;
 }
 
@@ -128,7 +127,7 @@ function connectDivs(source, target) {
         target: target,
         anchors: ["Right", "Left" ],
         paintStyle: { strokeStyle: "#3366FF", lineWidth: 1 },
-        connector: ["Flowchart", { curviness: 100}],
+        connector: ["Flowchart", { curviness: curvinessConstant}],
         connectorStyle: [
             { lineWidth: 1, strokeStyle: "#3366FF" }
         ],
@@ -142,7 +141,7 @@ function jsplumbHandleDraggable() {
         helper: 'clone',
         containment: 'jsPlumbContainer',
         cursor: 'move',
-        zIndex: 1000,
+        zIndex: zIndexConstant,
         //When first dragged
         stop: function (ev, ui) {
 
@@ -159,7 +158,7 @@ function jsplumbHandleDropable() {
 
     $("#jsPlumbContainer").droppable({
         drop: function (ev, ui) {//to locate the element
-            var yLoc = CurXLoc - 400; //to get the current location in the div
+            var yLoc = CurXLoc - leftOffset; //to get the current location in the div
             var currentConnectionList = jsPlumb.getAllConnections();
             for (var connection in currentConnectionList) {//getting a map of the existing elements in the canvas
                 if (currentConnectionList.hasOwnProperty(connection)) {
@@ -216,7 +215,7 @@ function jsplumbHandleDropable() {
                     }
 
                 } else {//to locate the element
-                    newElemXLoc += 80; // incrementing the dropped location dynamically.. the integer value needs to be tested for all browsers hence not yet finalized
+                    newElemXLoc += bufferConstant; // incrementing the dropped location dynamically.. the integer value needs to be tested for all browsers hence not yet finalized
 
                     $("#draggedSwitchMediator1").css("width", divwidth + newElemXLoc + "px"); // naming is done dynamically, since we are working with only one switch mediator it is named as this
                     $("#jsPlumbContainer1").css("width", divwidth + newElemXLoc + "px");

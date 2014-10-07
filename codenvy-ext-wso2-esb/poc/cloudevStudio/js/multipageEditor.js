@@ -16,6 +16,8 @@ var CurXLoc = null;
 var divwidth = 200; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
 var newElemXLoc = 60; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
 var topLoc = 120; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
+var curvinessConstant = 100; //for jsplumb arrow curviness 100 is the generally used value
+var zIndexConstant = 1000; //for drag drop z index, constant is generally taken as 1000
 var elemSourceLocList = [];
 var elemTargetLocList = [];
 var elemSourceId = [];
@@ -32,6 +34,12 @@ var currentPopup = null;
 var x2js = null;
 var elemIsMiddle = false;
 var switchMedType = "SwitchMediator";
+var popupHeight = 400; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
+var popupWidth =600; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
+var bufferConstant = 80; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
+var leftOffset = 400; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
+var xSpaceBuffer = 200; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
+var xOffset = 250; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
 
 
 $(document).ready(function () {
@@ -67,8 +75,8 @@ function openMediatorConfigDialog(path, title) {
         $("#logMpopup").load(path);
         $("#logMpopup").dialog({ autoOpen: false,
             bgiframe: true,
-            height: 400,
-            width: 600,
+            height: popupHeight, //pop up widow height and width definitions
+            width: popupWidth,
             modal: false,
             draggable: true,
             resizable: true,
