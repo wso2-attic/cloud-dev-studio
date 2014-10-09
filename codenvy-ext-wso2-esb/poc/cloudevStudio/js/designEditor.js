@@ -6,43 +6,6 @@ function selectDeleteFunction() {
     CurElement = $(this);
     id = $(this).attr('id');
     CurElement.addClass('selected'); //select new
-}
-
-
-function designViewKeyDown(e) {
-
-    //alert(e.which); //run to find the keycode of the key you want, don't use backspace, that is used to go back in browser history
-    if (e.keyCode == 46 && CurElement != null) { //46 is the key code for the key DELETE
-        var connectionList = jsPlumb.getAllConnections();
-        for (var connection in connectionList) {
-            if (connectionList.hasOwnProperty(connection)) {
-                if (connectionList[connection].sourceId == CurElement.attr('id')) {
-                    CurElementisSource = connectionList[connection].targetId
-                }
-                if (connectionList[connection].targetId == CurElement.attr('id')) {
-                    CurElementisTarget = connectionList[connection].sourceId
-                }
-            }
-        }
-
-        if (CurElement.attr('id') == lastItem.attr('id')) {
-            lastItem = $("#" + CurElementisTarget);
-            //y = y - 100;
-        }
-        jsPlumb.detachAllConnections(id);
-        CurElement.remove();
-
-
-        if (CurElementisTarget != null && CurElementisSource != null) {
-            connectDivs(CurElementisTarget, CurElementisSource);
-            CurElementisSource = null;
-            CurElementisTarget = null;
-        }
-
-        CurElement = null; //clear, that element doesn't exist anymore
-    }
-}
-
 
 function createDiv(objName, image, type, topLoc) {
     var xLoc = CurXLoc - leftOffset;
@@ -66,7 +29,6 @@ function createDiv(objName, image, type, topLoc) {
         element.addClass("wso2Mediator_style");
     }
 }
-
 
 //add div function
 function AddDiv(logMediatorObj) {
@@ -93,7 +55,6 @@ function AddDiv(logMediatorObj) {
     return newElemCreated;
 }
 
-
 function addSwitchMediator(element, objName, leftLoc, image) {
 
     var backgroundContainer = $("#jsPlumbContainer");
@@ -118,7 +79,6 @@ function addSwitchMediator(element, objName, leftLoc, image) {
     $("#" + objName).css({'top': topLoc, 'left': leftLoc});
 }
 
-
 //connect function with jsplumb
 function connectDivs(source, target) {
     console.log('connectDivs ' + source + '   ' + target);
@@ -135,7 +95,6 @@ function connectDivs(source, target) {
     });
 }
 
-
 function jsplumbHandleDraggable() {
     $(".draggableIcon").draggable({
         helper: 'clone',
@@ -148,7 +107,6 @@ function jsplumbHandleDraggable() {
         }
     });
 }
-
 
 function jsplumbHandleDropable() {
 

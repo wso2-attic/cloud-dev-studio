@@ -53,6 +53,40 @@ $(document).ready(function () {
 
 });
 
+$(document).keydown(function(e) {
+	if (e.which == 46 && CurElement != null) { // 46 is the keycode returned on DELETE key press
+		 $.get('ESB', function (responseJson) {    // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response JSON...
+	            //alert(responseJson);
+	            var valueToDisplay = responseJson;                           // Locate HTML DOM element with ID "someselect".
+	            alert(valueToDisplay);
+	        });
+		alert(e.which);
+		var connectionList = jsPlumb.getAllConnections();
+		for ( var connection in connectionList) {
+			if (connectionList.hasOwnProperty(connection)) {
+				if (connectionList[connection].sourceId == CurElement
+						.attr('id')) {
+					CurElementisSource = connectionList[connection].targetId
+				}
+				if (connectionList[connection].targetId == CurElement
+						.attr('id')) {
+					CurElementisTarget = connectionList[connection].sourceId
+				}
+			}
+		}
+		if (CurElement.attr('id') == lastItem.attr('id')) {
+			lastItem = $("#" + CurElementisTarget);
+		}
+		jsPlumb.detachAllConnections(id);
+		CurElement.remove();
+		if (CurElementisTarget != null && CurElementisSource != null) {
+			connectDivs(CurElementisTarget, CurElementisSource);
+			CurElementisSource = null;
+			CurElementisTarget = null;
+		}
+		CurElement = null; // clear, that element doesn't exist anymore
+	}
+});
 
 function initJsPlumb(container) {
     jsPlumb.setContainer(container);
@@ -65,7 +99,6 @@ function setUpdatedDataCallBack(obj) {
     $(divMediator).data('jsonConfig', obj);
     currentPopup.dialog("close");
 }
-
 
 function openMediatorConfigDialog(path, title) {
 
@@ -88,20 +121,17 @@ function openMediatorConfigDialog(path, title) {
     currentPopup.dialog("open");
 }
 
-
 function registerMouseAndKeyEvents() {
 
     $(document).on('mouseenter', '#jsPlumbContainerWrapper11', function () {
         currentId = $(this).attr('id'); //alert(currentId);
         over = "true";
         console.log(over);
-
     });
 
     $(document).on('mouseleave', '#jsPlumbContainerWrapper11', function () {
         over = "false";
         console.log(over);
-
     });
 
     $(document).mousemove(function (e) {// to get the cursor point to drop an icon
@@ -132,7 +162,6 @@ function registerJsPlumbBind() {
         initJsPlumb($("#jsPlumbContainer"));
     });
 }
-
 
 function activateSourceView() {
 
@@ -174,7 +203,6 @@ function activateSourceView() {
     sourceEditorTBox.val(currentText + xmlElement + '\n</sequence>');
 }
 
-
 function activateDesignView() {
     var sourceEditorTextBox = $('#sourceEditorTextBox');
     var jsPlumbCont = $("#jsPlumbContainer");
@@ -197,9 +225,3 @@ function activateDesignView() {
     }
 
 }
-
-
-
-
-
-
