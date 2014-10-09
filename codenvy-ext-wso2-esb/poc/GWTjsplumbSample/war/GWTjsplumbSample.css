@@ -1,0 +1,37 @@
+.mainwindow {
+	border: 1px solid black;
+	margin: 2px;
+	z-index: 4000;
+}
+
+.draggable {
+	border: 1px solid black;
+	z-index: 400;
+	padding: 24px;
+	border-radius: 6px;
+}
+
+.droppedElement {
+	position: relative;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-right: 5px;
+	padding-left: 5px;
+	margin-left: 5px;
+}
+
+#draggablePanel {
+	height: 1000px;
+	width: 150px;
+	left: 5px;
+	top: 10px;
+	float: left;
+}
+
+#droppablePanel {
+	height: 1000px;
+	width: 1400px;
+	left: 100px;
+	top: 10px;
+	float: right;
+}
