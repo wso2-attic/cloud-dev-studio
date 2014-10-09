@@ -127,13 +127,11 @@ function registerMouseAndKeyEvents() {
         currentId = $(this).attr('id'); //alert(currentId);
         over = "true";
         console.log(over);
-
     });
 
     $(document).on('mouseleave', '#jsPlumbContainerWrapper11', function () {
         over = "false";
         console.log(over);
-
     });
 
     $(document).mousemove(function (e) {// to get the cursor point to drop an icon
