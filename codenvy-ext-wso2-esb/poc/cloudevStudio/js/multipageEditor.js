@@ -76,7 +76,6 @@ $(document).keydown(function(e) {
 		}
 		if (CurElement.attr('id') == lastItem.attr('id')) {
 			lastItem = $("#" + CurElementisTarget);
-			// y = y - 100;
 		}
 		jsPlumb.detachAllConnections(id);
 		CurElement.remove();
