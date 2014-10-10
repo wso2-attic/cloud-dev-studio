@@ -120,14 +120,6 @@ public class GWTjsplumbSample implements EntryPoint {
 	// JSNI native methods in GWT to call javascript methods in java
 	public static native void gwtjsPlumbDemo(String prevElem, String currElem) /*-{
 		$wnd.gwtjsplumbdemo(prevElem, currElem);
-
-	}-*/;
-
-	// JSNI native methods in GWT to call javascript methods in java to test the
-	// javascript working
-	public static native void echo(String myString) /*-{
-		$wnd.alert(myString);
-
 	}-*/;
 
 	private void createNewPanel(Widget panel, String panelID, String paneltStyle, int panelWidth,

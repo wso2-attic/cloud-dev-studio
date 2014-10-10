@@ -18,10 +18,8 @@ package com.codenvy.ide.client.Controllers;
 
 import com.allen_sauer.gwt.dnd.client.drop.SimpleDropController;
 import com.codenvy.ide.client.inject.JSBundle;
-import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.resources.client.ImageResource;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -47,6 +45,11 @@ public class NoInsertAtEndIndexedDropController extends SimpleDropController {
     public static final String RESPOND_MEDIATOR = "respondMediator";
     public static final String PROPERTY_MEDIATOR = "propertyMediator";
     public static final String PAYLFAC_MEDIATOR = "paylfacMediator";
+    public static final String DRAGGED = "dragged";
+    public static final String DRAGGABLE = "draggable";
+    public static final String DRAGGED_ELEM_STYLE = "gwt-Image dragdrop-draggable dragdrop-handle dragdrop-dragging";
+    public static final String DRAGGABLE_ELEM_STYLE = "gwt-Image dragdrop-draggable dragdrop-handle";
+    public static final int INCREMENT_CONSTANT = 100;
     static MouseMoveEvent mouseEvent;
     static int mouseX =0;
     static int mouseY=0;
@@ -69,8 +72,8 @@ public class NoInsertAtEndIndexedDropController extends SimpleDropController {
             .PropertyImage();
 
     int ElementCount = 0;
-    int x = 50; //positioning integer value needs to be tested on all browsers and reset
-    int y = 200; //ipositioning integer value needs to be tested on all browsers and reset
+    int xLoc = 50; //positioning integer value needs to be tested on all browsers and reset
+    int yLoc = 200; //ipositioning integer value needs to be tested on all browsers and reset
 
     public NoInsertAtEndIndexedDropController(Widget dropTarget) {
         super(dropTarget);
@@ -79,14 +82,14 @@ public class NoInsertAtEndIndexedDropController extends SimpleDropController {
     @Override
     public void onDrop(DragContext context) {
         ElementCount++;
-        x = x + 100; //incrementing the next drop integer value needs to be tested on all browsers and reset
+        xLoc = xLoc + INCREMENT_CONSTANT; //incrementing the next drop integer value needs to be tested on all browsers and reset
         for (Widget widget : context.selectedWidgets) {
             Image newDroppedElem = new Image();
-            newDroppedElem.getElement().setId("dragged" + ElementCount);
-            newDroppedElem.getElement().setPropertyBoolean("draggable", false);
+            newDroppedElem.getElement().setId(DRAGGED + ElementCount);
+            newDroppedElem.getElement().setPropertyBoolean(DRAGGABLE, false);
             newDroppedElem.addClickHandler(ESBEditor.clickHandler);
-            widget.removeStyleName("gwt-Image dragdrop-draggable dragdrop-handle dragdrop-dragging");
-            widget.addStyleName("gwt-Image dragdrop-draggable dragdrop-handle");
+            widget.removeStyleName(DRAGGED_ELEM_STYLE);
+            widget.addStyleName(DRAGGABLE_ELEM_STYLE);
             RootPanel.get(DRAGGABLE_PANEL).add(widget);
             RootPanel.get(DROPPABLE_PANEL).remove(widget);
 
@@ -127,7 +130,7 @@ public class NoInsertAtEndIndexedDropController extends SimpleDropController {
             }
 
             RootPanel.get(DROPPABLE_PANEL).add(newDroppedElem);
-            RootPanel.get(DROPPABLE_PANEL).setWidgetPosition(newDroppedElem, x, y);
+            RootPanel.get(DROPPABLE_PANEL).setWidgetPosition(newDroppedElem, xLoc, yLoc);
             newDroppedElem = null;
             RootPanel.get(DROPPABLE_PANEL).getAbsoluteLeft();
         }

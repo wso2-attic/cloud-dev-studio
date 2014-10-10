@@ -32,7 +32,7 @@ import com.wso2.jsplumb.client.MediatorCreator;
 
 public class CustomImageElementDropControler extends SimpleDropController {
 
-	private static final int yCoordinateIncrement = 100;
+	private static final int xCoordinateIncrement = 100;
 	private static final String DROPPABLE_PANEL = "droppablePanel";
 	private static final String DRAGGABLE_PANEL = "draggablePanel";
 	private static final String PAYLFAC_MEDIATOR = "paylfacMediator";
@@ -80,13 +80,6 @@ public class CustomImageElementDropControler extends SimpleDropController {
 					
 					RootPanel.get(DRAGGABLE_PANEL).add(widget); // add a clone to the draggable panel
 					RootPanel.get(DROPPABLE_PANEL).remove(widget); // remove the default dropped element to the droppable panel
-					/*	
-					 for (Mediator newDroppedMediator : Mediator.values()) {
-					        if (newDroppedMediator.name().equals(droppedElemId.toUpperCase())) {
-					        	newDroppedElem = MediatorCreator.getMediatorByName(newDroppedMediator,
-										clickHandler);
-					        }
-					    }*/
 
 					if (droppedElemId.equalsIgnoreCase(CALL_MEDIATOR)) {
 						newDroppedElem = MediatorCreator.getMediatorByName(Mediator.CALL,
@@ -150,7 +143,7 @@ public class CustomImageElementDropControler extends SimpleDropController {
 		GWTjsplumbSample.gwtjsPlumbDemo(prevElem, currElem, elementCount);
 		elementCount++;
 
-		droppedElemyCoord += yCoordinateIncrement; // increment the dropping coordinates of the dropped elements by 100px
+		droppedElemyCoord += xCoordinateIncrement; // increment the dropping coordinates of the dropped elements by 100px
 		super.onDrop(context);
 	}
 

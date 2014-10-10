@@ -38,17 +38,13 @@ public class MyExtension {
     public MyExtension(WorkspaceAgent workspaceAgent,
                        ESBEditor graphicalEditor,
                        JSBundle bundle) {
-        ScriptInjector
-                .fromString(JSBundle.INSTANCE.jquerysource().getText())
+        ScriptInjector.fromString(JSBundle.INSTANCE.jquerysource().getText())
                 .setWindow(ScriptInjector.TOP_WINDOW).inject();
-        ScriptInjector
-                .fromString(JSBundle.INSTANCE.jqueryuimin().getText())
+        ScriptInjector.fromString(JSBundle.INSTANCE.jqueryuimin().getText())
                 .setWindow(ScriptInjector.TOP_WINDOW).inject();
-        ScriptInjector
-                .fromString(JSBundle.INSTANCE.jsplumbsource().getText())
+        ScriptInjector.fromString(JSBundle.INSTANCE.jsplumbsource().getText())
                 .setWindow(ScriptInjector.TOP_WINDOW).inject();
-        ScriptInjector
-                .fromString(JSBundle.INSTANCE.gwtresource().getText())
+        ScriptInjector.fromString(JSBundle.INSTANCE.gwtresource().getText())
                 .setWindow(ScriptInjector.TOP_WINDOW).inject();
 
         workspaceAgent.openPart(graphicalEditor, EDITING);
