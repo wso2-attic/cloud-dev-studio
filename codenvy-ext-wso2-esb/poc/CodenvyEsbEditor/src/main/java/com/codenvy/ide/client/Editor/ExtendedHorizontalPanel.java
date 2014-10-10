@@ -65,19 +65,16 @@ public class ExtendedHorizontalPanel extends Composite implements HasWidgets, Ha
 
     @Override
     public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public void fireEvent(GwtEvent<?> event) {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public java.util.Iterator<Widget> iterator() {
-        // TODO Auto-generated method stub
         return null;
     }
 }

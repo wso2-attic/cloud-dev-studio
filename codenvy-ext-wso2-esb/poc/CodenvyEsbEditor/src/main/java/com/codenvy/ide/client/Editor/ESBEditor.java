@@ -140,7 +140,7 @@ public class ESBEditor extends AbstractEditorPresenter
         droppablePanel.getElement().getStyle().setProperty(POSITION, RELATIVE);
         draggablePanel.getElement().getStyle().setProperty(POSITION, RELATIVE);
 
-        callimage.getElement().setId(CALL_MEDIATOR); // need to optimize using enum, still work on progress
+        callimage.getElement().setId(CALL_MEDIATOR); // need to optimize using enum, still work on progress,
         callimage.setResource(CallImage);
         callimage.addClickHandler(clickHandler);
         draggablePanel.add(callimage);
