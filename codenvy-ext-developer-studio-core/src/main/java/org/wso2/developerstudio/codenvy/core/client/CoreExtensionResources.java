@@ -15,14 +15,18 @@
 */
 package org.wso2.developerstudio.codenvy.core.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.ImageResource;
 
 /**
  * Resources of core extension
  */
+
 public interface CoreExtensionResources extends ClientBundle {
+    CoreExtensionResources INSTANCE = GWT.create(CoreExtensionResources.class);
 
     @Source("studio-banner.png")
     ImageResource getStudioBanner();
+
 }
