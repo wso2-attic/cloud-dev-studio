@@ -73,13 +73,10 @@ public class ExtendedVerticalPanel extends Composite implements HasWidgets, HasA
 
 	@Override
 	public void fireEvent(GwtEvent<?> event) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public java.util.Iterator<Widget> iterator() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }
