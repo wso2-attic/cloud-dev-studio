@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 var editorItemCounter = 0;
 var currentId = null;
 var count = 0;
@@ -10,10 +26,9 @@ var id = null;
 var over = "false";
 var CurElementisSource = null;
 var CurElementisTarget = null;
-var x = 170;
 var topLocation = 170; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
 var CurXLoc = null;
-var divwidth = 200; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
+var divWidth = 200; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
 var newElemXLoc = 60; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
 var topLoc = 120; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
 var curvinessConstant = 100; //for jsplumb arrow curviness 100 is the generally used value
@@ -43,7 +58,6 @@ var xOffset = 250; //in pixels.. all the number values given here needs to be te
 
 
 $(document).ready(function () {
-
     x2js = new X2JS();
     registerTabChangeEvent();
     registerMouseAndKeyEvents();
@@ -101,7 +115,6 @@ function setUpdatedDataCallBack(obj) {
 }
 
 function openMediatorConfigDialog(path, title) {
-
     if (popupCount == 0) {
         $(document.body).append('<div id="logMpopup"></div>');
         $("#logMpopup").attr('id', "logMpopup");
@@ -122,15 +135,14 @@ function openMediatorConfigDialog(path, title) {
 }
 
 function registerMouseAndKeyEvents() {
-
-    $(document).on('mouseenter', '#jsPlumbContainerWrapper11', function () {
-        currentId = $(this).attr('id'); //alert(currentId);
-        over = "true";
+    $(document).on('mouseenter', '#jsPlumbContainerWrapperTest', function () { //currently tested for only a single droppable area
+        currentId = $(this).attr('id');
+        over = true;
         console.log(over);
     });
 
-    $(document).on('mouseleave', '#jsPlumbContainerWrapper11', function () {
-        over = "false";
+    $(document).on('mouseleave', '#jsPlumbContainerWrapperTest', function () {
+        over = false;
         console.log(over);
     });
 
@@ -164,7 +176,6 @@ function registerJsPlumbBind() {
 }
 
 function activateSourceView() {
-
     console.log('activateSourceView');
     var prevElement = null;
     var nextElement = null;
@@ -173,7 +184,6 @@ function activateSourceView() {
     var xmlElement = null;
     var currentText = null;
     var sourceEditorTBox = $('#sourceEditorTextBox');
-
     sourceEditorTBox.val('<sequence name="sample_sequence">');
 
     for (var connection in connectionList) {
