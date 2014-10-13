@@ -18,15 +18,27 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
     <ui:with field='resources' type='org.wso2.developerstudio.codenvy.core.client.CoreExtensionResources'/>
     <ui:style>
         .projectNamePosition {
-            position: relative;
-            line-height: 29px;
-            margin-left: 20px;
-
+        position: relative;
+        line-height: 29px;
+        margin-left: 20px;
         }
+
         .spaceRight {
-            margin-right: 8px;
+        margin-right: 8px;
         }
     </ui:style>
-    <g:FlowPanel width="100%" height="100%"  ui:field="mainPanel">
-    </g:FlowPanel>
+
+    <g:DockLayoutPanel unit="PX" debugId="mavenPageView-mainPanel">
+        <g:north size="100">
+            <g:DockLayoutPanel unit="PX" width="100%" height="100%">
+                <g:center>
+                    <g:Image url='{resources.getStudioBanner.getSafeUri.asString}' ui:field="bannerImage" />
+                </g:center>
+            </g:DockLayoutPanel>
+        </g:north>
+        <g:north size="1200">
+            <g:DockLayoutPanel unit="PX" width="100%" height="100%" ui:field="actionList">
+            </g:DockLayoutPanel>
+        </g:north>
+    </g:DockLayoutPanel>
 </ui:UiBinder>

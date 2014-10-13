@@ -38,4 +38,12 @@ public class DashboardCategory {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
+
+    public ImageResource getImageResource() {
+        return imageResource;
+    }
+
+    public void setImageResource(ImageResource imageResource) {
+        this.imageResource = imageResource;
+    }
 }

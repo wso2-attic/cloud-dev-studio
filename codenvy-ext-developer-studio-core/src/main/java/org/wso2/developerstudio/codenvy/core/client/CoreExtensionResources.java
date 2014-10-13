@@ -17,6 +17,7 @@ package org.wso2.developerstudio.codenvy.core.client;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.resources.client.ImageResource;
 
 /**
@@ -28,5 +29,10 @@ public interface CoreExtensionResources extends ClientBundle {
 
     @Source("studio-banner.png")
     ImageResource getStudioBanner();
+
+	@CssResource.NotStrict
+	@Source("style.css")
+    CssResource styleCSS();
+
 
 }
