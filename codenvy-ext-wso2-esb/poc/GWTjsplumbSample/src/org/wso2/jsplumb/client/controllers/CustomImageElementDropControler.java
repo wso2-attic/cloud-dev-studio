@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.wso2.jsplumb.client.controllers;
+package org.wso2.jsplumb.client.controllers;
 
 import java.util.HashMap;
 import java.util.Map;

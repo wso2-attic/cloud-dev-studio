@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.wso2.jsplumb.client.extendedpanels;
+package org.wso2.jsplumb.client.extendedpanels;
 
 import com.google.gwt.event.dom.client.HasAllKeyHandlers;
 import com.google.gwt.event.dom.client.KeyDownHandler;
