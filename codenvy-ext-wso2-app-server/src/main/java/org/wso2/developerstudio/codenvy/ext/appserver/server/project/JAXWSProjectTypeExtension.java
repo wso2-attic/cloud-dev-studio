@@ -50,7 +50,7 @@ public class JAXWSProjectTypeExtension implements ProjectTypeExtension {
 
     @Override
     public List<Attribute> getPredefinedAttributes() {
-        final List<Attribute> list = new ArrayList<Attribute>(2);
+        final List<Attribute> list = new ArrayList<Attribute>();
         list.add(new Attribute(AppServerExtConstants.LANGUAGE, AppServerExtConstants.JAVA_LANGUAGE));
         list.add(new Attribute(AppServerExtConstants.BUILDER_NAME, AppServerExtConstants.MAVEN_BUILDER));
         list.add(new Attribute(AppServerExtConstants.RUNNER_NAME, AppServerExtConstants.WSO2_APP_SERVER_RUNNER_NAME));

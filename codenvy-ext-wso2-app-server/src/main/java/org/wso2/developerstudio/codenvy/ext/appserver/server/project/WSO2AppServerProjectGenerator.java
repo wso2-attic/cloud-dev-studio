@@ -72,8 +72,9 @@ public class WSO2AppServerProjectGenerator implements ProjectGenerator {
             }
 
         } catch (Exception e) {
-            LOG.error("Error generating project " + folderEntry.getName() + "\nError Msg : " + e.getLocalizedMessage());
-            e.printStackTrace();
+            LOG.error("Error generating project " + folderEntry.getName() + "\nError Msg : " + e.getLocalizedMessage
+                    (), e);
+
         }
 
     }

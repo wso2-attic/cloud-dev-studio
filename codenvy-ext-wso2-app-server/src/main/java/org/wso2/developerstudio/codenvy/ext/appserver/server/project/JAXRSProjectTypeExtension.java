@@ -22,13 +22,10 @@ import com.codenvy.api.project.shared.ProjectTemplateDescription;
 import com.codenvy.api.project.shared.ProjectType;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.wso2.developerstudio.codenvy.ext.appserver.shared.AppServerExtConstants;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.wso2.developerstudio.codenvy.ext.appserver.shared.AppServerExtConstants;
 
 @Singleton
 public class JAXRSProjectTypeExtension implements ProjectTypeExtension {

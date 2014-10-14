@@ -38,7 +38,7 @@ public class JAXWSProjectTypeDescriptionExtension implements ProjectTypeDescript
 
     @Override
     public List<ProjectType> getProjectTypes() {
-        final List<ProjectType> list = new ArrayList<ProjectType>(1);
+        final List<ProjectType> list = new ArrayList<ProjectType>();
         list.add(new ProjectType(AppServerExtConstants.WSO2_JAX_WS_PROJECT_ID,
                                     AppServerExtConstants.WSO2_JAX_WS_PROJECT_NAME,
                                     AppServerExtConstants.WSO2_APP_SERVER_PROJECT_CATEGORY_ID));
