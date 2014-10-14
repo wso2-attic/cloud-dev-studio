@@ -16,40 +16,42 @@
 package org.wso2.developerstudio.codenvy.core.client;
 
 import com.codenvy.ide.api.extension.Extension;
-import com.codenvy.ide.api.ui.action.ActionManager;
-import com.codenvy.ide.api.ui.action.DefaultActionGroup;
-import com.codenvy.ide.api.ui.action.IdeActions;
+import com.codenvy.ide.api.ui.action.*;
 import com.codenvy.ide.api.ui.workspace.PartStackType;
 import com.codenvy.ide.api.ui.workspace.WorkspaceAgent;
+import com.google.gwt.resources.client.ImageResource;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.wso2.developerstudio.codenvy.core.client.actions.AboutDialogBoxAction;
 import org.wso2.developerstudio.codenvy.core.client.actions.OpenDashboardAction;
+import org.wso2.developerstudio.codenvy.core.client.ui.dashboard.DashboardCategory;
+import org.wso2.developerstudio.codenvy.core.client.ui.dashboard.DashboardItem;
+import org.wso2.developerstudio.codenvy.core.client.ui.dashboard.DashboardItemRegistry;
 import org.wso2.developerstudio.codenvy.core.client.ui.dashboard.page.DashboardPagePresenter;
 import org.wso2.developerstudio.codenvy.core.shared.CoreExtConstants;
 
 @Singleton
 @Extension(title = CoreExtConstants.EXT_NAME_PREFIX + CoreExtConstants.EXT_NAME,
-        version = CoreExtConstants.EXT_VERSION)
+           version = CoreExtConstants.EXT_VERSION)
 public class CoreExtension {
 
-    @Inject
-    public CoreExtension(ActionManager actionManager, AboutDialogBoxAction aboutAction, OpenDashboardAction openDashboardAction,
-                         WorkspaceAgent workspaceAgent, DashboardPagePresenter dashboardPagePresenter) {
+	@Inject
+	public CoreExtension(ActionManager actionManager, AboutDialogBoxAction aboutAction, OpenDashboardAction openDashboardAction,
+	                     WorkspaceAgent workspaceAgent, DashboardPagePresenter dashboardPagePresenter, DashboardItemRegistry dashboardItemRegistry) {
 
-        DefaultActionGroup wso2CloudStudioActionGroup = new DefaultActionGroup(CoreExtConstants
-                .WSO2_ACTION_GROUP_NAME, true, actionManager);
-        actionManager.registerAction(CoreExtConstants.WSO2_ACTION_GROUP_ID, wso2CloudStudioActionGroup);
-        DefaultActionGroup mainMenu = (DefaultActionGroup) actionManager.getAction(IdeActions.GROUP_MAIN_MENU);
-        mainMenu.add(wso2CloudStudioActionGroup);
+		DefaultActionGroup wso2CloudStudioActionGroup = new DefaultActionGroup(CoreExtConstants
+				                                                                       .WSO2_ACTION_GROUP_NAME, true, actionManager);
+		actionManager.registerAction(CoreExtConstants.WSO2_ACTION_GROUP_ID, wso2CloudStudioActionGroup);
+		DefaultActionGroup mainMenu = (DefaultActionGroup) actionManager.getAction(IdeActions.GROUP_MAIN_MENU);
+		mainMenu.add(wso2CloudStudioActionGroup);
 
-        actionManager.registerAction(CoreExtConstants.WSO2_ABOUT_ACTION_ID, aboutAction);
-        wso2CloudStudioActionGroup.add(aboutAction);
+		actionManager.registerAction(CoreExtConstants.WSO2_ABOUT_ACTION_ID, aboutAction);
+		wso2CloudStudioActionGroup.add(aboutAction);
 
-        actionManager.registerAction(CoreExtConstants.WSO2_OPEN_DASHBOARD_ACTION_ID, openDashboardAction);
-        wso2CloudStudioActionGroup.add(openDashboardAction);
+		actionManager.registerAction(CoreExtConstants.WSO2_OPEN_DASHBOARD_ACTION_ID, openDashboardAction);
+		wso2CloudStudioActionGroup.add(openDashboardAction);
 
-        workspaceAgent.openPart(dashboardPagePresenter, PartStackType.EDITING);
+		workspaceAgent.openPart(dashboardPagePresenter, PartStackType.EDITING);
 
-    }
+	}
 }

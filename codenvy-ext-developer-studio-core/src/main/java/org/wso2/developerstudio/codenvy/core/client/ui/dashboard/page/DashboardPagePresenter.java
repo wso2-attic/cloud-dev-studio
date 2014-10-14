@@ -22,11 +22,16 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.wso2.developerstudio.codenvy.core.client.ui.dashboard.DashboardItem;
 import org.wso2.developerstudio.codenvy.core.client.ui.dashboard.DashboardItemRegistry;
 import org.wso2.developerstudio.codenvy.core.shared.CoreExtConstants;
 
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Singleton
 public class DashboardPagePresenter extends AbstractEditorPresenter implements DashboardPageView.ActionDelegate{
@@ -34,11 +39,16 @@ public class DashboardPagePresenter extends AbstractEditorPresenter implements D
 
     private final DashboardItemRegistry itemRegistry;
     private final DashboardPageView view;
+    private Map<String, List<DashboardItem>> itemMap;
+    private List<String> categoryList;
+    private List<DashboardItem> itemsByCategory;
+
 
     @Inject
     public DashboardPagePresenter(DashboardItemRegistry itemRegistry, DashboardPageView view) {
         this.itemRegistry = itemRegistry;
         this.view = view;
+
         view.setDelegate(this);
     }
 
@@ -49,6 +59,8 @@ public class DashboardPagePresenter extends AbstractEditorPresenter implements D
 
     @Override
     public void go(AcceptsOneWidget container) {
+        generateItemMap();
+        view.generateDashboard(itemMap);
         container.setWidget(view);
     }
 
@@ -71,21 +83,46 @@ public class DashboardPagePresenter extends AbstractEditorPresenter implements D
 
     @Override
     public void doSave() {
-
     }
 
     @Override
     public void doSave(@NotNull AsyncCallback<EditorInput> editorInputAsyncCallback) {
-
     }
 
     @Override
     public void doSaveAs() {
-
     }
 
     @Override
     public void activate() {
+    }
 
+    public Map<String, List<DashboardItem>> generateItemMap() {
+
+        itemMap =  new HashMap<String, List<DashboardItem>>();
+        categoryList = new ArrayList<String>();
+        List<DashboardItem> dashboardItems = itemRegistry.getDashboardItems();
+
+        if (!dashboardItems.isEmpty()) {
+            for (DashboardItem ditem : dashboardItems) {
+                if(!categoryList.contains(ditem.getCategory().getCategoryName())) {
+                    categoryList.add(ditem.getCategory().getCategoryName());
+                }
+            }
+
+            for (String catName : categoryList) {
+                itemsByCategory = new ArrayList<DashboardItem>();
+                for (DashboardItem dashItem : dashboardItems) {
+                    if (dashItem.getCategory().getCategoryName() == catName) {
+                        itemsByCategory.add(dashItem);
+                    }
+                }
+                itemMap.put(catName, itemsByCategory);
+            }
+        } else {
+            //log : no dashboard items
+
+        }
+        return itemMap;
     }
 }

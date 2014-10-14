@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.wso2.jsplumb.client;
+package org.wso2.jsplumb.client;
 
 import java.util.ArrayList;
 import java.util.List;

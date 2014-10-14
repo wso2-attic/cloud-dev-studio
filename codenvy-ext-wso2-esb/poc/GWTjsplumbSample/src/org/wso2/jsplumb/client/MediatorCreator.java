@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.wso2.jsplumb.client;
+package org.wso2.jsplumb.client;
 
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.resources.client.ImageResource;

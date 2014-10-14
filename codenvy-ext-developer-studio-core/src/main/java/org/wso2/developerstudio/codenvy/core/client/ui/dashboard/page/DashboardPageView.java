@@ -29,9 +29,5 @@ public interface DashboardPageView extends View<DashboardPageView.ActionDelegate
 
     interface ActionDelegate{}
 
-    void addDashboardItem(DashboardItem item);
-
-    void addDashboardCategory(DashboardCategory category);
-
-    void setDashboardItemCategoryMap(Map<DashboardCategory, List<DashboardItem>> itemCatMap);
+    void generateDashboard( Map<String, List<DashboardItem>> itemList);
 }

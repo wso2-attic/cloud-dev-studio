@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.wso2.jsplumb.client.injectors;
+package org.wso2.jsplumb.client.injectors;
 
 import com.google.gwt.core.client.ScriptInjector;
 

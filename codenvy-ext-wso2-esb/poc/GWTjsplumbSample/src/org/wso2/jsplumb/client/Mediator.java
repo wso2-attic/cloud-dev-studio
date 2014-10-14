@@ -12,16 +12,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.wso2.jsplumb.client;
 
-package com.wso2.jsplumb.client.controllers;
+//mediator list
+public enum Mediator {
+	LOG,
+	CALL, 
+	PROPERTY, 
+	SEND, 
+	DROP, 
+	CLONE, 
+	STORE, 
+	CALLTEMPLATE, 
+	THROTTLE, 
+	PAYLOADFACTORY, 
+	RESPOND
 
-import com.allen_sauer.gwt.dnd.client.PickupDragController;
-import com.google.gwt.user.client.ui.AbsolutePanel;
-
-public class CustomImageElementDragController extends PickupDragController {
-
-	public CustomImageElementDragController(AbsolutePanel boundaryPanel,
-			boolean allowDroppingOnBoundaryPanel) {
-		super(boundaryPanel, allowDroppingOnBoundaryPanel);
-	}
 }

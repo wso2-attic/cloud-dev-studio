@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.codenvy.ide;
+package org.wso2.ESBEditor;
 
 import com.codenvy.ide.api.extension.Extension;
 import com.codenvy.ide.api.ui.workspace.WorkspaceAgent;

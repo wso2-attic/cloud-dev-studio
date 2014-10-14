@@ -14,13 +14,13 @@
 * limitations under the License.
 */
 
-package com.codenvy.ide;
+package org.wso2.ESBEditor;
 
 import com.codenvy.ide.api.editor.EditorProvider;
 import com.codenvy.ide.api.editor.EditorPartPresenter;
 import com.codenvy.ide.client.Editor.ESBEditor;
 
-public class ESNEditorProvidor implements EditorProvider
+public class ESBEditorProvidor implements EditorProvider
 {
     /** {@inheritDoc} */
     @Override

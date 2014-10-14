@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.codenvy.ide.client.Controllers;
+package org.wso2.ESBEditor.client.Controllers;
 
 import com.allen_sauer.gwt.dnd.client.drop.SimpleDropController;
 import com.codenvy.ide.client.inject.JSBundle;
