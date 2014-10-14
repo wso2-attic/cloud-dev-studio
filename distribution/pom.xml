@@ -109,6 +109,27 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                         </configuration>
                     </execution>
                     <execution>
+                        <id>prepare-embedded-linux64-version</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <copy todir="${project.basedir}/target/WSO2-Developer-Studio-linux64">
+                                    <fileset dir="${project.basedir}/resources/launcher-assembly-linux64" includes="**/*" />
+                                </copy>
+                                <copy todir="${project.basedir}/target/WSO2-Developer-Studio-linux64/${assembly.tomcat.webapp.root}">
+                                    <fileset dir="${basedir}/target/${project.artifactId}-${project.version}/webapps/">
+                                        <include name="*.war"/>
+                                    </fileset>
+                                </copy>
+                                <chmod dir="${project.basedir}/target/WSO2-Developer-Studio-linux64"
+                                       includes="**/*.sh" perm="+x"/>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>delete-copied-extensions</id>
                         <phase>prepare-package</phase>
                         <goals>
@@ -266,6 +287,21 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                                 <descriptor>${basedir}/resources/assembly/distribution-archive.xml</descriptor>
                             </descriptors>
                             <finalName>${project.artifactId}-${project.version}</finalName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>package-embedded-linux64-binary</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <updateOnly>false</updateOnly>
+                            <descriptors>
+                                <descriptor>${basedir}/resources/assembly/binary-archive.xml</descriptor>
+                            </descriptors>
+                            <finalName>WSO2-Developer-Studio-linux64</finalName>
                         </configuration>
                     </execution>
                 </executions>
