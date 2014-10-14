@@ -31,6 +31,8 @@ limitations under the License.
         <module>codenvy-ext-wso2-registry</module>
         <module>codenvy-ext-wso2-esb</module>
         <module>codenvy-ext-wso2-app-factory</module>
+        <module>developerstudio-launcher</module>
+        <module>developerstudio-assembly</module>
         <module>distribution</module>
     </modules>
 
@@ -97,6 +99,7 @@ limitations under the License.
 
     <properties>
         <com.codenvy.sdk.version>3.0.0-M20</com.codenvy.sdk.version>
+        <assembly.tomcat.webapp.root>tomcat/webroot</assembly.tomcat.webapp.root>
         <com.google.gwt.gin.version>2.1.2</com.google.gwt.gin.version>
         <com.google.gwt.version>2.6.0</com.google.gwt.version>
         <com.codenvy.platform.apirunner.version>0.24.0</com.codenvy.platform.apirunner.version>
@@ -105,6 +108,10 @@ limitations under the License.
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
+        <tomcat.version>7.0.34</tomcat.version>
+        <cef.version>3.1750.1738</cef.version>
+        <slf4j.version>1.7.7</slf4j.version>
+        <swt.version>4.4</swt.version>
     </properties>
 
 </project>
