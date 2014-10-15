@@ -20,8 +20,7 @@ import org.apache.catalina.startup.Tomcat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TomcatLauncher {
-
+public class TomcatLauncher implements Runnable {
     private static final Logger logger = LoggerFactory.getLogger(TomcatLauncher.class);
 
     protected Tomcat tomcatInstance;
@@ -30,15 +29,19 @@ public class TomcatLauncher {
         this.tomcatInstance = tomcatInstance;
     }
 
-    public void launch() throws LifecycleException {
+    private void launch() throws LifecycleException {
 
         tomcatInstance.start();
-        tomcatInstance.getServer().await();
+        //tomcatInstance.getServer().await();
 
     }
 
-    public Tomcat getTomcatInstance() {
-        return tomcatInstance;
+    @Override
+    public void run() {
+        try {
+            launch();
+        } catch (LifecycleException e) {
+            logger.error("Error Starting tomcat", e);
+        }
     }
-
 }

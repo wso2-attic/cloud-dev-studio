@@ -15,10 +15,29 @@
 */
 package org.wso2.developerstudio.codenvy.launcher.java;
 
+import org.embedded.browser.SampleWindow;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ChromiumLauncher {
+public class ChromiumLauncher implements Runnable {
 
     private static final Logger logger = LoggerFactory.getLogger(ChromiumLauncher.class);
+
+    private final String url;
+
+    public ChromiumLauncher(String url) {
+        this.url = url;
+    }
+
+    @Override
+    public void run() {
+
+        try {
+            Thread.sleep(25000);
+        } catch (InterruptedException e) {
+            logger.error("Chromium launcher error", e);
+        }
+        SampleWindow.single_browser(url);
+
+    }
 }
