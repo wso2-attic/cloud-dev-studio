@@ -29,20 +29,36 @@ public class PropertyWriter {
 
 	private static final String ANALYTICS_CONF_FILENAME = "analytics.properties";
 	private static final String CODENVY_API_PROPERTIES_FILE =
-															"codenvy-api-configuration.properties";
+			"codenvy-api-configuration.properties";
+	private static final String CODENVY_DATASOURCE_PROPERTIES_FILE =
+			"codenvy-datasource-configuration.properties";
+	private static final String CODENVY_JAVA_CA_PROPERTIES_FILE =
+			"codenvy-java-codeassistant-configuration.properties";
 
 	private static final String WORKSPACE_ROOT_PROPERTY = "vfs.local.fs_root_dir";
 	private static final String RUNNER_URL = "runner.slave_runner_urls";
 	private static final String BUILDER_URL = "builder.slave_builder_urls";
+	private static final String API_ENDPOINT = "api.endpoint";
+	private static final String EVENT_SUBSCRIPTION_URL = "notification.client.event_subscriptions";
 
 	public static void configureProperties(String tomcatPort) throws IOException {
 
 		Properties apiProps = loadPropertiesFromFile(CODENVY_API_PROPERTIES_FILE);
+		Properties datasourceProps = loadPropertiesFromFile(CODENVY_DATASOURCE_PROPERTIES_FILE);
+		Properties javaCAProps = loadPropertiesFromFile(CODENVY_JAVA_CA_PROPERTIES_FILE);
 
 		apiProps.setProperty(RUNNER_URL, "http://localhost:" + tomcatPort + "/api/internal/runner");
-		apiProps.setProperty(BUILDER_URL, "http://localhost:" + tomcatPort + "/api/internal/builder");
+		apiProps.setProperty(BUILDER_URL,
+		                     "http://localhost:" + tomcatPort + "/api/internal/builder");
+
+		datasourceProps.setProperty(API_ENDPOINT, "http://localhost:" + tomcatPort + "/api");
+
+		javaCAProps.setProperty(EVENT_SUBSCRIPTION_URL,
+		                        "ws://localhost:" + tomcatPort + "/api/ws/=vfs");
 
 		storePropertiesToFile(CODENVY_API_PROPERTIES_FILE, apiProps);
+		storePropertiesToFile(CODENVY_DATASOURCE_PROPERTIES_FILE, datasourceProps);
+		storePropertiesToFile(CODENVY_JAVA_CA_PROPERTIES_FILE, javaCAProps);
 
 	}
 
