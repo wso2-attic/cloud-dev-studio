@@ -74,7 +74,7 @@ limitations under the License.
                                     <mainClass>org.wso2.developerstudio.codenvy.launcher.java.Bootstrap</mainClass>
                                     <id>${assembler.app.name}</id>
                                     <commandLineArguments>
-                                        <commandLineArgument>./../${assembly.tomcat.webapp.root}</commandLineArgument>
+                                        <commandLineArgument>${assembly.tomcat.webapp.root}</commandLineArgument>
                                     </commandLineArguments>
                                 </program>
                             </programs>

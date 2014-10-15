@@ -4,10 +4,6 @@
 # resolve links - $0 may be a softlink
 PRG="$0"
 
-export WSO2_DEVELOPER_STUDIO_PATH="./../"
-export LD_LIBRARY_PATH="$WSO2_DEVELOPER_STUDIO_PATH/cef/lib"
-export CHROME_DEVEL_SANDBOX="$WSO2_DEVELOPER_STUDIO_PATH/cef/chrome-sandbox"
-
 while [ -h "$PRG" ]; do
   ls=`ls -ld "$PRG"`
   link=`expr "$ls" : '.*-> \(.*\)$'`
@@ -20,6 +16,15 @@ done
 
 PRGDIR=`dirname "$PRG"`
 BASEDIR=`cd "$PRGDIR/.." >/dev/null; pwd`
+
+export WSO2_DEVELOPER_STUDIO_PATH="$BASEDIR"
+export LD_LIBRARY_PATH="$WSO2_DEVELOPER_STUDIO_PATH/cef/lib"
+export CHROME_DEVEL_SANDBOX="$WSO2_DEVELOPER_STUDIO_PATH/cef/chrome-sandbox"
+export CODENVY_LOCAL_CONF_DIR="$WSO2_DEVELOPER_STUDIO_PATH/conf"
+
+# Only set CATALINA_HOME if not already set
+export CATALINA_HOME="$WSO2_DEVELOPER_STUDIO_PATH/tomcat"
+export CATALINA_BASE="$CATALINA_HOME"
 
 # Reset the REPO variable. If you need to influence this use the environment setup file.
 REPO=
@@ -106,6 +111,7 @@ fi
 exec "$JAVACMD" $JAVA_OPTS @EXTRA_JVM_ARGUMENTS@ \
   -classpath "$CLASSPATH" \
   -Djava.library.path="$WSO2_DEVELOPER_STUDIO_PATH/loader" \
+  -Dcodenvy.local.conf.dir="${CODENVY_LOCAL_CONF_DIR}/conf" \
   -Dapp.name="@APP_NAME@" \
   -Dapp.pid="$$" \
   -Dapp.repo="$REPO" \
