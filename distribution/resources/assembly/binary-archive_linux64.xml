@@ -7,7 +7,7 @@
     <includeBaseDirectory>false</includeBaseDirectory>
     <fileSets>
         <fileSet>
-            <directory>target/WSO2-Developer-Studio-linux64</directory>
+            <directory>target/wso2-developer-studio-linux64</directory>
             <outputDirectory>/</outputDirectory>
         </fileSet>
     </fileSets>

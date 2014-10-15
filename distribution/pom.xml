@@ -44,7 +44,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                                 <artifactItem>
                                     <groupId>com.codenvy.sdk</groupId>
                                     <artifactId>assembly-sdk</artifactId>
-                                    <version>${com.codenvy.sdk.version}</version>
+                                    <version>${com.codenvy.sdk.version}-WSO2</version>
                                     <type>zip</type>
                                     <overWrite>false</overWrite>
                                     <outputDirectory>${basedir}/resources/codenvy-sdk/</outputDirectory>
@@ -116,16 +116,41 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                         </goals>
                         <configuration>
                             <tasks>
-                                <copy todir="${project.basedir}/target/WSO2-Developer-Studio-linux64">
+                                <copy todir="${project.basedir}/target/wso2-developer-studio-linux64">
                                     <fileset dir="${project.basedir}/resources/launcher-assembly-linux64" includes="**/*" />
                                 </copy>
-                                <copy todir="${project.basedir}/target/WSO2-Developer-Studio-linux64/${assembly.tomcat.webapp.root}">
+                                <copy todir="${project.basedir}/target/wso2-developer-studio-linux64/${assembly.tomcat.webapp.root}">
                                     <fileset dir="${basedir}/target/${project.artifactId}-${project.version}/webapps/">
                                         <include name="*.war"/>
                                     </fileset>
                                 </copy>
-                                <chmod dir="${project.basedir}/target/WSO2-Developer-Studio-linux64"
+                                <chmod dir="${project.basedir}/target/wso2-developer-studio-linux64"
                                        includes="**/*.sh" perm="+x"/>
+                                <chmod dir="${project.basedir}/target/wso2-developer-studio-linux64/cef"
+                                       includes="cefclient" perm="+x"/>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>prepare-embedded-mac64-version</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <copy todir="${project.basedir}/target/wso2-developer-studio-mac64">
+                                    <fileset dir="${project.basedir}/resources/launcher-assembly-mac64" includes="**/*" />
+                                </copy>
+                                <copy todir="${project.basedir}/target/wso2-developer-studio-mac64/${assembly.tomcat.webapp.root}">
+                                    <fileset dir="${basedir}/target/${project.artifactId}-${project.version}/webapps/">
+                                        <include name="*.war"/>
+                                    </fileset>
+                                </copy>
+                                <chmod dir="${project.basedir}/target/wso2-developer-studio-mac64"
+                                       includes="**/*.sh" perm="+x"/>
+                                <chmod dir="${project.basedir}/target/wso2-developer-studio-mac64/cef"
+                                       includes="cefclient" perm="+x"/>
                             </tasks>
                         </configuration>
                     </execution>
@@ -299,9 +324,24 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                             <appendAssemblyId>false</appendAssemblyId>
                             <updateOnly>false</updateOnly>
                             <descriptors>
-                                <descriptor>${basedir}/resources/assembly/binary-archive.xml</descriptor>
+                                <descriptor>${basedir}/resources/assembly/binary-archive_linux64.xml</descriptor>
                             </descriptors>
-                            <finalName>WSO2-Developer-Studio-linux64</finalName>
+                            <finalName>wso2-developer-studio-linux64</finalName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>package-embedded-mac64-binary</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <updateOnly>false</updateOnly>
+                            <descriptors>
+                                <descriptor>${basedir}/resources/assembly/binary-archive_mac64.xml</descriptor>
+                            </descriptors>
+                            <finalName>wso2-developer-studio-mac64</finalName>
                         </configuration>
                     </execution>
                 </executions>
