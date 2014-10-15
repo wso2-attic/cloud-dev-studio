@@ -21,23 +21,23 @@ import org.slf4j.LoggerFactory;
 
 public class ChromiumLauncher implements Runnable {
 
-    private static final Logger logger = LoggerFactory.getLogger(ChromiumLauncher.class);
+	private static final Logger logger = LoggerFactory.getLogger(ChromiumLauncher.class);
 
-    private final String url;
+	private final String url;
 
-    public ChromiumLauncher(String url) {
-        this.url = url;
-    }
+	public ChromiumLauncher(String url) {
+		this.url = url;
+	}
 
-    @Override
-    public void run() {
+	@Override
+	public void run() {
 
-        try {
-            Thread.sleep(25000);
-        } catch (InterruptedException e) {
-            logger.error("Chromium launcher error", e);
-        }
-        SampleWindow.single_browser(url);
+		try {
+			Thread.sleep(25000);
+		} catch (InterruptedException e) {
+			logger.error("Chromium launcher error", e);
+		}
+		SampleWindow.single_browser(url);
 
-    }
+	}
 }

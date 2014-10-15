@@ -28,85 +28,91 @@ import java.util.Map;
 
 public class Bootstrap {
 
-    private static final Logger logger = LoggerFactory.getLogger(Bootstrap.class);
-    public static final String DEFAULT_RELATIVE_WEB_ROOT = "tomcat/webroot";
-    public static final String STUDIO_ROOT_ENV_VAR_NAME = "WSO2_DEVELOPER_STUDIO_PATH";
+	private static final Logger logger = LoggerFactory.getLogger(Bootstrap.class);
+	public static final String DEFAULT_RELATIVE_WEB_ROOT = "tomcat/webroot";
+	public static final String STUDIO_ROOT_ENV_VAR_NAME = "WSO2_DEVELOPER_STUDIO_PATH";
 
-    protected static String rootDir;
-    protected static Map<String, String> mapContextToWebApp;
-    protected static String webAppRoot;
+	protected static String rootDir;
+	protected static Map<String, String> mapContextToWebApp;
+	protected static String webAppRoot;
 
-    static {
-        mapContextToWebApp = new HashMap<>();
-        mapContextToWebApp.put("/api", "api");
-        mapContextToWebApp.put("/datasource", "datasource");
-        mapContextToWebApp.put("/java-ca", "java-ca");
-        mapContextToWebApp.put("/ide", "ide");
-    }
+	static {
+		mapContextToWebApp = new HashMap<>();
+		mapContextToWebApp.put("/api", "api");
+		mapContextToWebApp.put("/datasource", "datasource");
+		mapContextToWebApp.put("/java-ca", "java-ca");
+		mapContextToWebApp.put("/ide", "ide");
+	}
 
-    public static void main(String args[]) {
+	public static void main(String args[]) {
 
-        rootDir = System.getenv(STUDIO_ROOT_ENV_VAR_NAME);
+		rootDir = System.getenv(STUDIO_ROOT_ENV_VAR_NAME);
 
-        logger.info("Root dir is" + rootDir);
+		logger.info("Root dir is" + rootDir);
 
-        logger.info("Starting WSO2 Developer Studio 4.0.0");
+		logger.info("Starting WSO2 Developer Studio 4.0.0");
 
-        webAppRoot = rootDir + File.separator + args[0];
+		webAppRoot = rootDir + File.separator + args[0];
 
-        if (webAppRoot.equals("")) {
-            webAppRoot = rootDir + File.separator + DEFAULT_RELATIVE_WEB_ROOT;
-        }
+		if (webAppRoot.equals("")) {
+			webAppRoot = rootDir + File.separator + DEFAULT_RELATIVE_WEB_ROOT;
+		}
 
-        logger.info("Tomcat web app root is set to : " + webAppRoot);
+		logger.info("Tomcat web app root is set to : " + webAppRoot);
 
-        try {
-            Tomcat tomcat = new Tomcat();
+		try {
+			Tomcat tomcat = new Tomcat();
+			tomcat.setBaseDir(rootDir + File.separator + "tomcat");
 
-            Integer port = getAvailablePort();
-            tomcat.setPort(port);
-            logger.info("Tomcat port is set to: " + port);
+			Integer port = getAvailablePort();
+			tomcat.setPort(port);
+			logger.info("Tomcat port is set to: " + port);
 
-            String ideURL = "http://localhost:" + port + "/ide";
-            logger.info("IDE URL is set to: " + ideURL);
+			// Alter codenvy properties to use custom tomcat port
+			PropertyWriter.configureProperties(port.toString());
 
-            addWebApps(tomcat);
+			String ideURL = "http://localhost:" + port + "/ide";
+			logger.info("IDE URL is set to: " + ideURL);
 
-            logger.info("Starting chromium in background");
-            ChromiumLauncher chromiumLauncher = new ChromiumLauncher(ideURL);
-            Thread chromiumBrowser = new Thread(chromiumLauncher);
-            chromiumBrowser.start();
+			addWebApps(tomcat);
 
-            logger.info("Starting tomcat in background");
-            TomcatLauncher launcher = new TomcatLauncher(tomcat);
-            Thread tomcatServer = new Thread(launcher);
-            tomcatServer.start();
+			logger.info("Starting chromium in background");
+			ChromiumLauncher chromiumLauncher = new ChromiumLauncher(ideURL);
+			Thread chromiumBrowser = new Thread(chromiumLauncher);
+			chromiumBrowser.start();
 
+			logger.info("Starting tomcat in background");
+			TomcatLauncher launcher = new TomcatLauncher(tomcat);
+			Thread tomcatServer = new Thread(launcher);
+			tomcatServer.start();
 
-        } catch (IOException e) {
-            logger.error("Error querying available local ports for tomcat", e);
-        } catch (ServletException e) {
-            logger.error("Error adding Web apps", e);
-        }
-    }
+		} catch (IOException e) {
+			logger.error("Error querying available local ports for tomcat", e);
+		} catch (ServletException e) {
+			logger.error("Error adding Web apps", e);
+		}
+	}
 
-    private static void addWebApps(Tomcat tomcat) throws ServletException {
+	private static void addWebApps(Tomcat tomcat) throws ServletException {
 
-        for (Object o : mapContextToWebApp.entrySet()) {
-            Map.Entry webAppEntry = (Map.Entry) o;
-            tomcat.addWebapp(webAppEntry.getKey().toString(),
-                    new File(webAppRoot + File.separator + webAppEntry.getValue().toString()).getAbsolutePath());
+		for (Object o : mapContextToWebApp.entrySet()) {
+			Map.Entry webAppEntry = (Map.Entry) o;
+			tomcat.addWebapp(webAppEntry.getKey().toString(),
+			                 new File(webAppRoot + File.separator +
+			                          webAppEntry.getValue().toString()).getAbsolutePath());
 
-            logger.info("Adding web app : " + new File(webAppRoot + File.separator + webAppEntry.getValue().toString()).getAbsolutePath());
-        }
-    }
+			logger.info("Adding web app : " +
+			            new File(webAppRoot + File.separator + webAppEntry.getValue().toString())
+					            .getAbsolutePath());
+		}
+	}
 
-    private static Integer getAvailablePort() throws IOException {
+	private static Integer getAvailablePort() throws IOException {
 
-        ServerSocket socket = new ServerSocket(0);
-        Integer port = socket.getLocalPort();
-        socket.close();
-        return port;
+		ServerSocket socket = new ServerSocket(0);
+		Integer port = socket.getLocalPort();
+		socket.close();
+		return port;
 
-    }
+	}
 }
