@@ -111,7 +111,9 @@ fi
 exec "$JAVACMD" $JAVA_OPTS @EXTRA_JVM_ARGUMENTS@ \
   -classpath "$CLASSPATH" \
   -Djava.library.path="$WSO2_DEVELOPER_STUDIO_PATH/loader" \
-  -Dcodenvy.local.conf.dir="${CODENVY_LOCAL_CONF_DIR}/conf" \
+  -Dcodenvy.local.conf.dir="${CODENVY_LOCAL_CONF_DIR}" \
+  -Dcatalina.base="$WSO2_DEVELOPER_STUDIO_PATH/tomcat" \
+  -Djava.io.temp="$WSO2_DEVELOPER_STUDIO_PATH/temp" \
   -Dapp.name="@APP_NAME@" \
   -Dapp.pid="$$" \
   -Dapp.repo="$REPO" \
