@@ -69,7 +69,7 @@ public class Bootstrap {
 			logger.info("Tomcat port is set to: " + port);
 
 			// Alter codenvy properties to use custom tomcat port
-			PropertyWriter.configureProperties(port.toString());
+			ConfigManager.configureProperties(port.toString());
 
 			String ideURL = "http://localhost:" + port + "/ide";
 			logger.info("IDE URL is set to: " + ideURL);
