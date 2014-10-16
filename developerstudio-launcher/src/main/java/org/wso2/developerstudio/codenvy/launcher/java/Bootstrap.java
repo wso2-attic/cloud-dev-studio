@@ -16,6 +16,7 @@
 package org.wso2.developerstudio.codenvy.launcher.java;
 
 import org.apache.catalina.startup.Tomcat;
+import org.embedded.browser.SampleWindow;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,12 +33,11 @@ public class Bootstrap {
 	public static final String DEFAULT_RELATIVE_WEB_ROOT = "tomcat/webroot";
 	public static final String STUDIO_ROOT_ENV_VAR_NAME = "WSO2_DEVELOPER_STUDIO_PATH";
 
-	protected static String rootDir;
-	protected static Map<String, String> mapContextToWebApp;
-	protected static String webAppRoot;
+	private static String rootDir;
+	private static final Map<String, String> mapContextToWebApp = new HashMap<>();
+	private static String webAppRoot;
 
 	static {
-		mapContextToWebApp = new HashMap<>();
 		mapContextToWebApp.put("/api", "api");
 		mapContextToWebApp.put("/datasource", "datasource");
 		mapContextToWebApp.put("/java-ca", "java-ca");
@@ -77,14 +77,22 @@ public class Bootstrap {
 			addWebApps(tomcat);
 
 			logger.info("Starting chromium in background");
-			ChromiumLauncher chromiumLauncher = new ChromiumLauncher(ideURL);
-			Thread chromiumBrowser = new Thread(chromiumLauncher);
-			chromiumBrowser.start();
+//			ChromiumLauncher chromiumLauncher = new ChromiumLauncher(ideURL);
+//			Thread chromiumBrowser = new Thread(chromiumLauncher);
+//			chromiumBrowser.start();
 
 			logger.info("Starting tomcat in background");
 			TomcatLauncher launcher = new TomcatLauncher(tomcat);
 			Thread tomcatServer = new Thread(launcher);
 			tomcatServer.start();
+
+			// FIXME : Implement a logic to see whether tomcat webapp deployment is finished.
+			try {
+				Thread.sleep(25000);
+			} catch (InterruptedException e) {
+				logger.error("Chromium launcher error", e);
+			}
+			SampleWindow.single_browser(ideURL);
 
 		} catch (IOException e) {
 			logger.error("Error querying available local ports for tomcat", e);

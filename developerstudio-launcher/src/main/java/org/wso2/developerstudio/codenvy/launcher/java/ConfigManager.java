@@ -101,9 +101,9 @@ public class ConfigManager {
 	}
 
 	/**
-	 * Reads a .property files and build a map
+	 * Reads a property file and build a map
 	 *
-	 * @param fileName Name of the property files available in conf folder
+	 * @param fileName Name of the property file available in conf folder
 	 * @return Property Map
 	 * @throws IOException
 	 */
@@ -122,7 +122,7 @@ public class ConfigManager {
 	/**
 	 * Writes modified properties back to a property file
 	 *
-	 * @param fileName   Name of the property files available in conf folder
+	 * @param fileName   Name of the property file available in conf folder
 	 * @param properties Properties map
 	 * @throws IOException
 	 */
