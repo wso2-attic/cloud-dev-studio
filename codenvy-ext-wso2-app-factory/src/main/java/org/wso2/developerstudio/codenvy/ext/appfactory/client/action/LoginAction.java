@@ -28,24 +28,27 @@ import static com.codenvy.ide.api.ui.workspace.PartStackType.TOOLING;
 
 public class LoginAction extends Action {
 
-    @Inject
-    private AppFactoryPartsFactory appFactoryPartsFactory;
-    @Inject
-    private WorkspaceAgent workspaceAgent;
+	@Inject
+	private AppFactoryPartsFactory appFactoryPartsFactory;
+	@Inject
+	private WorkspaceAgent workspaceAgent;
 
-    public LoginAction() {
-        super(AppFactoryExtConstants.ACTION_LOGIN_AF_NAME);
-    }
+	public LoginAction() {
+		super(AppFactoryExtConstants.ACTION_LOGIN_AF_NAME);
+	}
 
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) {
+	@Override
+	public void actionPerformed(ActionEvent actionEvent) {
 
-        PartPresenter appFacPartPresenter = appFactoryPartsFactory.createAppListPart(AppFactoryExtConstants.WSO2_APP_FAC_VIEW_APPLIST);
-        workspaceAgent.openPart(appFacPartPresenter, TOOLING);
-        workspaceAgent.setActivePart(appFacPartPresenter);
+		PartPresenter appFacPartPresenter = appFactoryPartsFactory
+				.createAppListPart(AppFactoryExtConstants.WSO2_APP_FAC_VIEW_APPLIST);
+		workspaceAgent.openPart(appFacPartPresenter, TOOLING);
+		workspaceAgent.setActivePart(appFacPartPresenter);
 
-        workspaceAgent.openPart(appFactoryPartsFactory.createAppDetailsPart(AppFactoryExtConstants.WSO2_APP_FAC_VIEW_CONSOLE), INFORMATION);
-        workspaceAgent.openPart(appFactoryPartsFactory.createAppDetailsPart(AppFactoryExtConstants.WSO2_APP_FAC_VIEW_APPDETAILS), INFORMATION);
-    }
+		workspaceAgent.openPart(appFactoryPartsFactory.createAppDetailsPart(
+				AppFactoryExtConstants.WSO2_APP_FAC_VIEW_CONSOLE), INFORMATION);
+		workspaceAgent.openPart(appFactoryPartsFactory.createAppDetailsPart(
+				AppFactoryExtConstants.WSO2_APP_FAC_VIEW_APPDETAILS), INFORMATION);
+	}
 
 }

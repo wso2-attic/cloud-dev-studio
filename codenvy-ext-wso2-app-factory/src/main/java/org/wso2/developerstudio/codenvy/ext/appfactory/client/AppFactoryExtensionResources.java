@@ -21,8 +21,7 @@ import com.google.gwt.resources.client.ImageResource;
 /**
  * Resources for the App Factory Extension
  */
-public interface AppFactoryExtensionResources extends ClientBundle  {
+public interface AppFactoryExtensionResources extends ClientBundle {
 
-    @Source("users.gif")
-    ImageResource getLoginIcon();
+	@Source("users.gif") ImageResource getLoginIcon();
 }

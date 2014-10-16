@@ -25,8 +25,8 @@ import org.wso2.developerstudio.codenvy.ext.appfactory.server.rest.api.AppFactor
 @DynaModule
 public class ServerModule extends AbstractModule {
 
-    @Override
-    protected void configure() {
-        bind(AppFactoryClientService.class);
-    }
+	@Override
+	protected void configure() {
+		bind(AppFactoryClientService.class);
+	}
 }

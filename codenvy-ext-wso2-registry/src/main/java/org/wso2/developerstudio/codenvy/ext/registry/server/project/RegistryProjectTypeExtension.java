@@ -31,35 +31,39 @@ import org.wso2.developerstudio.codenvy.ext.registry.shared.RegistryExtConstants
 import javax.inject.Named;
 
 @Singleton
-public class RegistryProjectTypeExtension implements ProjectTypeExtension{
+public class RegistryProjectTypeExtension implements ProjectTypeExtension {
 
-    private final String baseUrl;
+	private final String baseUrl;
 
-    @Inject
-    public RegistryProjectTypeExtension(@Named("extension-url") String baseUrl, ProjectTypeDescriptionRegistry registry) {
-        this.baseUrl = baseUrl;
-        registry.registerProjectType(this);
-    }
+	@Inject
+	public RegistryProjectTypeExtension(@Named("extension-url") String baseUrl,
+	                                    ProjectTypeDescriptionRegistry registry) {
+		this.baseUrl = baseUrl;
+		registry.registerProjectType(this);
+	}
 
-    @Override
-    public ProjectType getProjectType() {
-        return new ProjectType(RegistryExtConstants.WSO2_REGISTRY_PROJECT_ID, RegistryExtConstants.WSO2_REGISTRY_PROJECT, RegistryExtConstants.WSO2_PROJECT_ID);
-    }
+	@Override
+	public ProjectType getProjectType() {
+		return new ProjectType(RegistryExtConstants.WSO2_REGISTRY_PROJECT_ID,
+		                       RegistryExtConstants.WSO2_REGISTRY_PROJECT,
+		                       RegistryExtConstants.WSO2_PROJECT_ID);
+	}
 
-    @Override
-    public List<Attribute> getPredefinedAttributes() {
-        return Arrays.asList(
-                new Attribute(RegistryExtConstants.LANGUAGE, RegistryExtConstants.WSO2_PROJECT_ID),
-                new Attribute(RegistryExtConstants.FRAMEWORK, RegistryExtConstants.WSO2_PROJECT_ID),
-                new Attribute(RegistryExtConstants.BUILDER_NAME, "maven")
-        );
-    }
+	@Override
+	public List<Attribute> getPredefinedAttributes() {
+		return Arrays.asList(
+				new Attribute(RegistryExtConstants.LANGUAGE, RegistryExtConstants.WSO2_PROJECT_ID),
+				new Attribute(RegistryExtConstants.FRAMEWORK, RegistryExtConstants.WSO2_PROJECT_ID),
+				new Attribute(RegistryExtConstants.BUILDER_NAME, "maven")
+		);
+	}
 
-    @Override
-    public List<ProjectTemplateDescription> getTemplates() {
-        return Arrays.asList(new ProjectTemplateDescription("zip",
-                RegistryExtConstants.WSO2_REGISTRY_PROJECT,
-                "This is a simple Registry resources project.",
-                baseUrl+"templates/appserver-project.zip"));
-    }
+	@Override
+	public List<ProjectTemplateDescription> getTemplates() {
+		return Arrays.asList(new ProjectTemplateDescription("zip",
+		                                                    RegistryExtConstants.WSO2_REGISTRY_PROJECT,
+		                                                    "This is a simple Registry resources project.",
+		                                                    baseUrl +
+		                                                    "templates/appserver-project.zip"));
+	}
 }

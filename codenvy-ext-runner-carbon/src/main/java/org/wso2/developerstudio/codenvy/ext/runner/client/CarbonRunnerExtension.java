@@ -23,11 +23,11 @@ import org.wso2.developerstudio.codenvy.ext.runner.shared.CarbonRunnerExtConstan
 
 @Singleton
 @Extension(title = CoreExtConstants.EXT_NAME_PREFIX + CarbonRunnerExtConstants.EXT_NAME,
-        version = CarbonRunnerExtConstants.EXT_VERSION)
+           version = CarbonRunnerExtConstants.EXT_VERSION)
 public class CarbonRunnerExtension {
 
-    @Inject
-    public CarbonRunnerExtension() {
-    }
+	@Inject
+	public CarbonRunnerExtension() {
+	}
 }
 

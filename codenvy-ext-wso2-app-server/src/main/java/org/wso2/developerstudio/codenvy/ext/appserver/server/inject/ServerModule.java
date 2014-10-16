@@ -20,16 +20,16 @@ import com.google.inject.AbstractModule;
 import org.wso2.developerstudio.codenvy.ext.appserver.server.project.*;
 
 @DynaModule
-public class ServerModule extends AbstractModule{
+public class ServerModule extends AbstractModule {
 
-    @Override
-    protected void configure() {
-        bind(JAXWSProjectTypeExtension.class);
-        bind(JAXWSProjectTypeDescriptionExtension.class);
-        bind(JAXRSProjectTypeExtension.class);
-        bind(JAXRSProjectTypeDescriptionExtension.class);
-        bind(WebAppProjectTypeExtension.class);
-        bind(WebAppProjectTypeDescriptionExtension.class);
-        bind(WSO2AppServerProjectGenerator.class);
-    }
+	@Override
+	protected void configure() {
+		bind(JAXWSProjectTypeExtension.class);
+		bind(JAXWSProjectTypeDescriptionExtension.class);
+		bind(JAXRSProjectTypeExtension.class);
+		bind(JAXRSProjectTypeDescriptionExtension.class);
+		bind(WebAppProjectTypeExtension.class);
+		bind(WebAppProjectTypeDescriptionExtension.class);
+		bind(WSO2AppServerProjectGenerator.class);
+	}
 }

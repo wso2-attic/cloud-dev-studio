@@ -24,39 +24,39 @@ import org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.part.applist.Ap
 
 public class AppDetailsPresenter extends BasePresenter implements AppListView.ActionDelegate {
 
-    private AppListView view;
-    private String title;
+	private AppListView view;
+	private String title;
 
-    @Inject
-    public AppDetailsPresenter(AppListView view, @Assisted String title) {
-        this.view = view;
-        this.view.setDelegate(this);
-        this.view.setTitle(title);
-        this.title = title;
-    }
+	@Inject
+	public AppDetailsPresenter(AppListView view, @Assisted String title) {
+		this.view = view;
+		this.view.setDelegate(this);
+		this.view.setTitle(title);
+		this.title = title;
+	}
 
-    @Override
-    public void onButtonClicked() {
-    }
+	@Override
+	public void onButtonClicked() {
+	}
 
-    @Override
-    public String getTitle() {
-        return title;
-    }
+	@Override
+	public String getTitle() {
+		return title;
+	}
 
-    @Override
-    public ImageResource getTitleImage() {
-        return null;
-    }
+	@Override
+	public ImageResource getTitleImage() {
+		return null;
+	}
 
-    @Override
-    public String getTitleToolTip() {
-        return "Tooltip";
-    }
+	@Override
+	public String getTitleToolTip() {
+		return "Tooltip";
+	}
 
-    @Override
-    public void go(AcceptsOneWidget container) {
-        container.setWidget(view);
-    }
+	@Override
+	public void go(AcceptsOneWidget container) {
+		container.setWidget(view);
+	}
 
 }

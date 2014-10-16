@@ -25,18 +25,18 @@ import org.wso2.developerstudio.codenvy.core.shared.CoreExtConstants;
 
 public class OpenDashboardAction extends Action {
 
-    @Inject
-    private DashboardPagePresenter dashboardPagePresenter;
+	@Inject
+	private DashboardPagePresenter dashboardPagePresenter;
 
-    @Inject
-    private WorkspaceAgent workspaceAgent;
+	@Inject
+	private WorkspaceAgent workspaceAgent;
 
-    public OpenDashboardAction() {
-        super(CoreExtConstants.WSO2_OPEN_DASHBOARD_ACTION_NAME);
-    }
+	public OpenDashboardAction() {
+		super(CoreExtConstants.WSO2_OPEN_DASHBOARD_ACTION_NAME);
+	}
 
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-        workspaceAgent.openPart(dashboardPagePresenter, PartStackType.EDITING);
-    }
+	@Override
+	public void actionPerformed(ActionEvent actionEvent) {
+		workspaceAgent.openPart(dashboardPagePresenter, PartStackType.EDITING);
+	}
 }

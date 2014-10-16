@@ -25,14 +25,11 @@ import com.google.gwt.resources.client.ImageResource;
  */
 
 public interface CoreExtensionResources extends ClientBundle {
-    CoreExtensionResources INSTANCE = GWT.create(CoreExtensionResources.class);
+	CoreExtensionResources INSTANCE = GWT.create(CoreExtensionResources.class);
 
-    @Source("studio-banner.png")
-    ImageResource getStudioBanner();
+	@Source("studio-banner.png") ImageResource getStudioBanner();
 
 	@CssResource.NotStrict
-	@Source("style.css")
-    CssResource styleCSS();
-
+	@Source("style.css") CssResource styleCSS();
 
 }

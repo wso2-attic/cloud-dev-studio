@@ -25,18 +25,18 @@ import org.wso2.developerstudio.codenvy.ext.esb.client.inject.ESBJavaScriptInjec
 import org.wso2.developerstudio.codenvy.ext.esb.shared.ESBExtConstants;
 
 @Singleton
-@Extension(title =  CoreExtConstants.EXT_NAME_PREFIX + ESBExtConstants.EXT_NAME,
-                    version = ESBExtConstants.EXT_VERSION)
+@Extension(title = CoreExtConstants.EXT_NAME_PREFIX + ESBExtConstants.EXT_NAME,
+           version = ESBExtConstants.EXT_VERSION)
 public class ESBExtension {
 
-    @Inject
-    public ESBExtension(WorkspaceAgent workspaceAgent,
-                        ESBGraphicalEditorPresenter graphicalEditor,
-                        ESBExtensionResources bundle) {
+	@Inject
+	public ESBExtension(WorkspaceAgent workspaceAgent,
+	                    ESBGraphicalEditorPresenter graphicalEditor,
+	                    ESBExtensionResources bundle) {
 
-//        ESBJavaScriptInjector.inject(bundle.jqueryLib().getText());
-//        ESBJavaScriptInjector.inject(bundle.jqueryUILib().getText());
-//        ESBJavaScriptInjector.inject(bundle.jsPlumbLib().getText());
-//        ESBJavaScriptInjector.inject(bundle.esbExtensionJS().getText());
-    }
+		//        ESBJavaScriptInjector.inject(bundle.jqueryLib().getText());
+		//        ESBJavaScriptInjector.inject(bundle.jqueryUILib().getText());
+		//        ESBJavaScriptInjector.inject(bundle.jsPlumbLib().getText());
+		//        ESBJavaScriptInjector.inject(bundle.esbExtensionJS().getText());
+	}
 }

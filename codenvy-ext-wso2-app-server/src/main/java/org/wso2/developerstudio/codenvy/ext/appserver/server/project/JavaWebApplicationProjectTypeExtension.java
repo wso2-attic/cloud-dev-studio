@@ -33,33 +33,36 @@ import org.wso2.developerstudio.codenvy.ext.appserver.shared.AppServerExtConstan
 @Singleton
 public class JavaWebApplicationProjectTypeExtension implements ProjectTypeExtension {
 
-    private final ProjectType projectType;
+	private final ProjectType projectType;
 
-    @Inject
-    public JavaWebApplicationProjectTypeExtension(ProjectTypeDescriptionRegistry registry) {
-        this.projectType = new ProjectType(AppServerExtConstants.WSO2_WEB_APP_PROJECT_ID,
-                                                AppServerExtConstants.WSO2_WEB_APP_PROJECT_NAME,
-                                                AppServerExtConstants.WSO2_APP_SERVER_PROJECT_CATEGORY_ID);
-        registry.registerProjectType(this);
-    }
+	@Inject
+	public JavaWebApplicationProjectTypeExtension(ProjectTypeDescriptionRegistry registry) {
+		this.projectType = new ProjectType(AppServerExtConstants.WSO2_WEB_APP_PROJECT_ID,
+		                                   AppServerExtConstants.WSO2_WEB_APP_PROJECT_NAME,
+		                                   AppServerExtConstants.WSO2_APP_SERVER_PROJECT_CATEGORY_ID);
+		registry.registerProjectType(this);
+	}
 
-    @Override
-    public ProjectType getProjectType() {
-        return projectType;
-    }
+	@Override
+	public ProjectType getProjectType() {
+		return projectType;
+	}
 
-    @Override
-    public List<Attribute> getPredefinedAttributes() {
-        final List<Attribute> list = new ArrayList<Attribute>(2);
-        list.add(new Attribute(AppServerExtConstants.LANGUAGE, AppServerExtConstants.JAVA_LANGUAGE));
-        list.add(new Attribute(AppServerExtConstants.BUILDER_NAME, AppServerExtConstants.MAVEN_BUILDER));
-        list.add(new Attribute(AppServerExtConstants.RUNNER_NAME, AppServerExtConstants.WSO2_APP_SERVER_RUNNER_NAME));
-        return list;
-    }
+	@Override
+	public List<Attribute> getPredefinedAttributes() {
+		final List<Attribute> list = new ArrayList<Attribute>(2);
+		list.add(new Attribute(AppServerExtConstants.LANGUAGE,
+		                       AppServerExtConstants.JAVA_LANGUAGE));
+		list.add(new Attribute(AppServerExtConstants.BUILDER_NAME,
+		                       AppServerExtConstants.MAVEN_BUILDER));
+		list.add(new Attribute(AppServerExtConstants.RUNNER_NAME,
+		                       AppServerExtConstants.WSO2_APP_SERVER_RUNNER_NAME));
+		return list;
+	}
 
-    @Override
-    public List<ProjectTemplateDescription> getTemplates() {
-        final List<ProjectTemplateDescription> list = new ArrayList<ProjectTemplateDescription>();
-        return list;
-    }
+	@Override
+	public List<ProjectTemplateDescription> getTemplates() {
+		final List<ProjectTemplateDescription> list = new ArrayList<ProjectTemplateDescription>();
+		return list;
+	}
 }

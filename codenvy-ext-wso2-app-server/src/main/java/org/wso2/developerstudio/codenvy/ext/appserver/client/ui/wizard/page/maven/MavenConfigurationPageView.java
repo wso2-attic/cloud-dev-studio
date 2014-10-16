@@ -19,27 +19,28 @@ import com.codenvy.ide.api.mvp.View;
 import com.google.inject.ImplementedBy;
 
 @ImplementedBy(MavenConfigurationPageViewImpl.class)
-public interface MavenConfigurationPageView extends View<MavenConfigurationPageView.ActionDelegate> {
+public interface MavenConfigurationPageView
+		extends View<MavenConfigurationPageView.ActionDelegate> {
 
-    public interface ActionDelegate{
-        void onTextChange();
-    }
+	public interface ActionDelegate {
+		void onTextChange();
+	}
 
-    void setArtifactId(String artifact);
+	void setArtifactId(String artifact);
 
-    void setGroupId(String group);
+	void setGroupId(String group);
 
-    void setVersion(String value);
+	void setVersion(String value);
 
-    void setPackaging(String value);
+	void setPackaging(String value);
 
-    String getGroupId();
+	String getGroupId();
 
-    String getArtifactId();
+	String getArtifactId();
 
-    String getVersion();
+	String getVersion();
 
-    String getPackaging();
+	String getPackaging();
 
-    void reset();
+	void reset();
 }

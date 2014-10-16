@@ -15,10 +15,9 @@
 */
 package org.wso2.developerstudio.codenvy.ext.runner.client.i18n;
 
-import com.google.gwt.i18n.client.Messages;
+		import com.google.gwt.i18n.client.Messages;
 
 public interface LocalizationMessages extends Messages {
 
-    @Key("project.create.wizard.page.runner.selection.error.nullProject")
-    String errMsgCannotFindAProject();
+	@Key("project.create.wizard.page.runner.selection.error.nullProject") String errMsgCannotFindAProject();
 }

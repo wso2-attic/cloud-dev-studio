@@ -29,19 +29,21 @@ import java.util.List;
 @Singleton
 public class RegistryProjectTypeDescriptionExtension implements ProjectTypeDescriptionExtension {
 
-    @Inject
-    public RegistryProjectTypeDescriptionExtension(ProjectTypeDescriptionRegistry registry) {
-        registry.registerDescription(this);
-    }
+	@Inject
+	public RegistryProjectTypeDescriptionExtension(ProjectTypeDescriptionRegistry registry) {
+		registry.registerDescription(this);
+	}
 
-    @Override
-    public List<ProjectType> getProjectTypes() {
-        return Arrays.asList(new ProjectType(RegistryExtConstants.WSO2_REGISTRY_PROJECT_ID, RegistryExtConstants.WSO2_REGISTRY_PROJECT, RegistryExtConstants.WSO2_PROJECT_ID));
-    }
+	@Override
+	public List<ProjectType> getProjectTypes() {
+		return Arrays.asList(new ProjectType(RegistryExtConstants.WSO2_REGISTRY_PROJECT_ID,
+		                                     RegistryExtConstants.WSO2_REGISTRY_PROJECT,
+		                                     RegistryExtConstants.WSO2_PROJECT_ID));
+	}
 
-    @Override
-    public List<AttributeDescription> getAttributeDescriptions() {
-        return Arrays.asList(new AttributeDescription(RegistryExtConstants.LANGUAGE),
-                new AttributeDescription(RegistryExtConstants.FRAMEWORK));
-    }
+	@Override
+	public List<AttributeDescription> getAttributeDescriptions() {
+		return Arrays.asList(new AttributeDescription(RegistryExtConstants.LANGUAGE),
+		                     new AttributeDescription(RegistryExtConstants.FRAMEWORK));
+	}
 }

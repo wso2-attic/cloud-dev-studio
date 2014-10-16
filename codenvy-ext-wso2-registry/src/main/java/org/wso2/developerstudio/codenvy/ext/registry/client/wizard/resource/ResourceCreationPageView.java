@@ -20,21 +20,21 @@ import com.google.inject.ImplementedBy;
 
 @ImplementedBy(ResourceCreationPageViewImpl.class)
 public interface ResourceCreationPageView extends View<ResourceCreationPageView.ActionDelegate> {
-    public interface ActionDelegate {
-        void onTextChange();
-    }
+	public interface ActionDelegate {
+		void onTextChange();
+	}
 
-    void setArtifactId(String artifact);
+	void setArtifactId(String artifact);
 
-    void setGroupId(String group);
+	void setGroupId(String group);
 
-    void setVersion(String value);
+	void setVersion(String value);
 
-    String getPackaging();
+	String getPackaging();
 
-    String getGroupId();
+	String getGroupId();
 
-    String getArtifactId();
+	String getArtifactId();
 
-    String getVersion();
+	String getVersion();
 }

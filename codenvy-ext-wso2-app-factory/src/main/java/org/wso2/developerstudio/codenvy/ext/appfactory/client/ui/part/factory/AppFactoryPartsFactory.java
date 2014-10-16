@@ -22,22 +22,20 @@ import javax.validation.constraints.NotNull;
 
 public interface AppFactoryPartsFactory {
 
-    /**
-     * Factory method for Application List View
-     *
-     * @param title  Part Title
-     *
-     * @return App List View
-     */
-    AppListPresenter createAppListPart(@NotNull String title);
+	/**
+	 * Factory method for Application List View
+	 *
+	 * @param title Part Title
+	 * @return App List View
+	 */
+	AppListPresenter createAppListPart(@NotNull String title);
 
-    /**
-     * Factory method for Application Details View
-     *
-     * @param title Part Title
-     *
-     * @return App Details View
-     */
-    AppDetailsPresenter createAppDetailsPart(@NotNull String title);
+	/**
+	 * Factory method for Application Details View
+	 *
+	 * @param title Part Title
+	 * @return App Details View
+	 */
+	AppDetailsPresenter createAppDetailsPart(@NotNull String title);
 
 }

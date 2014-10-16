@@ -26,30 +26,33 @@ import com.google.inject.Singleton;
 @Singleton
 public class CarbonRunnerSelectionPageViewImpl implements CarbonRunnerSelectionPageView {
 
-    private static CarbonRunnerSelectionPageViewImplUiBinder uiBinder = GWT.create(CarbonRunnerSelectionPageViewImplUiBinder.class);
+	private static CarbonRunnerSelectionPageViewImplUiBinder uiBinder =
+			GWT.create(CarbonRunnerSelectionPageViewImplUiBinder.class);
 
-    private final DockLayoutPanel rootElement;
+	private final DockLayoutPanel rootElement;
 
-    private ActionDelegate delegate;
+	private ActionDelegate delegate;
 
-    @UiField
-    ListBox runnerBox;
-    @UiField
-    ListBox environmentBox;
+	@UiField
+	ListBox runnerBox;
+	@UiField
+	ListBox environmentBox;
 
-    interface CarbonRunnerSelectionPageViewImplUiBinder extends UiBinder<DockLayoutPanel, CarbonRunnerSelectionPageViewImpl>{}
+	interface CarbonRunnerSelectionPageViewImplUiBinder
+			extends UiBinder<DockLayoutPanel, CarbonRunnerSelectionPageViewImpl> {
+	}
 
-    public CarbonRunnerSelectionPageViewImpl() {
-        rootElement = uiBinder.createAndBindUi(this);
-    }
+	public CarbonRunnerSelectionPageViewImpl() {
+		rootElement = uiBinder.createAndBindUi(this);
+	}
 
-    @Override
-    public void setDelegate(ActionDelegate delegate) {
-        this.delegate = delegate;
-    }
+	@Override
+	public void setDelegate(ActionDelegate delegate) {
+		this.delegate = delegate;
+	}
 
-    @Override
-    public Widget asWidget() {
-        return rootElement;
-    }
+	@Override
+	public Widget asWidget() {
+		return rootElement;
+	}
 }

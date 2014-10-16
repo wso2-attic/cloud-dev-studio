@@ -23,8 +23,8 @@ import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
 @ExtensionGinModule
 public class GinModule extends AbstractGinModule {
 
-    @Override
-    protected void configure() {
-        install(new GinFactoryModuleBuilder().build(AppFactoryPartsFactory.class));
-    }
+	@Override
+	protected void configure() {
+		install(new GinFactoryModuleBuilder().build(AppFactoryPartsFactory.class));
+	}
 }

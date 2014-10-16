@@ -19,9 +19,9 @@ import com.codenvy.inject.DynaModule;
 import com.google.inject.AbstractModule;
 
 @DynaModule
-public class ServerModule extends AbstractModule{
+public class ServerModule extends AbstractModule {
 
-    @Override
-    protected void configure() {
-    }
+	@Override
+	protected void configure() {
+	}
 }

@@ -29,93 +29,94 @@ import com.google.inject.Singleton;
 @Singleton
 public class MavenConfigurationPageViewImpl implements MavenConfigurationPageView {
 
-    private static MavenSettingsPageViewImplUiBinder uiBinder = GWT.create(MavenSettingsPageViewImplUiBinder.class);
+	private static MavenSettingsPageViewImplUiBinder uiBinder =
+			GWT.create(MavenSettingsPageViewImplUiBinder.class);
 
-    private final DockLayoutPanel rootElement;
-    @UiField
-    TextBox versionField;
-    @UiField
-    TextBox groupId;
-    @UiField
-    TextBox artifactId;
-    @UiField
-    ListBox packagingField;
+	private final DockLayoutPanel rootElement;
+	@UiField
+	TextBox versionField;
+	@UiField
+	TextBox groupId;
+	@UiField
+	TextBox artifactId;
+	@UiField
+	ListBox packagingField;
 
-    private ActionDelegate delegate;
+	private ActionDelegate delegate;
 
-    public MavenConfigurationPageViewImpl() {
-        rootElement = uiBinder.createAndBindUi(this);
-        packagingField.setEnabled(false);
-    }
+	public MavenConfigurationPageViewImpl() {
+		rootElement = uiBinder.createAndBindUi(this);
+		packagingField.setEnabled(false);
+	}
 
-    @Override
-    public void setDelegate(ActionDelegate delegate) {
-        this.delegate = delegate;
-    }
+	@Override
+	public void setDelegate(ActionDelegate delegate) {
+		this.delegate = delegate;
+	}
 
-    @Override
-    public Widget asWidget() {
-        return rootElement;
-    }
+	@Override
+	public Widget asWidget() {
+		return rootElement;
+	}
 
-    @Override
-    public String getGroupId() {
-        return groupId.getText();
-    }
+	@Override
+	public String getGroupId() {
+		return groupId.getText();
+	}
 
-    @Override
-    public void setGroupId(String group) {
-        this.groupId.setText(group);
-    }
+	@Override
+	public void setGroupId(String group) {
+		this.groupId.setText(group);
+	}
 
-    @Override
-    public String getArtifactId() {
-        return artifactId.getText();
-    }
+	@Override
+	public String getArtifactId() {
+		return artifactId.getText();
+	}
 
-    @Override
-    public void setArtifactId(String artifact) {
-        this.artifactId.setText(artifact);
-    }
+	@Override
+	public void setArtifactId(String artifact) {
+		this.artifactId.setText(artifact);
+	}
 
-    @Override
-    public String getVersion() {
-        return versionField.getText();
-    }
+	@Override
+	public String getVersion() {
+		return versionField.getText();
+	}
 
-    @Override
-    public void setVersion(String value) {
-        this.versionField.setText(value);
-    }
+	@Override
+	public void setVersion(String value) {
+		this.versionField.setText(value);
+	}
 
-    @Override
-    public String getPackaging() {
-        return packagingField.getValue(packagingField.getSelectedIndex());
-    }
+	@Override
+	public String getPackaging() {
+		return packagingField.getValue(packagingField.getSelectedIndex());
+	}
 
-    @Override
-    public void setPackaging(String value) {
-        for (int i = 0; i < packagingField.getItemCount(); i++) {
-            if (value.equals(packagingField.getValue(i))) {
-                packagingField.setSelectedIndex(i);
-                break;
-            }
-        }
-    }
+	@Override
+	public void setPackaging(String value) {
+		for (int i = 0; i < packagingField.getItemCount(); i++) {
+			if (value.equals(packagingField.getValue(i))) {
+				packagingField.setSelectedIndex(i);
+				break;
+			}
+		}
+	}
 
-    @Override
-    public void reset() {
-        artifactId.setText("");
-        groupId.setText("");
-        versionField.setText("");
-    }
+	@Override
+	public void reset() {
+		artifactId.setText("");
+		groupId.setText("");
+		versionField.setText("");
+	}
 
-    @UiHandler({"versionField", "groupId", "artifactId"})
-    void onKeyUp(KeyUpEvent event) {
-        delegate.onTextChange();
-    }
+	@UiHandler({ "versionField", "groupId", "artifactId" }) void onKeyUp(KeyUpEvent event) {
+		delegate.onTextChange();
+	}
 
-    interface MavenSettingsPageViewImplUiBinder extends UiBinder<DockLayoutPanel, MavenConfigurationPageViewImpl> {
-    }
+	interface MavenSettingsPageViewImplUiBinder
+			extends UiBinder<DockLayoutPanel, MavenConfigurationPageViewImpl> {
+	}
 
 }

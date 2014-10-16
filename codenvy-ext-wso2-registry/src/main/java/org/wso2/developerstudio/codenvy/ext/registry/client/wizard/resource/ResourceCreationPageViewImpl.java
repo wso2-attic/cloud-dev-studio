@@ -27,76 +27,77 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Singleton;
 
 @Singleton
-public class ResourceCreationPageViewImpl implements ResourceCreationPageView
-{
-    private ResourceCreationPageViewImplUiBinder uiBinder = GWT.create(ResourceCreationPageViewImplUiBinder.class);
+public class ResourceCreationPageViewImpl implements ResourceCreationPageView {
+	private ResourceCreationPageViewImplUiBinder uiBinder =
+			GWT.create(ResourceCreationPageViewImplUiBinder.class);
 
-    private DockLayoutPanel rootElement;
+	private DockLayoutPanel rootElement;
 
-    private ActionDelegate delegate;
+	private ActionDelegate delegate;
 
-    @UiField
-    TextBox versionField;
-    @UiField
-    TextBox groupId;
-    @UiField
-    TextBox artifactId;
-    @UiField
-    ListBox packagingField;
+	@UiField
+	TextBox versionField;
+	@UiField
+	TextBox groupId;
+	@UiField
+	TextBox artifactId;
+	@UiField
+	ListBox packagingField;
 
-    interface ResourceCreationPageViewImplUiBinder extends UiBinder<DockLayoutPanel, ResourceCreationPageViewImpl>{}
+	interface ResourceCreationPageViewImplUiBinder
+			extends UiBinder<DockLayoutPanel, ResourceCreationPageViewImpl> {
+	}
 
-    public ResourceCreationPageViewImpl() {
-        rootElement = uiBinder.createAndBindUi(this);
-    }
+	public ResourceCreationPageViewImpl() {
+		rootElement = uiBinder.createAndBindUi(this);
+	}
 
-    @Override
-    public void setDelegate(ResourceCreationPageViewImpl.ActionDelegate delegate) {
-        this.delegate = delegate;
-    }
+	@Override
+	public void setDelegate(ResourceCreationPageViewImpl.ActionDelegate delegate) {
+		this.delegate = delegate;
+	}
 
-    @Override
-    public Widget asWidget() {
-        return rootElement;
-    }
+	@Override
+	public Widget asWidget() {
+		return rootElement;
+	}
 
-    @Override
-    public void setArtifactId(String artifact) {
-        this.artifactId.setText(artifact);
-    }
+	@Override
+	public void setArtifactId(String artifact) {
+		this.artifactId.setText(artifact);
+	}
 
-    @Override
-    public void setGroupId(String group) {
-        this.groupId.setText(group);
-    }
+	@Override
+	public void setGroupId(String group) {
+		this.groupId.setText(group);
+	}
 
-    @Override
-    public void setVersion(String value) {
-        this.versionField.setText(value);
-    }
+	@Override
+	public void setVersion(String value) {
+		this.versionField.setText(value);
+	}
 
-    @Override
-    public String getPackaging() {
-        return packagingField.getItemText(packagingField.getSelectedIndex());
-    }
+	@Override
+	public String getPackaging() {
+		return packagingField.getItemText(packagingField.getSelectedIndex());
+	}
 
-    @Override
-    public String getGroupId() {
-        return groupId.getText();
-    }
+	@Override
+	public String getGroupId() {
+		return groupId.getText();
+	}
 
-    @Override
-    public String getArtifactId() {
-        return artifactId.getText();
-    }
+	@Override
+	public String getArtifactId() {
+		return artifactId.getText();
+	}
 
-    @Override
-    public String getVersion() {
-        return versionField.getText();
-    }
+	@Override
+	public String getVersion() {
+		return versionField.getText();
+	}
 
-    @UiHandler({"versionField", "groupId", "artifactId"})
-    void onKeyUp(KeyUpEvent event) {
-        delegate.onTextChange();
-    }
+	@UiHandler({ "versionField", "groupId", "artifactId" }) void onKeyUp(KeyUpEvent event) {
+		delegate.onTextChange();
+	}
 }

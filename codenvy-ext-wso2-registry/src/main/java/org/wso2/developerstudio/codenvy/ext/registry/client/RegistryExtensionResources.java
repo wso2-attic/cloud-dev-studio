@@ -18,16 +18,12 @@ package org.wso2.developerstudio.codenvy.ext.registry.client;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.TextResource;
 
-public interface RegistryExtensionResources extends ClientBundle{
+public interface RegistryExtensionResources extends ClientBundle {
 
-    @Source("jquery.min.js")
-    TextResource jqueryLib();
+	@Source("jquery.min.js") TextResource jqueryLib();
 
-    @Source("jquery.ui.min.js")
-    TextResource jqueryUILib();
+	@Source("jquery.ui.min.js") TextResource jqueryUILib();
 
-    @Source("jquery.jsPlumb-1.6.2-min.js")
-    TextResource jsPlumbLib();
-
+	@Source("jquery.jsPlumb-1.6.2-min.js") TextResource jsPlumbLib();
 
 }

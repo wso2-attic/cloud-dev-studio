@@ -21,8 +21,8 @@ import com.google.gwt.inject.client.AbstractGinModule;
 @ExtensionGinModule
 public class GinModule extends AbstractGinModule {
 
-    @Override
-    protected void configure() {
+	@Override
+	protected void configure() {
 
-    }
+	}
 }

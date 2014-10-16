@@ -32,132 +32,130 @@ import javax.annotation.Nonnull;
 
 public class LoginViewImpl extends DialogBox implements LoginView {
 
-    interface LoginViewImplUiBinder extends UiBinder<Widget, LoginViewImpl> {
-    }
+	interface LoginViewImplUiBinder extends UiBinder<Widget, LoginViewImpl> {
+	}
 
-    private ActionDelegate delegate;
+	private ActionDelegate delegate;
 
-    private Widget rootElement;
+	private Widget rootElement;
 
-    @UiField
-    RadioButton radioBtnAppCloud;
-    @UiField
-    RadioButton radioBtnAppFactory;
-    @UiField
-    Button btnOK;
-    @UiField
-    Button btnCancel;
-    @UiField
-    TextBox inputHostURL;
-    @UiField
-    TextBox inputUserName;
-    @UiField
-    PasswordTextBox inputPassword;
+	@UiField
+	RadioButton radioBtnAppCloud;
+	@UiField
+	RadioButton radioBtnAppFactory;
+	@UiField
+	Button btnOK;
+	@UiField
+	Button btnCancel;
+	@UiField
+	TextBox inputHostURL;
+	@UiField
+	TextBox inputUserName;
+	@UiField
+	PasswordTextBox inputPassword;
 
+	@Inject
+	public LoginViewImpl(LoginViewImplUiBinder loginPromptUIBinder) {
+		rootElement = loginPromptUIBinder.createAndBindUi(this);
+		this.setWidget(rootElement);
+	}
 
-    @Inject
-    public LoginViewImpl(LoginViewImplUiBinder loginPromptUIBinder) {
-        rootElement = loginPromptUIBinder.createAndBindUi(this);
-        this.setWidget(rootElement);
-    }
+	@UiHandler("btnOK")
+	public void onOKButtonClicked(ClickEvent event) {
+		delegate.onOKButtonClicked();
+	}
 
-    @UiHandler("btnOK")
-    public void onOKButtonClicked(ClickEvent event) {
-        delegate.onOKButtonClicked();
-    }
+	@UiHandler("btnCancel")
+	public void onCancelButtonClicked(ClickEvent event) {
+		delegate.onCancelButtonClicked();
+	}
 
-    @UiHandler("btnCancel")
-    public void onCancelButtonClicked(ClickEvent event) {
-        delegate.onCancelButtonClicked();
-    }
+	@UiHandler("radioBtnAppCloud")
+	public void onAppCloudClicked(ClickEvent event) {
+		delegate.onAppCloudChosen();
+	}
 
-    @UiHandler("radioBtnAppCloud")
-    public void onAppCloudClicked(ClickEvent event) {
-        delegate.onAppCloudChosen();
-    }
+	@UiHandler("radioBtnAppFactory")
+	public void onAppFactoryClicked(ClickEvent event) {
+		delegate.onAppFactoryChosen();
+	}
 
-    @UiHandler("radioBtnAppFactory")
-    public void onAppFactoryClicked(ClickEvent event) {
-        delegate.onAppFactoryChosen();
-    }
+	@UiHandler("inputHostURL")
+	public void onHostChange(KeyUpEvent event) {
+		delegate.onValueChanged();
+	}
 
-    @UiHandler("inputHostURL")
-    public void onHostChange(KeyUpEvent event) {
-        delegate.onValueChanged();
-    }
+	@Override
+	public void setDelegate(ActionDelegate actionDelegate) {
+		this.delegate = actionDelegate;
+	}
 
-    @Override
-    public void setDelegate(ActionDelegate actionDelegate) {
-        this.delegate = actionDelegate;
-    }
+	@Override
+	public Widget asWidget() {
+		return rootElement;
+	}
 
-    @Override
-    public Widget asWidget() {
-        return rootElement;
-    }
+	@Override
+	public void showLoginPrompt() {
+		this.center();
+		this.show();
+	}
 
-    @Override
-    public void showLoginPrompt() {
-        this.center();
-        this.show();
-    }
+	@Override
+	public void close() {
+		this.hide();
+	}
 
-    @Override
-    public void close() {
-        this.hide();
-    }
+	@Override
+	public boolean isAppCloudLoginRequest() {
+		return radioBtnAppCloud.getValue();
+	}
 
-    @Override
-    public boolean isAppCloudLoginRequest() {
-        return radioBtnAppCloud.getValue();
-    }
+	@Override
+	public boolean isAppFactoryLoginRequest() {
+		return radioBtnAppFactory.getValue();
+	}
 
-    @Override
-    public boolean isAppFactoryLoginRequest() {
-        return radioBtnAppFactory.getValue();
-    }
+	@Override
+	public void setAppCloudMode(boolean isAppCloud) {
+		radioBtnAppCloud.setValue(isAppCloud);
+	}
 
-    @Override
-    public void setAppCloudMode(boolean isAppCloud) {
-        radioBtnAppCloud.setValue(isAppCloud);
-    }
+	@Override
+	public void setAppFactoryMode(boolean isAppFactory) {
+		radioBtnAppFactory.setValue(isAppFactory);
+	}
 
-    @Override
-    public void setAppFactoryMode(boolean isAppFactory) {
-        radioBtnAppFactory.setValue(isAppFactory);
-    }
+	@Override
+	public String getHostURL() {
+		return inputHostURL.getText();
+	}
 
-    @Override
-    public String getHostURL() {
-        return inputHostURL.getText();
-    }
+	@Override
+	public void setHostURL(@Nonnull String hostURL) {
+		inputHostURL.setText(hostURL);
+	}
 
-    @Override
-    public void setHostURL(@Nonnull String hostURL) {
-        inputHostURL.setText(hostURL);
-    }
+	@Nonnull
+	@Override
+	public String getUserName() {
+		return inputUserName.getText();
+	}
 
-    @Nonnull
-    @Override
-    public String getUserName() {
-        return inputUserName.getText();
-    }
+	@Override
+	public void setUserName(@Nonnull String userName) {
+		inputUserName.setText(userName);
+	}
 
-    @Override
-    public void setUserName(@Nonnull String userName) {
-        inputUserName.setText(userName);
-    }
+	@Nonnull
+	@Override
+	public String getPassword() {
+		return inputPassword.getText();
+	}
 
-    @Nonnull
-    @Override
-    public String getPassword() {
-        return inputPassword.getText();
-    }
-
-    @Override
-    public void setPassword(@Nonnull String password) {
-        this.inputPassword.setText(password);
-    }
-
+	@Override
+	public void setPassword(@Nonnull String password) {
+		this.inputPassword.setText(password);
+	}
 
 }

@@ -22,18 +22,18 @@ import com.google.inject.ImplementedBy;
 @ImplementedBy(AppListViewImpl.class)
 public interface AppListView extends View<AppListView.ActionDelegate> {
 
-    /**
-     * Required for delegating functions from view.
-     */
-    public interface ActionDelegate extends BaseActionDelegate {
-        void onButtonClicked();
-    }
+	/**
+	 * Required for delegating functions from view.
+	 */
+	public interface ActionDelegate extends BaseActionDelegate {
+		void onButtonClicked();
+	}
 
-    /**
-     * Set title of my part.
-     *
-     * @param title part title
-     */
-    void setTitle(String title);
+	/**
+	 * Set title of my part.
+	 *
+	 * @param title part title
+	 */
+	void setTitle(String title);
 
 }

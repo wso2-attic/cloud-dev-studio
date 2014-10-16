@@ -27,26 +27,28 @@ import org.wso2.developerstudio.codenvy.ext.appserver.client.ui.wizard.page.mave
 import org.wso2.developerstudio.codenvy.ext.appserver.shared.AppServerExtConstants;
 import org.wso2.developerstudio.codenvy.ext.runner.client.ui.wizard.page.runner.CarbonRunnerSelectionPagePresenter;
 
-/** WSO2 Registry Extension. */
+/**
+ * WSO2 Registry Extension.
+ */
 @Singleton
-@Extension(title = CoreExtConstants.EXT_NAME_PREFIX + AppServerExtConstants.EXT_NAME ,
-        version = AppServerExtConstants.EXT_VERSION)
+@Extension(title = CoreExtConstants.EXT_NAME_PREFIX + AppServerExtConstants.EXT_NAME,
+           version = AppServerExtConstants.EXT_VERSION)
 public class AppServerExtension {
 
-    @Inject
-    public AppServerExtension(NotificationManager notificationManager,
-                              AppServerExtensionResources resources,
-                              ProjectTypeWizardRegistry wizardRegistry,
-                              Provider<MavenConfigurationPagePresenter> mavenSettingsPagePresenter,
-                              Provider<CarbonRunnerSelectionPagePresenter> runnerSelectionPagePresenterProvider) {
+	@Inject
+	public AppServerExtension(NotificationManager notificationManager,
+	                          AppServerExtensionResources resources,
+	                          ProjectTypeWizardRegistry wizardRegistry,
+	                          Provider<MavenConfigurationPagePresenter> mavenSettingsPagePresenter,
+	                          Provider<CarbonRunnerSelectionPagePresenter> runnerSelectionPagePresenterProvider) {
 
-        ProjectWizard wizard = new ProjectWizard(notificationManager);
-        wizard.addPage(mavenSettingsPagePresenter);
-        wizard.addPage(runnerSelectionPagePresenterProvider);
+		ProjectWizard wizard = new ProjectWizard(notificationManager);
+		wizard.addPage(mavenSettingsPagePresenter);
+		wizard.addPage(runnerSelectionPagePresenterProvider);
 
-        wizardRegistry.addWizard(AppServerExtConstants.WSO2_WEB_APP_PROJECT_ID, wizard);
-        wizardRegistry.addWizard(AppServerExtConstants.WSO2_JAX_WS_PROJECT_ID, wizard);
-        wizardRegistry.addWizard(AppServerExtConstants.WSO2_JAX_RS_PROJECT_ID, wizard);
+		wizardRegistry.addWizard(AppServerExtConstants.WSO2_WEB_APP_PROJECT_ID, wizard);
+		wizardRegistry.addWizard(AppServerExtConstants.WSO2_JAX_WS_PROJECT_ID, wizard);
+		wizardRegistry.addWizard(AppServerExtConstants.WSO2_JAX_RS_PROJECT_ID, wizard);
 
-    }
+	}
 }

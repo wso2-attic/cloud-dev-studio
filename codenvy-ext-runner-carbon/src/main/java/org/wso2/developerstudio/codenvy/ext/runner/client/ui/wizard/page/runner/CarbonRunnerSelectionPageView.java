@@ -19,10 +19,11 @@ import com.codenvy.ide.api.mvp.View;
 import com.google.inject.ImplementedBy;
 
 @ImplementedBy(CarbonRunnerSelectionPageViewImpl.class)
-public interface CarbonRunnerSelectionPageView extends View<CarbonRunnerSelectionPageView.ActionDelegate> {
+public interface CarbonRunnerSelectionPageView
+		extends View<CarbonRunnerSelectionPageView.ActionDelegate> {
 
-    public interface ActionDelegate{
-        void onRunnerChanged();
-    }
+	public interface ActionDelegate {
+		void onRunnerChanged();
+	}
 
 }

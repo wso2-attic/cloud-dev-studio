@@ -19,9 +19,9 @@ import com.google.gwt.i18n.client.Messages;
 
 public interface LocalizationMessages extends Messages {
 
-    @Key("project.wizard.page.createresource.presenter.notification.start")
-    String projectCreationStartedMsg(String projectName);
+	@Key("project.wizard.page.createresource.presenter.notification.start")
+	String projectCreationStartedMsg(String projectName);
 
-    @Key("project.wizard.page.createresource.presenter.notification.success")
-    String projectCreationFinishedMsg(String projectName);
+	@Key("project.wizard.page.createresource.presenter.notification.success")
+	String projectCreationFinishedMsg(String projectName);
 }

@@ -19,7 +19,6 @@ import com.google.gwt.i18n.client.Constants;
 
 public interface LocalizationConstants extends Constants {
 
-    @Key("project.wizard.page.runner.selection.title")
-    String carbonRunnerSelectionWizardTitle();
+	@Key("project.wizard.page.runner.selection.title") String carbonRunnerSelectionWizardTitle();
 
 }

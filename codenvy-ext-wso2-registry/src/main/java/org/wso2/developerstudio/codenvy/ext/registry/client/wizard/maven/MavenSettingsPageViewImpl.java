@@ -27,87 +27,89 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Singleton;
 
 @Singleton
-public class MavenSettingsPageViewImpl implements MavenSettingsPageView{
+public class MavenSettingsPageViewImpl implements MavenSettingsPageView {
 
-    private static MavenSettingsPageViewImplUiBinder uiBinder = GWT.create(MavenSettingsPageViewImplUiBinder.class);
+	private static MavenSettingsPageViewImplUiBinder uiBinder =
+			GWT.create(MavenSettingsPageViewImplUiBinder.class);
 
-    private final DockLayoutPanel rootElement;
+	private final DockLayoutPanel rootElement;
 
-    private ActionDelegate delegate;
+	private ActionDelegate delegate;
 
-    @UiField
-    TextBox versionField;
-    @UiField
-    TextBox groupId;
-    @UiField
-    TextBox artifactId;
-    @UiField
-    ListBox packagingField;
+	@UiField
+	TextBox versionField;
+	@UiField
+	TextBox groupId;
+	@UiField
+	TextBox artifactId;
+	@UiField
+	ListBox packagingField;
 
-    interface MavenSettingsPageViewImplUiBinder extends UiBinder<DockLayoutPanel, MavenSettingsPageViewImpl>{}
+	interface MavenSettingsPageViewImplUiBinder
+			extends UiBinder<DockLayoutPanel, MavenSettingsPageViewImpl> {
+	}
 
-    public MavenSettingsPageViewImpl() {
-        rootElement = uiBinder.createAndBindUi(this);
-    }
+	public MavenSettingsPageViewImpl() {
+		rootElement = uiBinder.createAndBindUi(this);
+	}
 
-    @Override
-    public void setDelegate(ActionDelegate delegate) {
-        this.delegate = delegate;
-    }
+	@Override
+	public void setDelegate(ActionDelegate delegate) {
+		this.delegate = delegate;
+	}
 
-    /**
-     * This will be called by project wizard window.
-     *
-     * @return
-     */
-    @Override
-    public Widget asWidget() {
-        return rootElement;
-    }
+	/**
+	 * This will be called by project wizard window.
+	 *
+	 * @return
+	 */
+	@Override
+	public Widget asWidget() {
+		return rootElement;
+	}
 
-    @Override
-    public void setArtifactId(String artifact) {
-        this.artifactId.setText(artifact);
-    }
+	@Override
+	public void setArtifactId(String artifact) {
+		this.artifactId.setText(artifact);
+	}
 
-    @Override
-    public void setGroupId(String group) {
-        this.groupId.setText(group);
-    }
+	@Override
+	public void setGroupId(String group) {
+		this.groupId.setText(group);
+	}
 
-    @Override
-    public void setVersion(String value) {
-        this.versionField.setText(value);
-    }
+	@Override
+	public void setVersion(String value) {
+		this.versionField.setText(value);
+	}
 
-    @Override
-    public String getPackaging() {
-        return packagingField.getItemText(packagingField.getSelectedIndex());
-    }
+	@Override
+	public String getPackaging() {
+		return packagingField.getItemText(packagingField.getSelectedIndex());
+	}
 
-    @Override
-    public String getGroupId() {
-        return groupId.getText();
-    }
+	@Override
+	public String getGroupId() {
+		return groupId.getText();
+	}
 
-    @Override
-    public String getArtifactId() {
-        return artifactId.getText();
-    }
+	@Override
+	public String getArtifactId() {
+		return artifactId.getText();
+	}
 
-    @Override
-    public String getVersion() {
-        return versionField.getText();
-    }
+	@Override
+	public String getVersion() {
+		return versionField.getText();
+	}
 
-    /**
-     * ActionListner for keyup event of text fields.
-     *
-     * @param event
-     */
-    @UiHandler({"versionField", "groupId", "artifactId"})
-    void onKeyUp(KeyUpEvent event) {
-        delegate.onTextChange();
-    }
+	/**
+	 * ActionListner for keyup event of text fields.
+	 *
+	 * @param event
+	 */
+	@UiHandler({ "versionField", "groupId", "artifactId" }) void onKeyUp(KeyUpEvent event) {
+		delegate.onTextChange();
+	}
 
 }

@@ -31,90 +31,92 @@ import org.wso2.developerstudio.codenvy.ext.registry.shared.RegistryExtConstants
 import javax.annotation.Nullable;
 
 @Singleton
-public class MavenSettingsPagePresenter extends AbstractWizardPage implements MavenSettingsPageView.ActionDelegate {
+public class MavenSettingsPagePresenter extends AbstractWizardPage
+		implements MavenSettingsPageView.ActionDelegate {
 
-    private final MavenSettingsPageView         view;
-    private final ProjectServiceClient projectServiceClient;
-    private final ResourceProvider     resourceProvider;
-    private final DtoFactory           factory;
-    private final LocalizationConstants localizedConstants;
+	private final MavenSettingsPageView view;
+	private final ProjectServiceClient projectServiceClient;
+	private final ResourceProvider resourceProvider;
+	private final DtoFactory factory;
+	private final LocalizationConstants localizedConstants;
 
-    /**
-     * Create wizard page with given caption and image.
-     *
-     */
-    @Inject
-    public MavenSettingsPagePresenter(MavenSettingsPageView view,
-                                      ProjectServiceClient projectServiceClient,
-                                      ResourceProvider resourceProvider,
-                                      DtoFactory factory, LocalizationConstants localizedConstants) {
-        super(localizedConstants.mavenWizardPageTitle(), null);
+	/**
+	 * Create wizard page with given caption and image.
+	 */
+	@Inject
+	public MavenSettingsPagePresenter(MavenSettingsPageView view,
+	                                  ProjectServiceClient projectServiceClient,
+	                                  ResourceProvider resourceProvider,
+	                                  DtoFactory factory,
+	                                  LocalizationConstants localizedConstants) {
+		super(localizedConstants.mavenWizardPageTitle(), null);
 
-        this.view = view;
-        this.localizedConstants = localizedConstants;
-        // Important step, set the actions delegate of view
-        this.view.setDelegate(this);
-        this.projectServiceClient = projectServiceClient;
-        this.resourceProvider = resourceProvider;
-        this.factory = factory;
+		this.view = view;
+		this.localizedConstants = localizedConstants;
+		// Important step, set the actions delegate of view
+		this.view.setDelegate(this);
+		this.projectServiceClient = projectServiceClient;
+		this.resourceProvider = resourceProvider;
+		this.factory = factory;
 
-    }
+	}
 
-    @Nullable
-    @Override
-    public String getNotice() {
-        return null;
-    }
+	@Nullable
+	@Override
+	public String getNotice() {
+		return null;
+	}
 
-    @Override
-    public boolean isCompleted() {
-        return !view.getArtifactId().equals("") && !view.getGroupId().equals("") && !view.getVersion().equals("");
-    }
+	@Override
+	public boolean isCompleted() {
+		return !view.getArtifactId().equals("") && !view.getGroupId().equals("") &&
+		       !view.getVersion().equals("");
+	}
 
-    @Override
-    public void focusComponent() {
+	@Override
+	public void focusComponent() {
 
-    }
+	}
 
-    @Override
-    public void storeOptions() {
-        wizardContext.putData(RegistryExtConstants.WKEY_MAVEN_ARTIFACT_ID, view.getArtifactId());
-        wizardContext.putData(RegistryExtConstants.WKEY_MAVEN_GROUP_ID, view.getGroupId());
-        wizardContext.putData(RegistryExtConstants.WKEY_MAVEN_VERSION, view.getVersion());
-    }
+	@Override
+	public void storeOptions() {
+		wizardContext.putData(RegistryExtConstants.WKEY_MAVEN_ARTIFACT_ID, view.getArtifactId());
+		wizardContext.putData(RegistryExtConstants.WKEY_MAVEN_GROUP_ID, view.getGroupId());
+		wizardContext.putData(RegistryExtConstants.WKEY_MAVEN_VERSION, view.getVersion());
+	}
 
-    @Override
-    public void removeOptions() {
-        wizardContext.removeData(RegistryExtConstants.WKEY_MAVEN_ARTIFACT_ID);
-        wizardContext.removeData(RegistryExtConstants.WKEY_MAVEN_VERSION);
-        wizardContext.removeData(RegistryExtConstants.WKEY_MAVEN_GROUP_ID);
-    }
+	@Override
+	public void removeOptions() {
+		wizardContext.removeData(RegistryExtConstants.WKEY_MAVEN_ARTIFACT_ID);
+		wizardContext.removeData(RegistryExtConstants.WKEY_MAVEN_VERSION);
+		wizardContext.removeData(RegistryExtConstants.WKEY_MAVEN_GROUP_ID);
+	}
 
-    @Override
-    public void go(AcceptsOneWidget container) {
-        // Important - Set view as the widget
-        container.setWidget(view);
-        Project project = wizardContext.getData(ProjectWizard.PROJECT);
-        if (project != null) {
-            view.setArtifactId(project.getAttributeValue(RegistryExtConstants.MAVEN_ARTIFACT_ID));
-            view.setGroupId(project.getAttributeValue(RegistryExtConstants.MAVEN_GROUP_ID));
-            view.setVersion(project.getAttributeValue(RegistryExtConstants.MAVEN_VERSION));
-            Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
-                @Override
-                public void execute() {
-                    onTextChange();
-                }
-            });
-        }
-    }
+	@Override
+	public void go(AcceptsOneWidget container) {
+		// Important - Set view as the widget
+		container.setWidget(view);
+		Project project = wizardContext.getData(ProjectWizard.PROJECT);
+		if (project != null) {
+			view.setArtifactId(project.getAttributeValue(RegistryExtConstants.MAVEN_ARTIFACT_ID));
+			view.setGroupId(project.getAttributeValue(RegistryExtConstants.MAVEN_GROUP_ID));
+			view.setVersion(project.getAttributeValue(RegistryExtConstants.MAVEN_VERSION));
+			Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
+				@Override
+				public void execute() {
+					onTextChange();
+				}
+			});
+		}
+	}
 
-    @Override
-    public boolean canSkip() {
-        return false;
-    }
+	@Override
+	public boolean canSkip() {
+		return false;
+	}
 
-    @Override
-    public void onTextChange() {
-        delegate.updateControls();
-    }
+	@Override
+	public void onTextChange() {
+		delegate.updateControls();
+	}
 }

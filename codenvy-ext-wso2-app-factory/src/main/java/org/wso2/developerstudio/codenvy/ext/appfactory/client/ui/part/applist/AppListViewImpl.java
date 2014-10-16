@@ -26,35 +26,34 @@ import org.wso2.developerstudio.codenvy.ext.appfactory.client.AppFactoryExtensio
 
 public class AppListViewImpl extends BaseView<AppListView.ActionDelegate> implements AppListView {
 
-    interface AppFacPartViewImplUiBinder extends UiBinder<Widget, AppListViewImpl> {
-    }
+	interface AppFacPartViewImplUiBinder extends UiBinder<Widget, AppListViewImpl> {
+	}
 
-    @Inject
-    AppFactoryExtensionResources re;
+	@Inject
+	AppFactoryExtensionResources re;
 
-    @UiField
-    HorizontalPanel btnPanel;
-    @UiField
-    HorizontalPanel loginIconPanel;
-    @UiField
-    FlowPanel infoPanel;
-    @UiField
-    FlowPanel buildPanel;
-    @UiField
-    FlowPanel teamPanel;
-    @UiField
-    FlowPanel datasourcesPanel;
+	@UiField
+	HorizontalPanel btnPanel;
+	@UiField
+	HorizontalPanel loginIconPanel;
+	@UiField
+	FlowPanel infoPanel;
+	@UiField
+	FlowPanel buildPanel;
+	@UiField
+	FlowPanel teamPanel;
+	@UiField
+	FlowPanel datasourcesPanel;
 
-    @Inject
-    public AppListViewImpl(AppFacPartViewImplUiBinder ourUiBinder, PartStackUIResources resources) {
-        super(resources);
-        container.add(ourUiBinder.createAndBindUi(this));
+	@Inject
+	public AppListViewImpl(AppFacPartViewImplUiBinder ourUiBinder, PartStackUIResources resources) {
+		super(resources);
+		container.add(ourUiBinder.createAndBindUi(this));
 
-        ImageResource loginIcon = re.getLoginIcon();
-        PushButton loginBtn = new PushButton(new Image(loginIcon));
-        btnPanel.add(loginBtn);
+		ImageResource loginIcon = re.getLoginIcon();
+		PushButton loginBtn = new PushButton(new Image(loginIcon));
+		btnPanel.add(loginBtn);
 
-    }
-
+	}
 
 }

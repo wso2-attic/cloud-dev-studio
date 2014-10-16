@@ -17,9 +17,9 @@ package org.wso2.developerstudio.codenvy.ext.runner.shared;
 
 public interface CarbonRunnerExtConstants {
 
-    String EXT_NAME = "Carbon Runner Extension";
-    String EXT_VERSION = "1.0.0";
+	String EXT_NAME = "Carbon Runner Extension";
+	String EXT_VERSION = "1.0.0";
 
-    String RUNNER_NAME = "";
-    String RUNNER_ENV_ID = "";
+	String RUNNER_NAME = "";
+	String RUNNER_ENV_ID = "";
 }

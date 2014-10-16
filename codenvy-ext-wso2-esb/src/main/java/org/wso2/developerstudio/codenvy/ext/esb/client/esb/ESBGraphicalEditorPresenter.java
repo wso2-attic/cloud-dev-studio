@@ -20,46 +20,44 @@ import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 
-public class ESBGraphicalEditorPresenter extends AbstractPartPresenter implements ESBGraphicalEditorView.ActionDelegate {
-    private ESBGraphicalEditorView view;
-   
-    @Inject
-    public ESBGraphicalEditorPresenter(ESBGraphicalEditorView view) {
-        this.view = view;
-        this.view.setDelegate(this);
-     }
+public class ESBGraphicalEditorPresenter extends AbstractPartPresenter
+		implements ESBGraphicalEditorView.ActionDelegate {
+	private ESBGraphicalEditorView view;
 
-    @Override
-    public void go(AcceptsOneWidget container) {
-        container.setWidget(view);
-    }
-    
-    @Override
-    public String getTitleToolTip() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Inject
+	public ESBGraphicalEditorPresenter(ESBGraphicalEditorView view) {
+		this.view = view;
+		this.view.setDelegate(this);
+	}
 
+	@Override
+	public void go(AcceptsOneWidget container) {
+		container.setWidget(view);
+	}
 
-    @Override
-    public void minimize() {
-        // TODO Auto-generated method stub
-        
-    }
+	@Override
+	public String getTitleToolTip() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
+	@Override
+	public void minimize() {
+		// TODO Auto-generated method stub
 
-    @Override
-    public String getTitle() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	}
 
+	@Override
+	public String getTitle() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public ImageResource getTitleImage() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public ImageResource getTitleImage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
 

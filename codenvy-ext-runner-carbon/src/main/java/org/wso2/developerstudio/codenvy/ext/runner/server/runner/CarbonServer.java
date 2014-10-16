@@ -10,31 +10,32 @@ import java.io.File;
 
 public class CarbonServer extends Runner {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CarbonServer.class);
+	private static final Logger LOG = LoggerFactory.getLogger(CarbonServer.class);
 
+	public CarbonServer(File deployDirectoryRoot, int cleanupDelay, ResourceAllocators allocators,
+	                    EventService eventService) {
+		super(deployDirectoryRoot, cleanupDelay, allocators, eventService);
+	}
 
-    public CarbonServer(File deployDirectoryRoot, int cleanupDelay, ResourceAllocators allocators, EventService eventService) {
-        super(deployDirectoryRoot, cleanupDelay, allocators, eventService);
-    }
+	@Override
+	public String getName() {
+		return null;
+	}
 
-    @Override
-    public String getName() {
-        return null;
-    }
+	@Override
+	public String getDescription() {
+		return null;
+	}
 
-    @Override
-    public String getDescription() {
-        return null;
-    }
+	@Override
+	public RunnerConfigurationFactory getRunnerConfigurationFactory() {
+		return null;
+	}
 
-    @Override
-    public RunnerConfigurationFactory getRunnerConfigurationFactory() {
-        return null;
-    }
-
-    @Override
-    protected ApplicationProcess newApplicationProcess(DeploymentSources deploymentSources,
-                                                       RunnerConfiguration runnerConfiguration) throws RunnerException {
-        return null;
-    }
+	@Override
+	protected ApplicationProcess newApplicationProcess(DeploymentSources deploymentSources,
+	                                                   RunnerConfiguration runnerConfiguration)
+			throws RunnerException {
+		return null;
+	}
 }

@@ -17,41 +17,41 @@ package org.wso2.developerstudio.codenvy.ext.appfactory.shared.dto;
 
 public class AFLoginResponse {
 
-    private boolean isLoggedIn;
-    private boolean isErroneousRequest;
-    private String errorMessage;
+	private boolean isLoggedIn;
+	private boolean isErroneousRequest;
+	private String errorMessage;
 
-    public AFLoginResponse(boolean isLoggedIn) {
-        this.isLoggedIn = isLoggedIn;
-    }
+	public AFLoginResponse(boolean isLoggedIn) {
+		this.isLoggedIn = isLoggedIn;
+	}
 
-    public AFLoginResponse(boolean isLoggedIn, boolean isErroneousRequest, String errorMessage) {
-        this.isLoggedIn = isLoggedIn;
-        this.isErroneousRequest = isErroneousRequest;
-        this.errorMessage = errorMessage;
-    }
+	public AFLoginResponse(boolean isLoggedIn, boolean isErroneousRequest, String errorMessage) {
+		this.isLoggedIn = isLoggedIn;
+		this.isErroneousRequest = isErroneousRequest;
+		this.errorMessage = errorMessage;
+	}
 
-    public boolean isErroneousRequest() {
-        return isErroneousRequest;
-    }
+	public boolean isErroneousRequest() {
+		return isErroneousRequest;
+	}
 
-    public void setErroneousRequest(boolean isErronouesRequest) {
-        this.isErroneousRequest = isErronouesRequest;
-    }
+	public void setErroneousRequest(boolean isErronouesRequest) {
+		this.isErroneousRequest = isErronouesRequest;
+	}
 
-    public boolean isLoggedIn() {
-        return isLoggedIn;
-    }
+	public boolean isLoggedIn() {
+		return isLoggedIn;
+	}
 
-    public void setLoggedIn(boolean isLoggedIn) {
-        this.isLoggedIn = isLoggedIn;
-    }
+	public void setLoggedIn(boolean isLoggedIn) {
+		this.isLoggedIn = isLoggedIn;
+	}
 
-    public String getErrorMessage() {
-        return errorMessage;
-    }
+	public String getErrorMessage() {
+		return errorMessage;
+	}
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
 }

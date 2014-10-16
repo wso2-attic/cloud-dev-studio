@@ -25,23 +25,25 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
-public class AppDetailsViewImpl extends BaseView<AppDetailsView.ActionDelegate> implements AppDetailsView {
+public class AppDetailsViewImpl extends BaseView<AppDetailsView.ActionDelegate>
+		implements AppDetailsView {
 
-    interface AppFacPartViewImplUiBinder extends UiBinder<Widget, AppDetailsViewImpl> {
-    }
+	interface AppFacPartViewImplUiBinder extends UiBinder<Widget, AppDetailsViewImpl> {
+	}
 
-    @UiField
-    Button button;
+	@UiField
+	Button button;
 
-    @Inject
-    public AppDetailsViewImpl(AppFacPartViewImplUiBinder ourUiBinder, PartStackUIResources resources) {
-        super(resources);
-        container.add(ourUiBinder.createAndBindUi(this));
-    }
+	@Inject
+	public AppDetailsViewImpl(AppFacPartViewImplUiBinder ourUiBinder,
+	                          PartStackUIResources resources) {
+		super(resources);
+		container.add(ourUiBinder.createAndBindUi(this));
+	}
 
-    @UiHandler("button")
-    public void onButtonClicked(ClickEvent event) {
-        delegate.onButtonClicked();
-    }
+	@UiHandler("button")
+	public void onButtonClicked(ClickEvent event) {
+		delegate.onButtonClicked();
+	}
 
 }

@@ -24,108 +24,105 @@ import com.google.inject.ImplementedBy;
 @ImplementedBy(LoginViewImpl.class)
 public interface LoginView extends View<LoginView.ActionDelegate> {
 
-    /**
-     * Interface for view action delegation
-     */
-    public interface ActionDelegate extends BaseActionDelegate {
+	/**
+	 * Interface for view action delegation
+	 */
+	public interface ActionDelegate extends BaseActionDelegate {
 
-        /**
-         * Action Handler for OK button
-         */
-        void onOKButtonClicked();
+		/**
+		 * Action Handler for OK button
+		 */
+		void onOKButtonClicked();
 
-        /**
-         * Action Handler for cancel Button
-         */
-        void onCancelButtonClicked();
+		/**
+		 * Action Handler for cancel Button
+		 */
+		void onCancelButtonClicked();
 
-        /**
-         * Performs some actions in response to a app cloud.
-         */
-        void onAppCloudChosen();
+		/**
+		 * Performs some actions in response to a app cloud.
+		 */
+		void onAppCloudChosen();
 
-        /**
-         * Performs some actions in response to a app fac.
-         */
-        void onAppFactoryChosen();
+		/**
+		 * Performs some actions in response to a app fac.
+		 */
+		void onAppFactoryChosen();
 
-        /**
-         * Performs any actions appropriate in response to the user having changed something.
-         */
-        void onValueChanged();
+		/**
+		 * Performs any actions appropriate in response to the user having changed something.
+		 */
+		void onValueChanged();
 
-    }
+	}
 
-    /**
-     * Show Login dialog.
-     */
-    void showLoginPrompt();
+	/**
+	 * Show Login dialog.
+	 */
+	void showLoginPrompt();
 
-    /**
-     * @return <code>true</code> if app cloud is chosen, and <code>false</code> otherwise
-     */
-    boolean isAppCloudLoginRequest();
+	/**
+	 * @return <code>true</code> if app cloud is chosen, and <code>false</code> otherwise
+	 */
+	boolean isAppCloudLoginRequest();
 
-    /**
-     * @return <code>true</code> if app factory is chosen, and <code>false</code> otherwise
-     */
-    boolean isAppFactoryLoginRequest();
+	/**
+	 * @return <code>true</code> if app factory is chosen, and <code>false</code> otherwise
+	 */
+	boolean isAppFactoryLoginRequest();
 
-    /**
-     * Select app cloud button.
-     *
-     * @param isAppCloud <code>true</code> to select app cloud, <code>false</code> not to select
-     */
-    void setAppCloudMode(boolean isAppCloud);
+	/**
+	 * Select app cloud button.
+	 *
+	 * @param isAppCloud <code>true</code> to select app cloud, <code>false</code> not to select
+	 */
+	void setAppCloudMode(boolean isAppCloud);
 
-    /**
-     * Select app fac button.
-     *
-     * @param isAppFactory <code>true</code> to select app factory, <code>false</code> not to select
-     */
-    void setAppFactoryMode(boolean isAppFactory);
+	/**
+	 * Select app fac button.
+	 *
+	 * @param isAppFactory <code>true</code> to select app factory, <code>false</code> not to select
+	 */
+	void setAppFactoryMode(boolean isAppFactory);
 
-    /**
-     * @return Wso2 App Cloud
-     */
-    @Nonnull
-    String getHostURL();
+	/**
+	 * @return Wso2 App Cloud
+	 */
+	@Nonnull String getHostURL();
 
-    /**
-     * Set Wso2 Appcloud.
-     *
-     * @param hostURL Cloud
-     */
-    void setHostURL(@Nonnull String hostURL);
+	/**
+	 * Set Wso2 Appcloud.
+	 *
+	 * @param hostURL Cloud
+	 */
+	void setHostURL(@Nonnull String hostURL);
 
-    /**
-     * @return Email
-     */
-    @Nonnull
-    String getUserName();
+	/**
+	 * @return Email
+	 */
+	@Nonnull String getUserName();
 
-    /**
-     * Set Email.
-     *
-     * @param userName
-     */
-    void setUserName(@Nonnull String userName);
+	/**
+	 * Set Email.
+	 *
+	 * @param userName
+	 */
+	void setUserName(@Nonnull String userName);
 
-    /**
-     * @return Wso2 App Cloud
-     */
-    @Nonnull
-    String getPassword();
+	/**
+	 * @return Wso2 App Cloud
+	 */
+	@Nonnull String getPassword();
 
-    /**
-     * Set Password .
-     *
-     * @param password
-     */
-    void setPassword(@Nonnull String password);
+	/**
+	 * Set Password .
+	 *
+	 * @param password
+	 */
+	void setPassword(@Nonnull String password);
 
-    /**
-     * Close dialog.
-     */
-    void close();
+	/**
+	 * Close dialog.
+	 */
+	void close();
 }

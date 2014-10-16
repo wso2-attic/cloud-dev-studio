@@ -17,27 +17,30 @@ import static com.codenvy.ide.api.ui.workspace.PartStackType.TOOLING;
  */
 public class OpenPerspectiveAction extends Action {
 
-    @Inject
-    private AppFactoryPartsFactory appFactoryPartsFactory;
-    @Inject
-    private WorkspaceAgent workspaceAgent;
-    @Inject
-    private LoginPresenter loginPresenter;
+	@Inject
+	private AppFactoryPartsFactory appFactoryPartsFactory;
+	@Inject
+	private WorkspaceAgent workspaceAgent;
+	@Inject
+	private LoginPresenter loginPresenter;
 
-    public OpenPerspectiveAction() {
-        super(AppFactoryExtConstants.OPEN_AF_PERSPECTIVE_ACTION_NAME);
-    }
+	public OpenPerspectiveAction() {
+		super(AppFactoryExtConstants.OPEN_AF_PERSPECTIVE_ACTION_NAME);
+	}
 
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) {
+	@Override
+	public void actionPerformed(ActionEvent actionEvent) {
 
-        loginPresenter.showDialog();
+		loginPresenter.showDialog();
 
-        PartPresenter appFacPartPresenter = appFactoryPartsFactory.createAppListPart(AppFactoryExtConstants.WSO2_APP_FAC_VIEW_APPLIST);
-        workspaceAgent.openPart(appFacPartPresenter, TOOLING);
-        workspaceAgent.setActivePart(appFacPartPresenter);
+		PartPresenter appFacPartPresenter = appFactoryPartsFactory
+				.createAppListPart(AppFactoryExtConstants.WSO2_APP_FAC_VIEW_APPLIST);
+		workspaceAgent.openPart(appFacPartPresenter, TOOLING);
+		workspaceAgent.setActivePart(appFacPartPresenter);
 
-        workspaceAgent.openPart(appFactoryPartsFactory.createAppDetailsPart(AppFactoryExtConstants.WSO2_APP_FAC_VIEW_CONSOLE), INFORMATION);
-        workspaceAgent.openPart(appFactoryPartsFactory.createAppDetailsPart(AppFactoryExtConstants.WSO2_APP_FAC_VIEW_APPDETAILS), INFORMATION);
-    }
+		workspaceAgent.openPart(appFactoryPartsFactory.createAppDetailsPart(
+				AppFactoryExtConstants.WSO2_APP_FAC_VIEW_CONSOLE), INFORMATION);
+		workspaceAgent.openPart(appFactoryPartsFactory.createAppDetailsPart(
+				AppFactoryExtConstants.WSO2_APP_FAC_VIEW_APPDETAILS), INFORMATION);
+	}
 }

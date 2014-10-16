@@ -23,27 +23,25 @@ import com.google.gwt.user.client.Timer;
 
 public class ESBJavaScriptInjector {
 
-    private static HeadElement head;
+	private static HeadElement head;
 
-    public static void inject(String javascript) {
+	public static void inject(String javascript) {
 
-        HeadElement head = getHead();
-        new Timer() {
+		HeadElement head = getHead();
+		new Timer() {
 
-            public void run() {
-                // goJsPlumb();
-                goJS();
-            }
-        }.schedule(1);
+			public void run() {
+				// goJsPlumb();
+				goJS();
+			}
+		}.schedule(1);
 
+		ScriptElement element = createScriptElement();
+		element.setText(javascript);
+		head.appendChild(element);
+	}
 
-        ScriptElement element = createScriptElement();
-        element.setText(javascript);
-        head.appendChild(element);
-    }
-
-
-    public static native void goJsPlumb() /*-{
+	public static native void goJsPlumb() /*-{
 
         var t1 = $doc.getElementById('state1');
 
@@ -79,7 +77,7 @@ public class ESBJavaScriptInjector {
 
     }-*/;
 
-    public static native void goJS() /*-{
+	public static native void goJS() /*-{
 
         //$wnd.alert("starting...");
         $wnd.jsPlumb.ready(function () {
@@ -111,20 +109,20 @@ public class ESBJavaScriptInjector {
 
     }-*/;
 
-    private static ScriptElement createScriptElement() {
-        ScriptElement script = Document.get().createScriptElement();
-        script.setAttribute("language", "javascript");
-        return script;
+	private static ScriptElement createScriptElement() {
+		ScriptElement script = Document.get().createScriptElement();
+		script.setAttribute("language", "javascript");
+		return script;
 
-    }
+	}
 
-    private static HeadElement getHead() {
-        if (head == null) {
-            Element element = Document.get().getElementsByTagName("head").getItem(0);
-            assert element != null : "HTML Head element required";
-            HeadElement head = HeadElement.as(element);
-            ESBJavaScriptInjector.head = head;
-        }
-        return ESBJavaScriptInjector.head;
-    }
+	private static HeadElement getHead() {
+		if (head == null) {
+			Element element = Document.get().getElementsByTagName("head").getItem(0);
+			assert element != null : "HTML Head element required";
+			HeadElement head = HeadElement.as(element);
+			ESBJavaScriptInjector.head = head;
+		}
+		return ESBJavaScriptInjector.head;
+	}
 }

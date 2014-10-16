@@ -34,30 +34,22 @@ import javax.ws.rs.core.Context;
 @Path("afclient")
 public class AppFactoryClientService {
 
-    @Inject
-    AppFactoryClient aFClient;
+	@Inject
+	AppFactoryClient aFClient;
 
-    @GET
-    @Path("kavi")
-    public String getMessage(){
+	@POST
+	@Path(AppFactoryExtConstants.AF_CLIENT_LOGIN_METHOD_PATH)
+	public AFLoginResponse login(@FormParam("userName") String userName,
+	                             @FormParam("password") String password,
+	                             @Context HttpServletRequest request) {
+		boolean loggedIn = false;
 
-        return  "Hello Kavith";
-    }
+		HttpSession session = request.getSession();
 
+		if (session.getAttribute("wso2AFLoggedInUser") != null) {
 
-    @POST
-    @Path(AppFactoryExtConstants.AF_CLIENT_LOGIN_METHOD_PATH)
-    public AFLoginResponse login(@FormParam("userName") String userName, @FormParam("password") String password,
-                                                                            @Context HttpServletRequest request) {
-        boolean loggedIn = false;
+		}
 
-        HttpSession session = request.getSession();
-
-        if(session.getAttribute("wso2AFLoggedInUser") != null){
-
-
-        }
-
-        return new AFLoginResponse(loggedIn);
-    }
+		return new AFLoginResponse(loggedIn);
+	}
 }

@@ -18,6 +18,6 @@ package org.wso2.developerstudio.codenvy.ext.appserver.client;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.TextResource;
 
-public interface AppServerExtensionResources extends ClientBundle{
+public interface AppServerExtensionResources extends ClientBundle {
 
 }

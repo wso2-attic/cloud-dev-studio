@@ -30,24 +30,24 @@ import org.wso2.developerstudio.codenvy.ext.registry.shared.RegistryExtConstants
 
 @Singleton
 @Extension(title = CoreExtConstants.EXT_NAME_PREFIX + RegistryExtConstants.EXT_NAME,
-                                            version = RegistryExtConstants.EXT_VERSION)
+           version = RegistryExtConstants.EXT_VERSION)
 public class RegistryExtension {
 
-    @Inject
-    public RegistryExtension(NotificationManager notificationManager,
-                             RegistryExtensionResources resources,
-                             ProjectTypeWizardRegistry wizardRegistry,
-                             Provider<MavenSettingsPagePresenter> mavenSettingsPagePresenter,
-                             Provider<ResourceCreationPagePresenter> resourceCreationPagePresenter) {
+	@Inject
+	public RegistryExtension(NotificationManager notificationManager,
+	                         RegistryExtensionResources resources,
+	                         ProjectTypeWizardRegistry wizardRegistry,
+	                         Provider<MavenSettingsPagePresenter> mavenSettingsPagePresenter,
+	                         Provider<ResourceCreationPagePresenter> resourceCreationPagePresenter) {
 
-        ProjectWizard wizard = new ProjectWizard(notificationManager);
-        wizard.addPage(mavenSettingsPagePresenter);
-        wizard.addPage(resourceCreationPagePresenter);
-        wizardRegistry.addWizard(RegistryExtConstants.WSO2_REGISTRY_PROJECT_ID, wizard);
+		ProjectWizard wizard = new ProjectWizard(notificationManager);
+		wizard.addPage(mavenSettingsPagePresenter);
+		wizard.addPage(resourceCreationPagePresenter);
+		wizardRegistry.addWizard(RegistryExtConstants.WSO2_REGISTRY_PROJECT_ID, wizard);
 
-//        ScriptInjector.fromString(resources.jqueryLib().getText()).inject();
-//        ScriptInjector.fromString(resources.jqueryUILib().getText()).inject();
-//        ScriptInjector.fromString(resources.jsPlumbLib().getText()).inject();
+		//        ScriptInjector.fromString(resources.jqueryLib().getText()).inject();
+		//        ScriptInjector.fromString(resources.jqueryUILib().getText()).inject();
+		//        ScriptInjector.fromString(resources.jsPlumbLib().getText()).inject();
 
-    }
+	}
 }

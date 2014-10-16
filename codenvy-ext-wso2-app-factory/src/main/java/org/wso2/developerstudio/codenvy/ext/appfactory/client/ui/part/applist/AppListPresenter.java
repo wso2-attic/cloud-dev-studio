@@ -24,41 +24,42 @@ import org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.dialog.login.Lo
 
 public class AppListPresenter extends BasePresenter implements AppListView.ActionDelegate {
 
-    private AppListView view;
-    private String title;
-    private LoginPresenter loginPresenter;
+	private AppListView view;
+	private String title;
+	private LoginPresenter loginPresenter;
 
-    @Inject
-    public AppListPresenter(AppListView view, @Assisted String title, LoginPresenter loginPresenter) {
-        this.view = view;
-        this.view.setDelegate(this);
-        this.view.setTitle(title);
-        this.title = title;
-        this.loginPresenter = loginPresenter;
-    }
+	@Inject
+	public AppListPresenter(AppListView view, @Assisted String title,
+	                        LoginPresenter loginPresenter) {
+		this.view = view;
+		this.view.setDelegate(this);
+		this.view.setTitle(title);
+		this.title = title;
+		this.loginPresenter = loginPresenter;
+	}
 
-    @Override
-    public void onButtonClicked() {
-        loginPresenter.showDialog();
-    }
+	@Override
+	public void onButtonClicked() {
+		loginPresenter.showDialog();
+	}
 
-    @Override
-    public String getTitle() {
-        return title;
-    }
+	@Override
+	public String getTitle() {
+		return title;
+	}
 
-    @Override
-    public ImageResource getTitleImage() {
-        return null;
-    }
+	@Override
+	public ImageResource getTitleImage() {
+		return null;
+	}
 
-    @Override
-    public String getTitleToolTip() {
-        return "Tooltip";
-    }
+	@Override
+	public String getTitleToolTip() {
+		return "Tooltip";
+	}
 
-    @Override
-    public void go(AcceptsOneWidget container) {
-        container.setWidget(view);
-    }
+	@Override
+	public void go(AcceptsOneWidget container) {
+		container.setWidget(view);
+	}
 }

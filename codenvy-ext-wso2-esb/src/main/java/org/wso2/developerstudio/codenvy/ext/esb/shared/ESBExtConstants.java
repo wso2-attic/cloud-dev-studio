@@ -19,7 +19,7 @@ import com.codenvy.ide.api.ui.wizard.WizardContext;
 
 public interface ESBExtConstants {
 
-    String EXT_NAME = "ESB Extension";
-    String EXT_VERSION = "1.0.0";
+	String EXT_NAME = "ESB Extension";
+	String EXT_VERSION = "1.0.0";
 
 }

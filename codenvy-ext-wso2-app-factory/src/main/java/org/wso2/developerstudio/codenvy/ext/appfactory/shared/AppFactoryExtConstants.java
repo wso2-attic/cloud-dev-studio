@@ -17,20 +17,20 @@ package org.wso2.developerstudio.codenvy.ext.appfactory.shared;
 
 public interface AppFactoryExtConstants {
 
-    String EXT_NAME = "App Factory Tools";
-    String EXT_VERSION = "1.0.0";
+	String EXT_NAME = "App Factory Tools";
+	String EXT_VERSION = "1.0.0";
 
-    String OPEN_AF_PERSPECTIVE_ACTION_ID = "wso2AFOpenPerspectiveAction";
-    String OPEN_AF_PERSPECTIVE_ACTION_NAME = "App Factory Perspective";
+	String OPEN_AF_PERSPECTIVE_ACTION_ID = "wso2AFOpenPerspectiveAction";
+	String OPEN_AF_PERSPECTIVE_ACTION_NAME = "App Factory Perspective";
 
-    String WSO2_APP_FAC_VIEW_APPLIST = "Applications List";
-    String WSO2_APP_FAC_VIEW_CONSOLE = "Console";
-    String WSO2_APP_FAC_VIEW_APPDETAILS = "Application Details";
+	String WSO2_APP_FAC_VIEW_APPLIST = "Applications List";
+	String WSO2_APP_FAC_VIEW_CONSOLE = "Console";
+	String WSO2_APP_FAC_VIEW_APPDETAILS = "Application Details";
 
-    String ACTION_LOGIN_AF_ID = "wso2AFLoginAction";
-    String ACTION_LOGIN_AF_NAME = "Login to App Factory";
+	String ACTION_LOGIN_AF_ID = "wso2AFLoginAction";
+	String ACTION_LOGIN_AF_NAME = "Login to App Factory";
 
-    String AF_CLIENT_REST_SERVICE_PATH = "afclient";
-    String AF_CLIENT_LOGIN_METHOD_PATH = "login";
+	String AF_CLIENT_REST_SERVICE_PATH = "afclient";
+	String AF_CLIENT_LOGIN_METHOD_PATH = "login";
 
 }

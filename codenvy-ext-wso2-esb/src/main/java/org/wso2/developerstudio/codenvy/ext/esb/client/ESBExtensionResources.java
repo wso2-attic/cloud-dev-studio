@@ -20,16 +20,12 @@ import com.google.gwt.resources.client.TextResource;
 
 public interface ESBExtensionResources extends ClientBundle {
 
-    @Source("esb-extension.js")
-    TextResource esbExtensionJS();
+	@Source("esb-extension.js") TextResource esbExtensionJS();
 
-    @Source("jquery.min.js")
-    TextResource jqueryLib();
+	@Source("jquery.min.js") TextResource jqueryLib();
 
-    @Source("jquery.ui.min.js")
-    TextResource jqueryUILib();
+	@Source("jquery.ui.min.js") TextResource jqueryUILib();
 
-    @Source("jquery.jsPlumb-1.6.2-min.js")
-    TextResource jsPlumbLib();
+	@Source("jquery.jsPlumb-1.6.2-min.js") TextResource jsPlumbLib();
 
 }

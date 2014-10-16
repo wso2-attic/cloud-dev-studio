@@ -22,9 +22,8 @@ import com.google.inject.ImplementedBy;
 @ImplementedBy(ESBGraphicalEditorViewImpl.class)
 public interface ESBGraphicalEditorView extends View<ESBGraphicalEditorView.ActionDelegate> {
 
-    public interface ActionDelegate extends BaseActionDelegate {
-    }
+	public interface ActionDelegate extends BaseActionDelegate {
+	}
 
-  
 }
 

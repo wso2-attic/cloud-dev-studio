@@ -20,63 +20,63 @@ import com.google.inject.Inject;
 
 public class LoginPresenter implements LoginView.ActionDelegate {
 
-    private LoginView view;
-    private ConsolePart consolePart;
-    private String title;
-    private String wso2AppCloud;
-    private String email;
-    private String password;
+	private LoginView view;
+	private ConsolePart consolePart;
+	private String title;
+	private String wso2AppCloud;
+	private String email;
+	private String password;
 
-    @Inject
-    public LoginPresenter(LoginView view, ConsolePart consolePart) {
-        this.view = view;
-        this.consolePart = consolePart;
-        this.view.setDelegate(this);
-    }
+	@Inject
+	public LoginPresenter(LoginView view, ConsolePart consolePart) {
+		this.view = view;
+		this.consolePart = consolePart;
+		this.view.setDelegate(this);
+	}
 
-    @Override
-    public void onValueChanged() {
+	@Override
+	public void onValueChanged() {
 
-        wso2AppCloud = view.getHostURL();
-        email = view.getUserName();
-        password = view.getPassword();
+		wso2AppCloud = view.getHostURL();
+		email = view.getUserName();
+		password = view.getPassword();
 
-    }
+	}
 
-    /**
-     * Show Login dialog.
-     */
-    public void showDialog() {
-        view.showLoginPrompt();
-    }
+	/**
+	 * Show Login dialog.
+	 */
+	public void showDialog() {
+		view.showLoginPrompt();
+	}
 
-    @Override
-    public void minimize() {
-        // TODO Auto-generated method stub
+	@Override
+	public void minimize() {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
-    @Override
-    public void onAppCloudChosen() {
-        // TODO Auto-generated method stub
+	@Override
+	public void onAppCloudChosen() {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
-    @Override
-    public void onAppFactoryChosen() {
-        // TODO Auto-generated method stub
+	@Override
+	public void onAppFactoryChosen() {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
-    @Override
-    public void onCancelButtonClicked() {
-        view.close();
-    }
+	@Override
+	public void onCancelButtonClicked() {
+		view.close();
+	}
 
-    @Override
-    public void onOKButtonClicked() {
+	@Override
+	public void onOKButtonClicked() {
 
-    }
+	}
 
 }
 

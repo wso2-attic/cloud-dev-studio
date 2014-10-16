@@ -18,6 +18,6 @@ package org.wso2.developerstudio.codenvy.ext.runner.client;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.TextResource;
 
-public interface CarbonRunnerExtensionResources extends ClientBundle{
+public interface CarbonRunnerExtensionResources extends ClientBundle {
 
 }

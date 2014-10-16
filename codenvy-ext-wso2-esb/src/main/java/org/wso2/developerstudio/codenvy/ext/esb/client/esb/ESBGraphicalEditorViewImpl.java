@@ -22,18 +22,21 @@ import com.google.inject.Inject;
 import org.wso2.developerstudio.codenvy.ext.esb.client.esb.ESBGraphicalEditorView;
 
 public class ESBGraphicalEditorViewImpl extends Composite implements ESBGraphicalEditorView {
-    interface ESBGraphicalEditorViewImplUiBinder extends UiBinder<Widget, ESBGraphicalEditorViewImpl> {
-    }
+	interface ESBGraphicalEditorViewImplUiBinder
+			extends UiBinder<Widget, ESBGraphicalEditorViewImpl> {
+	}
 
-@Inject
-    public ESBGraphicalEditorViewImpl(ESBGraphicalEditorViewImplUiBinder ourUiBinder) {
-        initWidget(ourUiBinder.createAndBindUi(this));
-    }
+	@Inject
+	public ESBGraphicalEditorViewImpl(ESBGraphicalEditorViewImplUiBinder ourUiBinder) {
+		initWidget(ourUiBinder.createAndBindUi(this));
+	}
 
-    /** {@inheritDoc} */
-    @Override
-    public void setDelegate(ActionDelegate delegate) {
-        // do nothing
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void setDelegate(ActionDelegate delegate) {
+		// do nothing
+	}
 }
 

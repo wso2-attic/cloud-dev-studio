@@ -26,27 +26,29 @@ import org.wso2.developerstudio.codenvy.core.shared.CoreExtConstants;
 import org.wso2.developerstudio.codenvy.ext.appfactory.client.action.OpenPerspectiveAction;
 import org.wso2.developerstudio.codenvy.ext.appfactory.shared.AppFactoryExtConstants;
 
-
 @Singleton
 @Extension(title = CoreExtConstants.EXT_NAME_PREFIX + AppFactoryExtConstants.EXT_NAME,
-        version = AppFactoryExtConstants.EXT_VERSION)
+           version = AppFactoryExtConstants.EXT_VERSION)
 public class AppFactoryExtension {
 
-    @Inject
-    public AppFactoryExtension(ActionManager actManager, OpenPerspectiveAction openAFAction, NotificationManager notificationManager) {
+	@Inject
+	public AppFactoryExtension(ActionManager actManager, OpenPerspectiveAction openAFAction,
+	                           NotificationManager notificationManager) {
 
-        try {
-            DefaultActionGroup wso2ActionGroup = (DefaultActionGroup) actManager
-                    .getAction(CoreExtConstants.WSO2_ACTION_GROUP_ID);
-            actManager.registerAction(AppFactoryExtConstants.OPEN_AF_PERSPECTIVE_ACTION_ID, openAFAction);
-            wso2ActionGroup.add(openAFAction);
+		try {
+			DefaultActionGroup wso2ActionGroup = (DefaultActionGroup) actManager
+					.getAction(CoreExtConstants.WSO2_ACTION_GROUP_ID);
+			actManager.registerAction(AppFactoryExtConstants.OPEN_AF_PERSPECTIVE_ACTION_ID,
+			                          openAFAction);
+			wso2ActionGroup.add(openAFAction);
 
-        } catch (Exception ex) {
-            notificationManager.showNotification(new Notification("App Factory tools initiation failed.",
-                    Notification.Type.ERROR));
-        }
+		} catch (Exception ex) {
+			notificationManager
+					.showNotification(new Notification("App Factory tools initiation failed.",
+					                                   Notification.Type.ERROR));
+		}
 
-    }
+	}
 }
 
 

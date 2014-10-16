@@ -22,14 +22,14 @@ import org.wso2.developerstudio.codenvy.core.client.ui.dialogs.AboutDialogBox;
 import org.wso2.developerstudio.codenvy.core.shared.CoreExtConstants;
 
 public class AboutDialogBoxAction extends Action {
-    @Inject
-    public AboutDialogBoxAction() {
-        super(CoreExtConstants.WSO2_ABOUT_ACTION_NAME);
-    }
+	@Inject
+	public AboutDialogBoxAction() {
+		super(CoreExtConstants.WSO2_ABOUT_ACTION_NAME);
+	}
 
-    @Override
-    public void actionPerformed(ActionEvent arg0) {
-        new AboutDialogBox().show();
-    }
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		new AboutDialogBox().show();
+	}
 
 }

@@ -21,11 +21,11 @@ import org.wso2.developerstudio.codenvy.ext.registry.server.project.RegistryProj
 import org.wso2.developerstudio.codenvy.ext.registry.server.project.RegistryProjectTypeExtension;
 
 @DynaModule
-public class ServerModule extends AbstractModule{
+public class ServerModule extends AbstractModule {
 
-    @Override
-    protected void configure() {
-//        bind(RegistryProjectTypeExtension.class);
-//        bind(RegistryProjectTypeDescriptionExtension.class);
-    }
+	@Override
+	protected void configure() {
+		//        bind(RegistryProjectTypeExtension.class);
+		//        bind(RegistryProjectTypeDescriptionExtension.class);
+	}
 }
