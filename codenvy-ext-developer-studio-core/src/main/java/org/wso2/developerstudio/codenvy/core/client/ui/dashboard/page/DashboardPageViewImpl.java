@@ -22,6 +22,8 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.*;
 import com.google.inject.Singleton;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.wso2.developerstudio.codenvy.core.client.CoreExtensionResources;
 import org.wso2.developerstudio.codenvy.core.client.ui.dashboard.DashboardItem;
 
@@ -42,6 +44,8 @@ public class DashboardPageViewImpl implements DashboardPageView {
     public static final int CAT_HEADER_SPACING = 20;
 	public static final String CATEGORY_STYLE = "bar";
 	public static final String ITEM_STYLE = "btn";
+
+	private static final Logger logger = LoggerFactory.getLogger(DashboardPageViewImpl.class);
 
 	interface DashboardPageBinder extends UiBinder<Widget, DashboardPageViewImpl> {
     }
@@ -80,7 +84,9 @@ public class DashboardPageViewImpl implements DashboardPageView {
     @Override
     public void generateDashboard(Map<String, List<DashboardItem>> itemList) {
 	    //for css resource injection
-	    CoreExtensionResources.INSTANCE.styleCSS().ensureInjected();
+	    if(!CoreExtensionResources.INSTANCE.styleCSS().ensureInjected()){
+		    logger.error("css resource not injected for dashboard generation");
+	    }
 	    ScrollPanel mainBackgroundPanel= new ScrollPanel();
 	    HorizontalPanel backGroundDashboardPanel = new HorizontalPanel(); // we should ad the common items in a vertical panel into this
 
@@ -101,7 +107,7 @@ public class DashboardPageViewImpl implements DashboardPageView {
                 backGroundDashboardPanel.add(dashBoardSectionPanel);
             }
         } else {
-            // log : there are no categories in the item category list, hence no categories to display
+            logger.info("no project categories in the category list, hence no categories appear in the dashboard display panel");
         }
         mainBackgroundPanel.add(backGroundDashboardPanel);
         actionList.addNorth(mainBackgroundPanel, MAIN_BACKGROUND_PANEL_NORTH);
@@ -118,11 +124,17 @@ public class DashboardPageViewImpl implements DashboardPageView {
         itemPanel.setSpacing(ITEM_SPACING);
 
         Image itemImage = new Image();
-        itemImage.setResource(dashboardItem.getImageResource());
+	    String itemName = dashboardItem.getName().toString();
+	    if (dashboardItem.getImageResource() != null){
+		    itemImage.setResource(dashboardItem.getImageResource());
+	    }
+	    else{
+		    logger.info("the item" + itemName + "does not have an image associated, hence only the name is displayed");
+	    }
         itemImage.getElement().setId(dashboardItem.getName());
 
         Label itemLabel = new Label();
-        itemLabel.setText(dashboardItem.getName().toString());
+        itemLabel.setText(itemName);
 
         itemPanel.add(itemImage);
         itemPanel.add(itemLabel);
@@ -147,12 +159,16 @@ public class DashboardPageViewImpl implements DashboardPageView {
         HorizontalPanel categoryHeaderPanel = new HorizontalPanel();
         categoryHeaderPanel.setSpacing(CAT_HEADER_SPACING);
         Label categoryHeader = new Label();
-        categoryHeader.setText(entry.getKey());
 
         Image catImage = new Image();
+	    String catName = entry.getKey();
+	    categoryHeader.setText(catName);
         if (entry.getValue().get(0).getImageResource() != null) {
             catImage.setResource(entry.getValue().get(0).getCategory().getImageResource());
             categoryHeaderPanel.add(catImage);
+        }
+	    else{
+	        logger.info("the category" + catName + "does not have an image associated, hence only the name is displayed");
         }
         categoryHeaderPanel.add(categoryHeader);
 	    categoryHeaderPanel.setStyleName(CATEGORY_STYLE);
