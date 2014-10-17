@@ -84,7 +84,9 @@ public class DashboardPageViewImpl implements DashboardPageView {
     @Override
     public void generateDashboard(Map<String, List<DashboardItem>> itemList) {
 	    //for css resource injection
-	    CoreExtensionResources.INSTANCE.styleCSS().ensureInjected();
+	    if(!CoreExtensionResources.INSTANCE.styleCSS().ensureInjected()){
+		    logger.error("css resource not injected for dashboard generation");
+	    }
 	    ScrollPanel mainBackgroundPanel= new ScrollPanel();
 	    HorizontalPanel backGroundDashboardPanel = new HorizontalPanel(); // we should ad the common items in a vertical panel into this
 
