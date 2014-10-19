@@ -82,7 +82,7 @@ public class NoInsertAtEndIndexedDropController extends SimpleDropController {
     @Override
     public void onDrop(DragContext context) {
         ElementCount++;
-        xLoc = xLoc + INCREMENT_CONSTANT; //incrementing the next drop integer value needs to be tested on all browsers and reset
+        xLoc = xLoc + INCREMENT_CONSTANT; //incrementing the next drop integer value needs to be tested on all browsers and reset, is += more efficient?
         for (Widget widget : context.selectedWidgets) {
             Image newDroppedElem = new Image();
             newDroppedElem.getElement().setId(DRAGGED + ElementCount);
