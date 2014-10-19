@@ -17,6 +17,8 @@ package org.wso2.jsplumb.client.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.allen_sauer.gwt.dnd.client.DragContext;
 import com.allen_sauer.gwt.dnd.client.drop.SimpleDropController;
@@ -50,7 +52,7 @@ public class CustomImageElementDropControler extends SimpleDropController {
 	private static final String DRAGGED = "dragged";
 
 	private static final String DROPPABLE_IMAGE_STYLE = "gwt-Image dragdrop-draggable dragdrop-handle";
-	private static final String DROPPING_IMAGE_STYLE = "gwt-Image dragdrop-draggable dragdrop-handle dragdrop-dragging";	
+	private static final String DROPPING_IMAGE_STYLE = "gwt-Image dragdrop-draggable dragdrop-handle dragdrop-dragging";
 
 	private int elementCount = 0; // count of dropped elements in the droppable panel
 	private int droppedElemxCoord = 100; //coordinates for the dropped element
@@ -134,6 +136,9 @@ public class CustomImageElementDropControler extends SimpleDropController {
 					newDroppedElem = null; 
 					RootPanel.get(BACKGROUND).getAbsoluteLeft();
 				}
+				else{
+					//logger.log(Level.SEVERE , "Draggable Panel has not been initialized");  use GWT logging
+				}
 			}
 		}
 		//to connect the widgets on drop with the previously dropped widget
@@ -143,7 +148,7 @@ public class CustomImageElementDropControler extends SimpleDropController {
 		GWTjsplumbSample.gwtjsPlumbDemo(prevElem, currElem, elementCount);
 		elementCount++;
 
-		droppedElemyCoord += xCoordinateIncrement; // increment the dropping coordinates of the dropped elements by 100px
+		droppedElemxCoord += xCoordinateIncrement; // increment the dropping coordinates of the dropped elements by 100px
 		super.onDrop(context);
 	}
 
@@ -163,7 +168,6 @@ public class CustomImageElementDropControler extends SimpleDropController {
 		public void onClick(ClickEvent event) {
 			event.preventDefault();
 			selectedWidget = (Widget) event.getSource();
-			GWTjsplumbSample.echo(selectedWidget.getElement().getId());
 		}
 	};
 }

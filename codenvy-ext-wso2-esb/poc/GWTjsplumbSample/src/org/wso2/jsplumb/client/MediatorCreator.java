@@ -75,7 +75,7 @@ public class MediatorCreator {
 			break;
 
 		default:
-			imageResource = JsClientBundle.INSTANCE.LogImage();// insert an error image for this
+			imageResource = JsClientBundle.INSTANCE.LogImage();// insert a default image for this
 			break;
 		}
 
