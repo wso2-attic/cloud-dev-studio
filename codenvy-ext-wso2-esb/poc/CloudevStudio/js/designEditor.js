@@ -43,10 +43,9 @@ var MEDIATOR_SWITCH = "switch"; //currently only done for a switch mediator need
  }
 
 //deleting elements on select and delete key press
-function designViewKeyDown(e) {
-
-    if (e.keyCode == 46 && curElement != null) {  // 46 is the keycode returned on DELETE key press
-       // var connectionList = jsPlumb.getAllConnections();
+function designViewDeleteKeyDown(e) {
+    connectionList = jsPlumb.getAllConnections();
+    if (curElement != null) {
         for (var connection in connectionList) {
             if (connectionList.hasOwnProperty(connection)) {
                 if (connectionList[connection].sourceId == curElement.attr('id')) {
@@ -65,7 +64,7 @@ function designViewKeyDown(e) {
         curElement.remove();
 
 
-        if (curTargetElem != null && curSourceElem != null) {
+        if (curTargetElem != null && curSourceElem != null) { // if the deleted item was a middle item in the sequence, connect its source and target
             connectDivs(curTargetElem, curSourceElem);
             curSourceElem = null;
             curTargetElem = null;
@@ -93,7 +92,7 @@ function createDiv(objName, image, type, topLoc) {
 }
 
 //add div function for source to design view change, only done for log mediator yet
-function AddDiv(logMediatorObj) {
+function addDiv(logMediatorObj) {
     jsonStr = '{"log":' + JSON.stringify(logMediatorObj) + ' }'
     jsonObj = $.parseJSON(jsonStr);
     editorItemCounter++;
@@ -134,9 +133,7 @@ function jsplumbHandleDraggable() {
         cursor: 'move',
         zIndex: zIndexConstant,
         //When first dragged
-        stop: function (ev, ui) {
-
-        }
+        stop: function (ev, ui) { }
     });
 }
 

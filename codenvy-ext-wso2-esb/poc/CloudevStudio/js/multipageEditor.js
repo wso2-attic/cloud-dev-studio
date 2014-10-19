@@ -71,10 +71,10 @@ function initJsPlumb(container) {
 }
 
 // data updating for mediator data
-function setUpdatedDataCallBack(obj) {
+function setUpdatedDataCallBack(receivedData) {
     var strID = curElement.attr('id');
     var divMediator = document.getElementById(strID);
-    $(divMediator).data('jsonConfig', obj);
+    $(divMediator).data('jsonConfig', receivedData);
     currentPopup.dialog("close");
 }
 
@@ -105,14 +105,15 @@ function registerMouseAndKeyEvents() {
     });
 
     $(document).keydown(function (e) {
-        designViewKeyDown(e);
+        if(e.keyCode == 46){ // 46 is the keycode returned on DELETE key press
+        designViewDeleteKeyDown(e); //detecting the key down event for DELETE key press
+        }
     });
 }
 
 //sourve view and design view tab changes
 function registerTabChangeEvent() {
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        console.log('tabChagne');
         var tabName = $(e.target).html();
         if (tabName == 'Source') {
             activateSourceView();
@@ -185,7 +186,7 @@ function activateDesignView() {
     for (logArrayElem in logArray) {
         if (logArray.hasOwnProperty(logArrayElem)) {
             console.log(logArrayElem);
-            var currentDiv = AddDiv(logArrayElem);
+            var currentDiv = addDiv(logArrayElem);
             if (prevDivElement != null) {
                 connectDivs(prevDivElement, currentDiv);
                 lastItem = currentDiv;
