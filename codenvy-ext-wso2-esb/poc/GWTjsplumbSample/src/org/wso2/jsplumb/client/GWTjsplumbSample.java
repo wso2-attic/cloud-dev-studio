@@ -38,9 +38,9 @@ import com.wso2.jsplumb.client.injectors.ScriptInjectorHelper;
 public class GWTjsplumbSample implements EntryPoint {
 
 	private static final String CSS_MAINWINDOW = "mainwindow";
-	private static final String DROPPABLE_PANEL = "droppablePanel";
-	private static final String DRAGGABLE_PANEL = "draggablePanel";
-	private static final String BACKGROUND = "background";
+	public static final String DROPPABLE_PANEL = "droppablePanel";
+	public static final String DRAGGABLE_PANEL = "draggablePanel";
+	public static final String BACKGROUND = "background";
 
 	private static final int DROPPABLE_HEIGHT = 1000; //integer values needs to be changed after testing on all browsers, work in progress hense used rough values
 	private static final int DROPPABLE_WIDTH = 1400; //integer values needs to be changed after testing on all browsers, work in progress hense used rough values

@@ -35,8 +35,6 @@ import com.wso2.jsplumb.client.MediatorCreator;
 public class CustomImageElementDropControler extends SimpleDropController {
 
 	private static final int xCoordinateIncrement = 100;
-	private static final String DROPPABLE_PANEL = "droppablePanel";
-	private static final String DRAGGABLE_PANEL = "draggablePanel";
 	private static final String PAYLFAC_MEDIATOR = "paylfacMediator";
 	private static final String PROPERTY_MEDIATOR = "propertyMediator";
 	private static final String RESPOND_MEDIATOR = "respondMediator";
@@ -48,7 +46,6 @@ public class CustomImageElementDropControler extends SimpleDropController {
 	private static final String LOG_MEDIATOR = "logMediator";
 	private static final String CALL_TEMPLATE_MEDIATOR = "callTemplateMediator";
 	private static final String CALL_MEDIATOR = "callMediator";
-	private static final String BACKGROUND = "background";
 	private static final String DRAGGED = "dragged";
 
 	private static final String DROPPABLE_IMAGE_STYLE = "gwt-Image dragdrop-draggable dragdrop-handle";
@@ -77,11 +74,11 @@ public class CustomImageElementDropControler extends SimpleDropController {
 				widget.getElement().removeClassName(DROPPING_IMAGE_STYLE);
 				widget.getElement().addClassName(DROPPABLE_IMAGE_STYLE);
 				
-				if (RootPanel.get(DRAGGABLE_PANEL) != null
-						&& RootPanel.get(DROPPABLE_PANEL) != null) {//(mediator.toString().toLowerCase() + MEDIATOR);
+				if (RootPanel.get(GWTjsplumbSample.DRAGGABLE_PANEL) != null
+						&& RootPanel.get(GWTjsplumbSample.DROPPABLE_PANEL) != null) {//(mediator.toString().toLowerCase() + MEDIATOR);
 					
-					RootPanel.get(DRAGGABLE_PANEL).add(widget); // add a clone to the draggable panel
-					RootPanel.get(DROPPABLE_PANEL).remove(widget); // remove the default dropped element to the droppable panel
+					RootPanel.get(GWTjsplumbSample.DRAGGABLE_PANEL).add(widget); // add a clone to the draggable panel
+					RootPanel.get(GWTjsplumbSample.DROPPABLE_PANEL).remove(widget); // remove the default dropped element to the droppable panel
 
 					if (droppedElemId.equalsIgnoreCase(CALL_MEDIATOR)) {
 						newDroppedElem = MediatorCreator.getMediatorByName(Mediator.CALL,
@@ -134,7 +131,7 @@ public class CustomImageElementDropControler extends SimpleDropController {
 					//generate a map of the dropped elements
 					widgetMap.put(elementCount, newDroppedElem.getElement().getId());
 					newDroppedElem = null; 
-					RootPanel.get(BACKGROUND).getAbsoluteLeft();
+					RootPanel.get(GWTjsplumbSample.BACKGROUND).getAbsoluteLeft();
 				}
 				else{
 					//logger.log(Level.SEVERE , "Draggable Panel has not been initialized");  use GWT logging
