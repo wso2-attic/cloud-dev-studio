@@ -45,7 +45,6 @@ public class DashboardPagePresenter extends AbstractEditorPresenter implements D
     private List<String> categoryList;
     private List<DashboardItem> itemsByCategory;
 
-	private static final Logger logger = LoggerFactory.getLogger(DashboardPagePresenter.class);
 
     @Inject
     public DashboardPagePresenter(DashboardItemRegistry itemRegistry, DashboardPageView view) {
@@ -123,7 +122,7 @@ public class DashboardPagePresenter extends AbstractEditorPresenter implements D
                 itemMap.put(catName, itemsByCategory);
             }
         } else {
-            logger.info("no dashboard items to display, hence dashboard appears empty");
+            //log.info("no dashboard items to display, hence dashboard appears empty");
 
         }
         return itemMap;
