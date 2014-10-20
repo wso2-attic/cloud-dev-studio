@@ -17,6 +17,8 @@ package org.wso2.jsplumb.client.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.allen_sauer.gwt.dnd.client.DragContext;
 import com.allen_sauer.gwt.dnd.client.drop.SimpleDropController;
@@ -33,8 +35,6 @@ import com.wso2.jsplumb.client.MediatorCreator;
 public class CustomImageElementDropControler extends SimpleDropController {
 
 	private static final int xCoordinateIncrement = 100;
-	private static final String DROPPABLE_PANEL = "droppablePanel";
-	private static final String DRAGGABLE_PANEL = "draggablePanel";
 	private static final String PAYLFAC_MEDIATOR = "paylfacMediator";
 	private static final String PROPERTY_MEDIATOR = "propertyMediator";
 	private static final String RESPOND_MEDIATOR = "respondMediator";
@@ -46,11 +46,10 @@ public class CustomImageElementDropControler extends SimpleDropController {
 	private static final String LOG_MEDIATOR = "logMediator";
 	private static final String CALL_TEMPLATE_MEDIATOR = "callTemplateMediator";
 	private static final String CALL_MEDIATOR = "callMediator";
-	private static final String BACKGROUND = "background";
 	private static final String DRAGGED = "dragged";
 
 	private static final String DROPPABLE_IMAGE_STYLE = "gwt-Image dragdrop-draggable dragdrop-handle";
-	private static final String DROPPING_IMAGE_STYLE = "gwt-Image dragdrop-draggable dragdrop-handle dragdrop-dragging";	
+	private static final String DROPPING_IMAGE_STYLE = "gwt-Image dragdrop-draggable dragdrop-handle dragdrop-dragging";
 
 	private int elementCount = 0; // count of dropped elements in the droppable panel
 	private int droppedElemxCoord = 100; //coordinates for the dropped element
@@ -75,11 +74,11 @@ public class CustomImageElementDropControler extends SimpleDropController {
 				widget.getElement().removeClassName(DROPPING_IMAGE_STYLE);
 				widget.getElement().addClassName(DROPPABLE_IMAGE_STYLE);
 				
-				if (RootPanel.get(DRAGGABLE_PANEL) != null
-						&& RootPanel.get(DROPPABLE_PANEL) != null) {//(mediator.toString().toLowerCase() + MEDIATOR);
+				if (RootPanel.get(GWTjsplumbSample.DRAGGABLE_PANEL) != null
+						&& RootPanel.get(GWTjsplumbSample.DROPPABLE_PANEL) != null) {//(mediator.toString().toLowerCase() + MEDIATOR);
 					
-					RootPanel.get(DRAGGABLE_PANEL).add(widget); // add a clone to the draggable panel
-					RootPanel.get(DROPPABLE_PANEL).remove(widget); // remove the default dropped element to the droppable panel
+					RootPanel.get(GWTjsplumbSample.DRAGGABLE_PANEL).add(widget); // add a clone to the draggable panel
+					RootPanel.get(GWTjsplumbSample.DROPPABLE_PANEL).remove(widget); // remove the default dropped element to the droppable panel
 
 					if (droppedElemId.equalsIgnoreCase(CALL_MEDIATOR)) {
 						newDroppedElem = MediatorCreator.getMediatorByName(Mediator.CALL,
@@ -132,7 +131,10 @@ public class CustomImageElementDropControler extends SimpleDropController {
 					//generate a map of the dropped elements
 					widgetMap.put(elementCount, newDroppedElem.getElement().getId());
 					newDroppedElem = null; 
-					RootPanel.get(BACKGROUND).getAbsoluteLeft();
+					RootPanel.get(GWTjsplumbSample.BACKGROUND).getAbsoluteLeft();
+				}
+				else{
+					//logger.log(Level.SEVERE , "Draggable Panel has not been initialized");  use GWT logging
 				}
 			}
 		}
@@ -143,7 +145,7 @@ public class CustomImageElementDropControler extends SimpleDropController {
 		GWTjsplumbSample.gwtjsPlumbDemo(prevElem, currElem, elementCount);
 		elementCount++;
 
-		droppedElemyCoord += xCoordinateIncrement; // increment the dropping coordinates of the dropped elements by 100px
+		droppedElemxCoord += xCoordinateIncrement; // increment the dropping coordinates of the dropped elements by 100px
 		super.onDrop(context);
 	}
 
@@ -163,7 +165,6 @@ public class CustomImageElementDropControler extends SimpleDropController {
 		public void onClick(ClickEvent event) {
 			event.preventDefault();
 			selectedWidget = (Widget) event.getSource();
-			GWTjsplumbSample.echo(selectedWidget.getElement().getId());
 		}
 	};
 }

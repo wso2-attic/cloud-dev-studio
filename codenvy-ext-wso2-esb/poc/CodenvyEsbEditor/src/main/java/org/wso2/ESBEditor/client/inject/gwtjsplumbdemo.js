@@ -17,15 +17,19 @@
 
 function gwtjsplumbdemo(prevElem,currElem) {
    var lineColour = "#3366FF";
+   var lineWidthVal = 1;
    jsPlumb.bind("ready", function() {
-	   
-   jsPlumb.connect({source:prevElem, target:currElem,
-       anchors:["Right", "Left" ],
-	     paintStyle: { strokeStyle:lineColour , lineWidth: 1 },
+
+   jsPlumb.connect({
+         source:prevElem, target:currElem,
+         anchors:["Right", "Left" ],
+	     paintStyle: { strokeStyle:lineColour , lineWidth: lineWidthVal
+	      },
        connector: ["Flowchart", { curviness: 100}],
-       connectorStyle: [{ lineWidth: 1, strokeStyle: lineColour }],
-       hoverPaintStyle: { strokeStyle: lineColour, lineWidth: 1 }
+       connectorStyle: [{ lineWidth: lineWidthVal, strokeStyle: lineColour }],
+       hoverPaintStyle: { strokeStyle: lineColour, lineWidth: lineWidthVal }
        });
+
    });
-  
+
  }

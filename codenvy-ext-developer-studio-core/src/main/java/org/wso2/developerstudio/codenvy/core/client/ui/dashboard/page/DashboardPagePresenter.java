@@ -22,8 +22,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.wso2.developerstudio.codenvy.core.client.ui.dashboard.DashboardItem;
 import org.wso2.developerstudio.codenvy.core.client.ui.dashboard.DashboardItemRegistry;
 import org.wso2.developerstudio.codenvy.core.shared.CoreExtConstants;
@@ -44,7 +42,6 @@ public class DashboardPagePresenter extends AbstractEditorPresenter implements D
     private Map<String, List<DashboardItem>> itemMap;
     private List<String> categoryList;
     private List<DashboardItem> itemsByCategory;
-
 
     @Inject
     public DashboardPagePresenter(DashboardItemRegistry itemRegistry, DashboardPageView view) {
@@ -122,7 +119,7 @@ public class DashboardPagePresenter extends AbstractEditorPresenter implements D
                 itemMap.put(catName, itemsByCategory);
             }
         } else {
-            //log.info("no dashboard items to display, hence dashboard appears empty");
+            // log the error
 
         }
         return itemMap;

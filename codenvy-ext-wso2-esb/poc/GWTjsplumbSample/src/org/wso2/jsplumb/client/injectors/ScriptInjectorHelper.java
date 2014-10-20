@@ -20,18 +20,9 @@ import com.google.gwt.core.client.ScriptInjector;
 public class ScriptInjectorHelper {
 	 //inject all external javascript files to the GWT project
 	  public static void injectScript() {
-	        ScriptInjector
-	                .fromString(JsClientBundle.INSTANCE.jquerysource().getText())
-	                .setWindow(ScriptInjector.TOP_WINDOW).inject();
-	        ScriptInjector
-	                .fromString(JsClientBundle.INSTANCE.jqueryuimin().getText())
-	                .setWindow(ScriptInjector.TOP_WINDOW).inject();
-	        ScriptInjector
-	                .fromString(JsClientBundle.INSTANCE.jsplumbsource().getText())
-	                .setWindow(ScriptInjector.TOP_WINDOW).inject();
-	        ScriptInjector
-	                .fromString(JsClientBundle.INSTANCE.gwtresource().getText())
-	                .setWindow(ScriptInjector.TOP_WINDOW).inject();	       
-
+	        ScriptInjector.fromString(JsClientBundle.INSTANCE.jquerysource().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
+	        ScriptInjector.fromString(JsClientBundle.INSTANCE.jqueryuimin().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
+	        ScriptInjector.fromString(JsClientBundle.INSTANCE.jsplumbsource().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
+	        ScriptInjector.fromString(JsClientBundle.INSTANCE.gwtresource().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
 	    }
 }
