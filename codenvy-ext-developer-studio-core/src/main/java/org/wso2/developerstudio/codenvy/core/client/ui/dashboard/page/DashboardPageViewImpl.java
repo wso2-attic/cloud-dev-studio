@@ -22,8 +22,6 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.*;
 import com.google.inject.Singleton;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.wso2.developerstudio.codenvy.core.client.CoreExtensionResources;
 import org.wso2.developerstudio.codenvy.core.client.ui.dashboard.DashboardItem;
 
@@ -44,8 +42,6 @@ public class DashboardPageViewImpl implements DashboardPageView {
     public static final int CAT_HEADER_SPACING = 20;
 	public static final String CATEGORY_STYLE = "bar";
 	public static final String ITEM_STYLE = "btn";
-
-	private static final Logger logger = LoggerFactory.getLogger(DashboardPageViewImpl.class);
 
 	interface DashboardPageBinder extends UiBinder<Widget, DashboardPageViewImpl> {
     }
@@ -85,7 +81,7 @@ public class DashboardPageViewImpl implements DashboardPageView {
     public void generateDashboard(Map<String, List<DashboardItem>> itemList) {
 	    //for css resource injection
 	    if(!CoreExtensionResources.INSTANCE.styleCSS().ensureInjected()){
-		    logger.error("css resource not injected for dashboard generation");
+		    //log the error
 	    }
 	    ScrollPanel mainBackgroundPanel= new ScrollPanel();
 	    HorizontalPanel backGroundDashboardPanel = new HorizontalPanel(); // we should ad the common items in a vertical panel into this
@@ -107,7 +103,7 @@ public class DashboardPageViewImpl implements DashboardPageView {
                 backGroundDashboardPanel.add(dashBoardSectionPanel);
             }
         } else {
-            logger.info("no project categories in the category list, hence no categories appear in the dashboard display panel");
+            //log the error
         }
         mainBackgroundPanel.add(backGroundDashboardPanel);
         actionList.addNorth(mainBackgroundPanel, MAIN_BACKGROUND_PANEL_NORTH);
@@ -129,7 +125,7 @@ public class DashboardPageViewImpl implements DashboardPageView {
 		    itemImage.setResource(dashboardItem.getImageResource());
 	    }
 	    else{
-		    logger.info("the item" + itemName + "does not have an image associated, hence only the name is displayed");
+		   // log the error
 	    }
         itemImage.getElement().setId(dashboardItem.getName());
 
@@ -168,7 +164,7 @@ public class DashboardPageViewImpl implements DashboardPageView {
             categoryHeaderPanel.add(catImage);
         }
 	    else{
-	        logger.info("the category" + catName + "does not have an image associated, hence only the name is displayed");
+	        // log the error
         }
         categoryHeaderPanel.add(categoryHeader);
 	    categoryHeaderPanel.setStyleName(CATEGORY_STYLE);

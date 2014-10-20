@@ -35,9 +35,7 @@ import static com.codenvy.ide.api.ui.workspace.PartStackType.EDITING;
 @Extension(title = "Empty extension", version = "1.0.0")
 public class MyExtension {
     @Inject
-    public MyExtension(WorkspaceAgent workspaceAgent,
-                       ESBEditor graphicalEditor,
-                       JSBundle bundle) {
+    public MyExtension(WorkspaceAgent workspaceAgent, ESBEditor graphicalEditor, JSBundle bundle) {
         ScriptInjector.fromString(JSBundle.INSTANCE.jquerysource().getText())
                 .setWindow(ScriptInjector.TOP_WINDOW).inject();
         ScriptInjector.fromString(JSBundle.INSTANCE.jqueryuimin().getText())

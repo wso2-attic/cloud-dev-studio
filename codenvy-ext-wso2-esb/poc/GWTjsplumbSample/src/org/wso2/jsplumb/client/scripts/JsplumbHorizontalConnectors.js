@@ -13,6 +13,9 @@
  * limitations under the License.
  */
 function jsplumbhorizontalconnect(prevElem, currElem) {
+    var connectorColor = "#3366FF";
+    var curvinessConstant = 100;
+    var lineWidthVal = 1;
 
 	jsPlumb.bind("ready", function() {
 
@@ -21,19 +24,19 @@ function jsplumbhorizontalconnect(prevElem, currElem) {
 			target : currElem,
 			anchors : [ "Right", "Left" ],
 			paintStyle : {
-				strokeStyle : "#3366FF",
-				lineWidth : 1
+				strokeStyle : connectorColor,
+				lineWidth : lineWidthVal
 			},
 			connector : [ "Flowchart", {
-				curviness : 100
+				curviness : curvinessConstant
 			} ],
 			connectorStyle : [ {
-				lineWidth : 1,
-				strokeStyle : "#3366FF"
+				lineWidth : lineWidthVal,
+				strokeStyle : connectorColor
 			} ],
 			hoverPaintStyle : {
-				strokeStyle : "#3366FF",
-				lineWidth : 8
+				strokeStyle : connectorColor,
+				lineWidth : lineWidthVal
 			}
 		});
 	});

@@ -33,7 +33,7 @@ public  interface JsClientBundle extends ClientBundle {
     @Source("com/wso2/jsplumb/client/scripts/jquery.jsPlumb-1.6.2-min.js")
     TextResource jsplumbsource();
 
-    @Source("com/wso2/jsplumb/client/scripts/gwtjsplumbdemo.js")
+    @Source("com/wso2/jsplumb/client/scripts/JsplumbHorizontalConnectors.js")
     TextResource gwtresource();
 
     @Source("icons/Call.gif")

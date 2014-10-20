@@ -19,28 +19,26 @@ var currentId = null;
 var count = 0;
 var counter = 0;
 var lastItem = null;
-var lastItemInSwitch = null;
 var dataString = null;
-var CurElement = null;
+var curElement = null;
 var id = null;
 var over = "false";
-var CurElementisSource = null;
-var CurElementisTarget = null;
+var curSourceElem = null;
+var curTargetElem = null;
 var topLocation = 170; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
-var CurXLoc = null;
+var curXLoc = null;
 var divWidth = 200; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
 var newElemXLoc = 60; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
 var topLoc = 120; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
 var curvinessConstant = 100; //for jsplumb arrow curviness 100 is the generally used value
 var zIndexConstant = 1000; //for drag drop z index, constant is generally taken as 1000
+var connectionList = null;
 var elemSourceLocList = [];
 var elemTargetLocList = [];
 var elemSourceId = [];
 var elemTargetId = [];
 var elemSourceLocListIn = [];
 var elemTargetLocListIn = [];
-var elemSourceId1 = [];
-var elemTargetId1 = [];
 var elemSource = null;
 var elemTarget = null;
 var xSpace = 0; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
@@ -48,7 +46,6 @@ var popupCount = 0;
 var currentPopup = null;
 var x2js = null;
 var elemIsMiddle = false;
-var switchMedType = "SwitchMediator";
 var popupHeight = 400; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
 var popupWidth =600; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
 var bufferConstant = 80; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
@@ -63,63 +60,31 @@ $(document).ready(function () {
     registerMouseAndKeyEvents();
     registerJsPlumbBind();
     jsplumbHandleDraggable();
-    jsplumbHandleDropable();
+    jsplumbHandleDroppable();
+    connectionList = jsPlumb.getAllConnections();
 
 });
 
-$(document).keydown(function(e) {
-	if (e.which == 46 && CurElement != null) { // 46 is the keycode returned on DELETE key press
-		 $.get('ESB', function (responseJson) {    // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response JSON...
-	            //alert(responseJson);
-	            var valueToDisplay = responseJson;                           // Locate HTML DOM element with ID "someselect".
-	            alert(valueToDisplay);
-	        });
-		alert(e.which);
-		var connectionList = jsPlumb.getAllConnections();
-		for ( var connection in connectionList) {
-			if (connectionList.hasOwnProperty(connection)) {
-				if (connectionList[connection].sourceId == CurElement
-						.attr('id')) {
-					CurElementisSource = connectionList[connection].targetId
-				}
-				if (connectionList[connection].targetId == CurElement
-						.attr('id')) {
-					CurElementisTarget = connectionList[connection].sourceId
-				}
-			}
-		}
-		if (CurElement.attr('id') == lastItem.attr('id')) {
-			lastItem = $("#" + CurElementisTarget);
-		}
-		jsPlumb.detachAllConnections(id);
-		CurElement.remove();
-		if (CurElementisTarget != null && CurElementisSource != null) {
-			connectDivs(CurElementisTarget, CurElementisSource);
-			CurElementisSource = null;
-			CurElementisTarget = null;
-		}
-		CurElement = null; // clear, that element doesn't exist anymore
-	}
-});
-
+//initiate jsplumb
 function initJsPlumb(container) {
     jsPlumb.setContainer(container);
 }
 
-
-function setUpdatedDataCallBack(obj) {
-    var strID = CurElement.attr('id');
+// data updating for mediator data
+function setUpdatedDataCallBack(receivedData) {
+    var strID = curElement.attr('id');
     var divMediator = document.getElementById(strID);
-    $(divMediator).data('jsonConfig', obj);
+    $(divMediator).data('jsonConfig', receivedData);
     currentPopup.dialog("close");
 }
 
+//opening mediator data configuration dialog
 function openMediatorConfigDialog(path, title) {
     if (popupCount == 0) {
-        $(document.body).append('<div id="logMpopup"></div>');
-        $("#logMpopup").attr('id', "logMpopup");
-        $("#logMpopup").load(path);
-        $("#logMpopup").dialog({ autoOpen: false,
+        $(document.body).append('<div id="popupForMediatorData"></div>');
+        $("#popupForMediatorData").attr('id', "popupForMediatorData");
+        $("#popupForMediatorData").load(path);
+        $("#popupForMediatorData").dialog({ autoOpen: false,
             bgiframe: true,
             height: popupHeight, //pop up widow height and width definitions
             width: popupWidth,
@@ -127,39 +92,28 @@ function openMediatorConfigDialog(path, title) {
             draggable: true,
             resizable: true,
             position: 'center' });
-        $("#logMpopup").dialog('option', 'title', title);
-        currentPopup = $("#logMpopup");
+        $("#popupForMediatorData").dialog('option', 'title', title);
+        currentPopup = $("#popupForMediatorData");
         ++popupCount;
     }
     currentPopup.dialog("open");
 }
 
 function registerMouseAndKeyEvents() {
-    $(document).on('mouseenter', '#jsPlumbContainerWrapperTest', function () { //currently tested for only a single droppable area
-        currentId = $(this).attr('id');
-        over = true;
-        console.log(over);
-    });
-
-    $(document).on('mouseleave', '#jsPlumbContainerWrapperTest', function () {
-        over = false;
-        console.log(over);
-    });
-
     $(document).mousemove(function (e) {// to get the cursor point to drop an icon
-        CurXLoc = e.pageX;
+        curXLoc = e.pageX;
     });
 
     $(document).keydown(function (e) {
-        designViewKeyDown(e);
+        if(e.keyCode == 46){ // 46 is the keycode returned on DELETE key press
+        designViewDeleteKeyDown(e); //detecting the key down event for DELETE key press
+        }
     });
-
 }
 
-
+//sourve view and design view tab changes
 function registerTabChangeEvent() {
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        console.log('tabChagne');
         var tabName = $(e.target).html();
         if (tabName == 'Source') {
             activateSourceView();
@@ -169,22 +123,23 @@ function registerTabChangeEvent() {
     });
 }
 
+//jsplumb binding to enable jsplumb in javascript
 function registerJsPlumbBind() {
     jsPlumb.bind("ready", function () {
         initJsPlumb($("#jsPlumbContainer"));
     });
 }
 
+//activating source view
 function activateSourceView() {
-    console.log('activateSourceView');
     var prevElement = null;
     var nextElement = null;
     var connectionList = jsPlumb.getAllConnections();
     var jObj = null;
     var xmlElement = null;
     var currentText = null;
-    var sourceEditorTBox = $('#sourceEditorTextBox');
-    sourceEditorTBox.val('<sequence name="sample_sequence">');
+    var sourceEditorTextBox = $('#sourceEditorTextBox');
+    sourceEditorTextBox.val('<sequence name="sample_sequence">');
 
     for (var connection in connectionList) {
         if (connectionList.hasOwnProperty(connection)) {
@@ -197,12 +152,13 @@ function activateSourceView() {
         }
 
         jObj = $(prevElement).data('jsonConfig');
+        //TODO remove console logs once finalized
         console.log(prevElement);
         console.log('serializing ' + jObj);
         console.log(jObj);
         xmlElement = '\n' + x2js.json2xml_str(jObj);
-        currentText = sourceEditorTBox.val();
-        sourceEditorTBox.val(currentText + xmlElement);
+        currentText = sourceEditorTextBox.val();
+        sourceEditorTextBox.val(currentText + xmlElement);
     }
 
     jObj = $(nextElement).data('jsonConfig');
@@ -213,6 +169,7 @@ function activateSourceView() {
     sourceEditorTBox.val(currentText + xmlElement + '\n</sequence>');
 }
 
+//activating design view
 function activateDesignView() {
     var sourceEditorTextBox = $('#sourceEditorTextBox');
     var jsPlumbCont = $("#jsPlumbContainer");
@@ -225,13 +182,17 @@ function activateDesignView() {
 
     jsPlumbCont.empty();
     var prevDivElement = null;
-    for (var i = 0; i < logArray.length; i++) {
-        console.log(logArray[i]);
-        var currentDiv = AddDiv(logArray[i]);
-        if (prevDivElement != null) {
-            connectDivs(prevDivElement, currentDiv);
-        }
-        prevDivElement = currentDiv;
+    var logArrayElem;
+    for (logArrayElem in logArray) {
+        if (logArray.hasOwnProperty(logArrayElem)) {
+            console.log(logArrayElem);
+            var currentDiv = addDiv(logArrayElem);
+            if (prevDivElement != null) {
+                connectDivs(prevDivElement, currentDiv);
+                lastItem = currentDiv;
+            }
+            prevDivElement = currentDiv;
+            }
     }
 
 }

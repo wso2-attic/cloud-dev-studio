@@ -18,6 +18,7 @@
 
 var PROPERTY_MEDIATOR = 'propertyMediator';
 var LOG_MEDIATOR = 'logMediator';
+
 function setData(element, type) {
 
 if (type == LOG_MEDIATOR) {

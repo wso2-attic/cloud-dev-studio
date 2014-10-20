@@ -38,9 +38,9 @@ import com.wso2.jsplumb.client.injectors.ScriptInjectorHelper;
 public class GWTjsplumbSample implements EntryPoint {
 
 	private static final String CSS_MAINWINDOW = "mainwindow";
-	private static final String DROPPABLE_PANEL = "droppablePanel";
-	private static final String DRAGGABLE_PANEL = "draggablePanel";
-	private static final String BACKGROUND = "background";
+	public static final String DROPPABLE_PANEL = "droppablePanel";
+	public static final String DRAGGABLE_PANEL = "draggablePanel";
+	public static final String BACKGROUND = "background";
 
 	private static final int DROPPABLE_HEIGHT = 1000; //integer values needs to be changed after testing on all browsers, work in progress hense used rough values
 	private static final int DROPPABLE_WIDTH = 1400; //integer values needs to be changed after testing on all browsers, work in progress hense used rough values
@@ -83,7 +83,6 @@ public class GWTjsplumbSample implements EntryPoint {
 			@Override
 			public void onKeyDown(KeyDownEvent event) {
 				if (event.getNativeKeyCode() == KeyCodes.KEY_DELETE) {
-					echo("Delete Hit");
 					// Handle the deleting function here
 				}
 			}
@@ -94,12 +93,9 @@ public class GWTjsplumbSample implements EntryPoint {
 		RootPanel.get().add(backgroundPanel);// add the background panel to rootpanel in the view
 
 		// enabling drag and drop
-		RootPanel.get(BACKGROUND).getElement().getStyle()
-				.setProperty(STYLE_POSITION, POSITION_RELATIVE);
-		CustomImageElementDragController dragController = new CustomImageElementDragController(
-				RootPanel.get(BACKGROUND), true);
-		CustomImageElementDropControler widgetDropController = new CustomImageElementDropControler(
-				backgroundPanel, this);
+		RootPanel.get(BACKGROUND).getElement().getStyle().setProperty(STYLE_POSITION, POSITION_RELATIVE);
+		CustomImageElementDragController dragController = new CustomImageElementDragController(RootPanel.get(BACKGROUND), true);
+		CustomImageElementDropControler widgetDropController = new CustomImageElementDropControler(backgroundPanel, this);
 		dragController.registerDropController(widgetDropController);
 
 		// making the widgets draggable
@@ -113,17 +109,11 @@ public class GWTjsplumbSample implements EntryPoint {
 	// JSNI native methods in GWT to call javascript methods in java
 	public static native void gwtjsPlumbDemo(String prevElem, String currElem, int elemCount) /*-{
 		if (elemCount > 0) {
-			$wnd.gwtjsplumbdemo(prevElem, currElem);
+			$wnd.JsplumbHorizontalConnectors(prevElem, currElem);
 		}
 	}-*/;
 
-	// JSNI native methods in GWT to call javascript methods in java
-	public static native void gwtjsPlumbDemo(String prevElem, String currElem) /*-{
-		$wnd.gwtjsplumbdemo(prevElem, currElem);
-	}-*/;
-
-	private void createNewPanel(Widget panel, String panelID, String paneltStyle, int panelWidth,
-			int panelHeight, String stylePosition) {
+	private void createNewPanel(Widget panel, String panelID, String paneltStyle, int panelWidth, int panelHeight, String stylePosition) {
 		createNewPanel(panel, panelID, paneltStyle);
 		panel.setPixelSize(panelWidth, panelHeight);
 		panel.getElement().getStyle().setProperty(STYLE_POSITION, stylePosition);
