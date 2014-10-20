@@ -85,7 +85,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                         </goals>
                         <configuration>
                             <tasks>
-                                <copy file="${basedir}/target/${project.artifactId}-${project.version}/sdk-resources/temp/target/assembly-ide-${com.codenvy.sdk.version}.war"
+                                <copy file="${basedir}/target/${project.artifactId}-${project.version}/sdk-resources/temp/target/assembly-ide-${com.codenvy.sdk.version}-WSO2.war"
                                       tofile="${basedir}/target/${project.artifactId}-${project.version}/webapps/ide.war"/>
                                 <delete dir="${basedir}/target/${project.artifactId}-${project.version}/webapps/ide"/>
                                 <copy todir="${basedir}/target/web-archives/${project.version}">
