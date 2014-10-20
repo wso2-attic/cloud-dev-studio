@@ -36,6 +36,7 @@ public class ConfigManager {
 			"codenvy-java-codeassistant-configuration.properties";
 
 	public static final String WORKSPACE_ROOT_PROPERTY = "vfs.local.fs_root_dir";
+	public static final String WORKSPACE_ROOT_INDEX_PROPERTY = "vfs.local.fs_index_root_dir";
 	public static final String RUNNER_URL = "runner.slave_runner_urls";
 	public static final String BUILDER_URL = "builder.slave_builder_urls";
 	public static final String API_ENDPOINT = "api.endpoint";
@@ -73,6 +74,29 @@ public class ConfigManager {
 			logger.error("Error configuring codenvy properties files with port :" + tomcatPort, e);
 		}
 
+	}
+
+	/**
+	 * Sets workspace directory value
+	 *
+	 * @param workspace File path for the workspace
+	 * @throws IOException
+	 */
+	public static void setWorkspaceDirectory(String workspace) throws IOException {
+
+		setAPIProperty(WORKSPACE_ROOT_PROPERTY, workspace);
+		setAPIProperty(WORKSPACE_ROOT_INDEX_PROPERTY, workspace);
+	}
+
+	/**
+	 * Read workspace root directory from config files
+	 *
+	 * @return workspace root
+	 * @throws IOException
+	 */
+	public static String getWorkspaceRootDirectory() throws IOException {
+
+		return getAPIProperty(WORKSPACE_ROOT_PROPERTY);
 	}
 
 	/**
