@@ -41,6 +41,7 @@ public class ConfigManager {
 	public static final String BUILDER_URL = "builder.slave_builder_urls";
 	public static final String API_ENDPOINT = "api.endpoint";
 	public static final String EVENT_SUBSCRIPTION_URL = "notification.client.event_subscriptions";
+	public static final String SET_DEFAULT_WORKSPACE = "set.workspace.as.default";
 
 	/**
 	 * Alters urls defined in configuration files to use passed local port
@@ -121,7 +122,8 @@ public class ConfigManager {
 	 */
 	public static void setAPIProperty(String propertyKey, String propertyValue) throws IOException {
 		Properties apiProps = loadPropertiesFromFile(CODENVY_API_PROPERTIES_FILE);
-
+        apiProps.setProperty(propertyKey, propertyValue);
+		storePropertiesToFile(CODENVY_API_PROPERTIES_FILE, apiProps);
 	}
 
 	/**
@@ -160,5 +162,17 @@ public class ConfigManager {
 		out.close();
 
 	}
+
+	public static void setDefaultWorkSpaceProperty (String propertyValue) throws IOException {
+		Properties apiProps = loadPropertiesFromFile(CODENVY_API_PROPERTIES_FILE);
+		apiProps.setProperty(SET_DEFAULT_WORKSPACE, propertyValue);
+		storePropertiesToFile(CODENVY_API_PROPERTIES_FILE, apiProps);
+
+	}
+
+	public static String getDefaultWorkSpaceProperty() throws IOException{
+		return getAPIProperty(SET_DEFAULT_WORKSPACE);
+	}
+
 
 }
