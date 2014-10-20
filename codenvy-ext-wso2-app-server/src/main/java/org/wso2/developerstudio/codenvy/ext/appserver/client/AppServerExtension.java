@@ -22,6 +22,9 @@ import com.codenvy.ide.api.ui.wizard.ProjectWizard;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import org.wso2.developerstudio.codenvy.core.client.ui.dashboard.DashboardCategory;
+import org.wso2.developerstudio.codenvy.core.client.ui.dashboard.DashboardItem;
+import org.wso2.developerstudio.codenvy.core.client.ui.dashboard.DashboardItemRegistry;
 import org.wso2.developerstudio.codenvy.core.shared.CoreExtConstants;
 import org.wso2.developerstudio.codenvy.ext.appserver.client.ui.wizard.page.maven.MavenConfigurationPagePresenter;
 import org.wso2.developerstudio.codenvy.ext.appserver.shared.AppServerExtConstants;
@@ -40,7 +43,8 @@ public class AppServerExtension {
 	                          AppServerExtensionResources resources,
 	                          ProjectTypeWizardRegistry wizardRegistry,
 	                          Provider<MavenConfigurationPagePresenter> mavenSettingsPagePresenter,
-	                          Provider<CarbonRunnerSelectionPagePresenter> runnerSelectionPagePresenterProvider) {
+	                          Provider<CarbonRunnerSelectionPagePresenter> runnerSelectionPagePresenterProvider,
+	                          DashboardItemRegistry dashboardItemRegistry) {
 
 		ProjectWizard wizard = new ProjectWizard(notificationManager);
 		wizard.addPage(mavenSettingsPagePresenter);
