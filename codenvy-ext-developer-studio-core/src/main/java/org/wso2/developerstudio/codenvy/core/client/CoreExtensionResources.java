@@ -29,7 +29,7 @@ public interface CoreExtensionResources extends ClientBundle {
 
 	@Source("studio-banner.png") ImageResource getStudioBanner();
 
-	@CssResource.NotStrict
+	@CssResource.NotStrict //not restricted to styles that are being used in the application.
 	@Source("style.css") CssResource styleCSS();
 
 }
