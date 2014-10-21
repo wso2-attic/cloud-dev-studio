@@ -83,13 +83,35 @@ public class MavenConfigurationPagePresenter extends AbstractWizardPage implemen
         return null;
     }
 
-    @Override
-    public boolean isCompleted() {
-        return !view.getArtifactId().equals("") && !view.getGroupId().equals("") && !view.getVersion().equals("");
-    }
+	@Override
+	public boolean isCompleted() {
+
+		boolean isCompleted = !view.getArtifactId().equals("") && !view.getGroupId().equals("") &&
+		                      !view.getVersion().equals("");
+		String projectTypeID = wizardContext.getData(ProjectWizard.PROJECT_TYPE).getProjectTypeId();
+
+		if (projectTypeID.equals(AppServerExtConstants.WSO2_JAX_RS_PROJECT_ID) ||
+		    projectTypeID.equals(AppServerExtConstants.WSO2_JAX_WS_PROJECT_ID)) {
+
+			isCompleted = isCompleted && !view.getPackageName().equals("") &&
+			              !view.getClassName().equals("");
+		}
+
+		return isCompleted;
+	}
 
     @Override
     public void focusComponent() {
+	    String projectTypeID = wizardContext.getData(ProjectWizard.PROJECT_TYPE).getProjectTypeId();
+
+	    if(projectTypeID.equals(AppServerExtConstants.WSO2_JAX_RS_PROJECT_ID) ||
+	       projectTypeID.equals(AppServerExtConstants.WSO2_JAX_WS_PROJECT_ID) ) {
+		    view.swapToJAXServiceWizard(true);
+		    delegate.updateControls();
+	    }else {
+		    view.swapToJAXServiceWizard(false);
+		    delegate.updateControls();
+	    }
 
     }
 
@@ -104,7 +126,19 @@ public class MavenConfigurationPagePresenter extends AbstractWizardPage implemen
         container.setWidget(view);
         view.reset();
         Project project = wizardContext.getData(ProjectWizard.PROJECT);
-        if (project != null) {
+	    String projectTypeID = wizardContext.getData(ProjectWizard.PROJECT_TYPE).getProjectTypeId();
+
+	    if(projectTypeID.equals(AppServerExtConstants.WSO2_JAX_RS_PROJECT_ID) ||
+	       projectTypeID.equals(AppServerExtConstants.WSO2_JAX_WS_PROJECT_ID) ) {
+		    view.swapToJAXServiceWizard(true);
+		    delegate.updateControls();
+	    }else {
+		    view.swapToJAXServiceWizard(false);
+		    delegate.updateControls();
+	    }
+
+	    if (project != null) {
+
             if (project.hasAttribute(MavenAttributes.MAVEN_ARTIFACT_ID)) {
                 view.setArtifactId(project.getAttributeValue(MavenAttributes.MAVEN_ARTIFACT_ID));
                 view.setGroupId(project.getAttributeValue(MavenAttributes.MAVEN_GROUP_ID));
@@ -161,9 +195,19 @@ public class MavenConfigurationPagePresenter extends AbstractWizardPage implemen
         final String name = wizardContext.getData(ProjectWizard.PROJECT_NAME);
         final Project project = wizardContext.getData(ProjectWizard.PROJECT);
 
-        projectGeneratorOptions.put(AppServerExtConstants.PROJECT_TYPE_ID, projectTypeID);
+        projectGeneratorOptions.put(AppServerExtConstants.GENERATOR_PROJECT_TYPE, projectTypeID);
+	    projectGeneratorOptions.put(AppServerExtConstants.GENERATOR_PROJECT_NAME, name);
 
-        if (project != null) {
+	    if(projectTypeID.equals(AppServerExtConstants.WSO2_JAX_RS_PROJECT_ID) ||
+	       projectTypeID.equals(AppServerExtConstants.WSO2_JAX_WS_PROJECT_ID) ) {
+		    projectGeneratorOptions.put(AppServerExtConstants.GENERATOR_PACKAGE_NAME, view.getPackageName());
+		    projectGeneratorOptions.put(AppServerExtConstants.GENERATOR_CLASS_NAME, view.getClassName());
+	    }else{
+		    projectGeneratorOptions.put(AppServerExtConstants.GENERATOR_WEB_CONTEXT_ROOT, view.getPackageName());
+		    projectGeneratorOptions.put(AppServerExtConstants.GENERATOR_WEB_CONTENT_FOLDER, view.getClassName());
+	    }
+
+	    if (project != null) {
             if (project.getName().equals(name)) {
                 updateProject(project, projectDescriptor, callback);
             } else {

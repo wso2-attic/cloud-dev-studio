@@ -59,6 +59,8 @@ public interface AppServerExtConstants {
 	String GENERATOR_PROJECT_NAME = "wso2.appserver.project.generator.project.name";
 	String GENERATOR_PACKAGE_NAME = "wso2.appserver.project.generator.package.name";
 	String GENERATOR_CLASS_NAME =  "wso2.appserver.project.generator.class.name";
+	String GENERATOR_WEB_CONTEXT_ROOT = "wso2.appserver.project.generator.webcontextroot";
+	String GENERATOR_WEB_CONTENT_FOLDER= "wso2.appserver.project.generator.webcontenfolder";
 
 
 }

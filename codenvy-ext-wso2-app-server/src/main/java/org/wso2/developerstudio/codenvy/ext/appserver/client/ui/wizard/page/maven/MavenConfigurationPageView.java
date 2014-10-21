@@ -26,6 +26,16 @@ public interface MavenConfigurationPageView
 		void onTextChange();
 	}
 
+	void swapToJAXServiceWizard(boolean isWebApp);
+
+	String getPackageName();
+
+	String getClassName();
+
+	void setPackageName(String packageName);
+
+	void setClassName(String className);
+
 	void setArtifactId(String artifact);
 
 	void setGroupId(String group);

@@ -49,6 +49,11 @@ limitations under the License.
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>com.codenvy.ide</groupId>
+            <artifactId>codenvy-maven-tools</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.wso2.developerstudio</groupId>
             <artifactId>core-extension</artifactId>
             <version>${parent.version}</version>

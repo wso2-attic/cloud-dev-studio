@@ -20,10 +20,7 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
 import com.google.inject.Singleton;
 
 @Singleton
@@ -34,6 +31,10 @@ public class MavenConfigurationPageViewImpl implements MavenConfigurationPageVie
 
 	private final DockLayoutPanel rootElement;
 	@UiField
+	TextBox packageInput;
+	@UiField
+	TextBox classNameInput;
+	@UiField
 	TextBox versionField;
 	@UiField
 	TextBox groupId;
@@ -41,12 +42,56 @@ public class MavenConfigurationPageViewImpl implements MavenConfigurationPageVie
 	TextBox artifactId;
 	@UiField
 	ListBox packagingField;
+	@UiField
+	DockLayoutPanel packagePanel;
+	@UiField
+	DockLayoutPanel classPanel;
+	@UiField
+	Label packageInputLabel;
+	@UiField
+	Label classInputLabel;
+
 
 	private ActionDelegate delegate;
 
 	public MavenConfigurationPageViewImpl() {
 		rootElement = uiBinder.createAndBindUi(this);
 		packagingField.setEnabled(false);
+		swapToJAXServiceWizard(false);
+		setGroupId("com.example");
+		setGroupId("sample");
+		setVersion("1.0.0-SNAPSHOT");
+	}
+
+	// TODO : Change to default values
+
+	@Override public void swapToJAXServiceWizard(boolean isJAXService) {
+
+		if(isJAXService){
+			packageInputLabel.setText("Package Name:");
+			classInputLabel.setText("Class Name:");
+		}else{
+			packageInputLabel.setText("Context Root:");
+			classInputLabel.setText("Web folder:");
+		}
+	}
+
+	@Override
+	public String getPackageName() {
+		return packageInput.getText();
+	}
+
+	@Override
+	public String getClassName() {
+		return classNameInput.getText();
+	}
+
+	@Override public void setPackageName(String packageName) {
+		packageInput.setText(packageName);
+	}
+
+	@Override public void setClassName(String className) {
+		classNameInput.setText(className);
 	}
 
 	@Override
@@ -111,7 +156,7 @@ public class MavenConfigurationPageViewImpl implements MavenConfigurationPageVie
 		versionField.setText("");
 	}
 
-	@UiHandler({ "versionField", "groupId", "artifactId" }) void onKeyUp(KeyUpEvent event) {
+	@UiHandler({ "versionField", "groupId", "artifactId",  "packageInput", "classNameInput" }) void onKeyUp(KeyUpEvent event) {
 		delegate.onTextChange();
 	}
 
