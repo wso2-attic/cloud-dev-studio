@@ -13,61 +13,56 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-
 package org.wso2.developerstudio.codenvy.launcher.java;
 
+import java.io.File;
+import java.io.IOException;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipse.swt.custom.CLabel;
 
-import java.io.File;
-import java.io.IOException;
-
-
-/**
- * creating the dialog box for workspace selection before opening the dev studio
- */
-public class WorkSpaceSelector {
+public class WorkSpaceLauncher {
 
 	private static final Logger logger = LoggerFactory.getLogger(Bootstrap.class);
-	public static final int SHELL_WIDTH = 600; //height and width setting for the shell window
-	public static final int SHELL_HEIGHT = 300;
-	public static final int INFODATA_HEIGHT = 80;
-	public static final int SHELL_MARGIN = 5;
 
 	private static final String DEV_SWORK_SPACE = "DevStudioWorkSpace";
 	private static final String NOT_SET = "NOT_SET";
-	private static final String OK_BUTTON_TEXT = "    Ok    ";
+	private static final String OK_BUTTON_TEXT = "Ok";
 	private static final String CANCEL_BUTTON_TEXT = "Cancel";
 	private static final String BROWSE_BUTTON_TEXT = "Browse";
-	private static final String MENU_HEADER = "Select a workspace";
+	private static final String MENU_HEADER = "Select workspace";
 	private static final String USER_MESSAGE_TO_SELECT_WORKSPACE =
 			" WSO2 Developer Studio stores your projects in a directory called workspace. Please choose workspace folder for this session ";
 	private static final String SET_DEFAULT_WORKSPACE_MESSAGE =
-			"set workspace as default and do not ask again";
+			"Use this as default and do not ask again";
 	private static final String BROWSE_DIALOG_MENU_MESSAGE = "Select your workspace directory";
 	private static final String WARNING_DIALOG_MENU_MESSAGE = "Warning";
 	public static final int ERROR_DIALOG_WIDTH = 400;
 	public static final int ERROR_DIALOG_HEIGHT = 100;
+	public static final String WORKSPACE_LABEL = "Workspace :";
 
-	int useSameWorkSpace;
 	static boolean userWorkSpaceSet = false;
 	String userHome = null;
+	private static final String SHELL_TITLE = "Workspace Launcher";
 	Display display = new Display();
-	Shell shell = new Shell(display);
+	public static final int SHELL_TRIM = SWT.CLOSE | SWT.TITLE | SWT.MIN | SWT.MAX | SWT.RESIZE;
+
+	private static final int SHELL_WIDTH = 602;
+	private static final int SHELL_HEIGHT = 300;
+	Shell shell = new Shell(display, SWT.TITLE);
 	Text workSpaceText;
 	static boolean isDefaultSet = false;
 	private static String modifiedWorkSpaceLoc = null;
 	private static String currentWorkSpaceLoc = null;
 
-	public WorkSpaceSelector() {
+	public WorkSpaceLauncher() {
 		init();
 		shell.pack();
 		shell.setSize(SHELL_WIDTH, SHELL_HEIGHT);
@@ -88,80 +83,50 @@ public class WorkSpaceSelector {
 			}
 		}
 		display.dispose();
+
 	}
 
+	/**
+	 *
+	 */
 	private void init() {
 
-		// create a new GridLayout with two columns
-		// of different size
+		shell.setText(SHELL_TITLE);
+
+		Composite composite = new Composite(shell, SWT.NONE);
+		composite.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
+		composite.setBounds(10, 10, 582, 90);
+
+		Label lblSelectWorkspace = new Label(composite, SWT.NONE);
+		lblSelectWorkspace.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
+		lblSelectWorkspace.setBounds(10, 10, 141, 23);
+		lblSelectWorkspace.setText(MENU_HEADER);
+
+		Label lblNewLabel = new Label(composite, SWT.WRAP);
+		lblNewLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
+		lblNewLabel.setBounds(20, 39, 552, 41);
+		lblNewLabel.setText(USER_MESSAGE_TO_SELECT_WORKSPACE);
+
+		Composite composite_1 = new Composite(shell, SWT.NONE);
+		composite_1.setBounds(10, 101, 582, 77);
+
+		CLabel lblWorkspace = new CLabel(composite_1, SWT.NONE);
+		lblWorkspace.setBounds(10, 23, 89, 23);
+		lblWorkspace.setText(WORKSPACE_LABEL);
+
+		workSpaceText = new Text(composite_1, SWT.BORDER);
+		workSpaceText.setBounds(105, 23, 368, 27);
 		currentWorkSpaceLoc = getWorkSpaceLoc();
-		GridLayout gridLayout = new GridLayout(4, false);
-		gridLayout.makeColumnsEqualWidth = true;
-		gridLayout.marginBottom = SHELL_MARGIN;
-		gridLayout.marginTop = SHELL_MARGIN;
-		gridLayout.marginLeft = SHELL_MARGIN;
-		gridLayout.marginRight = SHELL_MARGIN;
-		shell.setText("Select your workspace directory");
-		shell.setLayout(gridLayout);
-
-		// create a label and a button
-		Label headerLabel = new Label(shell, SWT.NONE);
-		headerLabel.setText(MENU_HEADER);
-		Label SeparatorLabel;
-		SeparatorLabel = new Label(shell, SWT.SEPARATOR | SWT.HORIZONTAL);
-		GridData separaterLayout = new GridData(SWT.FILL, SWT.TOP, true, false, 4,1);
-		SeparatorLabel.setLayoutData(separaterLayout);
-
-		final GridData infoLabelData = new GridData(SWT.FILL, SWT.TOP, true, false, 4, 1);
-		infoLabelData.heightHint = INFODATA_HEIGHT; //text field will consume 60% of total shell
-		Label messageLabel = new Label(shell, SWT.WRAP);
-		messageLabel.setLayoutData(infoLabelData);
-		messageLabel.setText(USER_MESSAGE_TO_SELECT_WORKSPACE);
-
-		// create a new label which is used as a separator
-		SeparatorLabel = new Label(shell, SWT.SEPARATOR | SWT.HORIZONTAL);
-		SeparatorLabel.setLayoutData(separaterLayout);
-
-		workSpaceText = new Text(shell, SWT.BORDER);
 		modifiedWorkSpaceLoc = getUserWorkspace();
-		if(!currentWorkSpaceLoc.equals(NOT_SET)){
+		if (!currentWorkSpaceLoc.equals(NOT_SET)) {
 			workSpaceText.setText(currentWorkSpaceLoc);
-		}else{
+		} else {
 			workSpaceText.setText(modifiedWorkSpaceLoc);
 		}
-
-		workSpaceText.setEditable(false);
-		workSpaceText.setLayoutData(new GridData (SWT.FILL, SWT.TOP, true, true, 3, 1));
-		Button browseButton = new Button(shell, SWT.BORDER);
-		browseButton.setText(BROWSE_BUTTON_TEXT);
-		browseButton.setLayoutData(new GridData(SWT.RIGHT, SWT.TOP, true, false, 1, 1));
-
-		final Button isWorkSpaceDefault = new Button(shell, SWT.CHECK);
-		isWorkSpaceDefault.setText(SET_DEFAULT_WORKSPACE_MESSAGE);
-		isWorkSpaceDefault.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, true, false, 4, 1));
-		isWorkSpaceDefault.pack();
-		isWorkSpaceDefault.addSelectionListener(new SelectionAdapter()
-		{
-			@Override
-			public void widgetSelected(SelectionEvent e)
-			{
-				if (isWorkSpaceDefault.getSelection()){
-					isDefaultSet = true;
-				}
-				else{
-					isDefaultSet = false;
-				}
-			}
-		});
-
-		Button okButton = new Button(shell, SWT.BORDER);
-		okButton.setText(OK_BUTTON_TEXT);
-		okButton.setLayoutData(new GridData(SWT.RIGHT, SWT.TOP, true, true, 3, 1));
-		final Button cancelButton = new Button(shell, SWT.BORDER);
-		cancelButton.setText(CANCEL_BUTTON_TEXT);
-		cancelButton.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, true, true, 1, 1));
-
-		browseButton.addSelectionListener(new SelectionAdapter() {
+		Button btnNewButton = new Button(composite_1, SWT.NONE);
+		btnNewButton.setBounds(479, 21, 93, 29);
+		btnNewButton.setText(BROWSE_BUTTON_TEXT);
+		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				DirectoryDialog dirDialog = new DirectoryDialog(shell);
 				dirDialog.setText(BROWSE_DIALOG_MENU_MESSAGE);
@@ -172,28 +137,38 @@ public class WorkSpaceSelector {
 				}
 			}
 		});
-		okButton.addSelectionListener(new SelectionAdapter() {
+
+		final Button btnCheckButton = new Button(shell, SWT.CHECK);
+		btnCheckButton.setBounds(20, 184, 572, 24);
+		btnCheckButton.setText(SET_DEFAULT_WORKSPACE_MESSAGE);
+		btnCheckButton.pack();
+		btnCheckButton.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
-				boolean createdWorkSpace = false;
-				String defaultNewWorkspace = getUserWorkspace();
-				if (!modifiedWorkSpaceLoc.equals(null)) {
-					if (modifiedWorkSpaceLoc.equals(defaultNewWorkspace)) {
-						createdWorkSpace = createDefaultWorkSpaceDirectory(modifiedWorkSpaceLoc);
-					}
-					setWorkSpaceLoc(modifiedWorkSpaceLoc);
-					if (isDefaultSet) {
-						setIsDefaultWorkSpaceSet(isDefaultSet);
-					}
-					if (createdWorkSpace || !modifiedWorkSpaceLoc.equals(defaultNewWorkspace) || useSameWorkSpace == SWT.OK) {
-						shell.close();
-						userWorkSpaceSet = true;
-					}
+				if (btnCheckButton.getSelection()) {
+					isDefaultSet = true;
 				} else {
-					logger.warn("workspace location is null hence using the default location");
+					isDefaultSet = false;
 				}
 			}
 		});
-		cancelButton.addSelectionListener(new SelectionAdapter() {
+
+		Composite composite_2 = new Composite(shell, SWT.NONE);
+		composite_2.setBounds(10, 224, 582, 44);
+
+		Button btnOk = new Button(composite_2, SWT.NONE);
+		btnOk.setBounds(371, 10, 91, 29);
+		btnOk.setText(OK_BUTTON_TEXT);
+		btnOk.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				okPressed();
+			}
+		});
+
+		Button btnCancel = new Button(composite_2, SWT.NONE);
+		btnCancel.setBounds(481, 10, 91, 29);
+		btnCancel.setText(CANCEL_BUTTON_TEXT);
+		btnCancel.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				shell.close();
 			}
@@ -202,16 +177,17 @@ public class WorkSpaceSelector {
 	}
 
 	public static boolean openWorkSpaceBrowser() {
-		new WorkSpaceSelector();
+		new WorkSpaceLauncher();
 		return isDefaultSet;
 	}
 
-	public static boolean isUserWorkSpaceSet(){
-		return  userWorkSpaceSet;
+	public static boolean isUserWorkSpaceSet() {
+		return userWorkSpaceSet;
 	}
 
 	/**
 	 * read the workspace location set for the IDE
+	 *
 	 * @return the current workspace location set for the IDE
 	 */
 	private String getWorkSpaceLoc() {
@@ -227,6 +203,7 @@ public class WorkSpaceSelector {
 
 	/**
 	 * save the user selected workspace location for the IDE
+	 *
 	 * @param selectedDirectory
 	 */
 	private void setWorkSpaceLoc(String selectedDirectory) {
@@ -241,19 +218,22 @@ public class WorkSpaceSelector {
 		try {
 			ConfigManager.setDefaultWorkSpaceProperty(String.valueOf(defaultSet));
 		} catch (IOException e1) {
-			logger.error("error in writing whether user has set default workspace to IDE properties" + e1);
+			logger.error(
+					"error in writing whether user has set default workspace to IDE properties" +
+					e1);
 		}
 	}
 
 	/**
-	 *  create the default workspace location
+	 * create the default workspace location
 	 */
 	private boolean createDefaultWorkSpaceDirectory(String workSpace) {
 		boolean workSpaceCreationSuccess = false;
 		if (userHome != null) {
 			File workspaceDir = new File(workSpace);
 			if (!workspaceDir.exists()) {
-				logger.info("creating the workspace directory DevSWorkSpace in your home directory");
+				logger.info(
+						"creating the workspace directory DevSWorkSpace in your home directory");
 				try {
 					workspaceDir.mkdir();
 					workSpaceCreationSuccess = true;
@@ -262,47 +242,72 @@ public class WorkSpaceSelector {
 							"Please set permission to create your workspace directory");
 				}
 				if (workSpaceCreationSuccess) {
-					logger.info("successfully created the workspace directory DevSWorkSpace in your home directory at " + workSpace);
+					logger.info(
+							"successfully created the workspace directory DevSWorkSpace in your home directory at " +
+							workSpace);
 				}
-			} else {
-				useSameWorkSpace = createErrorMessageDialog(
-				 DEV_SWORK_SPACE + " directory already exist. click ok to proceed with the same workspace or click cancel and select another directory.");
+			}else{
+				workSpaceCreationSuccess = true;
 			}
 		}
+
 		return workSpaceCreationSuccess;
 	}
 
 	/**
 	 * get the users home directory and set the new default workspace location
+	 *
 	 * @return new works space location
 	 */
-	private String getUserWorkspace(){
+	private String getUserWorkspace() {
 		String fileSeparator = File.separator;
 		try {
 			userHome = System.getProperty("user.home");
-		}catch (SecurityException se){
-			logger.error("unable to get the system home directory, security exception, please set permission");
-		}catch (NullPointerException ne){
-			logger.error("unable to get the system home directory, the home directory returns null");
-		}catch (IllegalArgumentException ie){
+		} catch (SecurityException se) {
+			logger.error(
+					"unable to get the system home directory, security exception, please set permission");
+		} catch (NullPointerException ne) {
+			logger.error(
+					"unable to get the system home directory, the home directory returns null");
+		} catch (IllegalArgumentException ie) {
 			logger.error("unable to get the system root directory, the home directory is empty");
 		}
 		String newWorkSpace = userHome + fileSeparator + DEV_SWORK_SPACE;
-		return  newWorkSpace;
+		return newWorkSpace;
 	}
 
 	/**
 	 * when the default workspace newWorkSpace is already existing
+	 *
 	 * @param errorMessage
-	 * @return the status of th euser input, yes or cancel
+	 * @return the status of the user input, yes or cancel
 	 */
-	private int createErrorMessageDialog(String errorMessage){
+	private int createErrorMessageDialog(String errorMessage) {
 		Shell errorDialog = new Shell(shell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 		errorDialog.setSize(ERROR_DIALOG_WIDTH, ERROR_DIALOG_HEIGHT);
-		MessageBox messageDialog = new MessageBox(errorDialog,SWT.ICON_WARNING | SWT.OK | SWT.CANCEL );
+		MessageBox messageDialog = new MessageBox(errorDialog, SWT.ICON_WARNING | SWT.OK);
 		messageDialog.setText(WARNING_DIALOG_MENU_MESSAGE);
 		messageDialog.setMessage(errorMessage);
 		return messageDialog.open();
 	}
 
+	private void okPressed() {
+		boolean createdWorkSpace = false;
+		String defaultNewWorkspace = getUserWorkspace();
+		if (!modifiedWorkSpaceLoc.equals(null)) {
+			if (modifiedWorkSpaceLoc.equals(defaultNewWorkspace)) {
+				createdWorkSpace = createDefaultWorkSpaceDirectory(modifiedWorkSpaceLoc);
+			}
+			setWorkSpaceLoc(modifiedWorkSpaceLoc);
+			if (isDefaultSet) {
+				setIsDefaultWorkSpaceSet(isDefaultSet);
+			}
+			if (createdWorkSpace || !modifiedWorkSpaceLoc.equals(defaultNewWorkspace)) {
+				shell.close();
+				userWorkSpaceSet = true;
+			}
+		} else {
+			logger.warn("workspace location is null hence using the default location");
+		}
+	}
 }
