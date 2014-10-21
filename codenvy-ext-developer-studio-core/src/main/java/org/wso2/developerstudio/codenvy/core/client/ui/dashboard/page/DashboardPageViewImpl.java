@@ -51,8 +51,8 @@ public class DashboardPageViewImpl implements DashboardPageView {
     private ActionDelegate delegate;
     private int NO_OF_ITEMS_PER_ROW = 5; //set for optimized user interaction, to 5
 
-    @UiField
-    Image bannerImage;
+//    @UiField
+//    Image bannerImage;
 
     @UiField
     DockLayoutPanel actionList;
