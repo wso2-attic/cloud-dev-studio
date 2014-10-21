@@ -188,8 +188,6 @@ public class WorkSpaceSelector {
 					if (createdWorkSpace || !modifiedWorkSpaceLoc.equals(defaultNewWorkspace)) {
 						shell.close();
 						userWorkSpaceSet = true;
-					} else {
-						createErrorMessageDialog("unable to create the workspace directory, Please select another directory and retry.");
 					}
 				} else {
 					logger.warn("workspace location is null hence using the default location");
@@ -261,14 +259,14 @@ public class WorkSpaceSelector {
 					workspaceDir.mkdir();
 					workSpaceCreationSuccess = true;
 				} catch (SecurityException se) {
-					logger.error("unable to create the workspace directory");
+					createErrorMessageDialog("Please set permission to create your workspace directory");
 				}
 				if (workSpaceCreationSuccess) {
 					logger.info("successfully created the workspace directory DevSWorkSpace in your home directory at " + workSpace);
 				}
 			} else {
-				logger.error(
-						"unable to create the workspace directory, your home directory already has a directory called DevSWorkSpace. Please delete or rename the directory and retry.");
+				createErrorMessageDialog("unable to create the workspace directory, your home directory " +
+				 "already has a directory called DevSWorkSpace. Please delete or rename the directory and retry.");
 			}
 		}
 		return workSpaceCreationSuccess;

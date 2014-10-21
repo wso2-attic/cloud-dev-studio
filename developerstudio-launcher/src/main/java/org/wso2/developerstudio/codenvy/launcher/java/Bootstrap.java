@@ -56,7 +56,6 @@ public class Bootstrap {
 			WorkSpaceSelector.openWorkSpaceBrowser();
 			if(!WorkSpaceSelector.isUserWorkSpaceSet()){
 				System.exit(0);
-				logger.info("user workspace not set, hence closing application");
 			}
 		}
 
