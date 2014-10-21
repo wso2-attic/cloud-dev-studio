@@ -267,7 +267,7 @@ public class WorkSpaceSelector {
 				}
 			} else {
 				useSameWorkSpace = createErrorMessageDialog("unable to create the workspace directory, your home directory " +
-				 "already has a directory called DevSWorkSpace. Please delete or rename the directory and retry.");
+				 "already has a directory called DevSWorkSpace. click ok to proceed with the same workspace or click cancel and select another directory.");
 			}
 		}
 		return workSpaceCreationSuccess;
@@ -292,6 +292,11 @@ public class WorkSpaceSelector {
 		return  newWorkSpace;
 	}
 
+	/**
+	 * when the default workspace newWorkSpace is already existing
+	 * @param errorMessage
+	 * @return the status of th euser input, yes or cancel
+	 */
 	private int createErrorMessageDialog(String errorMessage){
 		Shell errorDialog = new Shell(shell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 		errorDialog.setSize(ERROR_DIALOG_WIDTH, ERROR_DIALOG_HEIGHT);
