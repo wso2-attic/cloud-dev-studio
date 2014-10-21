@@ -267,7 +267,7 @@ public class WorkSpaceSelector {
 				}
 			} else {
 				useSameWorkSpace = createErrorMessageDialog("unable to create the workspace directory, your home directory " +
-				 "already has a directory called DevSWorkSpace. click ok to proceed with the same workspace or click cancel and select another directory.");
+				 "already has a directory called" + DEV_SWORK_SPACE + ". click ok to proceed with the same workspace or click cancel and select another directory.");
 			}
 		}
 		return workSpaceCreationSuccess;
