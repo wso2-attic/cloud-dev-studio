@@ -18,39 +18,32 @@ package org.wso2.developerstudio.codenvy.launcher.java;
 
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 
 /**
  * Opening the splash screen window for wso2 dev studio
  */
 public class DeveloperStudioSplashScreen {
 	private static final String SPLASH_IMAGE = "SplashScreen.png";
-	public static final String CLASS_NOT_FOUND_EXCEPTION = "Class not found Exception";
-	public static final String INITIATION_EXCEPTION = "Initiation Exception";
-	public static final String ILLEGAL_EXCEPTION = "Illegal Exception";
-	public static final String UNSUPPORTED_LOOK_AND_FEEL_EXCEPTION =
-			"Unsupported Look and Feel Exception";
+
 	public static final int MAX_PROGRESS = 1000; // maximum progress value for the progress bar
 	static SplashScreen screen;
-	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(DeveloperStudioSplashScreen.class);
+	private static final org.slf4j.Logger logger =
+			LoggerFactory.getLogger(DeveloperStudioSplashScreen.class);
 
-	private DeveloperStudioSplashScreen(int proLevel, String proMessage) {
-		// initialize the splash screen
-		splashScreenInit();
-		screen.setProgress(proMessage, proLevel); // progress bar with the message
+	public DeveloperStudioSplashScreen() {
 	}
 
 	/**
 	 * set the progress bar of the splash screen after initiation
+	 *
 	 * @param updateProLevel
 	 * @param updateProMessage
 	 */
 	public static void updateProgress(int updateProLevel, String updateProMessage) {
 		screen.setProgress(updateProMessage, updateProLevel);  // progress bar with the message
-		if (updateProLevel >= MAX_PROGRESS) { // update if the progress value is less than the maximum progress
+		if (updateProLevel >=
+		    MAX_PROGRESS) { // update if the progress value is less than the maximum progress
 			screen.setScreenVisible(false);
 			screen.dispose();
 		}
@@ -59,7 +52,7 @@ public class DeveloperStudioSplashScreen {
 	/**
 	 * initiate the splash screen
 	 */
-	private void splashScreenInit() {
+	public void splashScreenInit() {
 		ImageIcon splashImage = null;
 		if (this.getClass().getResource(SPLASH_IMAGE) != null) {
 			splashImage = new ImageIcon(this.getClass().getResource(SPLASH_IMAGE));
@@ -70,21 +63,6 @@ public class DeveloperStudioSplashScreen {
 		screen.setLocationRelativeTo(null);
 		screen.setProgressMax(MAX_PROGRESS); //maximum value of the progress bar is set
 		screen.setScreenVisible(true);
-	}
-
-	public static void startUp(int progressLevel, String progressMessage) {
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException e) {
-			logger.error(CLASS_NOT_FOUND_EXCEPTION);
-		} catch (InstantiationException e) {
-			logger.error(INITIATION_EXCEPTION);
-		} catch (IllegalAccessException e) {
-			logger.error(ILLEGAL_EXCEPTION);
-		} catch (UnsupportedLookAndFeelException e) {
-			logger.error(UNSUPPORTED_LOOK_AND_FEEL_EXCEPTION);
-		}
-		new DeveloperStudioSplashScreen(progressLevel, progressMessage);
 	}
 
 }

@@ -131,6 +131,9 @@ limitations under the License.
                                 <copy todir="${project.basedir}/../distribution/resources/launcher-assembly-linux64/libs">
                                     <fileset dir="${project.basedir}/resources/linux64/lib/" includes="**/*" />
                                 </copy>
+                                <copy todir="${project.basedir}/../distribution/resources/launcher-assembly-linux64/icons">
+                                    <fileset dir="${project.basedir}/resources/images/" includes="**/*" />
+                                </copy>
                             </tasks>
                         </configuration>
                     </execution>
@@ -153,6 +156,9 @@ limitations under the License.
                                 </copy>
                                 <copy todir="${project.basedir}/../distribution/resources/launcher-assembly-mac64/libs">
                                     <fileset dir="${project.basedir}/resources/mac64/lib/" includes="**/*" />
+                                </copy>
+                                <copy todir="${project.basedir}/../distribution/resources/launcher-assembly-mac64/icons">
+                                    <fileset dir="${project.basedir}/resources/images/" includes="**/*" />
                                 </copy>
                             </tasks>
                         </configuration>
