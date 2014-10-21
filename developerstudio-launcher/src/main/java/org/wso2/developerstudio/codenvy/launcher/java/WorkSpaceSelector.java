@@ -55,7 +55,7 @@ public class WorkSpaceSelector {
 	private static final String SET_DEFAULT_WORKSPACE_MESSAGE =
 			"set workspace as default and do not ask again";
 	private static final String BROWSE_DIALOG_MENU_MESSAGE = "Select your workspace directory";
-	private static final String ERROR_DIALOG_MENU_MESSAGE = "Error occurred";
+	private static final String ERROR_DIALOG_MENU_MESSAGE = "Warning";
 	public static final int ERROR_DIALOG_WIDTH = 400;
 	public static final int ERROR_DIALOG_HEIGHT = 100;
 
@@ -266,8 +266,8 @@ public class WorkSpaceSelector {
 					logger.info("successfully created the workspace directory DevSWorkSpace in your home directory at " + workSpace);
 				}
 			} else {
-				useSameWorkSpace = createErrorMessageDialog("unable to create the workspace directory, your home directory " +
-				 "already has a directory called" + DEV_SWORK_SPACE + ". click ok to proceed with the same workspace or click cancel and select another directory.");
+				useSameWorkSpace = createErrorMessageDialog(
+				 DEV_SWORK_SPACE + " directory already exist. click ok to proceed with the same workspace or click cancel and select another directory.");
 			}
 		}
 		return workSpaceCreationSuccess;
