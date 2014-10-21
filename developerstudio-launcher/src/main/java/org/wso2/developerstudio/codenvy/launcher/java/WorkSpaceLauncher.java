@@ -21,6 +21,7 @@ import java.io.IOException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.*;
 import org.slf4j.Logger;
@@ -50,7 +51,7 @@ public class WorkSpaceLauncher {
 
 	static boolean userWorkSpaceSet = false;
 	String userHome = null;
-	private static final String SHELL_TITLE = "Workspace Launcher";
+	private static final String SHELL_TITLE = "WSO2 Developer Studio";
 	Display display = new Display();
 	public static final int SHELL_TRIM = SWT.CLOSE | SWT.TITLE | SWT.MIN | SWT.MAX | SWT.RESIZE;
 
@@ -92,6 +93,15 @@ public class WorkSpaceLauncher {
 	private void init() {
 
 		shell.setText(SHELL_TITLE);
+
+		String iconRoot = Bootstrap.getRootDir()+ File.separator + "icons";
+
+		Image icon32 = new Image(display, iconRoot + File.separator + "icon-32.png");
+		Image icon64 = new Image(display, iconRoot + File.separator + "icon-64.png");
+		Image icon128 = new Image(display, iconRoot + File.separator + "icon-128.png");
+		Image icon256 = new Image(display, iconRoot + File.separator + "icon-256.png");
+
+		shell.setImages(new Image[]{icon32, icon64, icon128, icon256});
 
 		Composite composite = new Composite(shell, SWT.NONE);
 		composite.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));

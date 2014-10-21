@@ -160,4 +160,8 @@ public class Bootstrap {
 		return Boolean.parseBoolean(defaultWorkSpace);
 	}
 
+	public static String getRootDir() {
+		return rootDir;
+	}
+
 }
