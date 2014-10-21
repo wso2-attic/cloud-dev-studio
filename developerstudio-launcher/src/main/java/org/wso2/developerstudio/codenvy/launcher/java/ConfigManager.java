@@ -34,6 +34,7 @@ public class ConfigManager {
 			"codenvy-datasource-configuration.properties";
 	public static final String CODENVY_JAVA_CA_PROPERTIES_FILE =
 			"codenvy-java-codeassistant-configuration.properties";
+	public static final String LOG4J_PROPERTIES_FILE = "log4j.properties";
 
 	public static final String WORKSPACE_ROOT_PROPERTY = "vfs.local.fs_root_dir";
 	public static final String WORKSPACE_ROOT_INDEX_PROPERTY = "vfs.local.fs_index_root_dir";
@@ -42,17 +43,17 @@ public class ConfigManager {
 	public static final String API_ENDPOINT = "api.endpoint";
 	public static final String EVENT_SUBSCRIPTION_URL = "notification.client.event_subscriptions";
 	public static final String SET_DEFAULT_WORKSPACE = "set.workspace.as.default";
+	public static final String LOG_FILE_PATH_PROPERTY = "log4j.appender.file.File";
 
 	/**
 	 * Alters urls defined in configuration files to use passed local port
 	 *
 	 * @param tomcatPort Port allocated for embedded tomcat server
 	 */
-	public static void configureProperties(String tomcatPort) {
+	public static void configureProperties(String studioRoot, String tomcatPort) {
 
 		try {
 			Properties apiProps = loadPropertiesFromFile(CODENVY_API_PROPERTIES_FILE);
-
 			Properties datasourceProps = loadPropertiesFromFile(CODENVY_DATASOURCE_PROPERTIES_FILE);
 			Properties javaCAProps = loadPropertiesFromFile(CODENVY_JAVA_CA_PROPERTIES_FILE);
 
@@ -122,7 +123,7 @@ public class ConfigManager {
 	 */
 	public static void setAPIProperty(String propertyKey, String propertyValue) throws IOException {
 		Properties apiProps = loadPropertiesFromFile(CODENVY_API_PROPERTIES_FILE);
-        apiProps.setProperty(propertyKey, propertyValue);
+		apiProps.setProperty(propertyKey, propertyValue);
 		storePropertiesToFile(CODENVY_API_PROPERTIES_FILE, apiProps);
 	}
 
@@ -163,16 +164,15 @@ public class ConfigManager {
 
 	}
 
-	public static void setDefaultWorkSpaceProperty (String propertyValue) throws IOException {
+	public static void setDefaultWorkSpaceProperty(String propertyValue) throws IOException {
 		Properties apiProps = loadPropertiesFromFile(CODENVY_API_PROPERTIES_FILE);
 		apiProps.setProperty(SET_DEFAULT_WORKSPACE, propertyValue);
 		storePropertiesToFile(CODENVY_API_PROPERTIES_FILE, apiProps);
 
 	}
 
-	public static String getDefaultWorkSpaceProperty() throws IOException{
+	public static String getDefaultWorkSpaceProperty() throws IOException {
 		return getAPIProperty(SET_DEFAULT_WORKSPACE);
 	}
-
 
 }
