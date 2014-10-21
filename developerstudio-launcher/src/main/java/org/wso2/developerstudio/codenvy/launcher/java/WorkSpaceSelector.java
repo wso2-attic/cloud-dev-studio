@@ -59,6 +59,7 @@ public class WorkSpaceSelector {
 	public static final int ERROR_DIALOG_WIDTH = 400;
 	public static final int ERROR_DIALOG_HEIGHT = 100;
 
+	int useSameWorkSpace;
 	static boolean userWorkSpaceSet = false;
 	String userHome = null;
 	Display display = new Display();
@@ -185,7 +186,7 @@ public class WorkSpaceSelector {
 					if (isDefaultSet) {
 						setIsDefaultWorkSpaceSet(isDefaultSet);
 					}
-					if (createdWorkSpace || !modifiedWorkSpaceLoc.equals(defaultNewWorkspace)) {
+					if (createdWorkSpace || !modifiedWorkSpaceLoc.equals(defaultNewWorkspace) || useSameWorkSpace == SWT.OK) {
 						shell.close();
 						userWorkSpaceSet = true;
 					}
@@ -265,7 +266,7 @@ public class WorkSpaceSelector {
 					logger.info("successfully created the workspace directory DevSWorkSpace in your home directory at " + workSpace);
 				}
 			} else {
-				createErrorMessageDialog("unable to create the workspace directory, your home directory " +
+				useSameWorkSpace = createErrorMessageDialog("unable to create the workspace directory, your home directory " +
 				 "already has a directory called DevSWorkSpace. Please delete or rename the directory and retry.");
 			}
 		}
@@ -291,13 +292,13 @@ public class WorkSpaceSelector {
 		return  newWorkSpace;
 	}
 
-	private void createErrorMessageDialog(String errorMessage){
+	private int createErrorMessageDialog(String errorMessage){
 		Shell errorDialog = new Shell(shell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 		errorDialog.setSize(ERROR_DIALOG_WIDTH, ERROR_DIALOG_HEIGHT);
-		MessageBox messageDialog = new MessageBox(errorDialog,SWT.ICON_WARNING | SWT.OK );
+		MessageBox messageDialog = new MessageBox(errorDialog,SWT.ICON_WARNING | SWT.OK | SWT.CANCEL );
 		messageDialog.setText(ERROR_DIALOG_MENU_MESSAGE);
 		messageDialog.setMessage(errorMessage);
-		messageDialog.open();
+		return messageDialog.open();
 	}
 
 }
