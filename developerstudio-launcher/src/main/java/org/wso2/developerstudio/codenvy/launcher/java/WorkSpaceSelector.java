@@ -18,6 +18,8 @@ package org.wso2.developerstudio.codenvy.launcher.java;
 
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MenuDetectEvent;
+import org.eclipse.swt.events.MenuDetectListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Rectangle;
@@ -41,8 +43,23 @@ public class WorkSpaceSelector {
 	public static final int SHELL_HEIGHT = 300;
 	public static final int INFODATA_HEIGHT = 80;
 	public static final int SHELL_MARGIN = 5;
-	public static final String DEV_SWORK_SPACE = "DevStudioWorkSpace";
-	public static final String NOT_SET = "NOT_SET";
+
+	private static final String DEV_SWORK_SPACE = "DevStudioWorkSpace";
+	private static final String NOT_SET = "NOT_SET";
+	private static final String OK_BUTTON_TEXT = "    Ok    ";
+	private static final String CANCEL_BUTTON_TEXT = "Cancel";
+	private static final String BROWSE_BUTTON_TEXT = "Browse";
+	private static final String MENU_HEADER = "Select a workspace";
+	private static final String USER_MESSAGE_TO_SELECT_WORKSPACE =
+			" Codenvy Developer Studio stores your projects in a directory called workspace. Please choose workspace folder for this session ";
+	private static final String SET_DEFAULT_WORKSPACE_MESSAGE =
+			"set workspace as default and do not ask again";
+	private static final String BROWSE_DIALOG_MENU_MESSAGE = "Select your workspace directory";
+	private static final String ERROR_DIALOG_MENU_MESSAGE = "Error occurred";
+	public static final int ERROR_DIALOG_WIDTH = 400;
+	public static final int ERROR_DIALOG_HEIGHT = 100;
+
+	static boolean userWorkSpaceSet = false;
 	String userHome = null;
 	Display display = new Display();
 	Shell shell = new Shell(display);
@@ -90,7 +107,7 @@ public class WorkSpaceSelector {
 
 		// create a label and a button
 		Label headerLabel = new Label(shell, SWT.NONE);
-		headerLabel.setText("Select a workspace");
+		headerLabel.setText(MENU_HEADER);
 		Label SeparatorLabel;
 		SeparatorLabel = new Label(shell, SWT.SEPARATOR | SWT.HORIZONTAL);
 		GridData separaterLayout = new GridData(SWT.FILL, SWT.TOP, true, false, 4,1);
@@ -100,7 +117,7 @@ public class WorkSpaceSelector {
 		infoLabelData.heightHint = INFODATA_HEIGHT; //text field will consume 60% of total shell
 		Label messageLabel = new Label(shell, SWT.WRAP);
 		messageLabel.setLayoutData(infoLabelData);
-		messageLabel.setText(" Codenvy Developer Studio stores your projects in a directory called workspace. Please choose workspace folder for this session ");
+		messageLabel.setText(USER_MESSAGE_TO_SELECT_WORKSPACE);
 
 		// create a new label which is used as a separator
 		SeparatorLabel = new Label(shell, SWT.SEPARATOR | SWT.HORIZONTAL);
@@ -117,11 +134,11 @@ public class WorkSpaceSelector {
 		workSpaceText.setEditable(false);
 		workSpaceText.setLayoutData(new GridData (SWT.FILL, SWT.TOP, true, true, 3, 1));
 		Button browseButton = new Button(shell, SWT.BORDER);
-		browseButton.setText("Browse");
+		browseButton.setText(BROWSE_BUTTON_TEXT);
 		browseButton.setLayoutData(new GridData(SWT.RIGHT, SWT.TOP, true, false, 1, 1));
 
 		final Button isWorkSpaceDefault = new Button(shell, SWT.CHECK);
-		isWorkSpaceDefault.setText("set workspace as default and do not ask again");
+		isWorkSpaceDefault.setText(SET_DEFAULT_WORKSPACE_MESSAGE);
 		isWorkSpaceDefault.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, true, false, 4, 1));
 		isWorkSpaceDefault.pack();
 		isWorkSpaceDefault.addSelectionListener(new SelectionAdapter()
@@ -139,16 +156,16 @@ public class WorkSpaceSelector {
 		});
 
 		Button okButton = new Button(shell, SWT.BORDER);
-		okButton.setText("    Ok    ");
+		okButton.setText(OK_BUTTON_TEXT);
 		okButton.setLayoutData(new GridData(SWT.RIGHT, SWT.TOP, true, true, 3, 1));
 		final Button cancelButton = new Button(shell, SWT.BORDER);
-		cancelButton.setText("Cancel");
+		cancelButton.setText(CANCEL_BUTTON_TEXT);
 		cancelButton.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, true, true, 1, 1));
 
 		browseButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				DirectoryDialog dirDialog = new DirectoryDialog(shell);
-				dirDialog.setText("Select your workspace directory");
+				dirDialog.setText(BROWSE_DIALOG_MENU_MESSAGE);
 				String selectedDir = dirDialog.open();
 				if (selectedDir != null) {
 					workSpaceText.setText(selectedDir);
@@ -170,11 +187,9 @@ public class WorkSpaceSelector {
 					}
 					if (createdWorkSpace || !modifiedWorkSpaceLoc.equals(defaultNewWorkspace)) {
 						shell.close();
+						userWorkSpaceSet = true;
 					} else {
-						MessageBox messageDialog = new MessageBox(shell, SWT.ERROR);
-						messageDialog.setText(
-								"unable to create the workspace directory,  Please select another directory and retry.");
-						messageDialog.setMessage("Error occurred");
+						createErrorMessageDialog("unable to create the workspace directory, Please select another directory and retry.");
 					}
 				} else {
 					logger.warn("workspace location is null hence using the default location");
@@ -184,7 +199,6 @@ public class WorkSpaceSelector {
 		cancelButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				shell.close();
-				System.exit(0);
 			}
 		});
 
@@ -193,6 +207,10 @@ public class WorkSpaceSelector {
 	public static boolean openWorkSpaceBrowser() {
 		new WorkSpaceSelector();
 		return isDefaultSet;
+	}
+
+	public static boolean isUserWorkSpaceSet(){
+		return  userWorkSpaceSet;
 	}
 
 	/**
@@ -273,6 +291,15 @@ public class WorkSpaceSelector {
 		}
 		String newWorkSpace = userHome + fileSeparator + DEV_SWORK_SPACE;
 		return  newWorkSpace;
+	}
+
+	private void createErrorMessageDialog(String errorMessage){
+		Shell errorDialog = new Shell(shell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+		errorDialog.setSize(ERROR_DIALOG_WIDTH, ERROR_DIALOG_HEIGHT);
+		MessageBox messageDialog = new MessageBox(errorDialog,SWT.ICON_WARNING | SWT.OK );
+		messageDialog.setText(ERROR_DIALOG_MENU_MESSAGE);
+		messageDialog.setMessage(errorMessage);
+		messageDialog.open();
 	}
 
 }

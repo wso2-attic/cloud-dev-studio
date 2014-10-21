@@ -54,6 +54,10 @@ public class Bootstrap {
 		boolean defaultWorkSpaceSelected = getIsDefaultWorkSpaceSet();
 		if(!defaultWorkSpaceSelected) {
 			WorkSpaceSelector.openWorkSpaceBrowser();
+			if(!WorkSpaceSelector.isUserWorkSpaceSet()){
+				System.exit(0);
+				logger.info("user workspace not set, hence closing application");
+			}
 		}
 
 		splashScreenInvoker(0, "Starting WSO2 Developer Studio");
@@ -82,8 +86,7 @@ public class Bootstrap {
 //			ChromiumLauncher chromiumLauncher = new ChromiumLauncher(ideURL);
 //			Thread chromiumBrowser = new Thread(chromiumLauncher);
 //			chromiumBrowser.start();
-			DeveloperStudioSplashScreen.updateProgress(350,
-			                               "Starting tomcat in background" + 35 + "%");
+			DeveloperStudioSplashScreen.updateProgress(350, "Starting tomcat in background" + 35 + "%");
 			logger.info("Starting tomcat in background");
 			TomcatLauncher launcher = new TomcatLauncher(tomcat);
 			Thread tomcatServer = new Thread(launcher);
