@@ -44,7 +44,7 @@ public class Bootstrap {
 		mapContextToWebApp.put("/ide", "ide");
 	}
 
-	public static void main(String args[]) {
+	public static void main(String args[]) {		
 
 		rootDir = System.getenv(STUDIO_ROOT_ENV_VAR_NAME);
 		logger.info("Root dir is" + rootDir);
@@ -53,8 +53,8 @@ public class Bootstrap {
 		webAppRoot = rootDir + File.separator + args[0];
 		boolean defaultWorkSpaceSelected = getIsDefaultWorkSpaceSet();
 		if(!defaultWorkSpaceSelected) {
-			WorkSpaceSelector.openWorkSpaceBrowser();
-			if(!WorkSpaceSelector.isUserWorkSpaceSet()){
+			WorkSpaceLauncher.openWorkSpaceBrowser();
+			if(!WorkSpaceLauncher.isUserWorkSpaceSet()){
 				System.exit(0);
 			}
 		}
