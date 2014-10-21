@@ -102,19 +102,19 @@ public class WorkSpaceLauncher {
 		lblSelectWorkspace.setBounds(10, 10, 141, 23);
 		lblSelectWorkspace.setText(MENU_HEADER);
 
-		Label lblNewLabel = new Label(composite, SWT.WRAP);
-		lblNewLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
-		lblNewLabel.setBounds(20, 39, 552, 41);
-		lblNewLabel.setText(USER_MESSAGE_TO_SELECT_WORKSPACE);
+		Label mesageLabel = new Label(composite, SWT.WRAP);
+		mesageLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
+		mesageLabel.setBounds(20, 39, 552, 41);
+		mesageLabel.setText(USER_MESSAGE_TO_SELECT_WORKSPACE);
 
-		Composite composite_1 = new Composite(shell, SWT.NONE);
-		composite_1.setBounds(10, 101, 582, 77);
+		Composite selectionComposite = new Composite(shell, SWT.NONE);
+		selectionComposite.setBounds(10, 101, 582, 77);
 
-		CLabel lblWorkspace = new CLabel(composite_1, SWT.NONE);
+		CLabel lblWorkspace = new CLabel(selectionComposite, SWT.NONE);
 		lblWorkspace.setBounds(10, 23, 89, 23);
 		lblWorkspace.setText(WORKSPACE_LABEL);
 
-		workSpaceText = new Text(composite_1, SWT.BORDER);
+		workSpaceText = new Text(selectionComposite, SWT.BORDER);
 		workSpaceText.setBounds(105, 23, 368, 27);
 		currentWorkSpaceLoc = getWorkSpaceLoc();
 		modifiedWorkSpaceLoc = getUserWorkspace();
@@ -123,10 +123,10 @@ public class WorkSpaceLauncher {
 		} else {
 			workSpaceText.setText(modifiedWorkSpaceLoc);
 		}
-		Button btnNewButton = new Button(composite_1, SWT.NONE);
-		btnNewButton.setBounds(479, 21, 93, 29);
-		btnNewButton.setText(BROWSE_BUTTON_TEXT);
-		btnNewButton.addSelectionListener(new SelectionAdapter() {
+		Button browseButton = new Button(selectionComposite, SWT.NONE);
+		browseButton.setBounds(479, 21, 93, 29);
+		browseButton.setText(BROWSE_BUTTON_TEXT);
+		browseButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				DirectoryDialog dirDialog = new DirectoryDialog(shell);
 				dirDialog.setText(BROWSE_DIALOG_MENU_MESSAGE);
@@ -138,14 +138,14 @@ public class WorkSpaceLauncher {
 			}
 		});
 
-		final Button btnCheckButton = new Button(shell, SWT.CHECK);
-		btnCheckButton.setBounds(20, 184, 572, 24);
-		btnCheckButton.setText(SET_DEFAULT_WORKSPACE_MESSAGE);
-		btnCheckButton.pack();
-		btnCheckButton.addSelectionListener(new SelectionAdapter() {
+		final Button setDefaulWorkSpaceButton = new Button(shell, SWT.CHECK);
+		setDefaulWorkSpaceButton.setBounds(20, 184, 572, 24);
+		setDefaulWorkSpaceButton.setText(SET_DEFAULT_WORKSPACE_MESSAGE);
+		setDefaulWorkSpaceButton.pack();
+		setDefaulWorkSpaceButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				if (btnCheckButton.getSelection()) {
+				if (setDefaulWorkSpaceButton.getSelection()) {
 					isDefaultSet = true;
 				} else {
 					isDefaultSet = false;
@@ -153,10 +153,10 @@ public class WorkSpaceLauncher {
 			}
 		});
 
-		Composite composite_2 = new Composite(shell, SWT.NONE);
-		composite_2.setBounds(10, 224, 582, 44);
+		Composite buttonComposite = new Composite(shell, SWT.NONE);
+		buttonComposite.setBounds(10, 224, 582, 44);
 
-		Button btnOk = new Button(composite_2, SWT.NONE);
+		Button btnOk = new Button(buttonComposite, SWT.NONE);
 		btnOk.setBounds(371, 10, 91, 29);
 		btnOk.setText(OK_BUTTON_TEXT);
 		btnOk.addSelectionListener(new SelectionAdapter() {
@@ -165,7 +165,7 @@ public class WorkSpaceLauncher {
 			}
 		});
 
-		Button btnCancel = new Button(composite_2, SWT.NONE);
+		Button btnCancel = new Button(buttonComposite, SWT.NONE);
 		btnCancel.setBounds(481, 10, 91, 29);
 		btnCancel.setText(CANCEL_BUTTON_TEXT);
 		btnCancel.addSelectionListener(new SelectionAdapter() {
