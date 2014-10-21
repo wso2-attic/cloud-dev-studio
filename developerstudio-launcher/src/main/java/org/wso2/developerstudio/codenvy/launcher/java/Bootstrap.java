@@ -47,19 +47,25 @@ public class Bootstrap {
 	public static void main(String args[]) {
 
 		rootDir = System.getenv(STUDIO_ROOT_ENV_VAR_NAME);
-
 		logger.info("Root dir is" + rootDir);
-
 		logger.info("Starting WSO2 Developer Studio 4.0.0");
 
 		webAppRoot = rootDir + File.separator + args[0];
+		boolean defaultWorkSpaceSelected = getIsDefaultWorkSpaceSet();
+		if(!defaultWorkSpaceSelected) {
+			WorkSpaceSelector.openWorkSpaceBrowser();
+			if(!WorkSpaceSelector.isUserWorkSpaceSet()){
+				System.exit(0);
+			}
+		}
+
+		splashScreenInvoker(0, "Starting WSO2 Developer Studio");
 
 		if (webAppRoot.equals("")) {
 			webAppRoot = rootDir + File.separator + DEFAULT_RELATIVE_WEB_ROOT;
 		}
 
 		logger.info("Tomcat web app root is set to : " + webAppRoot);
-
 		try {
 			Tomcat tomcat = new Tomcat();
 			tomcat.setBaseDir(rootDir + File.separator + "tomcat");
@@ -70,25 +76,31 @@ public class Bootstrap {
 
 			// Alter codenvy properties to use custom tomcat port
 			ConfigManager.configureProperties(port.toString());
-
 			String ideURL = "http://localhost:" + port + "/ide";
 			logger.info("IDE URL is set to: " + ideURL);
-
+			DeveloperStudioSplashScreen.updateProgress(300, "Configuring ports" + 30 + "%");
 			addWebApps(tomcat);
 
 			logger.info("Starting chromium in background");
 //			ChromiumLauncher chromiumLauncher = new ChromiumLauncher(ideURL);
 //			Thread chromiumBrowser = new Thread(chromiumLauncher);
 //			chromiumBrowser.start();
-
+			DeveloperStudioSplashScreen.updateProgress(350, "Starting tomcat in background" + 35 + "%");
 			logger.info("Starting tomcat in background");
 			TomcatLauncher launcher = new TomcatLauncher(tomcat);
 			Thread tomcatServer = new Thread(launcher);
+			DeveloperStudioSplashScreen.updateProgress(400, "Starting tomcat" + 40 + "%");
 			tomcatServer.start();
-
 			// FIXME : Implement a logic to see whether tomcat webapp deployment is finished.
 			try {
-				Thread.sleep(25000);
+				for (int i = 1; i < 26; i++) { //to sleep the thread for 25,000 while updating progress bar
+					int progressVal = 400 + i * 24; //calculation of the progress bar percentage with thread sleep
+					Thread.sleep(1000);
+					DeveloperStudioSplashScreen.updateProgress(progressVal,
+					               "Opening WSO2 Developer Studio" + progressVal / 10 + "%");
+				}
+				DeveloperStudioSplashScreen.updateProgress(1500,
+				                           "Opening WSO2 Developer Studio" + 100 +"%");
 			} catch (InterruptedException e) {
 				logger.error("Chromium launcher error", e);
 			}
@@ -101,17 +113,25 @@ public class Bootstrap {
 		}
 	}
 
+	/**
+	 *
+	 * @param progress
+	 * @param messageToDisplay
+	 * method to call the start up in Splash Screen to display the progress on IDE opening process to the user
+	 */
+	private static void splashScreenInvoker(int progress, String messageToDisplay) {
+		DeveloperStudioSplashScreen.startUp(progress, messageToDisplay);
+	}
+
 	private static void addWebApps(Tomcat tomcat) throws ServletException {
 
 		for (Object o : mapContextToWebApp.entrySet()) {
 			Map.Entry webAppEntry = (Map.Entry) o;
 			tomcat.addWebapp(webAppEntry.getKey().toString(),
-			                 new File(webAppRoot + File.separator +
-			                          webAppEntry.getValue().toString()).getAbsolutePath());
+			     new File(webAppRoot + File.separator + webAppEntry.getValue().toString()).getAbsolutePath());
 
 			logger.info("Adding web app : " +
-			            new File(webAppRoot + File.separator + webAppEntry.getValue().toString())
-					            .getAbsolutePath());
+			     new File(webAppRoot + File.separator + webAppEntry.getValue().toString()).getAbsolutePath());
 		}
 	}
 
@@ -123,4 +143,15 @@ public class Bootstrap {
 		return port;
 
 	}
+
+	private static boolean getIsDefaultWorkSpaceSet() {
+		String defaultWorkSpace = null;
+		try {
+			defaultWorkSpace = ConfigManager.getDefaultWorkSpaceProperty();
+		} catch (IOException e) {
+			logger.error("error in reading whether user has set default workspace from properties" + e);
+		}
+		return Boolean.parseBoolean(defaultWorkSpace);
+	}
+
 }
