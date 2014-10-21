@@ -28,9 +28,9 @@ limitations under the License.
         <module>codenvy-ext-developer-studio-core</module>
         <module>codenvy-ext-runner-carbon</module>
         <module>codenvy-ext-wso2-app-server</module>
-        <module>codenvy-ext-wso2-registry</module>
-        <module>codenvy-ext-wso2-esb</module>
-        <module>codenvy-ext-wso2-app-factory</module>
+        <!--<module>codenvy-ext-wso2-registry</module>-->
+        <!--<module>codenvy-ext-wso2-esb</module>-->
+        <!--<module>codenvy-ext-wso2-app-factory</module>-->
         <module>developerstudio-launcher</module>
         <module>developerstudio-assembly</module>
         <module>distribution</module>
