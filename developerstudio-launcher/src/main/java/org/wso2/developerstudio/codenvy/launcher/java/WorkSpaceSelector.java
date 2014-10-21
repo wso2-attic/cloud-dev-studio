@@ -18,8 +18,6 @@ package org.wso2.developerstudio.codenvy.launcher.java;
 
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.MenuDetectEvent;
-import org.eclipse.swt.events.MenuDetectListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Rectangle;
@@ -55,7 +53,7 @@ public class WorkSpaceSelector {
 	private static final String SET_DEFAULT_WORKSPACE_MESSAGE =
 			"set workspace as default and do not ask again";
 	private static final String BROWSE_DIALOG_MENU_MESSAGE = "Select your workspace directory";
-	private static final String ERROR_DIALOG_MENU_MESSAGE = "Warning";
+	private static final String WARNING_DIALOG_MENU_MESSAGE = "Warning";
 	public static final int ERROR_DIALOG_WIDTH = 400;
 	public static final int ERROR_DIALOG_HEIGHT = 100;
 
@@ -260,7 +258,8 @@ public class WorkSpaceSelector {
 					workspaceDir.mkdir();
 					workSpaceCreationSuccess = true;
 				} catch (SecurityException se) {
-					createErrorMessageDialog("Please set permission to create your workspace directory");
+					createErrorMessageDialog(
+							"Please set permission to create your workspace directory");
 				}
 				if (workSpaceCreationSuccess) {
 					logger.info("successfully created the workspace directory DevSWorkSpace in your home directory at " + workSpace);
@@ -301,7 +300,7 @@ public class WorkSpaceSelector {
 		Shell errorDialog = new Shell(shell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 		errorDialog.setSize(ERROR_DIALOG_WIDTH, ERROR_DIALOG_HEIGHT);
 		MessageBox messageDialog = new MessageBox(errorDialog,SWT.ICON_WARNING | SWT.OK | SWT.CANCEL );
-		messageDialog.setText(ERROR_DIALOG_MENU_MESSAGE);
+		messageDialog.setText(WARNING_DIALOG_MENU_MESSAGE);
 		messageDialog.setMessage(errorMessage);
 		return messageDialog.open();
 	}
