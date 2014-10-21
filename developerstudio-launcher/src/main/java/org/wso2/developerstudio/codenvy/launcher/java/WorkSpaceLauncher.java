@@ -246,7 +246,7 @@ public class WorkSpaceLauncher {
 							"successfully created the workspace directory DevSWorkSpace in your home directory at " +
 							workSpace);
 				}
-			}else{
+			} else {
 				workSpaceCreationSuccess = true;
 			}
 		}

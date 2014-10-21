@@ -16,8 +16,19 @@
 
 package org.wso2.developerstudio.codenvy.launcher.java;
 
-import javax.swing.*;
-import java.awt.*;
+import org.slf4j.LoggerFactory;
+
+import javax.swing.JFrame;
+import java.awt.BorderLayout;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.awt.FlowLayout;
+import java.awt.Color;
+import javax.swing.ImageIcon;
+import javax.swing.JRootPane;
+import javax.swing.SwingUtilities;
+import javax.swing.JProgressBar;
+import java.awt.Dimension;
 
 /**
  * generating the splash screen custom for WSO2 dev studio
@@ -25,6 +36,9 @@ import java.awt.*;
 @SuppressWarnings("serial")
 public class SplashScreen extends JFrame {
 	public static final int PROGRESS_BAR_WIDTH = 300;
+
+	private static final org.slf4j.Logger logger =
+			LoggerFactory.getLogger(SplashScreen.class);
 	BorderLayout borderLayout1 = new BorderLayout();
 	JLabel imageLabel = new JLabel();
 	JPanel southPanel = new JPanel();
@@ -37,7 +51,7 @@ public class SplashScreen extends JFrame {
 		try {
 			jbInit();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			logger.error("Error intializing Splash Screen. " + ex.getMessage(), ex);
 		}
 	}
 
