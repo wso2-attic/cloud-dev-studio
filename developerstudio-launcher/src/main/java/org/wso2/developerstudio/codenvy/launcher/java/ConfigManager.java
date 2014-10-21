@@ -86,7 +86,7 @@ public class ConfigManager {
 	public static void setWorkspaceDirectory(String workspace) throws IOException {
 
 		setAPIProperty(WORKSPACE_ROOT_PROPERTY, workspace);
-		setAPIProperty(WORKSPACE_ROOT_INDEX_PROPERTY, workspace);
+		setAPIProperty(WORKSPACE_ROOT_INDEX_PROPERTY, workspace + File.separator + ".metadata");
 	}
 
 	/**
