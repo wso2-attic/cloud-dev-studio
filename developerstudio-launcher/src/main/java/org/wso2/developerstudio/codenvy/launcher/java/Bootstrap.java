@@ -50,7 +50,7 @@ public class Bootstrap {
 		logger.info("Root dir is" + rootDir);
 		logger.info("Starting WSO2 Developer Studio 4.0.0");
 
-		//webAppRoot = rootDir + File.separator + args[0];
+		webAppRoot = rootDir + File.separator + args[0];
 		boolean defaultWorkSpaceSelected = getIsDefaultWorkSpaceSet();
 		if(!defaultWorkSpaceSelected) {
 			WorkSpaceLauncher.openWorkSpaceBrowser();
