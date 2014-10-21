@@ -51,7 +51,7 @@ public class WorkSpaceSelector {
 	private static final String BROWSE_BUTTON_TEXT = "Browse";
 	private static final String MENU_HEADER = "Select a workspace";
 	private static final String USER_MESSAGE_TO_SELECT_WORKSPACE =
-			" Codenvy Developer Studio stores your projects in a directory called workspace. Please choose workspace folder for this session ";
+			" WSO2 Developer Studio stores your projects in a directory called workspace. Please choose workspace folder for this session ";
 	private static final String SET_DEFAULT_WORKSPACE_MESSAGE =
 			"set workspace as default and do not ask again";
 	private static final String BROWSE_DIALOG_MENU_MESSAGE = "Select your workspace directory";
