@@ -24,6 +24,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -62,7 +63,9 @@ public class JAXWSProjectTypeExtension implements ProjectTypeExtension {
 
 	@Override
 	public List<ProjectTemplateDescription> getTemplates() {
-		final List<ProjectTemplateDescription> list = new ArrayList<ProjectTemplateDescription>();
-		return list;
+		return Arrays.asList(new ProjectTemplateDescription("zip",
+		                                                    "WSO2 SAMPLE JAXWS SERVICE PROJECT",
+		                                                    "This is a simple sample JAXWS service project.",
+		                                                    "templates/JAXWSServiceSample.zip"));
 	}
 }

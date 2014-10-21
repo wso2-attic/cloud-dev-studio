@@ -20,6 +20,7 @@ distribution/extensions/
 
 # exclude sample zips from ignored files
 !**/samples/*.zip
+!**/templates/*.zip
 !developerstudio-assembly/resources/**/*
 
 developerstudio-assembly/resources/**/cef_client

@@ -25,6 +25,7 @@ import com.google.inject.Singleton;
 import org.wso2.developerstudio.codenvy.ext.appserver.shared.AppServerExtConstants;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Singleton
@@ -59,7 +60,9 @@ public class JAXRSProjectTypeExtension implements ProjectTypeExtension {
 
 	@Override
 	public List<ProjectTemplateDescription> getTemplates() {
-		final List<ProjectTemplateDescription> list = new ArrayList<ProjectTemplateDescription>();
-		return list;
+		return Arrays.asList(new ProjectTemplateDescription("zip",
+		                                                    "WSO2 SAMPLE JAXRS SERVICE PROJECT",
+		                                                    "This is a simple sample JAXRS service project.",
+		                                                    "templates/JAXRSServiceSample.zip"));
 	}
 }
