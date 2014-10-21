@@ -54,4 +54,11 @@ public interface AppServerExtConstants {
 	String JAX_RS_SAMPLE_PROJECT = "JAXRSSampleService.zip";
 	String JAX_WS_SAMPLE_PROJECT = "JAXWSSampleService.zip";
 
+	// generator Info
+	String GENERATOR_PROJECT_TYPE = "wso2.appserver.project.generator.project.type";
+	String GENERATOR_PROJECT_NAME = "wso2.appserver.project.generator.project.name";
+	String GENERATOR_PACKAGE_NAME = "wso2.appserver.project.generator.package.name";
+	String GENERATOR_CLASS_NAME =  "wso2.appserver.project.generator.class.name";
+
+
 }
