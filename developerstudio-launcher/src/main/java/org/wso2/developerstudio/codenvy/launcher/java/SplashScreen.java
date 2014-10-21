@@ -51,6 +51,8 @@ public class SplashScreen extends JFrame {
 		getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 		this.getContentPane().add(imageLabel, BorderLayout.CENTER);
 		this.getContentPane().add(southPanel, BorderLayout.SOUTH);
+		Color color = new Color(128, 128, 128);
+		southPanel.setBackground(color);
 		Dimension prefSize = progressBar.getPreferredSize(); // set the width for progress bar
 		prefSize.width = PROGRESS_BAR_WIDTH;
 		progressBar.setPreferredSize(prefSize);
