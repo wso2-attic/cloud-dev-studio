@@ -57,7 +57,7 @@ public class WorkSpaceLauncher {
 
 	private static final int SHELL_WIDTH = 602;
 	private static final int SHELL_HEIGHT = 300;
-	Shell shell = new Shell(display, SWT.TITLE);
+	Shell shell = new Shell(display, SWT.SHELL_TRIM & (~SWT.RESIZE));
 	Text workSpaceText;
 	static boolean isDefaultSet = false;
 	private static String modifiedWorkSpaceLoc = null;
@@ -65,6 +65,7 @@ public class WorkSpaceLauncher {
 
 	public WorkSpaceLauncher() {
 		init();
+		shell.setBackground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_BACKGROUND));
 		shell.pack();
 		shell.setSize(SHELL_WIDTH, SHELL_HEIGHT);
 		// making the shell appear in the center of the monitor
@@ -76,6 +77,7 @@ public class WorkSpaceLauncher {
 		int shellYLoc = bounds.y + (bounds.height - rect.height) / 2;
 
 		shell.setLocation(shellXLoc, shellYLoc);
+
 		shell.open();
 
 		while (!shell.isDisposed()) {
@@ -104,23 +106,27 @@ public class WorkSpaceLauncher {
 		shell.setImages(new Image[]{icon32, icon64, icon128, icon256});
 
 		Composite composite = new Composite(shell, SWT.NONE);
-		composite.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
-		composite.setBounds(10, 10, 582, 90);
+		composite.setBackground(SWTResourceManager.getColor(SWT.COLOR_DARK_GRAY));
+		composite.setBounds(0, 0, 600, 118);
 
 		Label lblSelectWorkspace = new Label(composite, SWT.NONE);
-		lblSelectWorkspace.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
+		lblSelectWorkspace.setForeground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_LIGHT_SHADOW));
+		lblSelectWorkspace.setBackground(SWTResourceManager.getColor(SWT.COLOR_DARK_GRAY));
 		lblSelectWorkspace.setBounds(10, 10, 141, 23);
 		lblSelectWorkspace.setText(MENU_HEADER);
 
 		Label mesageLabel = new Label(composite, SWT.WRAP);
-		mesageLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
-		mesageLabel.setBounds(20, 39, 552, 41);
-		mesageLabel.setText(USER_MESSAGE_TO_SELECT_WORKSPACE);
+		mesageLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_LIGHT_SHADOW));
+		mesageLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_DARK_GRAY));
+		mesageLabel.setBounds(10, 50, 580, 41);
+		mesageLabel.setText("WSO2 Developer Studio stores your projects in a directory called workspace. Please choose workspace folder for this session ");
 
 		Composite selectionComposite = new Composite(shell, SWT.NONE);
-		selectionComposite.setBounds(10, 101, 582, 77);
+		selectionComposite.setBackground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_BACKGROUND));
+		selectionComposite.setBounds(0, 141, 600, 77);
 
 		CLabel lblWorkspace = new CLabel(selectionComposite, SWT.NONE);
+		lblWorkspace.setBackground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_BACKGROUND));
 		lblWorkspace.setBounds(10, 23, 89, 23);
 		lblWorkspace.setText(WORKSPACE_LABEL);
 
@@ -134,6 +140,7 @@ public class WorkSpaceLauncher {
 			workSpaceText.setText(modifiedWorkSpaceLoc);
 		}
 		Button browseButton = new Button(selectionComposite, SWT.NONE);
+		browseButton.setForeground(SWTResourceManager.getColor(SWT.COLOR_DARK_GRAY));
 		browseButton.setBounds(479, 21, 93, 29);
 		browseButton.setText(BROWSE_BUTTON_TEXT);
 		browseButton.addSelectionListener(new SelectionAdapter() {
@@ -148,26 +155,21 @@ public class WorkSpaceLauncher {
 			}
 		});
 
-		final Button setDefaulWorkSpaceButton = new Button(shell, SWT.CHECK);
-		setDefaulWorkSpaceButton.setBounds(20, 184, 572, 24);
-		setDefaulWorkSpaceButton.setText(SET_DEFAULT_WORKSPACE_MESSAGE);
-		setDefaulWorkSpaceButton.pack();
-		setDefaulWorkSpaceButton.addSelectionListener(new SelectionAdapter() {
-			@Override
+		Composite buttonComposite = new Composite(shell, SWT.NONE);
+		buttonComposite.setBackground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_BACKGROUND));
+		buttonComposite.setBounds(10, 224, 582, 44);
+
+		Button btnCancel = new Button(buttonComposite, SWT.NONE);
+		btnCancel.setBounds(371, 10, 91, 29);
+		btnCancel.setText(CANCEL_BUTTON_TEXT);
+		btnCancel.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				if (setDefaulWorkSpaceButton.getSelection()) {
-					isDefaultSet = true;
-				} else {
-					isDefaultSet = false;
-				}
+				shell.close();
 			}
 		});
 
-		Composite buttonComposite = new Composite(shell, SWT.NONE);
-		buttonComposite.setBounds(10, 224, 582, 44);
-
 		Button btnOk = new Button(buttonComposite, SWT.NONE);
-		btnOk.setBounds(371, 10, 91, 29);
+		btnOk.setBounds(481, 10, 91, 29);
 		btnOk.setText(OK_BUTTON_TEXT);
 		btnOk.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
@@ -175,12 +177,17 @@ public class WorkSpaceLauncher {
 			}
 		});
 
-		Button btnCancel = new Button(buttonComposite, SWT.NONE);
-		btnCancel.setBounds(481, 10, 91, 29);
-		btnCancel.setText(CANCEL_BUTTON_TEXT);
-		btnCancel.addSelectionListener(new SelectionAdapter() {
+		final Button btnCheckButton = new Button(buttonComposite, SWT.CHECK);
+		btnCheckButton.setBounds(10, 10, 339, 29);
+		btnCheckButton.setText(SET_DEFAULT_WORKSPACE_MESSAGE);
+		btnCheckButton.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
-				shell.close();
+				if (btnCheckButton.getSelection()) {
+					isDefaultSet = true;
+				} else {
+					isDefaultSet = false;
+				}
 			}
 		});
 
@@ -228,9 +235,8 @@ public class WorkSpaceLauncher {
 		try {
 			ConfigManager.setDefaultWorkSpaceProperty(String.valueOf(defaultSet));
 		} catch (IOException e1) {
-			logger.error(
-					"error in writing whether user has set default workspace to IDE properties" +
-					e1);
+			logger.error("error in writing whether user has set default workspace to IDE properties" +
+			             e1);
 		}
 	}
 
