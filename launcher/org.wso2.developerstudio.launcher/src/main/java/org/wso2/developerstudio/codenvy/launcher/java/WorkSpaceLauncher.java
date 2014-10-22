@@ -19,6 +19,8 @@ import java.io.File;
 import java.io.IOException;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
@@ -139,6 +141,12 @@ public class WorkSpaceLauncher {
 		} else {
 			workSpaceText.setText(modifiedWorkSpaceLoc);
 		}
+		workSpaceText.addModifyListener(new ModifyListener() {
+			@Override public void modifyText(ModifyEvent modifyEvent) {
+				modifiedWorkSpaceLoc = workSpaceText.getText();
+			}
+		});
+
 		Button browseButton = new Button(selectionComposite, SWT.NONE);
 		browseButton.setForeground(SWTResourceManager.getColor(SWT.COLOR_DARK_GRAY));
 		browseButton.setBounds(479, 21, 93, 29);

@@ -51,7 +51,7 @@ public class Bootstrap {
 		logger.info("Starting WSO2 Developer Studio 4.0.0");
 
 		webAppRoot = rootDir + File.separator + args[0];
-		boolean defaultWorkSpaceSelected = getIsDefaultWorkSpaceSet();
+		boolean defaultWorkSpaceSelected = isDefaultWorkSpaceSet();
 		if (!defaultWorkSpaceSelected) {
 			WorkSpaceLauncher.openWorkSpaceBrowser();
 			if (!WorkSpaceLauncher.isUserWorkSpaceSet()) {
@@ -149,13 +149,13 @@ public class Bootstrap {
 
 	}
 
-	private static boolean getIsDefaultWorkSpaceSet() {
+	private static boolean isDefaultWorkSpaceSet() {
 		String defaultWorkSpace = null;
 		try {
 			defaultWorkSpace = ConfigManager.getDefaultWorkSpaceProperty();
 		} catch (IOException e) {
 			logger.error(
-					"error in reading whether user has set default workspace from properties" + e);
+					"error reading whether user has set default workspace in properties" + e);
 		}
 		return Boolean.parseBoolean(defaultWorkSpace);
 	}
