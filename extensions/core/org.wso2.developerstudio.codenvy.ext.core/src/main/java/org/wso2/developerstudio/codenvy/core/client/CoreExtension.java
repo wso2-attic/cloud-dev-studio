@@ -58,18 +58,5 @@ public class CoreExtension {
 		                             openDashboardAction);
 		wso2CloudStudioActionGroup.add(openDashboardAction);
 
-
-		DashboardCategory category = new DashboardCategory("App Server tools", null);
-		DashboardItem webAppItem =
-				new DashboardItem(category, "Web Application project", null, null);
-		DashboardItem JAXRSItem = new DashboardItem(category, "JAX RS service project", null, null);
-		DashboardItem JAXWSItem = new DashboardItem(category, "JAX WS service project", null, null);
-
-		dashboardItemRegistry.registerItem(webAppItem);
-		dashboardItemRegistry.registerItem(JAXRSItem);
-		dashboardItemRegistry.registerItem(JAXWSItem);
-
-		workspaceAgent.openPart(dashboardPagePresenter, PartStackType.EDITING);
-
 	}
 }
