@@ -67,8 +67,9 @@ public class WSO2AppServerProjectGenerator implements ProjectGenerator {
 					                   .WSO2_WEB_APP_PROJECT_ID)) {
 				String webContentFolder = options.get(
 						AppServerExtConstants.GENERATOR_WEB_CONTENT_FOLDER);
+				webContentFolder = "WebContent";
 				folderEntry.createFolder(webContentFolder);
-				folderEntry.createFolder(webContentFolder + "/webapp/WEB-INF");
+				folderEntry.createFolder(webContentFolder + "/WEB-INF");
 				String webINFContent = "<web-app xmlns=\"http://java.sun.com/xml/ns/javaee\"\n" +
 				                 "\txmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
 				                 "\txsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee\n" +
@@ -77,20 +78,33 @@ public class WSO2AppServerProjectGenerator implements ProjectGenerator {
 				                 "</web-app>";
 
 				folderEntry.createFile(
-						options.get(AppServerExtConstants.GENERATOR_WEB_CONTENT_FOLDER) +
+						webContentFolder +
 						"/WEB-INF/web.xml", webINFContent.getBytes(),
 						"text/xml");
 
-
-
-				folderEntry.createFolder(webContentFolder + "/webapp/META-INF");
+				folderEntry.createFolder(webContentFolder + "/META-INF");
 				String metaINFContent = "Manifest-Version: 1.0\n" +
 				                        "Class-Path: \n";
 				folderEntry.createFile(
-						options.get(AppServerExtConstants.GENERATOR_WEB_CONTENT_FOLDER) +
-						"/META-INF/web.xml", metaINFContent.getBytes(),
+						webContentFolder +
+						"/META-INF/manifest.xml", metaINFContent.getBytes(),
 						"text/xml");
 
+				pomStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(
+						"webapp_pom_template.xml");
+				reader = new BufferedReader(new InputStreamReader(pomStream));
+				model = MavenUtils.readModel(reader);
+
+				VirtualFileEntry pomFile = folderEntry.getChild("pom.xml");
+				InputStream input = ((FileEntry) pomFile).getInputStream();
+				Model modelpom = MavenUtils.readModel(input);
+
+				model.setModelVersion(modelpom.getModelVersion());
+				model.setGroupId(modelpom.getGroupId());
+				model.setArtifactId(modelpom.getArtifactId());
+				model.setVersion(modelpom.getVersion());
+				model.setName(options.get(AppServerExtConstants.GENERATOR_PROJECT_NAME));
+				MavenUtils.writeModel(model, pomFile.getVirtualFile());
 
 			} else if (options.get(AppServerExtConstants.GENERATOR_PROJECT_TYPE)
 			                  .equals(AppServerExtConstants
@@ -218,7 +232,7 @@ public class WSO2AppServerProjectGenerator implements ProjectGenerator {
 
 				folderEntry.createFolder("src/main/java/" + packageName);
 				folderEntry.createFile("src/main/java/" + packageName + "/" + className + ".java",
-				                       classContent.getBytes(), "MimeType.APPLICATION_JAVA");
+				                       classContent.getBytes(), MimeType.APPLICATION_JAVA);
 
 				String classloading =
 						"<Classloading xmlns=\"http://wso2.org/projects/as/classloading\">\n" +
