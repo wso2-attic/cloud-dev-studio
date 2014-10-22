@@ -68,7 +68,7 @@ public class Bootstrap {
 		logger.info("Tomcat web app root is set to : " + webAppRoot);
 		try {
 			Tomcat tomcat = new Tomcat();
-			tomcat.setBaseDir(rootDir + File.separator + "tomcat");
+			tomcat.setBaseDir(rootDir + File.separator + "temp");
 
 			Integer port = getAvailablePort();
 			tomcat.setPort(port);

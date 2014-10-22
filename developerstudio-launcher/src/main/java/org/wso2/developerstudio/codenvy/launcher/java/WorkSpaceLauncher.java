@@ -103,7 +103,7 @@ public class WorkSpaceLauncher {
 		Image icon128 = new Image(display, iconRoot + File.separator + "icon-128.png");
 		Image icon256 = new Image(display, iconRoot + File.separator + "icon-256.png");
 
-		shell.setImages(new Image[]{icon32, icon64, icon128, icon256});
+		//shell.setImages(new Image[]{icon32, icon64, icon128, icon256});
 
 		Composite composite = new Composite(shell, SWT.NONE);
 		composite.setBackground(SWTResourceManager.getColor(SWT.COLOR_DARK_GRAY));

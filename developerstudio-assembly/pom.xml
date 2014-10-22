@@ -82,10 +82,10 @@ limitations under the License.
 
                             <generateRepository>true</generateRepository>
                             <repositoryLayout>flat</repositoryLayout>
-                            <repositoryName>libs</repositoryName>
+                            <repositoryName>repository/libs</repositoryName>
                             <useWildcardClassPath>true</useWildcardClassPath>
 
-                            <configurationDirectory>conf</configurationDirectory>
+                            <configurationDirectory>repository/conf</configurationDirectory>
                             <configurationSourceDirectory>src/main/config</configurationSourceDirectory>
                             <copyConfigurationDirectory>true</copyConfigurationDirectory>
                             <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
@@ -98,7 +98,7 @@ limitations under the License.
                             </binFileExtensions>
 
                             <unixScriptTemplate>${project.basedir}/resources/shell_scripts/unixTemplate</unixScriptTemplate>
-                            <windowsScriptTemplate>${project.basedir}/resources/shell_scripts/unixTemplate</windowsScriptTemplate>
+                            <windowsScriptTemplate>${project.basedir}/resources/shell_scripts/winTemplate</windowsScriptTemplate>
 
                             <licenseHeaderFile>${project.basedir}/resources/license_header.txt</licenseHeaderFile>
                         </configuration>
@@ -122,13 +122,13 @@ limitations under the License.
                                 <copy todir="${project.basedir}/../distribution/resources/launcher-assembly-linux64/bin">
                                     <fileset dir="${project.basedir}/resources/shell_scripts" includes="install.sh" />
                                 </copy>
-                                <copy todir="${project.basedir}/../distribution/resources/launcher-assembly-linux64/cef">
+                                <copy todir="${project.basedir}/../distribution/resources/launcher-assembly-linux64/repository/cef">
                                     <fileset dir="${project.basedir}/resources/linux64/cef_client/" includes="**/*" />
                                 </copy>
-                                <copy todir="${project.basedir}/../distribution/resources/launcher-assembly-linux64/loader">
+                                <copy todir="${project.basedir}/../distribution/resources/launcher-assembly-linux64/repository/libs">
                                     <fileset dir="${project.basedir}/resources/linux64/chromium_loader/" includes="**/*" />
                                 </copy>
-                                <copy todir="${project.basedir}/../distribution/resources/launcher-assembly-linux64/libs">
+                                <copy todir="${project.basedir}/../distribution/resources/launcher-assembly-linux64/repository/libs">
                                     <fileset dir="${project.basedir}/resources/linux64/lib/" includes="**/*" />
                                 </copy>
                                 <copy todir="${project.basedir}/../distribution/resources/launcher-assembly-linux64/icons">
@@ -148,13 +148,13 @@ limitations under the License.
                                 <copy todir="${project.basedir}/../distribution/resources/launcher-assembly-mac64">
                                     <fileset dir="${project.basedir}/target//${assembler.dir.name}" includes="**/*" />
                                 </copy>
-                                <copy todir="${project.basedir}/../distribution/resources/launcher-assembly-mac64/cef">
+                                <copy todir="${project.basedir}/../distribution/resources/launcher-assembly-mac64/repository/cef">
                                     <fileset dir="${project.basedir}/resources/mac64/cef_client/" includes="**/*" />
                                 </copy>
-                                <copy todir="${project.basedir}/../distribution/resources/launcher-assembly-mac64/loader">
+                                <copy todir="${project.basedir}/../distribution/resources/launcher-assembly-mac64/repository/libs">
                                     <fileset dir="${project.basedir}/resources/mac64/chromium_loader/" includes="**/*" />
                                 </copy>
-                                <copy todir="${project.basedir}/../distribution/resources/launcher-assembly-mac64/libs">
+                                <copy todir="${project.basedir}/../distribution/resources/launcher-assembly-mac64/repository/libs">
                                     <fileset dir="${project.basedir}/resources/mac64/lib/" includes="**/*" />
                                 </copy>
                                 <copy todir="${project.basedir}/../distribution/resources/launcher-assembly-mac64/icons">

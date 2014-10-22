@@ -124,9 +124,9 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                                         <include name="*.war"/>
                                     </fileset>
                                 </copy>
-                                <chmod dir="${project.basedir}/target/wso2-developer-studio-linux64"
+                                <chmod dir="${project.basedir}/target/wso2-developer-studio-linux64/bin"
                                        includes="**/*.sh" perm="+x"/>
-                                <chmod dir="${project.basedir}/target/wso2-developer-studio-linux64/cef"
+                                <chmod dir="${project.basedir}/target/wso2-developer-studio-linux64/repository/cef"
                                        includes="cefclient" perm="+x"/>
                             </tasks>
                         </configuration>
@@ -147,10 +147,8 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                                         <include name="*.war"/>
                                     </fileset>
                                 </copy>
-                                <chmod dir="${project.basedir}/target/wso2-developer-studio-mac64"
+                                <chmod dir="${project.basedir}/target/wso2-developer-studio-mac64/bin"
                                        includes="**/*.sh" perm="+x"/>
-                                <chmod dir="${project.basedir}/target/wso2-developer-studio-mac64/cef"
-                                       includes="cefclient" perm="+x"/>
                             </tasks>
                         </configuration>
                     </execution>

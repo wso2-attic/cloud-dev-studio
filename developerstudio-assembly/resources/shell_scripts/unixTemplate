@@ -18,9 +18,10 @@ PRGDIR=`dirname "$PRG"`
 BASEDIR=`cd "$PRGDIR/.." >/dev/null; pwd`
 
 export WSO2_DEVELOPER_STUDIO_PATH="$BASEDIR"
-export LD_LIBRARY_PATH="$WSO2_DEVELOPER_STUDIO_PATH/cef/lib"
-export CHROME_DEVEL_SANDBOX="$WSO2_DEVELOPER_STUDIO_PATH/cef/chrome-sandbox"
-export CODENVY_LOCAL_CONF_DIR="$WSO2_DEVELOPER_STUDIO_PATH/conf"
+export CEF_PATH="$WSO2_DEVELOPER_STUDIO_PATH/repository"
+export LD_LIBRARY_PATH="$WSO2_DEVELOPER_STUDIO_PATH/repository/cef/lib"
+export CHROME_DEVEL_SANDBOX="$CEF_PATH/chrome-sandbox"
+export CODENVY_LOCAL_CONF_DIR="$WSO2_DEVELOPER_STUDIO_PATH/repository/conf"
 
 # Only set CATALINA_HOME if not already set
 export CATALINA_HOME="$WSO2_DEVELOPER_STUDIO_PATH/tomcat"
@@ -111,9 +112,9 @@ fi
 exec "$JAVACMD" $JAVA_OPTS @EXTRA_JVM_ARGUMENTS@ \
   -classpath "$CLASSPATH" \
   -Dwso2.devstudio.base="$WSO2_DEVELOPER_STUDIO_PATH" \
-  -Djava.library.path="$WSO2_DEVELOPER_STUDIO_PATH/loader" \
+  -Djava.library.path="$WSO2_DEVELOPER_STUDIO_PATH/repository/libs" \
   -Dcodenvy.local.conf.dir="${CODENVY_LOCAL_CONF_DIR}" \
-  -Dcatalina.base="$WSO2_DEVELOPER_STUDIO_PATH/tomcat" \
+  -Dcatalina.base="$WSO2_DEVELOPER_STUDIO_PATH/temp" \
   -Djava.io.temp="$WSO2_DEVELOPER_STUDIO_PATH/temp" \
   -Dapp.name="@APP_NAME@" \
   -Dapp.pid="$$" \

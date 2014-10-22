@@ -99,7 +99,7 @@ limitations under the License.
 
     <properties>
         <com.codenvy.sdk.version>3.0.0-M20</com.codenvy.sdk.version>
-        <assembly.tomcat.webapp.root>tomcat/webroot</assembly.tomcat.webapp.root>
+        <assembly.tomcat.webapp.root>repository/deployment/server/webapps</assembly.tomcat.webapp.root>
         <com.google.gwt.gin.version>2.1.2</com.google.gwt.gin.version>
         <com.google.gwt.version>2.6.0</com.google.gwt.version>
         <com.codenvy.platform.apirunner.version>0.24.0</com.codenvy.platform.apirunner.version>
