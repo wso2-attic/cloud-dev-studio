@@ -29,10 +29,10 @@ limitations under the License.
     <packaging>pom</packaging>
 
     <modules>
-        <module>org.wso2.developerstudio.codenvy.ext.appfactory</module>
+        <!--<module>org.wso2.developerstudio.codenvy.ext.appfactory</module>-->
         <module>org.wso2.developerstudio.codenvy.ext.appserver</module>
-        <module>org.wso2.developerstudio.codenvy.ext.esb</module>
-	<module>org.wso2.developerstudio.codenvy.ext.registry</module>
+        <!--<module>org.wso2.developerstudio.codenvy.ext.esb</module>-->
+	<!--<module>org.wso2.developerstudio.codenvy.ext.registry</module>-->
     </modules>
 
 </project>
