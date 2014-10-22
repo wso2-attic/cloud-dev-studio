@@ -14,7 +14,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -25,14 +26,8 @@ limitations under the License.
     <packaging>pom</packaging>
 
     <modules>
-        <module>codenvy-ext-developer-studio-core</module>
-        <module>codenvy-ext-runner-carbon</module>
-        <module>codenvy-ext-wso2-app-server</module>
-        <!--<module>codenvy-ext-wso2-registry</module>-->
-        <!--<module>codenvy-ext-wso2-esb</module>-->
-        <!--<module>codenvy-ext-wso2-app-factory</module>-->
-        <module>developerstudio-launcher</module>
-        <module>developerstudio-assembly</module>
+        <module>extensions</module>
+        <module>launcher</module>
         <module>distribution</module>
     </modules>
 
@@ -99,7 +94,8 @@ limitations under the License.
 
     <properties>
         <com.codenvy.sdk.version>3.0.0-M20</com.codenvy.sdk.version>
-        <assembly.tomcat.webapp.root>repository/deployment/server/webapps</assembly.tomcat.webapp.root>
+        <assembly.tomcat.webapp.root>repository/deployment/server/webapps
+        </assembly.tomcat.webapp.root>
         <com.google.gwt.gin.version>2.1.2</com.google.gwt.gin.version>
         <com.google.gwt.version>2.6.0</com.google.gwt.version>
         <com.codenvy.platform.apirunner.version>0.24.0</com.codenvy.platform.apirunner.version>
@@ -112,6 +108,7 @@ limitations under the License.
         <cef.version>3.1750.1738</cef.version>
         <slf4j.version>1.7.7</slf4j.version>
         <swt.version>4.4</swt.version>
+        <cef.assembly.resource.rel.dir>../../..</cef.assembly.resource.rel.dir>
     </properties>
 
 </project>
