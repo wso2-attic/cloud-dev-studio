@@ -75,6 +75,9 @@ public class MavenConfigurationPagePresenter extends AbstractWizardPage implemen
         this.resourceProvider = resourceProvider;
         this.factory = factory;
         this.projectGeneratorOptions = Collections.createStringMap();
+	    this.view.setGroupId("com.example");
+	    this.view.setGroupId("sample");
+	    this.view.setVersion("1.0.0-SNAPSHOT");
     }
 
     @Nullable

@@ -58,9 +58,7 @@ public class MavenConfigurationPageViewImpl implements MavenConfigurationPageVie
 		rootElement = uiBinder.createAndBindUi(this);
 		packagingField.setEnabled(false);
 		swapToJAXServiceWizard(false);
-		setGroupId("com.example");
-		setGroupId("sample");
-		setVersion("1.0.0-SNAPSHOT");
+
 	}
 
 	// TODO : Change to default values
@@ -70,9 +68,13 @@ public class MavenConfigurationPageViewImpl implements MavenConfigurationPageVie
 		if(isJAXService){
 			packageInputLabel.setText("Package Name:");
 			classInputLabel.setText("Class Name:");
+			setPackageName("com.example.service");
+			setClassName("SampleService");
 		}else{
 			packageInputLabel.setText("Context Root:");
 			classInputLabel.setText("Web folder:");
+			setPackageName("");
+			setClassName("WebContent");
 		}
 	}
 

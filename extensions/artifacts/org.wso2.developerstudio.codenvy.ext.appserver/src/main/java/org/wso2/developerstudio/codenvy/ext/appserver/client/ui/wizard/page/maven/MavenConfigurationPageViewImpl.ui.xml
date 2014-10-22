@@ -75,8 +75,8 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
         </g:north>
         <g:north size="50">
             <g:HTMLPanel>
-                <div style="text-align:center;width=80%">
-                    <hr  style="width:80%;" />
+                <div style="text-align:center;width=100%;margin-top:23px;">
+                    <hr  style="width:90%;" />
                 </div>
             </g:HTMLPanel>
         </g:north>
