@@ -32,10 +32,21 @@ public class Bootstrap {
 	private static final Logger logger = LoggerFactory.getLogger(Bootstrap.class);
 	public static final String DEFAULT_RELATIVE_WEB_ROOT = "tomcat/webroot";
 	public static final String STUDIO_ROOT_ENV_VAR_NAME = "WSO2_DEVELOPER_STUDIO_PATH";
-
+	public static final int MAXIMUM_PROGRESS = 1000; // parameters to design the splashscreen, needs to be sent to a properties file
+	public static final int SHELL_WIDTH = 448; // parameters to design the splashscreen
+	public static final int SHELL_HEIGHT = 270;// parameters to design the splashscreen
+	public static final int IMAGE_LABEL_WIDTH = 450;// parameters to design the splashscreen
+	public static final int IMAGE_LABEL_HEIGHT = 300;// parameters to design the splashscreen
+	public static final int PROGRESS_BAR_WIDTH = 450;// parameters to design the splashscreen
+	public static final int PROGRESS_BAR_HEIGHT = 20;// parameters to design the splashscreen
+	public static final int PROGRESS_BAR_X_LOC = 0;// parameters to design the splashscreen
+	public static final int PROGRESS_BAR_Y_LOC = 240;// parameters to design the splashscreen
 	private static String rootDir;
 	private static final Map<String, String> mapContextToWebApp = new HashMap<>();
 	private static String webAppRoot;
+
+	public static final String SPLASH_SCREEN_IMAGE = "splash.png";
+	public static final String ICONS_FOLDER = "icons";
 
 	static {
 		mapContextToWebApp.put("/api", "api");
@@ -51,15 +62,26 @@ public class Bootstrap {
 		logger.info("Starting WSO2 Developer Studio 4.0.0");
 
 		webAppRoot = rootDir + File.separator + args[0];
-		boolean defaultWorkSpaceSelected = isDefaultWorkSpaceSet();
-		if (!defaultWorkSpaceSelected) {
-			WorkSpaceLauncher.openWorkSpaceBrowser();
-			if (!WorkSpaceLauncher.isUserWorkSpaceSet()) {
+		String SplashImageResource = rootDir + File.separator + ICONS_FOLDER + File.separator + SPLASH_SCREEN_IMAGE;
+
+		SWTSplashScreen swtSplashScreen = new SWTSplashScreen(SplashImageResource, SHELL_WIDTH,
+		                                                      SHELL_HEIGHT,
+		                                                      MAXIMUM_PROGRESS, IMAGE_LABEL_WIDTH,
+		                                                      IMAGE_LABEL_HEIGHT,
+		                                                      PROGRESS_BAR_WIDTH,
+		                                                      PROGRESS_BAR_HEIGHT,
+		                                                      PROGRESS_BAR_X_LOC,
+		                                                      PROGRESS_BAR_Y_LOC);
+		swtSplashScreen.updateProgress(0);
+		logger.info("opened splash screen");
+
+		if (!isDefaultWorkSpaceSet()) {
+			WorkSpaceLauncher workSpaceLauncher = new WorkSpaceLauncher();
+			if (!workSpaceLauncher.isUserWorkSpaceSet()) {
+				logger.info("exit system due to user operation");
 				System.exit(0);
 			}
 		}
-
-		splashScreenInvoker(0, "Starting WSO2 Developer Studio");
 
 		if (webAppRoot.equals("")) {
 			webAppRoot = rootDir + File.separator + DEFAULT_RELATIVE_WEB_ROOT;
@@ -78,34 +100,27 @@ public class Bootstrap {
 			ConfigManager.configureProperties(rootDir, port.toString());
 			String ideURL = "http://localhost:" + port + "/ide";
 			logger.info("IDE URL is set to: " + ideURL);
-			DeveloperStudioSplashScreen.updateProgress(300, "Configuring ports" + 30 + "%");
+			swtSplashScreen.updateProgress(300);
 			addWebApps(tomcat);
 
 			logger.info("Starting chromium in background");
 			//			ChromiumLauncher chromiumLauncher = new ChromiumLauncher(ideURL);
 			//			Thread chromiumBrowser = new Thread(chromiumLauncher);
 			//			chromiumBrowser.start();
-			DeveloperStudioSplashScreen
-					.updateProgress(350, "Starting tomcat in background" + 35 + "%");
+			swtSplashScreen.updateProgress(350);
 			logger.info("Starting tomcat in background");
 			TomcatLauncher launcher = new TomcatLauncher(tomcat);
 			Thread tomcatServer = new Thread(launcher);
-			DeveloperStudioSplashScreen.updateProgress(400, "Starting tomcat" + 40 + "%");
+			swtSplashScreen.updateProgress(400);
 			tomcatServer.start();
 			// FIXME : Implement a logic to see whether tomcat webapp deployment is finished.
 			try {
-				for (int i = 1;
-				     i < 26; i++) { //to sleep the thread for 25,000 while updating progress bar
-					int progressVal = 400 + i *
-					                        24; //calculation of the progress bar percentage with thread sleep
+				for (int i = 1; i < 26; i++) { //to sleep the thread for 25,000 while updating progress bar
+					int progressVal = 400 + i * 24; //calculation of the progress bar percentage with thread sleep
 					Thread.sleep(1000);
-					DeveloperStudioSplashScreen.updateProgress(progressVal,
-					                                           "Opening WSO2 Developer Studio" +
-					                                           progressVal / 10 + "%");
+					swtSplashScreen.updateProgress(progressVal);
 				}
-				DeveloperStudioSplashScreen.updateProgress(1500,
-				                                           "Opening WSO2 Developer Studio" + 100 +
-				                                           "%");
+				swtSplashScreen.updateProgress(1500);
 			} catch (InterruptedException e) {
 				logger.error("Chromium launcher error", e);
 			}
@@ -116,14 +131,6 @@ public class Bootstrap {
 		} catch (ServletException e) {
 			logger.error("Error adding Web apps", e);
 		}
-	}
-
-	/**
-	 * @param progress
-	 * @param messageToDisplay method to call the start up in Splash Screen to display the progress on IDE opening process to the user
-	 */
-	private static void splashScreenInvoker(int progress, String messageToDisplay) {
-		new DeveloperStudioSplashScreen().splashScreenInit();
 	}
 
 	private static void addWebApps(Tomcat tomcat) throws ServletException {

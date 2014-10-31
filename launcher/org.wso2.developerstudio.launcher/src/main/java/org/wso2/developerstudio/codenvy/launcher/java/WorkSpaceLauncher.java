@@ -42,7 +42,7 @@ public class WorkSpaceLauncher {
 	private static final String BROWSE_BUTTON_TEXT = "Browse";
 	private static final String MENU_HEADER = "Select workspace";
 	private static final String USER_MESSAGE_TO_SELECT_WORKSPACE =
-			" WSO2 Developer Studio stores your projects in a directory called workspace. Please choose workspace folder for this session ";
+			" WSO2 Developer Studio stores your projects in a directory called workspace. Please select workspace folder for this session ";
 	private static final String SET_DEFAULT_WORKSPACE_MESSAGE =
 			"Use this as default and do not ask again";
 	private static final String BROWSE_DIALOG_MENU_MESSAGE = "Select your workspace directory";
@@ -54,12 +54,12 @@ public class WorkSpaceLauncher {
 	static boolean userWorkSpaceSet = false;
 	String userHome = null;
 	private static final String SHELL_TITLE = "WSO2 Developer Studio";
-	Display display = new Display();
+	Display workSpaceDisplay = Display.getDefault();
 	public static final int SHELL_TRIM = SWT.CLOSE | SWT.TITLE | SWT.MIN | SWT.MAX | SWT.RESIZE;
 
 	private static final int SHELL_WIDTH = 602;
 	private static final int SHELL_HEIGHT = 300;
-	Shell shell = new Shell(display, SWT.SHELL_TRIM & (~SWT.RESIZE));
+	Shell workSpaceShell = new Shell(workSpaceDisplay, SHELL_TRIM & (~SWT.RESIZE));
 	Text workSpaceText;
 	static boolean isDefaultSet = false;
 	private static String modifiedWorkSpaceLoc = null;
@@ -67,27 +67,26 @@ public class WorkSpaceLauncher {
 
 	public WorkSpaceLauncher() {
 		init();
-		shell.setBackground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_BACKGROUND));
-		shell.pack();
-		shell.setSize(SHELL_WIDTH, SHELL_HEIGHT);
-		// making the shell appear in the center of the monitor
-		Monitor primary = display.getPrimaryMonitor();
+		workSpaceShell.setBackground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_BACKGROUND));
+		workSpaceShell.pack();
+		workSpaceShell.setSize(SHELL_WIDTH, SHELL_HEIGHT);
+		// making the workSpaceShell appear in the center of the monitor
+		Monitor primary = workSpaceDisplay.getPrimaryMonitor();
 		Rectangle bounds = primary.getBounds();
-		Rectangle rect = shell.getBounds();
+		Rectangle rect = workSpaceShell.getBounds();
 
 		int shellXLoc = bounds.x + (bounds.width - rect.width) / 2;
 		int shellYLoc = bounds.y + (bounds.height - rect.height) / 2;
 
-		shell.setLocation(shellXLoc, shellYLoc);
+		workSpaceShell.setLocation(shellXLoc, shellYLoc);
 
-		shell.open();
+		workSpaceShell.open();
 
-		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch()) {
-				display.sleep();
+		while (!workSpaceShell.isDisposed()) {
+			if (!workSpaceDisplay.readAndDispatch()) {
+				workSpaceDisplay.sleep();
 			}
 		}
-		display.dispose();
 
 	}
 
@@ -96,18 +95,18 @@ public class WorkSpaceLauncher {
 	 */
 	private void init() {
 
-		shell.setText(SHELL_TITLE);
+		workSpaceShell.setText(SHELL_TITLE);
 
 		String iconRoot = Bootstrap.getRootDir()+ File.separator + "icons";
 
-		Image icon32 = new Image(display, iconRoot + File.separator + "icon-32.png");
-		Image icon64 = new Image(display, iconRoot + File.separator + "icon-64.png");
-		Image icon128 = new Image(display, iconRoot + File.separator + "icon-128.png");
-		Image icon256 = new Image(display, iconRoot + File.separator + "icon-256.png");
+		Image icon32 = new Image(workSpaceDisplay, iconRoot + File.separator + "icon-32.png");
+		Image icon64 = new Image(workSpaceDisplay, iconRoot + File.separator + "icon-64.png");
+		Image icon128 = new Image(workSpaceDisplay, iconRoot + File.separator + "icon-128.png");
+		Image icon256 = new Image(workSpaceDisplay, iconRoot + File.separator + "icon-256.png");
 
-		//shell.setImages(new Image[]{icon32, icon64, icon128, icon256});
+		//workSpaceShell.setImages(new Image[]{icon32, icon64, icon128, icon256});
 
-		Composite composite = new Composite(shell, SWT.NONE);
+		Composite composite = new Composite(workSpaceShell, SWT.NONE);
 		composite.setBackground(SWTResourceManager.getColor(SWT.COLOR_DARK_GRAY));
 		composite.setBounds(0, 0, 600, 118);
 
@@ -121,9 +120,9 @@ public class WorkSpaceLauncher {
 		mesageLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_LIGHT_SHADOW));
 		mesageLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_DARK_GRAY));
 		mesageLabel.setBounds(10, 50, 580, 41);
-		mesageLabel.setText("WSO2 Developer Studio stores your projects in a directory called workspace. Please choose workspace folder for this session ");
+		mesageLabel.setText(USER_MESSAGE_TO_SELECT_WORKSPACE);
 
-		Composite selectionComposite = new Composite(shell, SWT.NONE);
+		Composite selectionComposite = new Composite(workSpaceShell, SWT.NONE);
 		selectionComposite.setBackground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_BACKGROUND));
 		selectionComposite.setBounds(0, 141, 600, 77);
 
@@ -153,7 +152,7 @@ public class WorkSpaceLauncher {
 		browseButton.setText(BROWSE_BUTTON_TEXT);
 		browseButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				DirectoryDialog dirDialog = new DirectoryDialog(shell);
+				DirectoryDialog dirDialog = new DirectoryDialog(workSpaceShell);
 				dirDialog.setText(BROWSE_DIALOG_MENU_MESSAGE);
 				String selectedDir = dirDialog.open();
 				if (selectedDir != null) {
@@ -163,7 +162,7 @@ public class WorkSpaceLauncher {
 			}
 		});
 
-		Composite buttonComposite = new Composite(shell, SWT.NONE);
+		Composite buttonComposite = new Composite(workSpaceShell, SWT.NONE);
 		buttonComposite.setBackground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_BACKGROUND));
 		buttonComposite.setBounds(10, 224, 582, 44);
 
@@ -172,7 +171,7 @@ public class WorkSpaceLauncher {
 		btnCancel.setText(CANCEL_BUTTON_TEXT);
 		btnCancel.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				shell.close();
+				workSpaceShell.close();
 			}
 		});
 
@@ -199,11 +198,6 @@ public class WorkSpaceLauncher {
 			}
 		});
 
-	}
-
-	public static boolean openWorkSpaceBrowser() {
-		new WorkSpaceLauncher();
-		return isDefaultSet;
 	}
 
 	public static boolean isUserWorkSpaceSet() {
@@ -307,7 +301,7 @@ public class WorkSpaceLauncher {
 	 * @return the status of the user input, yes or cancel
 	 */
 	private int createErrorMessageDialog(String errorMessage) {
-		Shell errorDialog = new Shell(shell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+		Shell errorDialog = new Shell(workSpaceShell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 		errorDialog.setSize(ERROR_DIALOG_WIDTH, ERROR_DIALOG_HEIGHT);
 		MessageBox messageDialog = new MessageBox(errorDialog, SWT.ICON_WARNING | SWT.OK);
 		messageDialog.setText(WARNING_DIALOG_MENU_MESSAGE);
@@ -327,7 +321,7 @@ public class WorkSpaceLauncher {
 				setIsDefaultWorkSpaceSet(isDefaultSet);
 			}
 			if (createdWorkSpace || !modifiedWorkSpaceLoc.equals(defaultNewWorkspace)) {
-				shell.close();
+				workSpaceShell.close();
 				userWorkSpaceSet = true;
 			}
 		} else {

@@ -1,0 +1,47 @@
+This product is licensed by WSO2 Inc. under Apache License 2.0. The license
+can be downloaded from the following locations:
+	http://www.apache.org/licenses/LICENSE-2.0.html
+	http://www.apache.org/licenses/LICENSE-2.0.txt
+
+This product also contains software under different licenses. This table below
+all the contained libraries (jar files) and the license under which they are 
+provided to you.
+
+At the bottom of this file is a table that shows what each license indicated
+below is and where the actual text of the license can be found.
+
+Name                                                                            Type           License   
+---------------------------------------------------------------------------------------------------------
+developerstudio-launcher-4.0.0-SNAPSHOT.jar                                     jar            apache2   949       
+ecj-3.7.2.jar                                                                   jar            epl1      948       
+javacef3_linux64.jar                                                            jar            bsd3      947       
+log4j-1.2.17.jar                                                                bundle         apache2   802       
+log4j-api-2.0.2.jar                                                             bundle         apache2   946       
+log4j-core-2.0.2.jar                                                            bundle         apache2   945       
+slf4j-api-1.7.7.jar                                                             bundle         mit       944       
+slf4j-log4j12-1.7.7.jar                                                         bundle         mit       943       
+swtLinux64.jar                                                                  jar            epl1      942       
+tomcat-api-7.0.34.jar                                                           jar            apache2   941       
+tomcat-el-api-7.0.34.jar                                                        jar            apache2   940       
+tomcat-embed-core-7.0.34.jar                                                    jar            apache2   939       
+tomcat-embed-jasper-7.0.34.jar                                                  jar            apache2   938       
+tomcat-embed-logging-juli-7.0.34.jar                                            jar            apache2   937       
+tomcat-jasper-7.0.34.jar                                                        jar            apache2   936       
+tomcat-jasper-el-7.0.34.jar                                                     jar            apache2   935       
+tomcat-jsp-api-7.0.34.jar                                                       jar            apache2   934       
+tomcat-juli-7.0.34.jar                                                          bundle         apache2          
+tomcat-servlet-api-7.0.34.jar                                                   jar            apache2   933       
+tomcat-util-7.0.34.jar                                                          jar            apache2   932       
+
+
+
+The license types used by the above libraries and their information is given below:
+
+epl1           Eclipse Public License
+               http://www.eclipse.org/legal/epl-v10.html
+apache2        Apache License Version 2.0
+               http://www.apache.org/licenses/LICENSE-2.0.html
+mit            MIT License
+               http://www.opensource.org/licenses/mit-license.php
+bsd3           BSD-3
+               http://opensource.org/licenses/BSD-3-Clause
