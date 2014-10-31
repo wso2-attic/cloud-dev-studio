@@ -134,6 +134,12 @@ limitations under the License.
                                 <copy todir="${project.basedir}/../org.wso2.developerstudio.distribution/resources/launcher-assembly-linux64/icons">
                                     <fileset dir="${project.basedir}/resources/images/" includes="**/*" />
                                 </copy>
+                                <copy todir="${project.basedir}/../org.wso2.developerstudio.distribution/resources/launcher-assembly-linux64">
+                                    <fileset dir="${project.basedir}/resources/" includes="README.md" />
+                                </copy>
+                                <copy todir="${project.basedir}/../org.wso2.developerstudio.distribution/resources/launcher-assembly-linux64">
+                                    <fileset dir="${project.basedir}/resources/" includes="LICENSE.txt" />
+                                </copy>
                             </tasks>
                         </configuration>
                     </execution>
@@ -159,6 +165,12 @@ limitations under the License.
                                 </copy>
                                 <copy todir="${project.basedir}/../org.wso2.developerstudio.distribution/resources/launcher-assembly-mac64/icons">
                                     <fileset dir="${project.basedir}/resources/images/" includes="**/*" />
+                                </copy>
+                                <copy todir="${project.basedir}/../org.wso2.developerstudio.distribution/resources/launcher-assembly-linux64">
+                                    <fileset dir="${project.basedir}/resources/" includes="README.md" />
+                                </copy>
+                                <copy todir="${project.basedir}/../org.wso2.developerstudio.distribution/resources/launcher-assembly-linux64">
+                                    <fileset dir="${project.basedir}/resources/" includes="LICENSE.txt" />
                                 </copy>
                             </tasks>
                         </configuration>
