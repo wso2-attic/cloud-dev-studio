@@ -25,7 +25,7 @@ limitations under the License.
     </parent>
 
     <artifactId>org.wso2.developerstudio.sever.launcher</artifactId>
-    <name>WSO2 Developer Studio :: Embedded Java server Launcher</name>
+    <name>WSO2 Developer Studio :: Server Launcher</name>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -65,24 +65,10 @@ limitations under the License.
             <version>${tomcat.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.swt</groupId>
-            <artifactId>org.eclipse.swt.gtk.linux.x86_64</artifactId>
-            <version>${swt.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
 	    <groupId>org.apache.httpcomponents</groupId>
 	      <artifactId>httpclient</artifactId>
 	     <version>4.3.5</version>
        </dependency>
-        
-       <!--  <dependency>
-            <groupId>org.javacef.embedded</groupId>
-            <artifactId>browser</artifactId>
-            <version>${cef.version}</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/../../distribution/org.wso2.developerstudio.cef.assembly/${cef.assembly.resource.rel.dir}/resources/linux64/lib/javacef3_linux64.jar</systemPath>
-        </dependency> -->
     </dependencies>
 
     <build>
@@ -96,12 +82,5 @@ limitations under the License.
                 <directory>src/main/resources</directory>
             </resource>
         </resources>
-
     </build>
-    <repositories>
-        <repository>
-            <id>swt-repo</id>
-            <url>https://swt-repo.googlecode.com/svn/repo/</url>
-        </repository>
-    </repositories>
 </project>

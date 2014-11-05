@@ -44,7 +44,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                                 <artifactItem>
                                     <groupId>com.codenvy.sdk</groupId>
                                     <artifactId>assembly-sdk</artifactId>
-                                    <version>${com.codenvy.sdk.version}-WSO2</version>
+                                    <version>${com.codenvy.sdk.version}</version><!-- SET WSO2 Version-->
                                     <type>zip</type>
                                     <overWrite>false</overWrite>
                                     <outputDirectory>${basedir}/resources/codenvy-sdk/</outputDirectory>
@@ -85,8 +85,8 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                         </goals>
                         <configuration>
                             <tasks>
-                                <copy file="${basedir}/target/${project.artifactId}-${project.version}/sdk-resources/temp/target/assembly-ide-${com.codenvy.sdk.version}-WSO2.war"
-                                      tofile="${basedir}/target/${project.artifactId}-${project.version}/webapps/ide.war"/>
+                                <copy file="${basedir}/target/${project.artifactId}-${project.version}/sdk-resources/temp/target/assembly-ide-${com.codenvy.sdk.version}.war"
+                                      tofile="${basedir}/target/${project.artifactId}-${project.version}/webapps/ide.war"/><!-- SET WSO2 Version-->
                                 <delete dir="${basedir}/target/${project.artifactId}-${project.version}/webapps/ide"/>
                                 <copy todir="${basedir}/target/web-archives/${project.version}">
                                     <fileset dir="${basedir}/target/${project.artifactId}-${project.version}/webapps/">
@@ -126,8 +126,8 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                                 </copy>
                                 <chmod dir="${project.basedir}/target/wso2-developer-studio-linux64/bin"
                                        includes="**/*.sh" perm="+x"/>
-                                <chmod dir="${project.basedir}/target/wso2-developer-studio-linux64/repository/cef"
-                                       includes="cefclient" perm="+x"/>
+                                <!--chmod dir="${project.basedir}/target/wso2-developer-studio-linux64/repository/cef"
+                                       includes="cefclient" perm="+x"/-->
                             </tasks>
                         </configuration>
                     </execution>
@@ -147,20 +147,8 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                                         <include name="*.war"/>
                                     </fileset>
                                 </copy>
-                                <chmod dir="${project.basedir}/target/wso2-developer-studio-mac64/bin"
-                                       includes="**/*.sh" perm="+x"/>
-                            </tasks>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>delete-copied-extensions</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <tasks>
-                                <delete dir="${basedir}/resources/extensions/${com.codenvy.sdk.version}"/>
+                                <!--chmod dir="${project.basedir}/target/wso2-developer-studio-mac64/bin"
+                                       includes="**/*.sh" perm="+x"/-->
                             </tasks>
                         </configuration>
                     </execution>
@@ -340,6 +328,43 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                                 <descriptor>${basedir}/resources/assembly/binary-archive_mac64.xml</descriptor>
                             </descriptors>
                             <finalName>wso2-developer-studio-mac64</finalName>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.6.1</version>
+                <executions>
+                    <execution>
+                        <phase>clean</phase>
+                        <configuration>
+                            <filesets>
+                                <fileset>
+                                    <directory>${basedir}/resources/launcher-assembly-linux64</directory>
+                                    <includes>
+                                        <include>**/*</include>
+                                    </includes>
+                                </fileset>
+                                <fileset>
+                                    <directory>${basedir}/resources/launcher-assembly-mac64</directory>
+                                    <includes>
+                                        <include>**/*</include>
+                                    </includes>
+                                </fileset>
+                                <fileset>
+                                    <directory>${basedir}/resources/codenvy-sdk</directory>
+                                    <includes>
+                                        <include>${com.codenvy.sdk.version}.zip</include>
+                                    </includes>
+                                </fileset>
+                                <fileset>
+                                    <directory>${basedir}/resources/extensions/${com.codenvy.sdk.version}</directory>
+                                    <includes>
+                                        <include>**/*</include>
+                                    </includes>
+                                </fileset>
+                            </filesets>
                         </configuration>
                     </execution>
                 </executions>

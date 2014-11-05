@@ -25,7 +25,7 @@ limitations under the License.
     </parent>
 
     <artifactId>org.wso2.developerstudio.workspaceselector.launcher</artifactId>
-    <name>WSO2 Developer Studio :: Embedded Java workspace selector Launcher</name>
+    <name>WSO2 Developer Studio :: Workspace Selector</name>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -33,36 +33,6 @@ limitations under the License.
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-core</artifactId>
-            <version>${tomcat.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-logging-juli</artifactId>
-            <version>${tomcat.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-jasper</artifactId>
-            <version>${tomcat.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-jasper</artifactId>
-            <version>${tomcat.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-jasper-el</artifactId>
-            <version>${tomcat.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-jsp-api</artifactId>
-            <version>${tomcat.version}</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.swt</groupId>
@@ -75,14 +45,6 @@ limitations under the License.
 	      <artifactId>httpclient</artifactId>
 	     <version>4.3.5</version>
        </dependency>
-        
-       <!--  <dependency>
-            <groupId>org.javacef.embedded</groupId>
-            <artifactId>browser</artifactId>
-            <version>${cef.version}</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/../../distribution/org.wso2.developerstudio.cef.assembly/${cef.assembly.resource.rel.dir}/resources/linux64/lib/javacef3_linux64.jar</systemPath>
-        </dependency> -->
     </dependencies>
 
     <build>

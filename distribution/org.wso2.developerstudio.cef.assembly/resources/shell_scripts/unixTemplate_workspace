@@ -18,6 +18,9 @@ PRGDIR=`dirname "$PRG"`
 BASEDIR=`cd "$PRGDIR/.." >/dev/null; pwd`
 
 export WSO2_DEVELOPER_STUDIO_PATH="$BASEDIR"
+export CEF_PATH="$WSO2_DEVELOPER_STUDIO_PATH/repository"
+export LD_LIBRARY_PATH="$WSO2_DEVELOPER_STUDIO_PATH/repository/cef/lib"
+export CHROME_DEVEL_SANDBOX="$CEF_PATH/chrome-sandbox"
 export CODENVY_LOCAL_CONF_DIR="$WSO2_DEVELOPER_STUDIO_PATH/repository/conf"
 
 # Only set CATALINA_HOME if not already set

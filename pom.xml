@@ -26,7 +26,7 @@ limitations under the License.
     <packaging>pom</packaging>
 
     <modules>
-        <module>extensions</module>
+        <!--<module>extensions</module>-->
         <module>launcher</module>
         <module>distribution</module>
     </modules>
@@ -108,7 +108,6 @@ limitations under the License.
         <cef.version>3.1750.1738</cef.version>
         <slf4j.version>1.7.7</slf4j.version>
         <swt.version>4.4</swt.version>
-        <cef.assembly.resource.rel.dir>../../..</cef.assembly.resource.rel.dir>
     </properties>
 
 </project>

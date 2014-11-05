@@ -31,7 +31,12 @@ limitations under the License.
     <dependencies>
         <dependency>
             <groupId>org.wso2.developerstudio</groupId>
-            <artifactId>developerstudio-launcher</artifactId>
+            <artifactId>org.wso2.developerstudio.sever.launcher</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.developerstudio</groupId>
+            <artifactId>org.wso2.developerstudio.workspaceselector.launcher</artifactId>
             <version>${parent.version}</version>
         </dependency>
         <dependency>
@@ -71,8 +76,12 @@ limitations under the License.
                         <configuration>
                             <programs>
                                 <program>
-                                    <mainClass>org.wso2.developerstudio.codenvy.launcher.java.Bootstrap</mainClass>
-                                    <id>${assembler.app.name}</id>
+                                    <mainClass>org.wso2.developerstudio.workspace.launcher.java.WorkspaceSelectorBootstrap</mainClass>
+                                    <id>${assembler.app.name}_workspace</id>
+                                </program>
+                                <program>
+                                    <mainClass>org.wso2.developerstudio.server.launcher.ServerBootstrap</mainClass>
+                                    <id>${assembler.app.name}_server</id>
                                     <commandLineArguments>
                                         <commandLineArgument>${assembly.tomcat.webapp.root}</commandLineArgument>
                                     </commandLineArguments>
@@ -122,15 +131,6 @@ limitations under the License.
                                 <copy todir="${project.basedir}/../org.wso2.developerstudio.distribution/resources/launcher-assembly-linux64/bin">
                                     <fileset dir="${project.basedir}/resources/shell_scripts" includes="install.sh" />
                                 </copy>
-                                <copy todir="${project.basedir}/../org.wso2.developerstudio.distribution/resources/launcher-assembly-linux64/repository/cef">
-                                    <fileset dir="${project.basedir}/${cef.assembly.resource.rel.dir}/resources/linux64/cef_client/" includes="**/*" />
-                                </copy>
-                                <copy todir="${project.basedir}/../org.wso2.developerstudio.distribution/resources/launcher-assembly-linux64/repository/libs">
-                                    <fileset dir="${project.basedir}/${cef.assembly.resource.rel.dir}/resources/linux64/chromium_loader/" includes="**/*" />
-                                </copy>
-                                <copy todir="${project.basedir}/../org.wso2.developerstudio.distribution/resources/launcher-assembly-linux64/repository/libs">
-                                    <fileset dir="${project.basedir}/${cef.assembly.resource.rel.dir}/resources/linux64/lib/" includes="**/*" />
-                                </copy>
                                 <copy todir="${project.basedir}/../org.wso2.developerstudio.distribution/resources/launcher-assembly-linux64/icons">
                                     <fileset dir="${project.basedir}/resources/images/" includes="**/*" />
                                 </copy>
@@ -153,15 +153,6 @@ limitations under the License.
                             <tasks>
                                 <copy todir="${project.basedir}/../org.wso2.developerstudio.distribution/resources/launcher-assembly-mac64">
                                     <fileset dir="${project.basedir}/target//${assembler.dir.name}" includes="**/*" />
-                                </copy>
-                                <copy todir="${project.basedir}/../org.wso2.developerstudio.distribution/resources/launcher-assembly-mac64/repository/cef">
-                                    <fileset dir="${project.basedir}/${cef.assembly.resource.rel.dir}/resources/mac64/cef_client/" includes="**/*" />
-                                </copy>
-                                <copy todir="${project.basedir}/../org.wso2.developerstudio.distribution/resources/launcher-assembly-mac64/repository/libs">
-                                    <fileset dir="${project.basedir}/${cef.assembly.resource.rel.dir}/resources/mac64/chromium_loader/" includes="**/*" />
-                                </copy>
-                                <copy todir="${project.basedir}/../org.wso2.developerstudio.distribution/resources/launcher-assembly-mac64/repository/libs">
-                                    <fileset dir="${project.basedir}/${cef.assembly.resource.rel.dir}/resources/mac64/lib/" includes="**/*" />
                                 </copy>
                                 <copy todir="${project.basedir}/../org.wso2.developerstudio.distribution/resources/launcher-assembly-mac64/icons">
                                     <fileset dir="${project.basedir}/resources/images/" includes="**/*" />
