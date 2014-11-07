@@ -44,7 +44,7 @@ public class ServerBootstrap {
 		mapContextToWebApp.put("/api", "api");
 		mapContextToWebApp.put("/datasource", "datasource");
 		mapContextToWebApp.put("/java-ca", "java-ca");
-		mapContextToWebApp.put("/ide", "ide");
+		mapContextToWebApp.put("/ws", "ws");
 	 }
 
 	public static void main(String args[])  {
@@ -80,7 +80,7 @@ public class ServerBootstrap {
 
 			// Alter codenvy properties to use custom tomcat port
 			ConfigManager.configureProperties(rootDir, Integer.toString(port));
-			final String ideURL = "http://localhost:" + port + "/ide";
+			final String ideURL = "http://localhost:" + port + "/ws";
 			logger.info("IDE URL is set to: " + ideURL);
 			addWebApps(tomcat);
 			logger.info("Starting tomcat in background");

@@ -52,7 +52,7 @@ public class WorkspaceSelectorBootstrap {
 		try {
 		
 			String port = ""+getAvailablePort();
-			final String ideURL = "http://localhost:" + port + "/ide";
+			final String ideURL = "http://localhost:" + port + "/ws";
 			logger.info("IDE URL is set to: " + ideURL);
 		 
 		 	String SplashImageResource = ROOT_DIR + File.separator + ICONS_FOLDER + File.separator + SPLASH_SCREEN_IMAGE;
