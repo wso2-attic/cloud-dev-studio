@@ -49,6 +49,13 @@ limitations under the License.
             <artifactId>log4j-core</artifactId>
             <version>2.0.2</version>
         </dependency>
+	 <dependency>
+     		 <groupId>com.codenvy.sdk</groupId>
+     		 <artifactId>codenvy-sdk-parent</artifactId>
+     		 <version>${com.codenvy.sdk.version}</version>
+      		 <type>pom</type>
+      </dependency>
+
     </dependencies>
 
     <build>
