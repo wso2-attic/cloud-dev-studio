@@ -34,10 +34,10 @@ limitations under the License.
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
-        <dependency>
+      <dependency>
             <groupId>org.eclipse.swt</groupId>
             <artifactId>org.eclipse.swt.gtk.linux.x86_64</artifactId>
-            <version>${swt.version}</version>
+            <version>${org.eclipse.swt.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -46,7 +46,6 @@ limitations under the License.
 	     <version>4.3.5</version>
        </dependency>
     </dependencies>
-
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
         <outputDirectory>target/classes</outputDirectory>
@@ -58,12 +57,5 @@ limitations under the License.
                 <directory>src/main/resources</directory>
             </resource>
         </resources>
-
     </build>
-    <repositories>
-        <repository>
-            <id>swt-repo</id>
-            <url>https://swt-repo.googlecode.com/svn/repo/</url>
-        </repository>
-    </repositories>
 </project>
