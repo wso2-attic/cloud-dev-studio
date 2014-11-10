@@ -28,7 +28,7 @@ limitations under the License.
     <modules>
         <!--<module>extensions</module>-->
         <module>launcher</module>
-        <module>distribution</module>
+        <module>assembly</module>
     </modules>
 
     <dependencyManagement>
@@ -90,6 +90,10 @@ limitations under the License.
               <enabled>false</enabled>
             </snapshots>
         </repository>
+      <repository>
+        <id>swt-repo</id>
+        <url>https://swt-repo.googlecode.com/svn/repo/</url>
+       </repository>
     </repositories>
 
     <pluginRepositories>
@@ -108,12 +112,12 @@ limitations under the License.
 
     <properties>
         <com.codenvy.sdk.version>3.2.0</com.codenvy.sdk.version>
-        <assembly.tomcat.webapp.root>repository/deployment/server/webapps
-        </assembly.tomcat.webapp.root>
         <com.google.gwt.gin.version>2.1.2</com.google.gwt.gin.version>
         <com.google.gwt.version>2.6.0</com.google.gwt.version>
         <com.codenvy.platform.apirunner.version>0.24.0</com.codenvy.platform.apirunner.version>
         <maven.istall.plugin.version>2.5.1</maven.istall.plugin.version>
+        <maven.clean.plugin.version>2.6</maven.clean.plugin.version>
+        <appassembler.maven.plugin.version>1.8.1</appassembler.maven.plugin.version>
         <com.googlecode.gwtquery.version>1.4.2</com.googlecode.gwtquery.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
@@ -121,7 +125,18 @@ limitations under the License.
         <tomcat.version>7.0.34</tomcat.version>
         <cef.version>3.1750.1738</cef.version>
         <slf4j.version>1.7.7</slf4j.version>
-        <swt.version>4.4</swt.version>
+        <org.eclipse.swt.version>4.4</org.eclipse.swt.version>
+        <assembler.dir.name>wso2-developer-studio-assembly</assembler.dir.name>
+        <assembler.app.name>wso2studio</assembler.app.name>
+        <!--- IDE Structure -->
+        <bin.location>bin</bin.location>
+        <lib.location>lib</lib.location>
+        <conf.location>configuration</conf.location>
+        <icons.location>icons</icons.location>
+        <temp.location>temp</temp.location>
+        <logs.location>logs</logs.location>
+        <!-- <assembly.tomcat.webapp.root>repository/deployment/server/webapps</assembly.tomcat.webapp.root> -->
+        <assembly.tomcat.webapp.root>webapps</assembly.tomcat.webapp.root>
     </properties>
 
 </project>

@@ -32,12 +32,12 @@ limitations under the License.
         <dependency>
             <groupId>org.wso2.developerstudio</groupId>
             <artifactId>org.wso2.developerstudio.sever.launcher</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>org.wso2.developerstudio</groupId>
             <artifactId>org.wso2.developerstudio.workspaceselector.launcher</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -76,6 +76,7 @@ limitations under the License.
                 <version>1.8.1</version>
                 <executions>
                     <execution>
+                        <id>execution1</id>
                         <phase>prepare-package</phase>
                         <goals>
                             <goal>assemble</goal>
@@ -119,9 +120,42 @@ limitations under the License.
                             <licenseHeaderFile>${project.basedir}/resources/license_header.txt</licenseHeaderFile>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>execution2</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>assemble</goal>
+                        </goals>
+                        <configuration>
+                          <platforms>
+                            <!--<platform>windows</platform> -->
+                            <platform>unix</platform>
+                          </platforms>
+                            <programs>
+                                <program>
+                                    <mainClass>org.wso2.developerstudio.workspace.launcher.java.WorkspaceSelectorBootstrap</mainClass>
+                                    <id>${assembler.app.name}_Mac_workspace</id>
+                                </program>
+                                <program>
+                                    <mainClass>org.wso2.developerstudio.server.launcher.ServerBootstrap</mainClass>
+                                    <id>${assembler.app.name}_Mac_server</id>
+                                    <commandLineArguments>
+                                        <commandLineArgument>${assembly.tomcat.webapp.root}</commandLineArgument>
+                                    </commandLineArguments>
+                                </program>
+                            </programs>
+                            <assembleDirectory>target/${assembler.dir.name}</assembleDirectory>
+
+                            <binFileExtensions>
+                                <unix>.sh</unix>
+                            </binFileExtensions>
+
+                            <unixScriptTemplate>${project.basedir}/resources/shell_scripts/Mac/unixTemplate</unixScriptTemplate>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
@@ -174,7 +208,7 @@ limitations under the License.
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
         </plugins>
 
     </build>
