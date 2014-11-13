@@ -1,9 +1,9 @@
 package org.wso2.developerstudio.codenvy.ext.appfactory.client.action;
 
-import com.codenvy.ide.api.ui.action.Action;
-import com.codenvy.ide.api.ui.action.ActionEvent;
-import com.codenvy.ide.api.ui.workspace.PartPresenter;
-import com.codenvy.ide.api.ui.workspace.WorkspaceAgent;
+import com.codenvy.ide.api.action.Action;
+import com.codenvy.ide.api.action.ActionEvent;
+import com.codenvy.ide.api.parts.PartPresenter;
+import com.codenvy.ide.api.parts.WorkspaceAgent;
 import com.google.inject.Inject;
 import org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.dialog.login.LoginPresenter;
 import org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.part.factory.AppFactoryPartsFactory;

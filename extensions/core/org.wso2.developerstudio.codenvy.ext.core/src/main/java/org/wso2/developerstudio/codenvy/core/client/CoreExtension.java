@@ -15,18 +15,15 @@
 */
 package org.wso2.developerstudio.codenvy.core.client;
 
+import com.codenvy.ide.api.action.ActionManager;
+import com.codenvy.ide.api.action.DefaultActionGroup;
+import com.codenvy.ide.api.action.IdeActions;
 import com.codenvy.ide.api.extension.Extension;
-import com.codenvy.ide.api.ui.action.ActionManager;
-import com.codenvy.ide.api.ui.action.DefaultActionGroup;
-import com.codenvy.ide.api.ui.action.IdeActions;
-import com.codenvy.ide.api.ui.workspace.PartStackType;
-import com.codenvy.ide.api.ui.workspace.WorkspaceAgent;
+import com.codenvy.ide.api.parts.WorkspaceAgent;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.wso2.developerstudio.codenvy.core.client.actions.AboutDialogBoxAction;
 import org.wso2.developerstudio.codenvy.core.client.actions.OpenDashboardAction;
-import org.wso2.developerstudio.codenvy.core.client.ui.dashboard.DashboardCategory;
-import org.wso2.developerstudio.codenvy.core.client.ui.dashboard.DashboardItem;
 import org.wso2.developerstudio.codenvy.core.client.ui.dashboard.DashboardItemRegistry;
 import org.wso2.developerstudio.codenvy.core.client.ui.dashboard.page.DashboardPagePresenter;
 import org.wso2.developerstudio.codenvy.core.shared.CoreExtConstants;

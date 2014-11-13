@@ -16,20 +16,20 @@
 package org.wso2.developerstudio.codenvy.ext.runner.client.ui.wizard.page.runner;
 
 import com.codenvy.api.project.gwt.client.ProjectServiceClient;
+import com.codenvy.api.project.server.Project;
 import com.codenvy.api.project.shared.dto.ProjectDescriptor;
 import com.codenvy.api.runner.dto.RunnerDescriptor;
 import com.codenvy.api.runner.dto.RunnerEnvironment;
 import com.codenvy.ide.api.notification.NotificationManager;
-import com.codenvy.ide.api.resources.ResourceProvider;
-import com.codenvy.ide.api.resources.model.Project;
-import com.codenvy.ide.api.ui.wizard.AbstractWizardPage;
-import com.codenvy.ide.api.ui.wizard.ProjectWizard;
+import com.codenvy.ide.api.projecttype.wizard.ProjectWizard;
+import com.codenvy.ide.api.wizard.AbstractWizardPage;
 import com.codenvy.ide.dto.DtoFactory;
 import com.codenvy.ide.rest.AsyncRequestCallback;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.sun.deploy.model.ResourceProvider;
 import org.wso2.developerstudio.codenvy.ext.runner.client.i18n.LocalizationConstants;
 import org.wso2.developerstudio.codenvy.ext.runner.client.i18n.LocalizationMessages;
 import org.wso2.developerstudio.codenvy.ext.runner.shared.CarbonRunnerExtConstants;
