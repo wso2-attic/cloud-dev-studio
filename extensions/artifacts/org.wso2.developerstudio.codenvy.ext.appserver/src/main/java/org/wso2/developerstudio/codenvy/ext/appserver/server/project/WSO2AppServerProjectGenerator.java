@@ -128,7 +128,7 @@ public class WSO2AppServerProjectGenerator implements ProjectGenerator {
 		try {
 			folderEntry.createFolder(webContentFolder);
 			folderEntry.createFolder(webContentFolder + File.separator + WEB_INF_FOLDER);
-		    webAppTemplateStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(WEB_APP_WEB_TEMPLATE);
+			webAppTemplateStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(WEB_APP_WEB_TEMPLATE);
 			String webINFContent;
 			InputStream input = null;
 			try {
@@ -236,7 +236,8 @@ public class WSO2AppServerProjectGenerator implements ProjectGenerator {
 		String servletAddressElement;
 		String cxfServletContent;
 		InputStream input;
-		Model modelPom;		try {
+		Model modelPom;
+		try {
 			folderEntry.createFolder(MAIN_SRC_FOLDER + File.separator + RESOURCE_FOLDER);
 			folderEntry.createFolder(MAIN_SRC_FOLDER + File.separator + WEB_APP_FOLDER);
 			folderEntry.createFolder(MAIN_SRC_FOLDER + File.separator + WEB_APP_FOLDER + File.separator + WEB_INF_FOLDER);
