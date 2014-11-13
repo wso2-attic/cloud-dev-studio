@@ -15,21 +15,15 @@
 */
 package org.wso2.developerstudio.codenvy.ext.appserver.server.project;
 
-import com.codenvy.api.project.server.ProjectTypeDescriptionRegistry;
-import com.codenvy.api.project.server.ProjectTypeExtension;
-import com.codenvy.api.project.shared.Attribute;
-import com.codenvy.api.project.shared.ProjectTemplateDescription;
-import com.codenvy.api.project.shared.ProjectType;
+import com.codenvy.api.project.server.*;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.wso2.developerstudio.codenvy.ext.appserver.shared.AppServerExtConstants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.wso2.developerstudio.codenvy.ext.appserver.shared.AppServerExtConstants;
+import java.util.Map;
 
 @Singleton
 public class WebAppProjectTypeExtension implements ProjectTypeExtension {
@@ -61,6 +55,14 @@ public class WebAppProjectTypeExtension implements ProjectTypeExtension {
 		return list;
 	}
 
+	@Override public Builders getBuilders() {
+		return null;
+	}
+
+	@Override public Runners getRunners() {
+		return null;
+	}
+
 	@Override
 	public List<ProjectTemplateDescription> getTemplates() {
 		return Arrays.asList(new ProjectTemplateDescription("zip",
@@ -68,5 +70,9 @@ public class WebAppProjectTypeExtension implements ProjectTypeExtension {
 		                                                    "This is a simple sample WebApp project.",
 		                                                    "templates/webappsample.zip"));
 
+	}
+
+	@Override public Map<String, String> getIconRegistry() {
+		return null;
 	}
 }

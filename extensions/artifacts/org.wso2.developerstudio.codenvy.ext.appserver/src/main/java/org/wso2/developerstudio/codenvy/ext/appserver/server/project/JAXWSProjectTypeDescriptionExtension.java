@@ -15,14 +15,12 @@
 */
 package org.wso2.developerstudio.codenvy.ext.appserver.server.project;
 
+import com.codenvy.api.project.server.AttributeDescription;
+import com.codenvy.api.project.server.ProjectType;
 import com.codenvy.api.project.server.ProjectTypeDescriptionExtension;
 import com.codenvy.api.project.server.ProjectTypeDescriptionRegistry;
-import com.codenvy.api.project.shared.AttributeDescription;
-import com.codenvy.api.project.shared.ProjectType;
-import com.codenvy.ide.extension.maven.shared.MavenAttributes;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.slf4j.LoggerFactory;
 import org.wso2.developerstudio.codenvy.ext.appserver.shared.AppServerExtConstants;
 
 import java.util.ArrayList;

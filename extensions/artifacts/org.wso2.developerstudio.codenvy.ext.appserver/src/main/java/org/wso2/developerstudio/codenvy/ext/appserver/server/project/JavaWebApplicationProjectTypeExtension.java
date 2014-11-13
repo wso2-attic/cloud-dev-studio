@@ -15,20 +15,14 @@
 */
 package org.wso2.developerstudio.codenvy.ext.appserver.server.project;
 
-import com.codenvy.api.project.server.ProjectTypeDescriptionRegistry;
-import com.codenvy.api.project.server.ProjectTypeExtension;
-import com.codenvy.api.project.shared.Attribute;
-import com.codenvy.api.project.shared.ProjectTemplateDescription;
-import com.codenvy.api.project.shared.ProjectType;
+import com.codenvy.api.project.server.*;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.wso2.developerstudio.codenvy.ext.appserver.shared.AppServerExtConstants;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.wso2.developerstudio.codenvy.ext.appserver.shared.AppServerExtConstants;
+import java.util.Map;
 
 @Singleton
 public class JavaWebApplicationProjectTypeExtension implements ProjectTypeExtension {
@@ -60,9 +54,21 @@ public class JavaWebApplicationProjectTypeExtension implements ProjectTypeExtens
 		return list;
 	}
 
+	@Override public Builders getBuilders() {
+		return null;
+	}
+
+	@Override public Runners getRunners() {
+		return null;
+	}
+
 	@Override
 	public List<ProjectTemplateDescription> getTemplates() {
 		final List<ProjectTemplateDescription> list = new ArrayList<ProjectTemplateDescription>();
 		return list;
+	}
+
+	@Override public Map<String, String> getIconRegistry() {
+		return null;
 	}
 }

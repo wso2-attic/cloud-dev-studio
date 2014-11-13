@@ -27,9 +27,9 @@ limitations under the License.
 
     <modules>
         <!--<module>extensions</module>-->
-        <module>launcher</module>
-        <module>assembly</module>
-        <!--<module>integration</module>-->
+        <!--<module>launcher</module>-->
+        <!--<module>assembly</module>-->
+        <module>integration</module>
     </modules>
 
     <dependencyManagement>
@@ -69,6 +69,8 @@ limitations under the License.
                 <artifactId>codenvy-api-runner</artifactId>
                 <version>${com.codenvy.platform.apirunner.version}</version>
             </dependency>
+
+
             <!--test integration dependencies-->
             <dependency>
                 <groupId>org.wso2.carbon.automation</groupId>
@@ -91,25 +93,25 @@ limitations under the License.
             <dependency>
                 <groupId>org.wso2.carbon</groupId>
                 <artifactId>org.wso2.carbon.integration.common.extensions</artifactId>
-                <version>${carbon.platform.version}</version>
+                <version>${carbon.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.wso2.carbon</groupId>
                 <artifactId>org.wso2.carbon.integration.common.admin.client</artifactId>
-                <version>${carbon.platform.version}</version>
+                <version>${carbon.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.wso2.carbon</groupId>
                 <artifactId>org.wso2.carbon.integration.common.utils</artifactId>
-                <version>${carbon.platform.version}</version>
+                <version>${carbon.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.wso2.carbon</groupId>
                 <artifactId>org.wso2.carbon.integration.common.tests</artifactId>
-                <version>${carbon.platform.version}</version>
+                <version>${carbon.version}</version>
                 <scope>test</scope>
             </dependency>
             <!--test integration dependencies-->
@@ -175,6 +177,19 @@ limitations under the License.
             </releases>
         </repository>
         <!--test integration repositories-->
+
+        <!--SWT bot repositories-->
+        <repository>
+            <id>kepler</id>
+            <url>${kepler-repo.url}</url>
+            <layout>p2</layout>
+        </repository>
+        <repository>
+            <id>swtbot</id>
+            <url>${swtbot-repo.url}</url>
+            <layout>p2</layout>
+        </repository>
+        <!--SWT bot repositories-->
     </repositories>
 
     <pluginRepositories>
@@ -190,6 +205,39 @@ limitations under the License.
              </releases>
         </pluginRepository>
     </pluginRepositories>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.eclipse.tycho</groupId>
+                <artifactId>tycho-maven-plugin</artifactId>
+                <version>0.19.0</version>
+                <extensions>true</extensions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.5.8.201207111220</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Where to put jacoco coverage report -->
+                            <destFile>../target/jacoco.exec</destFile>
+                            <includes>
+                                <include>mathutils.*</include>
+                            </includes>
+                            <append>true</append>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
     <properties>
         <com.codenvy.sdk.version>3.2.0</com.codenvy.sdk.version>
@@ -209,6 +257,8 @@ limitations under the License.
         <org.eclipse.swt.version>4.4</org.eclipse.swt.version>
         <assembler.dir.name>wso2-developer-studio-assembly</assembler.dir.name>
         <assembler.app.name>wso2studio</assembler.app.name>
+        <maven-model.version>3.2.3</maven-model.version>
+        <codehauese.version>3.0.20</codehauese.version>
         <!--- IDE Structure -->
         <bin.location>bin</bin.location>
         <lib.location>lib</lib.location>
@@ -229,6 +279,12 @@ limitations under the License.
         <tycho-version>0.7.0-SNAPSHOT</tycho-version>
         <tycho.maven.version>0.19.0</tycho.maven.version>
         <uitest.vmparams>-Xms2048m -Xmx3096m -XX:MaxPermSize=1024m</uitest.vmparams>
+
+        <!--swtbot dependencies-->
+            <tycho.version>0.19.0</tycho.version>
+            <kepler-repo.url>http://download.eclipse.org/releases/kepler</kepler-repo.url>
+            <swtbot-repo.url>http://download.eclipse.org/technology/swtbot/releases/latest</swtbot-repo.url>
+
     </properties>
 
 </project>
