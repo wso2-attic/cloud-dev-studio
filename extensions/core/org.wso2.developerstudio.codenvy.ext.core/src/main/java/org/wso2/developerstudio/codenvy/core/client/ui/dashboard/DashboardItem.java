@@ -15,7 +15,7 @@
 */
 package org.wso2.developerstudio.codenvy.core.client.ui.dashboard;
 
-import com.codenvy.ide.api.ui.action.Action;
+import com.codenvy.ide.api.action.Action;
 import com.google.gwt.resources.client.ImageResource;
 
 import javax.annotation.Nullable;

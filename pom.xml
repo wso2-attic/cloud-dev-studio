@@ -29,6 +29,7 @@ limitations under the License.
         <!--<module>extensions</module>-->
         <module>launcher</module>
         <module>assembly</module>
+        <!--<module>integration</module>-->
     </modules>
 
     <dependencyManagement>
@@ -68,6 +69,50 @@ limitations under the License.
                 <artifactId>codenvy-api-runner</artifactId>
                 <version>${com.codenvy.platform.apirunner.version}</version>
             </dependency>
+            <!--test integration dependencies-->
+            <dependency>
+                <groupId>org.wso2.carbon.automation</groupId>
+                <artifactId>org.wso2.carbon.automation.engine</artifactId>
+                <version>${test.framwork.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.carbon.automation</groupId>
+                <artifactId>org.wso2.carbon.automation.extensions</artifactId>
+                <version>${test.framwork.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.carbon.automation</groupId>
+                <artifactId>org.wso2.carbon.automation.test.utils</artifactId>
+                <version>${test.framwork.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.carbon</groupId>
+                <artifactId>org.wso2.carbon.integration.common.extensions</artifactId>
+                <version>${carbon.platform.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.carbon</groupId>
+                <artifactId>org.wso2.carbon.integration.common.admin.client</artifactId>
+                <version>${carbon.platform.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.carbon</groupId>
+                <artifactId>org.wso2.carbon.integration.common.utils</artifactId>
+                <version>${carbon.platform.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.carbon</groupId>
+                <artifactId>org.wso2.carbon.integration.common.tests</artifactId>
+                <version>${carbon.platform.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!--test integration dependencies-->
         </dependencies>
     </dependencyManagement>
 
@@ -94,6 +139,42 @@ limitations under the License.
         <id>swt-repo</id>
         <url>https://swt-repo.googlecode.com/svn/repo/</url>
        </repository>
+        <!--for test automation dependencies-->
+        <repository>
+            <id>wso2-nexus</id>
+            <name>WSO2 internal Repository</name>
+            <url>http://maven.wso2.org/nexus/content/groups/wso2-public/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>ignore</checksumPolicy>
+            </releases>
+        </repository>
+
+        <repository>
+            <id>wso2.releases</id>
+            <name>WSO2 internal Repository</name>
+            <url>http://maven.wso2.org/nexus/content/repositories/releases/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>ignore</checksumPolicy>
+            </releases>
+        </repository>
+
+        <repository>
+            <id>wso2.snapshots</id>
+            <name>WSO2 Snapshot Repository</name>
+            <url>http://maven.wso2.org/nexus/content/repositories/snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+        <!--test integration repositories-->
     </repositories>
 
     <pluginRepositories>
@@ -137,6 +218,17 @@ limitations under the License.
         <logs.location>logs</logs.location>
         <!-- <assembly.tomcat.webapp.root>repository/deployment/server/webapps</assembly.tomcat.webapp.root> -->
         <assembly.tomcat.webapp.root>webapps</assembly.tomcat.webapp.root>
+        <!--integration test versions-->
+        <emma.version>2.1.5320</emma.version>
+        <axis2.wso2.version.aar.plugin>1.6.2</axis2.wso2.version.aar.plugin>
+        <previous.version>4.2.0</previous.version>
+        <test.framwork.version>4.3.1-SNAPSHOT</test.framwork.version>
+        <platform.integration.utils.version>4.3.0-SNAPSHOT</platform.integration.utils.version>
+        <carbon.version>4.3.0-SNAPSHOT</carbon.version>
+        <test.framework.version>4.3.1-SNAPSHOT</test.framework.version>
+        <tycho-version>0.7.0-SNAPSHOT</tycho-version>
+        <tycho.maven.version>0.19.0</tycho.maven.version>
+        <uitest.vmparams>-Xms2048m -Xmx3096m -XX:MaxPermSize=1024m</uitest.vmparams>
     </properties>
 
 </project>
