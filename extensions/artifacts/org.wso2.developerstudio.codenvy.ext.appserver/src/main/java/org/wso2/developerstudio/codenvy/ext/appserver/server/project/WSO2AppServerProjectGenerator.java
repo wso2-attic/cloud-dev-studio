@@ -48,7 +48,8 @@ import java.util.Map;
 public class WSO2AppServerProjectGenerator implements ProjectGenerator {
 
 	private static final Logger LOG = LoggerFactory.getLogger(WSO2AppServerProjectGenerator.class);
-	public static final String MANIFEST_CONTENT = "Manifest-Version: 1.0\n" + "Class-Path: \n";
+
+	public  final String MANIFEST_CONTENT = "Manifest-Version: 1.0\n" + "Class-Path: \n";
 	private final String WEB_INF_FOLDER = "WEB-INF";
 	private final String META_INF_FOLDER = "META-INF";
 	private final String MAIN_SRC_FOLDER = "src" + File.separator + "main";
