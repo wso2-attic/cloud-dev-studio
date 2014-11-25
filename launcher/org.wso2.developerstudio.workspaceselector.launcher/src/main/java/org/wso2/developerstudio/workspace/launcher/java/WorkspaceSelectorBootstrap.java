@@ -15,6 +15,13 @@
 */
 package org.wso2.developerstudio.workspace.launcher.java;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -22,13 +29,6 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class WorkspaceSelectorBootstrap {
 	
@@ -66,8 +66,8 @@ public class WorkspaceSelectorBootstrap {
 			                                                      PROGRESS_BAR_Y_LOC);	
 			swtSplashScreen.updateProgress(100);
 			if (!isDefaultWorkSpaceSet()) {
-				WorkSpaceLauncher workSpaceLauncher = new WorkSpaceLauncher();
-				if (!workSpaceLauncher.isUserWorkSpaceSet()) {
+				WorkSpaceWindow workSpaceWindow = new WorkSpaceWindow();
+				if (!workSpaceWindow.isUserWorkSpaceSet()) {
 					logger.warn("workspace not selected !");
 				}else{
 					Files.write(Paths.get(ROOT_DIR+File.separator+"bin"+File.separator+"PORT"), port.getBytes());

@@ -18,14 +18,14 @@ package org.wso2.developerstudio.workspace.launcher.java;
 
 import org.developerstudio.workspace.utils.SWTResourceManager;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.widgets.ProgressBar;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Monitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static org.developerstudio.workspace.utils.CenterSWTShell.centerShellInDisplay;
 
 /**
  * generating the splash screen for starting the dev-studio
@@ -35,7 +35,7 @@ public class SWTSplashScreen {
 	static final Display splashScreenDisplay =  Display.getDefault();
 
 	private static final Logger logger = LoggerFactory.getLogger(SWTSplashScreen.class);
-	public static final int DIVIDEND_TO_GET_MIDDLE = 2; //dividend to get the midpoint of the screen, hence dividing by 2
+
 	Shell splashScreenShell = new Shell(splashScreenDisplay, SWT.NONE);
 	ProgressBar progressBar = new ProgressBar(splashScreenShell, SWT.SMOOTH);
 	Label imageLabel = new Label(splashScreenShell, SWT.FILL);
@@ -48,15 +48,8 @@ public class SWTSplashScreen {
 		MAXIMUM_PROGRESS = maximumProgress;
 		splashScreenShell.setSize(shellWidth, shellHeight);
 		splashScreenShell.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		// making the workSpaceSelectorShell appear in the center of the monitor
-		Monitor primary = splashScreenDisplay.getPrimaryMonitor();
-		Rectangle bounds = primary.getBounds();
-		Rectangle rect = splashScreenShell.getBounds();
-
-		int shellXLoc = bounds.x + (bounds.width - rect.width) / DIVIDEND_TO_GET_MIDDLE;
-		int shellYLoc = bounds.y + (bounds.height - rect.height) / DIVIDEND_TO_GET_MIDDLE;
-
-		splashScreenShell.setLocation(shellXLoc, shellYLoc);
+		// making the workSpaceSelectorShell appear in the centerShellInDisplay of the monitor
+		centerShellInDisplay(splashScreenShell);
 		splashScreenShell.open();
 
 		if(SWTResourceManager.getImage(splashImageLoc) != null){
@@ -66,6 +59,7 @@ public class SWTSplashScreen {
 			init(progressBarWidth, progressBarHeight, progressBarXLoc, progressBarYLoc);
 		}
 	}
+
 	/**
 	 * initiate the view components
 	 *
@@ -82,7 +76,7 @@ public class SWTSplashScreen {
 
 	private void init(String splashImageLocation, int imageLabelWidth, int imageLabelHeight,
 	                  int progressBarWidth, int progressBarHeight, int progressBarXLoc, int progressBarYLoc) {
-		int imageLabelXLoc = 0; //image label should always fill the splashscreen and hence X, Y coordinates should always be zero.
+		int imageLabelXLoc = 0; //image label should always fill the splash screen and hence X, Y coordinates should always be zero.
 		int imageLabelYLoc = 0;
 
 		imageLabel.setAlignment(SWT.CENTER);
@@ -95,8 +89,7 @@ public class SWTSplashScreen {
 	 * update the progress bar of the splash screen
 	 * @param updateVal: the value that is set to the progress bar
 	 */
-	public void updateProgress(int updateVal) {
-
+	public void updateProgress(final int updateVal) {
 		if( updateVal < MAXIMUM_PROGRESS){
 			progressBar.setSelection(updateVal);
 			progressBar.setState(updateVal);
@@ -104,4 +97,5 @@ public class SWTSplashScreen {
 			splashScreenShell.dispose(); //dispose the workSpaceSelectorShell when progress exceeds 1000
 		}
 	}
+
 }
