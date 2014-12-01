@@ -15,20 +15,18 @@
 */
 package org.wso2.developerstudio.server.launcher;
 
+import org.apache.catalina.LifecycleException;
+import org.apache.catalina.startup.Tomcat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.servlet.ServletException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.servlet.ServletException;
-
-import org.apache.catalina.LifecycleException;
-import org.apache.catalina.startup.Tomcat;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 
 public class ServerBootstrap {
 	private static final Logger logger = LoggerFactory.getLogger(ServerBootstrap.class);
@@ -37,42 +35,43 @@ public class ServerBootstrap {
 	private static String rootDir;
 	private static final Map<String, String> mapContextToWebApp = new HashMap<>();
 	private static String webAppRoot;
-    private static int port;
- 
-    // FIXME - Should load from the property file since this change with the  SDK
+	private static int port;
+
+	// FIXME - Should load from the property file since this change with the  SDK
 	static {
 		mapContextToWebApp.put("/api", "api");
 		mapContextToWebApp.put("/datasource", "datasource");
 		mapContextToWebApp.put("/java-ca", "java-ca");
 		mapContextToWebApp.put("/ws", "ws");
-	 }
+	}
 
-	public static void main(String args[])  {
+	public static void main(String args[]) {
 		try {
-		rootDir = System.getenv(STUDIO_ROOT_ENV_VAR_NAME);
-	    String pid = System.getProperty("app.pid");
-	   	Files.write(Paths.get(rootDir+File.separator+"bin"+File.separator+"pid"), pid.getBytes()); 
-	   	while(true){
-	   		if (Files.exists(Paths.get(rootDir+File.separator+"bin"+File.separator+"PORT"))){
-	   		 byte[] portBytes = Files.readAllBytes(Paths.get(rootDir+File.separator+"bin"+File.separator+"PORT"));
-	 	     String portStr  = new String(portBytes);
-	 		 port = Integer.parseInt(portStr);
-	 		 Files.deleteIfExists(Paths.get(rootDir+File.separator+"bin"+File.separator+"PORT"));
-	 		 break;
-	   		}else {
-	   			Thread.sleep(500);
-	   		}
-	   	}
-		logger.info("Root dir is" + rootDir);
-		logger.info("Starting WSO2 Developer Studio 4.0.0");
-		webAppRoot = rootDir + File.separator + args[0];
+			rootDir = System.getenv(STUDIO_ROOT_ENV_VAR_NAME);
+			String pid = System.getProperty("app.pid");
+			Files.write(Paths.get(rootDir + File.separator + "bin" + File.separator + "pid"), pid.getBytes());
+			while (true) {
+				if (Files.exists(Paths.get(rootDir + File.separator + "bin" + File.separator + "PORT"))) {
+					byte[] portBytes =
+							Files.readAllBytes(Paths.get(rootDir + File.separator + "bin" + File.separator + "PORT"));
+					String portStr = new String(portBytes);
+					port = Integer.parseInt(portStr);
+					Files.deleteIfExists(Paths.get(rootDir + File.separator + "bin" + File.separator + "PORT"));
+					break;
+				} else {
+					Thread.sleep(500);
+				}
+			}
+			logger.info("Root dir is" + rootDir);
+			logger.info("Starting WSO2 Developer Studio 4.0.0");
+			webAppRoot = rootDir + File.separator + args[0];
 
-		if (webAppRoot.equals("")) {
-			webAppRoot = rootDir + File.separator + DEFAULT_RELATIVE_WEB_ROOT;
-		}
+			if (webAppRoot.equals("")) {
+				webAppRoot = rootDir + File.separator + DEFAULT_RELATIVE_WEB_ROOT;
+			}
 
-		logger.info("Tomcat web app root is set to : " + webAppRoot);
-	
+			logger.info("Tomcat web app root is set to : " + webAppRoot);
+
 			Tomcat tomcat = new Tomcat();
 			tomcat.setBaseDir(rootDir + File.separator + "temp");
 			tomcat.setPort(port);
@@ -86,18 +85,18 @@ public class ServerBootstrap {
 			logger.info("Starting tomcat in background");
 			tomcat.start();
 			tomcat.getServer().await();
-	 
+
 		} catch (IOException e) {
 			logger.error("Error querying available local ports for tomcat", e);
 			System.exit(1);
 		} catch (LifecycleException e) {
-			logger.error("Server startup failed ! "+e.getMessage(),e);
+			logger.error("Server startup failed ! " + e.getMessage(), e);
 			System.exit(1);
 		} catch (ServletException e1) {
-			logger.error("Server startup failed ! "+e1.getMessage(),e1);
+			logger.error("Server startup failed ! " + e1.getMessage(), e1);
 			System.exit(1);
 		} catch (InterruptedException e) {
-			logger.error("Server startup failed ! "+e.getMessage(),e);
+			logger.error("Server startup failed ! " + e.getMessage(), e);
 			System.exit(1);
 		}
 	}
@@ -112,7 +111,8 @@ public class ServerBootstrap {
 			Map.Entry webAppEntry = (Map.Entry) o;
 			tomcat.addWebapp(webAppEntry.getKey().toString(),
 			                 new File(webAppRoot + File.separator +
-			                          webAppEntry.getValue().toString()).getAbsolutePath());
+			                          webAppEntry.getValue().toString()).getAbsolutePath()
+			);
 			logger.info("Adding web app : " +
 			            new File(webAppRoot + File.separator + webAppEntry.getValue().toString())
 					            .getAbsolutePath());

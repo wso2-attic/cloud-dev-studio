@@ -25,15 +25,14 @@ import org.eclipse.swt.widgets.Shell;
  * This class would Center an SWT shell in the current display
  */
 public class CenterSWTShell {
-
 	public static final int DIVIDEND_FOR_HALVING = 2;
 
 	/**
-	 * centers the given SWT shell on the current screen
+	 * This method centers the given SWT shell on the current screen
 	 *
 	 * @param shell the SWT shell to be centered
 	 */
-	public static void centerShellInDisplay(Shell shell) {
+	public void centerShellInDisplay(Shell shell) {
 		if (shell != null) {
 			final Rectangle surroundingBounds = getSurroundingBounds(shell);
 			final Rectangle shellBounds = shell.getBounds();
@@ -44,19 +43,19 @@ public class CenterSWTShell {
 	}
 
 	/**
-	 * get the surrounding bounds for the shell detecting the active shell for user
+	 * This method get the surrounding bounds for the shell detecting the active shell for user
 	 * @param shell the SWT shell to be centered
 	 * @return the rectangle for the active monitor bounds
 	 */
-	private static Rectangle getSurroundingBounds(final Shell shell) {
+	private Rectangle getSurroundingBounds(final Shell shell) {
 		return shell.getParent() != null ? shell.getParent().getBounds() : getClosestMonitor(shell.getDisplay()).getBounds();
 	}
 
 	/**
-	 * get the active monitor from the set of monitors available, and check which monitor user has the cursor
-	 * we decide the current monitor by cursor
+	 * This method get the active monitor from the set of monitors available, and check which monitor user has the cursor
+	 * then decide the current monitor if that monitor has the cursor in it
 	 */
-	public static Monitor getClosestMonitor(final Display toSearch) {
+	public Monitor getClosestMonitor(final Display toSearch) {
 		Point toFind = Display.getCurrent().getCursorLocation();
 		Monitor activeMonitor = toSearch.getPrimaryMonitor();
 		for (final Monitor current : toSearch.getMonitors()) {
