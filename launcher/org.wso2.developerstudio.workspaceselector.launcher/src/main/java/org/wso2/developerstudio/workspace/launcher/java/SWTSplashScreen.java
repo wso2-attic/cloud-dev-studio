@@ -120,7 +120,6 @@ public class SWTSplashScreen {
 			} else {
 				try {
 					port = "" + getAvailablePort();
-					log.info(port + "%^%^%^" + getAvailablePort());
 					Thread.sleep(1000);
 				} catch (IOException e) {
 					log.error("Error while selecting the works", e);
