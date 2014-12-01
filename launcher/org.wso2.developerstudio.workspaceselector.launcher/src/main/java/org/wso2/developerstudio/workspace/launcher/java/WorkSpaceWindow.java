@@ -237,14 +237,14 @@ public class WorkSpaceWindow {
 		gd_middleComposite.widthHint = WorkSpaceDesignParameters.WIDTH_HINT;
 		middleComposite.setLayoutData(gd_middleComposite);
 
-		new Label(middleComposite, SWT.NONE);// additional labels to fill the gap (invisible labels added on design)
+		/*new Label(middleComposite, SWT.NONE);// additional labels to fill the gap (invisible labels added on design)
 		new Label(middleComposite, SWT.NONE);
 		new Label(middleComposite, SWT.NONE);
 		new Label(middleComposite, SWT.NONE);
 		new Label(middleComposite, SWT.NONE);
 		new Label(middleComposite, SWT.NONE);
 		new Label(middleComposite, SWT.NONE);
-		new Label(middleComposite, SWT.NONE);
+		new Label(middleComposite, SWT.NONE);*/
 
 		Label workspaceLabel = new Label(middleComposite, SWT.NONE); // label workspace
 		GridData gd_workspaceLabel =
@@ -389,7 +389,7 @@ public class WorkSpaceWindow {
 		}
 	}
 
-	boolean createWorkSpaceDir(File workSpace) {
+	private boolean createWorkSpaceDir(File workSpace) {
 		try {
 			if (workSpace.mkdir()) {
 				log.info("successfully created the workspace directory " + workSpace.getName());

@@ -73,6 +73,7 @@ public class SWTSplashScreen {
 				WorkspaceSelectorBootstrap workspaceSelectorBootstrap = new WorkspaceSelectorBootstrap();
 				workspaceSelectorBootstrap.serverRunner(port);
 				splashScreenShell.dispose(); //dispose the workSpaceSelectorShell when IDE loading completes
+				return;
 			}
 		}.start();
 		while (!splashScreenShell.isDisposed()) {
@@ -120,12 +121,8 @@ public class SWTSplashScreen {
 			} else {
 				try {
 					port = "" + getAvailablePort();
-					Thread.sleep(1000);
 				} catch (IOException e) {
-					log.error("Error while selecting the works", e);
-					System.exit(1);
-				} catch (InterruptedException e) {
-					log.error("Error while selecting the works", e);
+					log.error("Error while getting a vacant port for IDE", e);
 					System.exit(1);
 				}
 				writePortToFile();
