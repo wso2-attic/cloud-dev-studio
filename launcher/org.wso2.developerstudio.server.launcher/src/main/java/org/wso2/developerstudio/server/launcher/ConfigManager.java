@@ -45,6 +45,8 @@ public class ConfigManager {
 	public static final String SET_DEFAULT_WORKSPACE = "set.workspace.as.default";
 	public static final String LOG_FILE_PATH_PROPERTY = "log4j.appender.file.File";
 
+	public static final String IDE_URL = "developerstudio.ide.url";
+
 	/**
 	 * Alters urls defined in configuration files to use passed local port
 	 *

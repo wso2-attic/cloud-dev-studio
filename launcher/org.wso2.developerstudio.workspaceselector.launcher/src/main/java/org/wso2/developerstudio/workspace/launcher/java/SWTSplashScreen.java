@@ -16,92 +16,165 @@
 
 package org.wso2.developerstudio.workspace.launcher.java;
 
+import org.developerstudio.workspace.utils.CenterSWTShell;
 import org.developerstudio.workspace.utils.SWTResourceManager;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.widgets.ProgressBar;
-import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Monitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.net.ServerSocket;
+
 /**
- * generating the splash screen for starting the dev-studio
+ * This class is generating the splash screen for starting the dev-studio
  * using SWT
  */
 public class SWTSplashScreen {
-	static final Display splashScreenDisplay =  Display.getDefault();
+	private static final Logger log = LoggerFactory.getLogger(SWTSplashScreen.class);
 
-	private static final Logger logger = LoggerFactory.getLogger(SWTSplashScreen.class);
-	public static final int DIVIDEND_TO_GET_MIDDLE = 2; //dividend to get the midpoint of the screen, hence dividing by 2
-	Shell splashScreenShell = new Shell(splashScreenDisplay, SWT.NONE);
-	ProgressBar progressBar = new ProgressBar(splashScreenShell, SWT.SMOOTH);
-	Label imageLabel = new Label(splashScreenShell, SWT.FILL);
-	public int MAXIMUM_PROGRESS = 0;
+	private static final String STUDIO_ROOT_ENV_VAR_NAME = "WSO2_DEVELOPER_STUDIO_PATH";
+	private static final Display SPLASH_SCREEN_DISPLAY = Display.getDefault();
+	private final Shell splashScreenShell;
+	private final ProgressBar progressBar;
 
-	public SWTSplashScreen(String splashImageLoc, int shellWidth, int shellHeight,
-	                       int maximumProgress, int imageLabelWidth, int imageLabelHeight,
-	                       int progressBarWidth, int progressBarHeight, int progressBarXLoc, int progressBarYLoc) {
+	private static final String ROOT_DIR = System.getenv(STUDIO_ROOT_ENV_VAR_NAME);
+	private String port;
 
-		MAXIMUM_PROGRESS = maximumProgress;
-		splashScreenShell.setSize(shellWidth, shellHeight);
+	public SWTSplashScreen(SplashScreenDesignParameters splashScreenDesignParameters) {
+		CenterSWTShell centerSWTShell = new CenterSWTShell();
+		splashScreenShell = new Shell(SPLASH_SCREEN_DISPLAY, SWT.NONE);
+		progressBar = new ProgressBar(splashScreenShell, SWT.HORIZONTAL | SWT.INDETERMINATE);
+		splashScreenShell.setSize(splashScreenDesignParameters.getShellWidth(),
+		                          splashScreenDesignParameters.getShellHeight());
 		splashScreenShell.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		// making the workSpaceSelectorShell appear in the center of the monitor
-		Monitor primary = splashScreenDisplay.getPrimaryMonitor();
-		Rectangle bounds = primary.getBounds();
-		Rectangle rect = splashScreenShell.getBounds();
+		// making the workSpaceSelectorShell appear in the centerShellInDisplay of the monitor
+		centerSWTShell.centerShellInDisplay(splashScreenShell);
 
-		int shellXLoc = bounds.x + (bounds.width - rect.width) / DIVIDEND_TO_GET_MIDDLE;
-		int shellYLoc = bounds.y + (bounds.height - rect.height) / DIVIDEND_TO_GET_MIDDLE;
-
-		splashScreenShell.setLocation(shellXLoc, shellYLoc);
+		splashScreenInit(splashScreenDesignParameters);
+		splashScreenShell.pack();
 		splashScreenShell.open();
+		if (log.isDebugEnabled()) {
+			log.debug("Splash Screen Initiated.");
+		}
 
-		if(SWTResourceManager.getImage(splashImageLoc) != null){
-			init(splashImageLoc, imageLabelWidth, imageLabelHeight, progressBarWidth, progressBarHeight, progressBarXLoc, progressBarYLoc);
-		}else { // if image is null then create a splash screen with a blank view
-			logger.error("Splash Screen image resource is not available at " + splashImageLoc);
-			init(progressBarWidth, progressBarHeight, progressBarXLoc, progressBarYLoc);
+		invokeWorkSpace();
+
+		new Thread(port) {
+			public void run() {
+				WorkspaceSelectorBootstrap workspaceSelectorBootstrap = new WorkspaceSelectorBootstrap();
+				workspaceSelectorBootstrap.serverRunner(port);
+				splashScreenShell.dispose(); //dispose the workSpaceSelectorShell when IDE loading completes
+				return;
+			}
+		}.start();
+		while (!splashScreenShell.isDisposed()) {
+			if (!SPLASH_SCREEN_DISPLAY.readAndDispatch())
+				SPLASH_SCREEN_DISPLAY.sleep();
 		}
 	}
+
 	/**
 	 * initiate the view components
-	 *
+	 * if the image is available it is created with the image, if image resource is not there
+	 * a blank spalash screen shell will be created with the progress bar
 	 */
-	private void init(int progressBarWidth, int progressBarHeight, int progressBarXLoc, int progressBarYLoc) {
+	private void splashScreenInit(SplashScreenDesignParameters splashScreenDesignParameters) {
+		final Label imageLabel = new Label(splashScreenShell, SWT.FILL);
+		String imageLocation = splashScreenDesignParameters.getSplashImageLoc();
+		Image splashScreenImage = SWTResourceManager.getImage(imageLocation);
+		if (splashScreenImage != null) {
+			//image label should always fill the splash screen and hence X, Y coordinates should always be zero.
+			int imageLabelXLoc = 0;
+			int imageLabelYLoc = 0;
 
-		progressBar.setBackground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_LIGHT_SHADOW));
-		progressBar.setMaximum(MAXIMUM_PROGRESS);
-		progressBar.setBounds(progressBarXLoc, progressBarYLoc, progressBarWidth, progressBarHeight);//designed through eclipse window builder
+			imageLabel.setAlignment(SWT.CENTER);
+			imageLabel.setImage(splashScreenImage);
+			imageLabel.setBounds(imageLabelXLoc, imageLabelYLoc, splashScreenDesignParameters.getImageLabelWidth(),
+			                     splashScreenDesignParameters.getImageLabelHeight());
+		} else { // if image is null then create a splash screen with a blank view
+			log.error("Splash Screen image resource is not available at " + imageLocation);
+		}
 
-		splashScreenShell.pack();
-		logger.info("Splash Screen Initiated");
+		progressBar.setBackground(SWTResourceManager.getColor(SWT.COLOR_DARK_GRAY));
+		progressBar.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		progressBar.setBounds(splashScreenDesignParameters.getProgressBarXLoc(),
+		                      splashScreenDesignParameters.getProgressBarYLoc(),
+		                      splashScreenDesignParameters.getProgressBarWidth(),
+		                      splashScreenDesignParameters.getProgressBarHeight());
 	}
 
-	private void init(String splashImageLocation, int imageLabelWidth, int imageLabelHeight,
-	                  int progressBarWidth, int progressBarHeight, int progressBarXLoc, int progressBarYLoc) {
-		int imageLabelXLoc = 0; //image label should always fill the splashscreen and hence X, Y coordinates should always be zero.
-		int imageLabelYLoc = 0;
-
-		imageLabel.setAlignment(SWT.CENTER);
-		imageLabel.setImage(SWTResourceManager.getImage(splashImageLocation));
-		imageLabel.setBounds(imageLabelXLoc, imageLabelYLoc, imageLabelWidth, imageLabelHeight);//designed through eclipse window builder
-		init(progressBarWidth, progressBarHeight, progressBarXLoc, progressBarYLoc);
+	private void invokeWorkSpace() {
+		if (!isDefaultWorkSpaceSet()) {
+			WorkSpaceWindow workSpaceLauncher = new WorkSpaceWindow();
+			if (!workSpaceLauncher.isUserWorkSpaceSet()) {
+				log.warn("workspace not selected !");
+				System.exit(0);
+			} else {
+				try {
+					port = "" + getAvailablePort();
+				} catch (IOException e) {
+					log.error("Error while getting a vacant port for IDE", e);
+					System.exit(1);
+				}
+				writePortToFile();
+			}
+		}
 	}
 
-	/**
-	 * update the progress bar of the splash screen
-	 * @param updateVal: the value that is set to the progress bar
-	 */
-	public void updateProgress(int updateVal) {
+	private void writePortToFile() {
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		try {
+			fileWriter = new FileWriter(ROOT_DIR + File.separator + "bin" + File.separator + "PORT");
+			bufferedWriter = new BufferedWriter(fileWriter);
+			bufferedWriter.write(port);
+		} catch (Exception e) {
+			log.error("Error while selecting the works", e);
+			System.exit(1);
+		} finally {
+			try {
+				if (null != bufferedWriter) {
+					bufferedWriter.flush();
+					bufferedWriter.close();
+				}
+				if (null != fileWriter) {
+					fileWriter.close();
+				}
+			} catch (IOException e) {
+				log.error("Error in closing the file writers " + e);
+			}
+		}
+	}
 
-		if( updateVal < MAXIMUM_PROGRESS){
-			progressBar.setSelection(updateVal);
-			progressBar.setState(updateVal);
-		}else {
-			splashScreenShell.dispose(); //dispose the workSpaceSelectorShell when progress exceeds 1000
+	private int getAvailablePort() throws IOException {
+		ServerSocket socket = null;
+		Integer port = null;
+		try {
+			socket = new ServerSocket(0);
+			port = socket.getLocalPort();
+		} finally {
+			if (null != socket) {
+				socket.close();
+			}
+		}
+		return port;
+	}
+
+	private static boolean isDefaultWorkSpaceSet() {
+		try {
+			return Boolean.parseBoolean(ConfigManager.getDefaultWorkSpaceProperty());
+		} catch (IOException e) {
+			log.error("error reading whether user has set default workspace in properties" + e);
+			return false;
 		}
 	}
 }

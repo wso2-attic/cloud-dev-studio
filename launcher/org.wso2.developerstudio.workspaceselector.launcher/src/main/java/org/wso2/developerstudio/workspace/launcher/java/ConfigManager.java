@@ -30,6 +30,8 @@ public class ConfigManager {
 	public static final String ANALYTICS_CONF_FILENAME = "analytics.properties";
 	public static final String CODENVY_API_PROPERTIES_FILE =
 			"codenvy-api-configuration.properties";
+	public static final String DEVSTUDIO_API_PROPERTIES_FILE =
+			"devstudio-api-configuration.properties";
 	public static final String CODENVY_DATASOURCE_PROPERTIES_FILE =
 			"codenvy-datasource-configuration.properties";
 	public static final String CODENVY_JAVA_CA_PROPERTIES_FILE =
@@ -50,7 +52,7 @@ public class ConfigManager {
 	 *
 	 * @param tomcatPort Port allocated for embedded tomcat server
 	 */
-	public static void configureProperties1(String studioRoot, String tomcatPort) {
+	public static void configureProperties(String studioRoot, String tomcatPort) {
 
 		try {
 			Properties apiProps = loadPropertiesFromFile(CODENVY_API_PROPERTIES_FILE);
@@ -70,35 +72,10 @@ public class ConfigManager {
 			storePropertiesToFile(CODENVY_API_PROPERTIES_FILE, apiProps);
 			storePropertiesToFile(CODENVY_DATASOURCE_PROPERTIES_FILE, datasourceProps);
 			storePropertiesToFile(CODENVY_JAVA_CA_PROPERTIES_FILE, javaCAProps);
-
 		} catch (IOException e) {
 
 			logger.error("Error configuring codenvy properties files with port :" + tomcatPort, e);
 		}
-
-	}
-
-	/**
-	 * Sets workspace directory value
-	 *
-	 * @param workspace File path for the workspace
-	 * @throws IOException
-	 */
-	public static void setWorkspaceDirectory(String workspace) throws IOException {
-
-		setAPIProperty(WORKSPACE_ROOT_PROPERTY, workspace);
-		setAPIProperty(WORKSPACE_ROOT_INDEX_PROPERTY, workspace + File.separator + ".metadata");
-	}
-
-	/**
-	 * Read workspace root directory from config files
-	 *
-	 * @return workspace root
-	 * @throws IOException
-	 */
-	public static String getWorkspaceRootDirectory() throws IOException {
-
-		return getAPIProperty(WORKSPACE_ROOT_PROPERTY);
 	}
 
 	/**
@@ -109,8 +86,7 @@ public class ConfigManager {
 	 * @throws IOException
 	 */
 	public static String getAPIProperty(String propertyKey) throws IOException {
-		Properties apiProps = loadPropertiesFromFile(CODENVY_API_PROPERTIES_FILE);
-
+		Properties apiProps = loadPropertiesFromFile(DEVSTUDIO_API_PROPERTIES_FILE);
 		return apiProps.getProperty(propertyKey);
 	}
 
@@ -122,9 +98,9 @@ public class ConfigManager {
 	 * @throws IOException
 	 */
 	public static void setAPIProperty(String propertyKey, String propertyValue) throws IOException {
-		Properties apiProps = loadPropertiesFromFile(CODENVY_API_PROPERTIES_FILE);
+		Properties apiProps = loadPropertiesFromFile(DEVSTUDIO_API_PROPERTIES_FILE);
 		apiProps.setProperty(propertyKey, propertyValue);
-		storePropertiesToFile(CODENVY_API_PROPERTIES_FILE, apiProps);
+		storePropertiesToFile(DEVSTUDIO_API_PROPERTIES_FILE, apiProps);
 	}
 
 	/**
@@ -135,7 +111,6 @@ public class ConfigManager {
 	 * @throws IOException
 	 */
 	private static Properties loadPropertiesFromFile(String fileName) throws IOException {
-
 		fileName = System.getProperty(CODENVY_LOCAL_CONF_DIR) + File.separator + fileName;
 		Properties properties = new Properties();
 
@@ -153,9 +128,7 @@ public class ConfigManager {
 	 * @param properties Properties map
 	 * @throws IOException
 	 */
-	private static void storePropertiesToFile(String fileName, Properties properties)
-			throws IOException {
-
+	private static void storePropertiesToFile(String fileName, Properties properties) throws IOException {
 		fileName = System.getProperty(CODENVY_LOCAL_CONF_DIR) + File.separator + fileName;
 
 		FileOutputStream out = new FileOutputStream(fileName);
@@ -164,11 +137,29 @@ public class ConfigManager {
 
 	}
 
-	public static void setDefaultWorkSpaceProperty(String propertyValue) throws IOException {
-		Properties apiProps = loadPropertiesFromFile(CODENVY_API_PROPERTIES_FILE);
-		apiProps.setProperty(SET_DEFAULT_WORKSPACE, propertyValue);
-		storePropertiesToFile(CODENVY_API_PROPERTIES_FILE, apiProps);
+	/**
+	 * Sets workspace directory value
+	 *
+	 * @param workspace File path for the workspace
+	 * @throws IOException
+	 */
+	public static void setWorkspaceDirectory(String workspace) throws IOException {
+		setAPIProperty(WORKSPACE_ROOT_PROPERTY, workspace);
+		setAPIProperty(WORKSPACE_ROOT_INDEX_PROPERTY, workspace + File.separator + ".metadata");
+	}
 
+	/**
+	 * Read workspace root directory from config files
+	 *
+	 * @return workspace root
+	 * @throws IOException
+	 */
+	public static String getWorkspaceRootDirectory() throws IOException {
+		return getAPIProperty(WORKSPACE_ROOT_PROPERTY);
+	}
+
+	public static void setDefaultWorkSpaceProperty(String propertyValue) throws IOException {
+		setAPIProperty(DEVSTUDIO_API_PROPERTIES_FILE, propertyValue);
 	}
 
 	public static String getDefaultWorkSpaceProperty() throws IOException {
