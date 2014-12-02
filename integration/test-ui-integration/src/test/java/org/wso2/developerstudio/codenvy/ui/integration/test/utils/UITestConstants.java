@@ -59,7 +59,7 @@ public interface UITestConstants {
 
 	public static final int WAITING_TIME_CONSTANT = 30; //time out constant
 	public static final int NO_OF_APP_SERVER_PROJECTS = 3; // no of app server project
-	
+
 	/*folder structure testing for app server*/
 	public static final String SOURCE = "src";
 	public static final String MAIN = "main";
