@@ -24,7 +24,6 @@ public class SplashScreenDesignParameters {
 	private String splashImageLoc;
 	private int shellWidth;
 	private int shellHeight;
-
 	private int maximumProgress;
 	private int imageLabelWidth;
 	private int imageLabelHeight;
@@ -34,83 +33,83 @@ public class SplashScreenDesignParameters {
 	private int progressBarXLoc;
 	private int progressBarYLoc;
 
-	String getSplashImageLoc() {
+	public String getSplashImageLoc() {
 		return splashImageLoc;
 	}
 
-	void setSplashImageLoc(String splashImageLoc) {
+	public void setSplashImageLoc(String splashImageLoc) {
 		this.splashImageLoc = splashImageLoc;
 	}
 
-	int getShellWidth() {
+	public int getShellWidth() {
 		return shellWidth;
 	}
 
-	void setShellWidth(int shellWidth) {
+	public void setShellWidth(int shellWidth) {
 		this.shellWidth = shellWidth;
 	}
 
-	int getShellHeight() {
+	public int getShellHeight() {
 		return shellHeight;
 	}
 
-	void setShellHeight(int shellHeight) {
+	public void setShellHeight(int shellHeight) {
 		this.shellHeight = shellHeight;
 	}
 
-	int getMaximumProgress() {
+	public int getMaximumProgress() {
 		return maximumProgress;
 	}
 
-	void setMaximumProgress(int maximumProgress) {
+	public void setMaximumProgress(int maximumProgress) {
 		this.maximumProgress = maximumProgress;
 	}
 
-	int getImageLabelWidth() {
+	public 	int getImageLabelWidth() {
 		return imageLabelWidth;
 	}
 
-	void setImageLabelWidth(int imageLabelWidth) {
+	public void setImageLabelWidth(int imageLabelWidth) {
 		this.imageLabelWidth = imageLabelWidth;
 	}
 
-	int getImageLabelHeight() {
+	public int getImageLabelHeight() {
 		return imageLabelHeight;
 	}
 
-	void setImageLabelHeight(int imageLabelHeight) {
+	public void setImageLabelHeight(int imageLabelHeight) {
 		this.imageLabelHeight = imageLabelHeight;
 	}
 
-	int getProgressBarWidth() {
+	public int getProgressBarWidth() {
 		return progressBarWidth;
 	}
 
-	void setProgressBarWidth(int progressBarWidth) {
+	public void setProgressBarWidth(int progressBarWidth) {
 		this.progressBarWidth = progressBarWidth;
 	}
 
-	int getProgressBarHeight() {
+	public int getProgressBarHeight() {
 		return progressBarHeight;
 	}
 
-	void setProgressBarHeight(int progressBarHeight) {
+	public void setProgressBarHeight(int progressBarHeight) {
 		this.progressBarHeight = progressBarHeight;
 	}
 
-	int getProgressBarXLoc() {
+	public int getProgressBarXLoc() {
 		return progressBarXLoc;
 	}
 
-	void setProgressBarXLoc(int progressBarXLoc) {
+	public void setProgressBarXLoc(int progressBarXLoc) {
 		this.progressBarXLoc = progressBarXLoc;
 	}
 
-	int getProgressBarYLoc() {
+	public int getProgressBarYLoc() {
 		return progressBarYLoc;
 	}
 
-	void setProgressBarYLoc(int progressBarYLoc) {
+	public void setProgressBarYLoc(int progressBarYLoc) {
 		this.progressBarYLoc = progressBarYLoc;
 	}
 }

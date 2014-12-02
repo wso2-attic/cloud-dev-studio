@@ -16,7 +16,7 @@
 
 package org.wso2.developerstudio.workspace.launcher.java;
 
-import org.developerstudio.workspace.utils.CenterSWTShell;
+import org.developerstudio.workspace.utils.SWTShellManager;
 import org.developerstudio.workspace.utils.SWTResourceManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -43,21 +43,24 @@ public class SWTSplashScreen {
 
 	private static final String STUDIO_ROOT_ENV_VAR_NAME = "WSO2_DEVELOPER_STUDIO_PATH";
 	private static final Display SPLASH_SCREEN_DISPLAY = Display.getDefault();
+	private static final String PORT = "PORT";
+	private static final String BIN = "bin";
 	private final Shell splashScreenShell;
 	private final ProgressBar progressBar;
 
-	private static final String ROOT_DIR = System.getenv(STUDIO_ROOT_ENV_VAR_NAME);
+	public static final String ROOT_DIR = System.getenv(STUDIO_ROOT_ENV_VAR_NAME);
 	private String port;
 
 	public SWTSplashScreen(SplashScreenDesignParameters splashScreenDesignParameters) {
-		CenterSWTShell centerSWTShell = new CenterSWTShell();
+		SWTShellManager SWTShellManager = new SWTShellManager();
 		splashScreenShell = new Shell(SPLASH_SCREEN_DISPLAY, SWT.NONE);
 		progressBar = new ProgressBar(splashScreenShell, SWT.HORIZONTAL | SWT.INDETERMINATE);
+
 		splashScreenShell.setSize(splashScreenDesignParameters.getShellWidth(),
 		                          splashScreenDesignParameters.getShellHeight());
 		splashScreenShell.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		// making the workSpaceSelectorShell appear in the centerShellInDisplay of the monitor
-		centerSWTShell.centerShellInDisplay(splashScreenShell);
+		SWTShellManager.centerShellInDisplay(splashScreenShell);
 
 		splashScreenInit(splashScreenDesignParameters);
 		splashScreenShell.pack();
@@ -68,24 +71,31 @@ public class SWTSplashScreen {
 
 		invokeWorkSpace();
 
-		new Thread(port) {
-			public void run() {
-				WorkspaceSelectorBootstrap workspaceSelectorBootstrap = new WorkspaceSelectorBootstrap();
-				workspaceSelectorBootstrap.serverRunner(port);
-				splashScreenShell.dispose(); //dispose the workSpaceSelectorShell when IDE loading completes
-				return;
-			}
-		}.start();
+		/**
+		 * Run the background server instance process in a separate thread
+		 * to allow UI thread to run with the indeterminate splash screen
+		 */
+		ServerRunner serverRunner = new ServerRunner(port);
+		Thread serverThread = new Thread(serverRunner);
+		serverThread.start();
+		if (!serverThread.isAlive()) {
+			splashScreenShell.dispose();
+		}
+		/**
+		 * Standard Eclipse recommended way of keeping an SWT widget alive until disposed by source,
+		 * eg: http://help.eclipse.org/indigo/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2Fswt.htm
+		 */
 		while (!splashScreenShell.isDisposed()) {
-			if (!SPLASH_SCREEN_DISPLAY.readAndDispatch())
+			if (!SPLASH_SCREEN_DISPLAY.readAndDispatch()){
 				SPLASH_SCREEN_DISPLAY.sleep();
+			}
 		}
 	}
 
 	/**
 	 * initiate the view components
 	 * if the image is available it is created with the image, if image resource is not there
-	 * a blank spalash screen shell will be created with the progress bar
+	 * a blank splash screen shell will be created with the progress bar
 	 */
 	private void splashScreenInit(SplashScreenDesignParameters splashScreenDesignParameters) {
 		final Label imageLabel = new Label(splashScreenShell, SWT.FILL);
@@ -116,14 +126,14 @@ public class SWTSplashScreen {
 		if (!isDefaultWorkSpaceSet()) {
 			WorkSpaceWindow workSpaceLauncher = new WorkSpaceWindow();
 			if (!workSpaceLauncher.isUserWorkSpaceSet()) {
-				log.warn("workspace not selected !");
-				System.exit(0);
+				log.warn("workspace not selected !, Exiting due to user operation");
+				//TODO need to exit application
 			} else {
 				try {
 					port = "" + getAvailablePort();
 				} catch (IOException e) {
 					log.error("Error while getting a vacant port for IDE", e);
-					System.exit(1);
+					//TODO need to exit application
 				}
 				writePortToFile();
 			}
@@ -134,7 +144,7 @@ public class SWTSplashScreen {
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		try {
-			fileWriter = new FileWriter(ROOT_DIR + File.separator + "bin" + File.separator + "PORT");
+			fileWriter = new FileWriter(ROOT_DIR + File.separator + BIN + File.separator + PORT);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			bufferedWriter.write(port);
 		} catch (Exception e) {
