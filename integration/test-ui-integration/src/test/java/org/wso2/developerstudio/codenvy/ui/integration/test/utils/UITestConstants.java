@@ -23,44 +23,43 @@ import java.io.File;
 public interface UITestConstants {
 
 	/*Testing about menu popup*/
-	String WSO2_DEV_STUDIO_GWT_ID = "file.devstudio.id";
-	String WSO2_ABOUT_ACTION_GWT_ID = "wso2.about.action.id";
-	String WSO2_ABOUT_ACTION_SELECTION_CLICK_ID = "about.action.selection.click.id";
-	String WSO_ABOUT_ACTION_CLOSE_BUTTON_ID = "about.action.close.button.click.id";
+	public static final String WSO2_DEV_STUDIO_GWT_ID = "file.devstudio.id";
+	public static final String WSO2_ABOUT_ACTION_GWT_ID = "wso2.about.action.id";
+	public static final String WSO2_ABOUT_ACTION_SELECTION_CLICK_ID = "about.action.selection.click.id";
+	public static final String WSO_ABOUT_ACTION_CLOSE_BUTTON_ID = "about.action.close.button.click.id";
 
 	/*UI Elem locator keys*/
-	String WSO2_FILE_MENU_ID = "new.file.menu.id";
-	String WSO2_FILE_NEW_OPTION_ID = "file.new.option.id";
-	String WSO2_NEW_PROJECT_OPTION_ID = "new.wso2.project.type.id";
-	String WSO2_NEW_PROJECT_NAME_OPTION_ID = "new.project.name.id";
-	String WSO2_NEW_PROJECT_DESCRIPTION_ID = "new.project.description.id";
-	String WSO2_NEW_PROJECT_OPTIONS_DROP_DOWN_XPATH =
+	public static final String WSO2_FILE_MENU_ID = "new.file.menu.id";
+	public static final String WSO2_FILE_NEW_OPTION_ID = "file.new.option.id";
+	public static final String WSO2_NEW_PROJECT_OPTION_ID = "new.wso2.project.type.id";
+	public static final String WSO2_NEW_PROJECT_NAME_OPTION_ID = "new.project.name.id";
+	public static final String WSO2_NEW_PROJECT_DESCRIPTION_ID = "new.project.description.id";
+	public static final String WSO2_NEW_PROJECT_OPTIONS_DROP_DOWN_XPATH =
 			"new.wso2.appserver.project.types.dropdown.xpath";
-	String WSO2_NEW_PROJECT_TYPE_XPATH =
+	public static final String WSO2_NEW_PROJECT_TYPE_XPATH =
 			"new.project.type.appserver.xpath";
-	String WSO2_NEW_PROJECT_ARTIFACTID_ID = "new.project.artifact.id.textbox";
-	String WSO2_NEW_PROJECT_GROUPID_ID = "new.project.group.id.testbox";
-	String WSO2_NEW_PROJECT_VERION_ID = "new.project.version.textbox";
+	public static final String WSO2_NEW_PROJECT_ARTIFACTID_ID = "new.project.artifact.id.textbox";
+	public static final String WSO2_NEW_PROJECT_GROUPID_ID = "new.project.group.id.testbox";
+	public static final String WSO2_NEW_PROJECT_VERION_ID = "new.project.version.textbox";
 
-	String PROJECT_CREATION_WIZARD_NEXT_BUTTON_XPATH = "project.creation.wizard.next.button.xpath";
-	String PROJECT_CREATION_WIZARD_CREATE_BUTTON_XPATH = "project.creation.wizard.create.button.xpath";
+	public static final String PROJECT_CREATION_WIZARD_NEXT_BUTTON_XPATH = "project.creation.wizard.next.button.xpath";
+	public static final String PROJECT_CREATION_WIZARD_CREATE_BUTTON_XPATH = "project.creation.wizard.create.button.xpath";
 
-	String TEST_JAXRS_PROJECT_NAME = "Test_JAX_RS_Project";
-	String TEST_JAXWS_PROJECT_NAME = "Test_JAX_WS_Project";
-	String TEST_WEBAPP_PROJECT_NAME = "Test_WEB_APP_Project";
-	String TEST_PROJECT_DESCRIPTION = "Testing Description";
-	String TEST_PROJECT_ARTIFACT_ID = "sampleproject";
-	String TEST_PROJECT_GROUP_ID = "org.wso2.test.project";
-	String TEST_PROJECT_VERSION_ID = "1.0.0";
+	public static final String TEST_JAXRS_PROJECT_NAME = "Test_JAX_RS_Project";
+	public static final String TEST_JAXWS_PROJECT_NAME = "Test_JAX_WS_Project";
+	public static final String TEST_WEBAPP_PROJECT_NAME = "Test_WEB_APP_Project";
+	public static final String TEST_PROJECT_DESCRIPTION = "Testing Description";
+	public static final String TEST_PROJECT_ARTIFACT_ID = "sampleproject";
+	public static final String TEST_PROJECT_GROUP_ID = "org.wso2.test.project";
+	public static final String TEST_PROJECT_VERSION_ID = "1.0.0";
 
-	String JAX_RS_PROJECT_TYPE = "JAX RS Project";
-	String JAX_WS_PROJECT_TYPE = "JAX WS Project";
-	String WEB_APP_PROJECT_TYPE = "Java Web Application";
+	public static final String JAX_RS_PROJECT_TYPE = "JAX RS Project";
+	public static final String JAX_WS_PROJECT_TYPE = "JAX WS Project";
+	public static final String WEB_APP_PROJECT_TYPE = "Java Web Application";
 
-	int WAITING_TIME_CONSTANT = 30; //time out constant
-	int NO_OF_APP_SERVER_PROJECTS = 3; // no of app server project
-	// we need to ensure this value is set in final integration
-
+	public static final int WAITING_TIME_CONSTANT = 30; //time out constant
+	public static final int NO_OF_APP_SERVER_PROJECTS = 3; // no of app server project
+	
 	/*folder structure testing for app server*/
 	public static final String SOURCE = "src";
 	public static final String MAIN = "main";

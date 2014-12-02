@@ -32,7 +32,6 @@ public class ProjectDirectoryStructureTest {
 	 * @param projectName         name of the project that is being tested
 	 */
 	public void testDirectoryStructure(String directoryTypeToTest, String projectName) {
-
 		switch (directoryTypeToTest) {
 
 			case UITestConstants.JAX_RS_PROJECT_TYPE:

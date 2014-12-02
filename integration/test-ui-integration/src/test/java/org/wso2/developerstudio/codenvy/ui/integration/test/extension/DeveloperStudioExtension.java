@@ -85,7 +85,6 @@ public class DeveloperStudioExtension extends ExecutionListenerExtension {
 	public static void unzip(String zipFilePath, String destinationDirectory) throws ZipException {
 			ZipFile zipFile = new ZipFile(zipFilePath);
 			zipFile.extractAll(destinationDirectory);
-
 	}
 
 	/**

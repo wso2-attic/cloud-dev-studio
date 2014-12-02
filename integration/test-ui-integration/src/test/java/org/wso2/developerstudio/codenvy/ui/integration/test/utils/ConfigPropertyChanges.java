@@ -37,7 +37,6 @@ public class ConfigPropertyChanges {
 	 * @throws IOException
 	 */
 	private static Properties loadPropertiesFromFileTest(String fileName) throws IOException {
-
 		Properties properties = new Properties();
 		FileInputStream inputFileStream = null;
 		try {
@@ -59,7 +58,6 @@ public class ConfigPropertyChanges {
 	 * @throws IOException
 	 */
 	private static void storePropertiesToFileTest(String fileName, Properties properties) throws IOException {
-
 		FileOutputStream outputFileStream = null;
 		try {
 			outputFileStream = new FileOutputStream(fileName);

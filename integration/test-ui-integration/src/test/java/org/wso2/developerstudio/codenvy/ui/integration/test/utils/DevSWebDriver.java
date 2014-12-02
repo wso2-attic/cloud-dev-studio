@@ -47,7 +47,7 @@ public class DevSWebDriver implements org.openqa.selenium.WebDriver {
 	private static final String SUREFIRE_REPORTS = "surefire-reports";
 	private static final String SCREEN_SHOT = "screen-shot";
 	private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
-	public static final String RGEX_TO_REPLACE_CHARACTERS = "\\p{Punct}+";
+	public static final String RGEX_TO_REPLACE_CHARACTERS = "\\p{Punct}";
 	public static final String REPLACEMENT = "_";
 	private final int maxWaitTime;
 	private EventFiringWebDriver driver;
