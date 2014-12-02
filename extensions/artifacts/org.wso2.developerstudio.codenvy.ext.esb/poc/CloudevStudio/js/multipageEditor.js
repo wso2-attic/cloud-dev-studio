@@ -22,16 +22,22 @@ var lastItem = null;
 var dataString = null;
 var curElement = null;
 var id = null;
-var over = "false";
 var curSourceElem = null;
 var curTargetElem = null;
-var topLocation = 170; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
+/**
+*in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios..
+*hence not finalised yet
+**/
+var TOP_LOC = 120;
+var POPUP_HEIGHT = 400;
+var POPUP_WIDTH =600;
+var LEFT_OFFSET = 400;
+var X_SPACE_BUFFER = 200;
+var X_OFFSET = 250;
+
+var newElemXLoc = 60;
+
 var curXLoc = null;
-var divWidth = 200; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
-var newElemXLoc = 60; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
-var topLoc = 120; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
-var curvinessConstant = 100; //for jsplumb arrow curviness 100 is the generally used value
-var zIndexConstant = 1000; //for drag drop z index, constant is generally taken as 1000
 var connectionList = null;
 var elemSourceLocList = [];
 var elemTargetLocList = [];
@@ -41,17 +47,12 @@ var elemSourceLocListIn = [];
 var elemTargetLocListIn = [];
 var elemSource = null;
 var elemTarget = null;
-var xSpace = 0; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
+var xSpace = 0; //in pixels.. needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
 var popupCount = 0;
 var currentPopup = null;
 var x2js = null;
 var elemIsMiddle = false;
-var popupHeight = 400; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
-var popupWidth =600; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
-var bufferConstant = 80; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
-var leftOffset = 400; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
-var xSpaceBuffer = 200; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
-var xOffset = 250; //in pixels.. all the number values given here needs to be tested and altered for all browsers and scenarios.. hence not finalised yet
+var DELETE_KEY_CONSTANT = 46;// 46 is the keycode returned on DELETE key press
 
 
 $(document).ready(function () {
@@ -82,18 +83,18 @@ function setUpdatedDataCallBack(receivedData) {
 function openMediatorConfigDialog(path, title) {
     if (popupCount == 0) {
         $(document.body).append('<div id="popupForMediatorData"></div>');
-        $("#popupForMediatorData").attr('id', "popupForMediatorData");
-        $("#popupForMediatorData").load(path);
-        $("#popupForMediatorData").dialog({ autoOpen: false,
+        var popupEl = $("#popupForMediatorData");
+        popupEl.attr('id', "popupForMediatorData").load(path);//TODO
+        popupEl.dialog({ autoOpen: false,
             bgiframe: true,
-            height: popupHeight, //pop up widow height and width definitions
-            width: popupWidth,
+            height: POPUP_HEIGHT, //pop up widow height and width definitions
+            width: POPUP_WIDTH,
             modal: false,
             draggable: true,
             resizable: true,
             position: 'center' });
-        $("#popupForMediatorData").dialog('option', 'title', title);
-        currentPopup = $("#popupForMediatorData");
+        popupEl.dialog('option', 'title', title);
+        currentPopup = popupEl;
         ++popupCount;
     }
     currentPopup.dialog("open");
@@ -105,7 +106,7 @@ function registerMouseAndKeyEvents() {
     });
 
     $(document).keydown(function (e) {
-        if(e.keyCode == 46){ // 46 is the keycode returned on DELETE key press
+        if(e.keyCode == DELETE_KEY_CONSTANT){
         designViewDeleteKeyDown(e); //detecting the key down event for DELETE key press
         }
     });
@@ -126,7 +127,7 @@ function registerTabChangeEvent() {
 //jsplumb binding to enable jsplumb in javascript
 function registerJsPlumbBind() {
     jsPlumb.bind("ready", function () {
-        initJsPlumb($("#jsPlumbContainer"));
+        initJsPlumb($("#jsPlumbContainer"));//TODO move up
     });
 }
 
@@ -152,7 +153,7 @@ function activateSourceView() {
         }
 
         jObj = $(prevElement).data('jsonConfig');
-        //TODO remove console logs once finalized
+        //TODO remove console logs once finalized, used for testing
         console.log(prevElement);
         console.log('serializing ' + jObj);
         console.log(jObj);
@@ -162,8 +163,6 @@ function activateSourceView() {
     }
 
     jObj = $(nextElement).data('jsonConfig');
-    console.log('serializing ' + jObj);
-    console.log(jObj);
     xmlElement = '\n' + x2js.json2xml_str(jObj);
     currentText = sourceEditorTBox.val();
     sourceEditorTBox.val(currentText + xmlElement + '\n</sequence>');
@@ -178,7 +177,6 @@ function activateDesignView() {
     var sequenceObj = x2js.xml_str2json(sourceEditorTextBox.val());
     var sequence = sequenceObj.sequence;
     var logArray = sequence.log;
-    console.log(logArray);
 
     jsPlumbCont.empty();
     var prevDivElement = null;
@@ -194,5 +192,4 @@ function activateDesignView() {
             prevDivElement = currentDiv;
             }
     }
-
 }

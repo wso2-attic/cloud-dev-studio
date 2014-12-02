@@ -32,6 +32,12 @@ var PX = "px"; // used when assigning pixel values for elements
 var TOLERANCE_POINTER = "pointer";
 var MEDIATOR_SWITCH = "switch"; //currently only done for a switch mediator needs to pass the constants to a separate file when all mediators are being done
 
+var CURVINESS_CONSTANT = 100;
+var CONNECTOR_STYLE_VAL =  { lineWidth: 1, strokeStyle: CONNECTOR_LINE_COLOR }
+var HOVER_PAINT_STYLE =  { strokeStyle: CONNECTOR_LINE_COLOR, lineWidth: 1 };
+var PAINT_STYLE =  { strokeStyle: CONNECTOR_LINE_COLOR, lineWidth: 1 };
+var Z_INDEX_CONSTANT = 1000; //for drag drop z index, constant is generally taken as 1000
+
 //selecting the elements, currently used only for enabling deleting on select
  function selectDeleteFunction() {
     if (curElement != null) {
@@ -63,20 +69,18 @@ function designViewDeleteKeyDown(e) {
         jsPlumb.detachAllConnections(id);
         curElement.remove();
 
-
         if (curTargetElem != null && curSourceElem != null) { // if the deleted item was a middle item in the sequence, connect its source and target
             connectDivs(curTargetElem, curSourceElem);
             curSourceElem = null;
             curTargetElem = null;
         }
-
         curElement = null; //clear, that element doesn't exist anymore
     }
 }
 
 //creating a div on drop of a mediator to the droppable area
-function createDiv(objName, image, type, topLoc) {
-    var xLoc = curXLoc - leftOffset;
+function createDiv(objName, image, type) {
+    var xLoc = curXLoc - LEFT_OFFSET;
     var element = $("<div></div>");
     element.click(selectDeleteFunction);
     element.dblclick(openPopupDialog);
@@ -87,28 +91,31 @@ function createDiv(objName, image, type, topLoc) {
     jsPlumb.draggable(objName, {
         containment: $("#jsPlumbContainer")
     });
-    element.css({'top': topLoc, 'left': xLoc});
+    element.css({'top': TOP_LOC, 'left': xLoc});
     element.addClass("wso2Mediator_style");
 }
 
 //add div function for source to design view change, only done for log mediator yet
 function addDiv(logMediatorObj) {
-    jsonStr = '{"log":' + JSON.stringify(logMediatorObj) + ' }'
-    jsonObj = $.parseJSON(jsonStr);
+var jsPlumbContainerCanvas= $("#jsPlumbContainer")
+    jsonObj = {
+        log : logMediatorObj
+    };
     editorItemCounter++;
     var newElemCreated = DRAGGED_ELEM + editorItemCounter;
     var element = $("<div></div>");
-    element.css({TOP: x, ICON_LEFT: xOffset + xSpace}); //dynamically positioning the elements,
+    element.css({TOP: x, ICON_LEFT: X_OFFSET + xSpace}); //dynamically positioning the elements,
     element.attr(ID, newElemCreated);
     element.addClass(DRAGGABLE);
-    //loading element image resource on creating diagram from source, done only for log mediator, work in progress, needs to be changed when generalizing
+    /*loading element image resource on creating diagram from source, done only for log mediator, work in progress,
+      needs to be changed when generalizing*/
     element.prepend('<img src="icons/log-mediator.gif" />')
     element.click(selectDeleteFunction);
     element.dblclick(openPopupDialog);
     element.data('jsonConfig', jsonObj);
     element.addClass(MEDIATOR_STYLE);
-    $("#jsPlumbContainer").append(element);
-    xSpace += xSpaceBuffer;
+    jsPlumbContainerCanvas.append(element);
+    xSpace += X_SPACE_BUFFER;
     return newElemCreated;
 }
 //connect function with jsplumb, this is a jsplumb function for connecting to elements.
@@ -117,21 +124,20 @@ function connectDivs(source, target) {
         source: source,
         target: target,
         anchors: [RIGHT, LEFT ],
-        paintStyle: { strokeStyle: CONNECTOR_LINE_COLOR, lineWidth: 1 },
-        connector: [CONNECTOR_STYLE, { curviness: curvinessConstant}],
-        connectorStyle: [
-            { lineWidth: 1, strokeStyle: CONNECTOR_LINE_COLOR }
-        ],
-        hoverPaintStyle: { strokeStyle: CONNECTOR_LINE_COLOR, lineWidth: 1 }
+        paintStyle: PAINT_STYLE,
+        connector: [CONNECTOR_STYLE, { curviness: CURVINESS_CONSTANT}],
+        connectorStyle: [CONNECTOR_STYLE_VAL],
+        hoverPaintStyle: HOVER_PAINT_STYLE
     });
 }
 
 function jsplumbHandleDraggable() {
+
     $(".draggableIcon").draggable({
         helper: 'clone',
         containment: 'jsPlumbContainer',
         cursor: 'move',
-        zIndex: zIndexConstant,
+        zIndex: Z_INDEX_CONSTANT,
         //When first dragged
         stop: function (ev, ui) { }
     });
@@ -144,7 +150,7 @@ function jsplumbHandleDroppable() {
 
     $("#jsPlumbContainer").droppable({
         drop: function (ev, ui) {//to locate the element
-            var xLoc = curXLoc - leftOffset; //to get the current location in the div
+            var xLoc = curXLoc - LEFT_OFFSET; //to get the current location in the div
             if(lastItem != null){
             var connectionList = jsPlumb.getAllConnections();
                 for (var connection in connectionList) {//getting a map of the existing elements in the canvas
@@ -167,7 +173,7 @@ function jsplumbHandleDroppable() {
                 var type = newDraggedElem.attr(ID);
 
                 newDroppedElem = DRAGGED + type + editorItemCounter;
-                createDiv(newDroppedElem, newDraggedElem, type, topLocation);
+                createDiv(newDroppedElem, newDraggedElem, type);
                 if(elemSourceLocList != null){
                     for (var elemInList in elemSourceLocList) {
                         if (elemSourceLocList.hasOwnProperty(elemInList)) {
@@ -181,7 +187,7 @@ function jsplumbHandleDroppable() {
                     }
                 }
                 newDroppedItem = $("#" + newDroppedElem);
-                if (elemIsMiddle != true) {
+                if (!elemIsMiddle) {
                    if(lastItem != null){
                     connectDivs(lastItem, newDroppedItem);
                     }
