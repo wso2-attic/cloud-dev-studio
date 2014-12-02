@@ -128,16 +128,15 @@ public class SWTSplashScreen {
 			if (!workSpaceLauncher.isUserWorkSpaceSet()) {
 				log.warn("workspace not selected !, Exiting due to user operation");
 				//TODO need to exit application
-			} else {
-				try {
-					port = "" + getAvailablePort();
-				} catch (IOException e) {
-					log.error("Error while getting a vacant port for IDE", e);
-					//TODO need to exit application
-				}
-				writePortToFile();
 			}
 		}
+		try {
+			port = "" + getAvailablePort();
+		} catch (IOException e) {
+			log.error("Error while getting a vacant port for IDE", e);
+			//TODO need to exit application
+		}
+		writePortToFile();
 	}
 
 	private void writePortToFile() {

@@ -158,7 +158,7 @@ public class WorkSpaceWindow {
 	 */
 	private static final String USER_HOME = "user.home";
 
-	private static final String DEV_STUDIO_WORK_SPACE = "devstudioworkspace";
+	private static final String DEV_STUDIO_WORK_SPACE = "dev.studio.workspace";
 	private static final String OK_BUTTON_TEXT = "ok";
 	private static final String CANCEL_BUTTON_TEXT = "cancel";
 	private static final String BROWSE_BUTTON_TEXT = "browse";
