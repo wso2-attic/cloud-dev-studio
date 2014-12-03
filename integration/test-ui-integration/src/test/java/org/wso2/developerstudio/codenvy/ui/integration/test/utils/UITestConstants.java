@@ -87,13 +87,12 @@ public interface UITestConstants {
 
 	//for testing
 	public static final String DEVELOPER_STUDIO_IDE_URL = "developerstudio.ide.url";
-	public static final String TEST_IDE_RUN_LOC = TARGET_FOLDER_LOC + File.separator + UITestConstants.LINUX_PACK +
-	                                              File.separator + "bin" + File.separator + "wso2studio_workspace.sh";
+	public static final String TEST_IDE_RUN_LOC = TARGET_FOLDER_LOC + File.separator + LINUX_PACK +
+	                                              File.separator + "bin" + File.separator + "wso2studio_server.sh";
 	public static final String LOCAL_IDE_LOCATION = TARGET_FOLDER_LOC + File.separator + LINUX_PACK + ".zip";
 
-	public static final String PROPERTY_FILE_LOC =
-			UITestConstants.TARGET_FOLDER_LOC + File.separator + UITestConstants.LINUX_PACK +
-			File.separator + "configuration";
+	public static final String PROPERTY_FILE_LOC = TARGET_FOLDER_LOC + File.separator + LINUX_PACK +
+	                                               File.separator + "configuration";
 	public static String UI_ELEM_PROPERTY_FILE_LOC = "uielement_locators.properties";
 
 }
