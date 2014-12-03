@@ -54,8 +54,7 @@ public class DeveloperStudioExtension extends ExecutionListenerExtension {
 		 * Does the configuration changes to avoid the SWT widget popup at startup
 		 */
 		File configFile = new File(UITestConstants.PROPERTY_FILE_LOC + File.separator + UITestConstants.CONF_FILE);
-		configFile.createNewFile();
-		if(configFile.exists()){
+		if(configFile.createNewFile()){
 			ConfigPropertyChanges.setDefaultWorkSpacePropertyTest(String.valueOf(true));
 			makeWorkSpaceDir();
 			ConfigPropertyChanges.setWorkspaceDirectory(UITestConstants.TEST_WORK_SPACE_DIR);
