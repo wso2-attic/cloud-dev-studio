@@ -74,8 +74,8 @@ public class DeveloperStudioExtension extends ExecutionListenerExtension {
 	@Override public void onExecutionFinish() throws Exception {
 		runningProcess.destroy(); // stop the process, otherwise sometimes the folder deletion might fail
 		runningProcess.waitFor();
-		//deleteTestPack(UITestConstants.TEST_WORK_SPACE_DIR);
-		//deleteTestPack(UITestConstants.TARGET_FOLDER_LOC + UITestConstants.LINUX_PACK);
+		deleteTestPack(UITestConstants.TEST_WORK_SPACE_DIR);
+		deleteTestPack(UITestConstants.TARGET_FOLDER_LOC + UITestConstants.LINUX_PACK);
 	}
 
 	/**
