@@ -74,7 +74,7 @@ public class ServerRunner implements Runnable {
 			}
 		} catch (IOException e) {
 			log.error("Error while selecting the works " , e);
-			System.exit(1);
+			//TODO need to exit application
 		} finally {
 			try {
 				if (null != bufferedReader) {
