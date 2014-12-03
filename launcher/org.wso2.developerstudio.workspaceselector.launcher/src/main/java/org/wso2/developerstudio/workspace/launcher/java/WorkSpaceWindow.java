@@ -571,7 +571,7 @@ public class WorkSpaceWindow {
 		/*TODO need to finalize with Eclipse Che dev team to how to save this property to be taken as the workspace for the IDE*/
 		try {
 			if (!DEV_CONFIG_PROPERTY_FILE.exists()) { // create the properties file if not existing
-				if (DEV_CONFIG_PROPERTY_FILE.mkdir()) {
+				if (DEV_CONFIG_PROPERTY_FILE.createNewFile()) {
 					if (log.isDebugEnabled()) {
 						log.debug(
 								"Successfully created the developer studio configurations file on initial run of developer studio . ");

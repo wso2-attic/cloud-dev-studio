@@ -19,6 +19,8 @@ package org.wso2.developerstudio.codenvy.ui.integration.test.extension;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.wso2.carbon.automation.engine.extensions.ExecutionListenerExtension;
 import org.wso2.developerstudio.codenvy.ui.integration.test.utils.ConfigPropertyChanges;
 import org.wso2.developerstudio.codenvy.ui.integration.test.utils.UITestConstants;
@@ -33,6 +35,7 @@ import java.io.IOException;
  * stops the developer studio and clean up the directories after tests run.
  */
 public class DeveloperStudioExtension extends ExecutionListenerExtension {
+	private static final Logger log = LoggerFactory.getLogger(DeveloperStudioExtension.class);
 	private Process runningProcess;
 
 	@Override public void initiate() throws Exception {
@@ -50,15 +53,16 @@ public class DeveloperStudioExtension extends ExecutionListenerExtension {
 		/**
 		 * Does the configuration changes to avoid the SWT widget popup at startup
 		 */
-		File propertyFile = new File(UITestConstants.PROPERTY_FILE_LOC + File.separator + UITestConstants.CONF_FILE);
-		if(propertyFile.mkdir()){
+		File configFile = new File(UITestConstants.PROPERTY_FILE_LOC + File.separator + UITestConstants.CONF_FILE);
+		configFile.createNewFile();
+		if(configFile.exists()){
 			ConfigPropertyChanges.setDefaultWorkSpacePropertyTest(String.valueOf(true));
 			makeWorkSpaceDir();
 			ConfigPropertyChanges.setWorkspaceDirectory(UITestConstants.TEST_WORK_SPACE_DIR);
 		}
+
 		String[] execCommand = new String[] { UITestConstants.SH_COMMAND, UITestConstants.TEST_IDE_RUN_LOC +
 		                                          UITestConstants.COMMAND_EXT_TO_RUN_AND_PROCEED };
-
 		runningProcess = Runtime.getRuntime().exec(execCommand);// get the developer studio running
 	}
 
@@ -71,8 +75,8 @@ public class DeveloperStudioExtension extends ExecutionListenerExtension {
 	@Override public void onExecutionFinish() throws Exception {
 		runningProcess.destroy(); // stop the process, otherwise sometimes the folder deletion might fail
 		runningProcess.waitFor();
-		deleteTestPack(UITestConstants.TEST_WORK_SPACE_DIR);
-		deleteTestPack(UITestConstants.TARGET_FOLDER_LOC + UITestConstants.LINUX_PACK);
+		//deleteTestPack(UITestConstants.TEST_WORK_SPACE_DIR);
+		//deleteTestPack(UITestConstants.TARGET_FOLDER_LOC + UITestConstants.LINUX_PACK);
 	}
 
 	/**
