@@ -41,7 +41,8 @@
                         <suiteXmlFile>src/test/resources/testng-server-mgt.xml</suiteXmlFile>
                         <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
-
+                    <parallel>false</parallel>
+                    <skipTests>${skipUiTests}</skipTests>
                     <systemProperties>
                         <property>
                             <name>maven.test.haltafterfailure</name>

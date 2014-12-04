@@ -29,7 +29,7 @@ limitations under the License.
         <!--<module>extensions</module>-->
         <module>launcher</module>
         <module>assembly</module>
-        <!-- <module>integration</module>-->
+        <module>integration</module>
     </modules>
 
     <dependencyManagement>
@@ -282,12 +282,13 @@ limitations under the License.
         <tycho.maven.version>0.19.0</tycho.maven.version>
         <selenium.version>1.0-20081010.060147</selenium.version>
         <uitest.vmparams>-Xms2048m -Xmx3096m -XX:MaxPermSize=1024m</uitest.vmparams>
+        <!--Skips UI tests by default and runs them only on user request-->
+        <skipUiTests>true</skipUiTests>
 
         <!--swtbot dependencies-->
             <tycho.version>0.19.0</tycho.version>
             <kepler-repo.url>http://download.eclipse.org/releases/kepler</kepler-repo.url>
             <swtbot-repo.url>http://download.eclipse.org/technology/swtbot/releases/latest</swtbot-repo.url>
-
     </properties>
 
 </project>
