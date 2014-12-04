@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Shell;
 /**
  * This class would Center an SWT shell in the current display
  */
-public class CenterSWTShell {
+public class SWTShellManager {
 	public static final int DIVIDEND_FOR_HALVING = 2;
 
 	/**

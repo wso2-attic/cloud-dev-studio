@@ -15,16 +15,10 @@
 */
 package org.wso2.developerstudio.workspace.launcher.java;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.File;
 
 public class WorkspaceSelectorBootstrap {
 
@@ -94,55 +88,5 @@ public class WorkspaceSelectorBootstrap {
 		splashScreenDesignParameters.setProgressBarYLoc(SplashScreenParameters.PROGRESS_BAR_Y_LOC);
 
 		new SWTSplashScreen(splashScreenDesignParameters);
-	}
-
-	public void serverRunner(String port) {
-		BufferedReader bufferedReader = null;
-		StringBuffer result;
-		FileWriter fileWriter = null;
-		BufferedWriter writer = null;
-		try {
-			final String ideURL = "http://localhost:" + port + "/ws";
-			log.info("IDE URL is set to: " + ideURL);
-			HttpClient client = HttpClientBuilder.create().build();
-			while (true) {
-				HttpGet request = new HttpGet(ideURL);
-				request.addHeader("User-Agent", "DevS");
-				HttpResponse response = client.execute(request);
-				if (response.getStatusLine().getStatusCode() == 200) { // check for the HTTP response 200 OK status
-					Files.write(Paths.get(ROOT_DIR + File.separator + "bin" + File.separator + "url.txt"),
-					            ideURL.getBytes());
-					break;
-				} else {
-					if (log.isDebugEnabled()) {
-						log.debug("IDE Starting" + response.getStatusLine().getStatusCode());
-						bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-						result = new StringBuffer();
-						String line;
-						while ((line = bufferedReader.readLine()) != null) {
-							result.append(line);
-						}
-						log.debug(result.toString());
-					}
-				}
-			}
-		} catch (IOException e) {
-			log.error("Error while selecting the works", e);
-			System.exit(1);
-		} finally {
-			try {
-				if (null != bufferedReader) {
-					bufferedReader.close();
-				}
-				if (null != writer) {
-					writer.close();
-				}
-				if (null != fileWriter) {
-					fileWriter.close();
-				}
-			} catch (IOException e) {
-				log.error("Unable to close the buffered Reader reading the url");
-			}
-		}
 	}
 }

@@ -16,7 +16,7 @@
 package org.wso2.developerstudio.workspace.launcher.java;
 
 import org.apache.commons.io.FilenameUtils;
-import org.developerstudio.workspace.utils.CenterSWTShell;
+import org.developerstudio.workspace.utils.SWTShellManager;
 import org.developerstudio.workspace.utils.SWTResourceManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
@@ -42,8 +42,6 @@ import java.util.ResourceBundle;
  * to be used to save projects.
  */
 public class WorkSpaceWindow {
-	private static final ResourceBundle launcherBundle =
-			PropertyResourceBundle.getBundle("wso2.developerstudio.workspace.launcher.java.launcher");
 	private static final Logger log = LoggerFactory.getLogger(WorkSpaceWindow.class);
 
 	private static final class WorkSpaceDesignParameters {
@@ -143,22 +141,24 @@ public class WorkSpaceWindow {
 	 */
 	private static final int SHELL_TRIM = SWT.CLOSE | SWT.TITLE | SWT.MIN | SWT.MAX | SWT.RESIZE;
 
+	public static final String DEVSTUDIO_WORKSPACE_PROPERTY = "developerstudio.workspace";
+	private static final ResourceBundle LAUNCHER_BUNDLE =
+			PropertyResourceBundle.getBundle("wso2.developerstudio.workspace.launcher.java.launcher");
 	private static final File DEV_CONFIG_PROPERTY_FILE = new File(System.getProperty(
 			ConfigManager.CODENVY_LOCAL_CONF_DIR) + File.separator + ConfigManager.DEVSTUDIO_API_PROPERTIES_FILE);
 
-	private final Display workSpaceDisplay;
 	private Shell workSpaceShell;
 	private Text workSpaceText;
 	private Button okButton;
 	private boolean isDefaultSet;
 	private boolean userWorkSpaceSet;
 	private boolean workspaceTextModified;
-
 	/**
 	 * Internationalized user message parameters
 	 */
 	private static final String USER_HOME = "user.home";
-	private static final String DEV_STUDIO_WORK_SPACE = "devstudioworkspace";
+
+	private static final String DEV_STUDIO_WORK_SPACE = "dev.studio.workspace";
 	private static final String OK_BUTTON_TEXT = "ok";
 	private static final String CANCEL_BUTTON_TEXT = "cancel";
 	private static final String BROWSE_BUTTON_TEXT = "browse";
@@ -170,33 +170,34 @@ public class WorkSpaceWindow {
 	private static final String WORKSPACE_LABEL = "workspace";
 	private static final String WSO2_DEVELOPER_STUDIO = "wso2.developer.studio";
 
-	private final CenterSWTShell centerSWTShell;
+	private static final SWTShellManager CENTER_SWT_SHELL = new SWTShellManager();
+	private static final Display WORK_SPACE_DISPLAY = Display.getDefault();
 
 	public WorkSpaceWindow() {
-		workSpaceDisplay = Display.getDefault();
-		centerSWTShell = new CenterSWTShell();
-
-		init();
+		workSpaceWindowInit();
 		workSpaceShell.pack();
-		centerSWTShell.centerShellInDisplay(workSpaceShell); // center the shell in the current screen
+		CENTER_SWT_SHELL.centerShellInDisplay(workSpaceShell); // center the shell in the current screen
 		workSpaceShell.open();
-
+		/**
+		 * Standard Eclipse recommended way of keeping an SWT widget alive until disposed by source,
+		 * eg: http://help.eclipse.org/indigo/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2Fswt.htm
+		 */
 		while (!workSpaceShell.isDisposed()) {
-			if (!workSpaceDisplay.readAndDispatch()) {
-				workSpaceDisplay.sleep();
+			if (!WORK_SPACE_DISPLAY.readAndDispatch()) {
+				WORK_SPACE_DISPLAY.sleep();
 			}
 		}
 	}
 
 	/**
-	 * This method initiates the workspace selector SWT widget
+	 * This method initiates the workspace selector SWT widget with all UI components
 	 */
-	private void init() {
-		workSpaceShell = new Shell(workSpaceDisplay, SHELL_TRIM & (~SWT.RESIZE));
+	private void workSpaceWindowInit() {
+		workSpaceShell = new Shell(WORK_SPACE_DISPLAY, SHELL_TRIM & (~SWT.RESIZE));
 		workSpaceShell.setBackground(SWTResourceManager.getColor(SWT.COLOR_DARK_GRAY));
 		setShellSize(workSpaceShell);
 
-		workSpaceShell.setText(launcherBundle.getString(WSO2_DEVELOPER_STUDIO));
+		workSpaceShell.setText(LAUNCHER_BUNDLE.getString(WSO2_DEVELOPER_STUDIO));
 		GridLayout gl_workspaceShell = new GridLayout(WorkSpaceDesignParameters.HORIZONTAL_SPAN, false);
 		gl_workspaceShell.marginWidth = WorkSpaceDesignParameters.SHELL_MARGIN;
 		workSpaceShell.setLayout(gl_workspaceShell);
@@ -204,58 +205,62 @@ public class WorkSpaceWindow {
 		Label headerLabel = new Label(workSpaceShell, SWT.NONE); // header line of the workspace dialog
 		headerLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_DARK_GRAY));
 		headerLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		GridData gd_headerLabel =
-				new GridData(SWT.LEFT, SWT.CENTER, false, false, WorkSpaceDesignParameters.HORIZONTAL_SPAN,
-				             WorkSpaceDesignParameters.VERTICAL_SPAN);
+		GridData gd_headerLabel = new GridData(SWT.LEFT, SWT.CENTER, false, false,
+		                                       WorkSpaceDesignParameters.HORIZONTAL_SPAN,
+		                                       WorkSpaceDesignParameters.VERTICAL_SPAN);
 		gd_headerLabel.horizontalIndent = WorkSpaceDesignParameters.HORIZONTAL_INDENT;
 		gd_headerLabel.heightHint = WorkSpaceDesignParameters.HEADER_HEIGHT_HINT;
 		gd_headerLabel.widthHint = WorkSpaceDesignParameters.WIDTH_HINT;
 		headerLabel.setLayoutData(gd_headerLabel);
-		headerLabel.setText(launcherBundle.getString(BROWSE_DIALOG_MENU_MESSAGE));
+		headerLabel.setText(LAUNCHER_BUNDLE.getString(BROWSE_DIALOG_MENU_MESSAGE));
 
 		Label descriptionLabel = new Label(workSpaceShell, SWT.WRAP); // description label of the workspace dialog
 		descriptionLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_DARK_GRAY));
 		descriptionLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		GridData gd_descriptionLabel =
-				new GridData(SWT.LEFT, SWT.CENTER, false, false, WorkSpaceDesignParameters.HORIZONTAL_SPAN,
-				             WorkSpaceDesignParameters.VERTICAL_SPAN);
+		GridData gd_descriptionLabel = new GridData(SWT.LEFT, SWT.CENTER, false, false,
+		                                            WorkSpaceDesignParameters.HORIZONTAL_SPAN,
+		                                            WorkSpaceDesignParameters.VERTICAL_SPAN);
 		gd_descriptionLabel.horizontalIndent = WorkSpaceDesignParameters.HORIZONTAL_INDENT;
 		gd_descriptionLabel.widthHint = WorkSpaceDesignParameters.WIDTH_HINT;
 		gd_descriptionLabel.heightHint = WorkSpaceDesignParameters.DESCRIPTION_HEIGHT_HINT;
 		descriptionLabel.setLayoutData(gd_descriptionLabel);
-		descriptionLabel.setText(launcherBundle.getString(USER_MESSAGE_TO_SELECT_WORKSPACE));
+		descriptionLabel.setText(LAUNCHER_BUNDLE.getString(USER_MESSAGE_TO_SELECT_WORKSPACE));
 
 		/**
 		 * composite to separate workspace entry text box, checkbox element and the buttons
 		 */
-		Composite middleComposite = new Composite(workSpaceShell,SWT.NONE);
+		Composite middleComposite = new Composite(workSpaceShell, SWT.NONE);
 		middleComposite.setLayout(new GridLayout(WorkSpaceDesignParameters.HORIZONTAL_SPAN_4, false));
-		GridData gd_middleComposite =
-				new GridData(SWT.CENTER, SWT.CENTER, false, false, WorkSpaceDesignParameters.HORIZONTAL_SPAN_3,
-				             WorkSpaceDesignParameters.VERTICAL_SPAN);
+		GridData gd_middleComposite = new GridData(SWT.CENTER, SWT.CENTER, false, false,
+		                                           WorkSpaceDesignParameters.HORIZONTAL_SPAN_3,
+		                                           WorkSpaceDesignParameters.VERTICAL_SPAN);
 		gd_middleComposite.heightHint = WorkSpaceDesignParameters.MIDDLE_COMPOSITE_HEIGHT_HINT;
 		gd_middleComposite.widthHint = WorkSpaceDesignParameters.WIDTH_HINT;
 		middleComposite.setLayoutData(gd_middleComposite);
 
-		/*new Label(middleComposite, SWT.NONE);// additional labels to fill the gap (invisible labels added on design)
+		/**
+		 *  additional labels to fill the gap (invisible labels added on design)
+		 */
 		new Label(middleComposite, SWT.NONE);
 		new Label(middleComposite, SWT.NONE);
 		new Label(middleComposite, SWT.NONE);
 		new Label(middleComposite, SWT.NONE);
 		new Label(middleComposite, SWT.NONE);
 		new Label(middleComposite, SWT.NONE);
-		new Label(middleComposite, SWT.NONE);*/
+		new Label(middleComposite, SWT.NONE);
+		new Label(middleComposite, SWT.NONE);
 
 		Label workspaceLabel = new Label(middleComposite, SWT.NONE); // label workspace
-		GridData gd_workspaceLabel =
-				new GridData(SWT.RIGHT, SWT.CENTER, false, false, WorkSpaceDesignParameters.HORIZONTAL_SPAN,
-				             WorkSpaceDesignParameters.VERTICAL_SPAN);
+		GridData gd_workspaceLabel = new GridData(SWT.RIGHT, SWT.CENTER, false, false,
+		                                          WorkSpaceDesignParameters.HORIZONTAL_SPAN,
+		                                          WorkSpaceDesignParameters.VERTICAL_SPAN);
 		gd_workspaceLabel.widthHint = WorkSpaceDesignParameters.WORKSPACE_LBL_WIDTH_HINT;
 		workspaceLabel.setLayoutData(gd_workspaceLabel);
-		workspaceLabel.setText(launcherBundle.getString(WORKSPACE_LABEL));
+		workspaceLabel.setText(LAUNCHER_BUNDLE.getString(WORKSPACE_LABEL));
 
 		workSpaceText = new Text(middleComposite, SWT.BORDER); // text box to input the user preferred workspace
-		GridData gd_text = new GridData(SWT.FILL, SWT.CENTER, true, false, WorkSpaceDesignParameters.HORIZONTAL_SPAN,
+		GridData gd_text = new GridData(SWT.FILL, SWT.CENTER, true, false,
+		                                WorkSpaceDesignParameters.HORIZONTAL_SPAN,
 		                                WorkSpaceDesignParameters.VERTICAL_SPAN);
 		gd_text.widthHint = WorkSpaceDesignParameters.WORKSPACE_TXT_WIDTH_HINT;
 		workSpaceText.setLayoutData(gd_text);
@@ -269,12 +274,12 @@ public class WorkSpaceWindow {
 		});
 
 		Button browseButton = new Button(middleComposite, SWT.NONE); // browse button file dialog
-		GridData gd_btnBrowseButton =
-				new GridData(SWT.LEFT, SWT.CENTER, false, false, WorkSpaceDesignParameters.HORIZONTAL_SPAN,
-				             WorkSpaceDesignParameters.VERTICAL_SPAN);
+		GridData gd_btnBrowseButton = new GridData(SWT.LEFT, SWT.CENTER, false, false,
+		                                           WorkSpaceDesignParameters.HORIZONTAL_SPAN,
+				                                   WorkSpaceDesignParameters.VERTICAL_SPAN);
 		gd_btnBrowseButton.widthHint = WorkSpaceDesignParameters.BROWSE_BTN_WIDTH_HINT;
 		browseButton.setLayoutData(gd_btnBrowseButton);
-		browseButton.setText(launcherBundle.getString(BROWSE_BUTTON_TEXT));
+		browseButton.setText(LAUNCHER_BUNDLE.getString(BROWSE_BUTTON_TEXT));
 		browseButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				workspaceTextModified = false;
@@ -285,14 +290,17 @@ public class WorkSpaceWindow {
 		Composite bottomComposite =
 				new Composite(middleComposite, SWT.NONE); // final composite to separate the ok and cancel buttons
 		bottomComposite.setLayout(new GridLayout(WorkSpaceDesignParameters.NO_OF_COLUMNS, false));
-		GridData gd_bottomComposite =
-				new GridData(SWT.LEFT, SWT.CENTER, false, false, WorkSpaceDesignParameters.HORIZONTAL_SPAN_4,
-				             WorkSpaceDesignParameters.VERTICAL_SPAN);
+		GridData gd_bottomComposite = new GridData(SWT.LEFT, SWT.CENTER, false, false,
+		                                           WorkSpaceDesignParameters.HORIZONTAL_SPAN_4,
+		                                           WorkSpaceDesignParameters.VERTICAL_SPAN);
 		gd_bottomComposite.heightHint = WorkSpaceDesignParameters.BOTTOM_COMPOSITE_HEIGHT_HINT;
 		gd_bottomComposite.widthHint = WorkSpaceDesignParameters.BOTTOM_COMPOSITE_WIDTH_HINT;
 		bottomComposite.setLayoutData(gd_bottomComposite);
 
-		new Label(bottomComposite, SWT.NONE);// additional labels to fill the gap (invisible labels added on design)
+		/**
+		 *  additional labels to fill the gap (invisible labels added on design)
+		 */
+		new Label(bottomComposite, SWT.NONE);
 		new Label(bottomComposite, SWT.NONE);
 		new Label(bottomComposite, SWT.NONE);
 		new Label(bottomComposite, SWT.NONE);
@@ -300,12 +308,12 @@ public class WorkSpaceWindow {
 
 		final Button btnCheckButton =
 				new Button(bottomComposite, SWT.CHECK); // check button to set workspace as default
-		GridData gd_btnCheckButton =
-				new GridData(SWT.LEFT, SWT.CENTER, false, false, WorkSpaceDesignParameters.HORIZONTAL_SPAN,
-				             WorkSpaceDesignParameters.VERTICAL_SPAN);
+		GridData gd_btnCheckButton = new GridData(SWT.LEFT, SWT.CENTER, false, false,
+		                                          WorkSpaceDesignParameters.HORIZONTAL_SPAN,
+		                                          WorkSpaceDesignParameters.VERTICAL_SPAN);
 		gd_btnCheckButton.widthHint = WorkSpaceDesignParameters.CHECK_BTN_WIDTH_HINT;
 		btnCheckButton.setLayoutData(gd_btnCheckButton);
-		btnCheckButton.setText(launcherBundle.getString(SET_DEFAULT_WORKSPACE_MESSAGE));
+		btnCheckButton.setText(LAUNCHER_BUNDLE.getString(SET_DEFAULT_WORKSPACE_MESSAGE));
 		btnCheckButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -313,7 +321,10 @@ public class WorkSpaceWindow {
 			}
 		});
 
-		new Label(bottomComposite, SWT.NONE);// additional labels to fill the gap (invisible labels added on design)
+		/**
+		 *  additional labels to fill the gap (invisible labels added on design)
+		 */
+		new Label(bottomComposite, SWT.NONE);
 		new Label(bottomComposite, SWT.NONE);
 		new Label(bottomComposite, SWT.NONE);
 		new Label(bottomComposite, SWT.NONE);
@@ -325,27 +336,31 @@ public class WorkSpaceWindow {
 		new Label(bottomComposite, SWT.NONE);
 
 		Button cancelButton = new Button(bottomComposite, SWT.NONE); // cancel button in the workspace dialog
-		GridData gd_cancelButton =
-				new GridData(SWT.LEFT, SWT.CENTER, false, false, WorkSpaceDesignParameters.HORIZONTAL_SPAN,
-				             WorkSpaceDesignParameters.VERTICAL_SPAN);
+		GridData gd_cancelButton = new GridData(SWT.LEFT, SWT.CENTER, false, false,
+		                                        WorkSpaceDesignParameters.HORIZONTAL_SPAN,
+				                                WorkSpaceDesignParameters.VERTICAL_SPAN);
 		gd_cancelButton.widthHint = WorkSpaceDesignParameters.CANCEL_BTN_WIDTH_HINT;
 		cancelButton.setLayoutData(gd_cancelButton);
-		cancelButton.setText(launcherBundle.getString(CANCEL_BUTTON_TEXT));
+		cancelButton.setText(LAUNCHER_BUNDLE.getString(CANCEL_BUTTON_TEXT));
 		cancelButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				workSpaceShell.close();
 			}
 		});
 
-		new Label(bottomComposite, SWT.NONE);// additional labels to fill the gap (invisible labels added on design)
+		/**
+		 *  additional labels to fill the gap (invisible labels added on design)
+		 */
+		new Label(bottomComposite, SWT.NONE);
 		new Label(bottomComposite, SWT.NONE);
 
 		okButton = new Button(bottomComposite, SWT.NONE); // ok button in the workspace dialog
 		GridData gd_okButton = new GridData(SWT.LEFT, SWT.CENTER, false, false,
-		                          WorkSpaceDesignParameters.HORIZONTAL_SPAN, WorkSpaceDesignParameters.VERTICAL_SPAN);
+		                                    WorkSpaceDesignParameters.HORIZONTAL_SPAN,
+		                                    WorkSpaceDesignParameters.VERTICAL_SPAN);
 		gd_okButton.widthHint = WorkSpaceDesignParameters.OK_BTN_WIDTH_HINT;
 		okButton.setLayoutData(gd_okButton);
-		okButton.setText(launcherBundle.getString(OK_BUTTON_TEXT));
+		okButton.setText(LAUNCHER_BUNDLE.getString(OK_BUTTON_TEXT));
 		okButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				onOkPress();
@@ -362,8 +377,7 @@ public class WorkSpaceWindow {
 		String currentWorkSpaceLoc = getWorkSpaceLoc();
 		if (currentWorkSpaceLoc != null) { // read the currently set workspace value in IDE properties
 			workSpaceText.setText(currentWorkSpaceLoc);
-		}
-		else {
+		} else {
 			String defaultWorkSpace = getDefaultUserWorkspace();
 			if (defaultWorkSpace != null) {
 				workSpaceText.setText(defaultWorkSpace);
@@ -383,8 +397,8 @@ public class WorkSpaceWindow {
 				workSpaceText.setText(selectedDir);
 			}
 		} catch (SWTException swtE) {
-			log.error("Unable to open the directory dialog for file browsing" + swtE, swtE);
-			createErrorMessageDialog(launcherBundle.getString(
+			log.error("Unable to open the directory dialog for file browsing " + swtE.getMessage(), swtE);
+			createErrorMessageDialog(LAUNCHER_BUNDLE.getString(
 					"error.in.opening.the.directory.dialog.please.enter.workspace.from.keyboard"));
 		}
 	}
@@ -396,9 +410,9 @@ public class WorkSpaceWindow {
 				return true;
 			}
 		} catch (SecurityException se) {
-			createErrorMessageDialog(launcherBundle.getString(
+			createErrorMessageDialog(LAUNCHER_BUNDLE.getString(
 					"please.set.permission.to.create.your.workspace.directory"));
-			log.error("no permission to create workspace directory, " + se);
+			log.error("no permission to create workspace directory, " + se.getMessage(), se);
 		}
 		return false;
 	}
@@ -420,15 +434,19 @@ public class WorkSpaceWindow {
 		} catch (IllegalArgumentException ie) {
 			log.error("unable to get the system root directory, the home directory is empty", ie);
 		}
-		return userHome + fileSeparator + launcherBundle.getString(DEV_STUDIO_WORK_SPACE);
+		if (null != userHome) {
+			return userHome + fileSeparator + LAUNCHER_BUNDLE.getString(DEV_STUDIO_WORK_SPACE);
+		} else {
+			return LAUNCHER_BUNDLE.getString(DEV_STUDIO_WORK_SPACE);
+		}
 	}
 
 	private void createErrorMessageDialog(String errorMessage) {
 		Shell errorDialog = new Shell(workSpaceShell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-		errorDialog
-				.setSize(WorkSpaceDesignParameters.ERROR_DIALOG_WIDTH, WorkSpaceDesignParameters.ERROR_DIALOG_HEIGHT);
+		errorDialog.setSize(WorkSpaceDesignParameters.ERROR_DIALOG_WIDTH,
+		                    WorkSpaceDesignParameters.ERROR_DIALOG_HEIGHT);
 		MessageBox messageDialog = new MessageBox(errorDialog, SWT.ICON_WARNING | SWT.OK);
-		messageDialog.setText(launcherBundle.getString(WARNING_DIALOG_MENU_MESSAGE));
+		messageDialog.setText(LAUNCHER_BUNDLE.getString(WARNING_DIALOG_MENU_MESSAGE));
 		messageDialog.setMessage(errorMessage);
 		messageDialog.open();
 	}
@@ -443,7 +461,7 @@ public class WorkSpaceWindow {
 			if (userSetWorkspace != null) {
 				okPressed(userSetWorkspace);
 			} else {
-				createErrorMessageDialog(launcherBundle.getString("workspace.entered.is.not.valid.please.retry"));
+				createErrorMessageDialog(LAUNCHER_BUNDLE.getString("workspace.entered.is.not.valid.please.retry"));
 			}
 		} else {
 			okPressed(userSetWorkspace);
@@ -462,12 +480,12 @@ public class WorkSpaceWindow {
 					userWorkSpaceSet = true; // user has set the workspace
 					workSpaceShell.close();
 				} else {
-					createErrorMessageDialog(MessageFormat.format(launcherBundle.getString(
-							launcherBundle.getString("unable.to.save.workspace.property.please.retry")),
+					createErrorMessageDialog(MessageFormat.format(LAUNCHER_BUNDLE.getString(
+							LAUNCHER_BUNDLE.getString("unable.to.save.workspace.property.please.retry")),
 					                                              userWorkspace));
 				}
 			} else {
-				createErrorMessageDialog(MessageFormat.format(launcherBundle.getString(
+				createErrorMessageDialog(MessageFormat.format(LAUNCHER_BUNDLE.getString(
 						"unable.to.create.the.workspace.0.specified.please.retry"), userWorkspace));
 			}
 		} else {
@@ -475,7 +493,7 @@ public class WorkSpaceWindow {
 				userWorkSpaceSet = true;
 				workSpaceShell.close();
 			} else {
-				createErrorMessageDialog(MessageFormat.format(launcherBundle.getString(
+				createErrorMessageDialog(MessageFormat.format(LAUNCHER_BUNDLE.getString(
 						"unable.to.save.workspace.property.please.retry"), userWorkspace));
 			}
 		}
@@ -490,22 +508,20 @@ public class WorkSpaceWindow {
 	 * @return the workspace to be created
 	 */
 	private String validateUserWorkSpace(String workspace) {
-		workspace = FilenameUtils.normalize(workspace);
+		workspace = FilenameUtils.normalize(workspace); // if not a valid file name will return null
+		String homeLoc = System.getProperty(USER_HOME);
 		if (workspace != null) {
 			if (workspace.contains(File.separator)) {
 				String[] workSpaceToCheck = workspace.split(File.separator);
 				File fileLocToCheck = new File(File.separator + workSpaceToCheck[1]);
-				if (!fileLocToCheck.exists()){
-					return System.getProperty(USER_HOME) + File.separator + workspace;
-				} else {
-					return workspace;
+				if (null != homeLoc && !fileLocToCheck.exists()) {
+					return homeLoc + File.separator + workspace;
 				}
-			} else {
-				return System.getProperty(USER_HOME) + File.separator + workspace;
+			} else if (homeLoc != null) {
+				return homeLoc + File.separator + workspace;
 			}
-		} else {
-			return null;
 		}
+		return workspace;
 	}
 
 	public boolean isUserWorkSpaceSet() {
@@ -535,7 +551,7 @@ public class WorkSpaceWindow {
 	 * @param inputShell the shell to set size
 	 */
 	private void setShellSize(Shell inputShell) {
-		Monitor currentMonitor = centerSWTShell.getClosestMonitor(inputShell.getDisplay());
+		Monitor currentMonitor = CENTER_SWT_SHELL.getClosestMonitor(inputShell.getDisplay());
 		double width = currentMonitor.getBounds().width * WorkSpaceDesignParameters.WIDTH_CONSTANT;
 		double height = currentMonitor.getBounds().height * WorkSpaceDesignParameters.HEIGHT_CONSTANT;
 
@@ -555,19 +571,22 @@ public class WorkSpaceWindow {
 		/*TODO need to finalize with Eclipse Che dev team to how to save this property to be taken as the workspace for the IDE*/
 		try {
 			if (!DEV_CONFIG_PROPERTY_FILE.exists()) { // create the properties file if not existing
-				if (DEV_CONFIG_PROPERTY_FILE.mkdir()){
-					if(log.isDebugEnabled()) {
-						log.debug("Successfully created the developer studio configurations file on initial run of developer studio . ");
+				if (DEV_CONFIG_PROPERTY_FILE.createNewFile()) {
+					if (log.isDebugEnabled()) {
+						log.debug(
+								"Successfully created the developer studio configurations file on initial run of developer studio . ");
 					}
 				} else {
-					if(log.isDebugEnabled()) {
-						log.debug("Could not create the developer studio configurations file on initial run of developer studio . ");
+					if (log.isDebugEnabled()) {
+						log.debug(
+								"Could not create the developer studio configurations file on initial run of developer studio . ");
 					}
 				}
 			}
-			System.setProperty("developerstudio.workspace", workspace);
+			System.setProperty(DEVSTUDIO_WORKSPACE_PROPERTY, workspace);
 			ConfigManager.setWorkspaceDirectory(workspace); // set the workspace into properties file
-			ConfigManager.setDefaultWorkSpaceProperty(String.valueOf(isDefaultSet)); // set the check button result to properties file
+			ConfigManager.setDefaultWorkSpaceProperty(
+					String.valueOf(isDefaultSet)); // set the check button result to properties file
 			return true;
 		} catch (IOException e) {
 			log.error("Error in writing to workspace properties in to IDE properties " + e);

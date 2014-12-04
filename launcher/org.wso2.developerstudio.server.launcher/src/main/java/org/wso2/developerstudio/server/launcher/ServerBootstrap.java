@@ -81,6 +81,7 @@ public class ServerBootstrap {
 			ConfigManager.configureProperties(rootDir, Integer.toString(port));
 			final String ideURL = "http://localhost:" + port + "/ws";
 			logger.info("IDE URL is set to: " + ideURL);
+			System.setProperty(ConfigManager.IDE_URL, ideURL);
 			addWebApps(tomcat);
 			logger.info("Starting tomcat in background");
 			tomcat.start();
@@ -88,22 +89,21 @@ public class ServerBootstrap {
 
 		} catch (IOException e) {
 			logger.error("Error querying available local ports for tomcat", e);
-			System.exit(1);
+			//needs to exit application
 		} catch (LifecycleException e) {
 			logger.error("Server startup failed ! " + e.getMessage(), e);
-			System.exit(1);
+			//needs to exit application
 		} catch (ServletException e1) {
 			logger.error("Server startup failed ! " + e1.getMessage(), e1);
-			System.exit(1);
+			//needs to exit application
 		} catch (InterruptedException e) {
 			logger.error("Server startup failed ! " + e.getMessage(), e);
-			System.exit(1);
+			//needs to exit application
 		}
 	}
 
 	/**
-	 * @param progress
-	 * @param messageToDisplay method to call the start up in Splash Screen to display the progress on IDE opening process to the user
+	 * adding the web apps to the final developer studio package
 	 */
 	private static void addWebApps(Tomcat tomcat) throws ServletException {
 		for (Object o : mapContextToWebApp.entrySet()) {
