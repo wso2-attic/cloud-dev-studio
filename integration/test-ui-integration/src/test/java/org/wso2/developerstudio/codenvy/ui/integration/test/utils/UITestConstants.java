@@ -83,12 +83,14 @@ public interface UITestConstants {
 	public static final String DEFAULT = "default";
 	public static final String COMMAND_EXT_TO_RUN_AND_PROCEED = " &"; // since we need the tests to proceed while the .sh command is running
 	public static final String TEST_WORK_SPACE_DIR = TARGET_FOLDER_LOC + File.separator + "DevStudioTestWorkSpace";
-	public static final String SH_COMMAND = "sh";
+	public static final String SH_COMMAND = "sh ";
 
 	//for testing
 	public static final String DEVELOPER_STUDIO_IDE_URL = "developerstudio.ide.url";
 	public static final String TEST_IDE_RUN_LOC = TARGET_FOLDER_LOC + File.separator + LINUX_PACK +
 	                                              File.separator + "bin" + File.separator + "wso2studio_server.sh";
+	public static final String TEST_IDE_WORKSPACE_RUN_LOC = TARGET_FOLDER_LOC + File.separator + LINUX_PACK +
+	                                              File.separator + "bin" + File.separator + "wso2studio_workspace.sh";
 	public static final String LOCAL_IDE_LOCATION = TARGET_FOLDER_LOC + File.separator + LINUX_PACK + ".zip";
 
 	public static final String PROPERTY_FILE_LOC = TARGET_FOLDER_LOC + File.separator + LINUX_PACK +
