@@ -51,13 +51,21 @@ public class DevSWebDriver implements org.openqa.selenium.WebDriver {
 	public static final String REPLACEMENT = "_";
 	private final int maxWaitTime;
 	private EventFiringWebDriver driver;
+	private int errorCount = 0;
 
 	private WebDriverEventListener errorListener = new AbstractWebDriverEventListener() {
 		@Override
 		public void onException(Throwable throwable, WebDriver driver) {
+			errorCount++;
 			String timeStamp = new SimpleDateFormat(DATE_TIME_FORMAT).format(Calendar.getInstance().getTime());
-			String snapshotName = timeStamp + " : " +
-			throwable.getCause().getMessage().replaceAll(RGEX_TO_REPLACE_CHARACTERS, REPLACEMENT).split("\n")[0];
+			String snapshotName;
+			if (null != throwable) {// because the throwable could be null.
+				snapshotName =
+						timeStamp + " : " + "Error SnapShot" + errorCount + " : " + throwable.getLocalizedMessage();
+			} else {
+				snapshotName =
+						timeStamp + " : " + "Error SnapShot" + errorCount;
+			}
 			captureScreenShot(snapshotName);
 		}
 	};
