@@ -26,7 +26,8 @@ public class ConfigManager {
 	private static final Logger logger = LoggerFactory.getLogger(ConfigManager.class);
 
 	public static final java.lang.String CODENVY_LOCAL_CONF_DIR = "codenvy.local.conf.dir";
-
+	public static final String DEVSTUDIO_API_PROPERTIES_FILE =
+			"devstudio-api-configuration.properties";
 	public static final String ANALYTICS_CONF_FILENAME = "analytics.properties";
 	public static final String CODENVY_API_PROPERTIES_FILE =
 			"codenvy-api-configuration.properties";
@@ -166,15 +167,10 @@ public class ConfigManager {
 
 	}
 
-	public static void setDefaultWorkSpaceProperty(String propertyValue) throws IOException {
-		Properties apiProps = loadPropertiesFromFile(CODENVY_API_PROPERTIES_FILE);
-		apiProps.setProperty(SET_DEFAULT_WORKSPACE, propertyValue);
-		storePropertiesToFile(CODENVY_API_PROPERTIES_FILE, apiProps);
+	public static void setIDEUrl(String propertyValue) throws IOException {
+		Properties apiProps = loadPropertiesFromFile(DEVSTUDIO_API_PROPERTIES_FILE);
+		apiProps.setProperty(IDE_URL, propertyValue);
+		storePropertiesToFile(DEVSTUDIO_API_PROPERTIES_FILE, apiProps);
 
 	}
-
-	public static String getDefaultWorkSpaceProperty() throws IOException {
-		return getAPIProperty(SET_DEFAULT_WORKSPACE);
-	}
-
 }

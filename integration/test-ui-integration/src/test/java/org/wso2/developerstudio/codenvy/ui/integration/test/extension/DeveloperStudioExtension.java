@@ -19,8 +19,6 @@ package org.wso2.developerstudio.codenvy.ui.integration.test.extension;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.wso2.carbon.automation.engine.extensions.ExecutionListenerExtension;
 import org.wso2.developerstudio.codenvy.ui.integration.test.utils.ConfigPropertyChanges;
 import org.wso2.developerstudio.codenvy.ui.integration.test.utils.UITestConstants;
@@ -35,7 +33,6 @@ import java.io.IOException;
  * stops the developer studio and clean up the directories after tests run.
  */
 public class DeveloperStudioExtension extends ExecutionListenerExtension {
-	private static final Logger log = LoggerFactory.getLogger(DeveloperStudioExtension.class);
 	private Process runningProcess;
 
 	@Override public void initiate() throws Exception {
@@ -49,7 +46,6 @@ public class DeveloperStudioExtension extends ExecutionListenerExtension {
 	 */
 	@Override public void onExecutionStart() throws Exception {
 		unzip(UITestConstants.LOCAL_IDE_LOCATION, UITestConstants.TARGET_FOLDER_LOC); //unzip the pack for testing to the target directory so it will be deleted in the next build
-
 		/**
 		 * Does the configuration changes to avoid the SWT widget popup at startup
 		 */
@@ -60,9 +56,11 @@ public class DeveloperStudioExtension extends ExecutionListenerExtension {
 			ConfigPropertyChanges.setWorkspaceDirectory(UITestConstants.TEST_WORK_SPACE_DIR);
 		}
 
-		String[] execCommand = new String[] { UITestConstants.SH_COMMAND, UITestConstants.TEST_IDE_RUN_LOC +
-		                                          UITestConstants.COMMAND_EXT_TO_RUN_AND_PROCEED };
-		runningProcess = Runtime.getRuntime().exec(execCommand);// get the developer studio running
+		runningProcess = Runtime.getRuntime().exec(UITestConstants.SH_COMMAND + UITestConstants.TEST_IDE_WORKSPACE_RUN_LOC);// get the developer studio running
+		runningProcess.destroy();
+		runningProcess.waitFor();
+		runningProcess = Runtime.getRuntime().exec(UITestConstants.SH_COMMAND + UITestConstants.TEST_IDE_RUN_LOC +
+		                      UITestConstants.COMMAND_EXT_TO_RUN_AND_PROCEED);// get the developer studio running
 	}
 
 	/**

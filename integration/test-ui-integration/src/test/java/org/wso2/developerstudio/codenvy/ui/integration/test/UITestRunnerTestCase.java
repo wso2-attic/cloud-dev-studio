@@ -21,6 +21,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import org.wso2.developerstudio.codenvy.ui.integration.test.action.AboutActionTest;
 import org.wso2.developerstudio.codenvy.ui.integration.test.action.NewProjectCreationTest;
+import org.wso2.developerstudio.codenvy.ui.integration.test.utils.ConfigPropertyChanges;
 import org.wso2.developerstudio.codenvy.ui.integration.test.utils.DevSWebDriver;
 import org.wso2.developerstudio.codenvy.ui.integration.test.utils.ProjectDirectoryStructureTest;
 import org.wso2.developerstudio.codenvy.ui.integration.test.utils.UITestConstants;
@@ -50,7 +51,7 @@ public class UITestRunnerTestCase {
 		// Allows WebDriver to poll the DOM for a certain duration until the elements load
 		driver.manage().timeouts().implicitlyWait(UITestConstants.WAITING_TIME_CONSTANT, TimeUnit.SECONDS);
 		// Navigates to the web page
-		driver.get(System.getProperty(UITestConstants.DEVELOPER_STUDIO_IDE_URL));
+		driver.get(ConfigPropertyChanges.getIDEURLTest());
 		// Initialize elements to be used
 		aboutDialogOpen = PageFactory.initElements(driver, AboutActionTest.class);
 		aboutDialogOpen.selectWSO2DevStudioMenu();// test the about wizard

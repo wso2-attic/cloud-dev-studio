@@ -81,7 +81,7 @@ public class ServerBootstrap {
 			ConfigManager.configureProperties(rootDir, Integer.toString(port));
 			final String ideURL = "http://localhost:" + port + "/ws";
 			logger.info("IDE URL is set to: " + ideURL);
-			System.setProperty(ConfigManager.IDE_URL, ideURL);
+			ConfigManager.setIDEUrl(ideURL); //saving the IDE Url for the UI tests
 			addWebApps(tomcat);
 			logger.info("Starting tomcat in background");
 			tomcat.start();
