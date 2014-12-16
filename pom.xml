@@ -274,10 +274,10 @@ limitations under the License.
         <emma.version>2.1.5320</emma.version>
         <axis2.wso2.version.aar.plugin>1.6.2</axis2.wso2.version.aar.plugin>
         <previous.version>4.2.0</previous.version>
-        <test.framwork.version>4.3.1-SNAPSHOT</test.framwork.version>
+        <test.framwork.version>4.3.1</test.framwork.version>
         <platform.integration.utils.version>4.3.0-SNAPSHOT</platform.integration.utils.version>
         <carbon.version>4.3.0-SNAPSHOT</carbon.version>
-        <test.framework.version>4.3.1-SNAPSHOT</test.framework.version>
+        <test.framework.version>4.3.1</test.framework.version>
         <tycho-version>0.7.0-SNAPSHOT</tycho-version>
         <tycho.maven.version>0.19.0</tycho.maven.version>
         <selenium.version>1.0-20081010.060147</selenium.version>
