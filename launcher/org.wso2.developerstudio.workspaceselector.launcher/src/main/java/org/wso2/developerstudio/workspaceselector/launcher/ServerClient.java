@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package org.wso2.developerstudio.workspace.launcher.java;
+package org.wso2.developerstudio.workspaceselector.launcher;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.http.HttpResponse;
@@ -30,14 +30,14 @@ import java.io.*;
  * This class would get the server up on the port value retrieved from the workspace class,
  * This
  */
-public class ServerRunner implements Runnable {
-	private static final Logger log = LoggerFactory.getLogger(WorkspaceSelectorBootstrap.class);
+public class ServerClient implements Runnable {
+	private static final Logger log = LoggerFactory.getLogger(ServerClient.class);
 
 	private static final String URL_TXT = "url.txt";
 	private static final String BIN = "bin";
 	private final String port;
 
-	public ServerRunner(String port) {
+	public ServerClient(String port) {
 		this.port = port;
 	}
 
@@ -46,6 +46,14 @@ public class ServerRunner implements Runnable {
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		StringBuffer result;
+
+		try {
+			Thread.sleep(2500);
+		} catch (InterruptedException e) {
+			if (log.isDebugEnabled()) {
+				log.debug("Error making the  HTTP Client sleep.", e);
+			}
+		}
 		try {
 			final String ideURL = "http://localhost:" + port + "/ws";
 			log.info("IDE URL is set to: " + ideURL);
@@ -54,15 +62,19 @@ public class ServerRunner implements Runnable {
 				HttpGet request = new HttpGet(ideURL);
 				request.addHeader("User-Agent", "DevS");
 				HttpResponse response = client.execute(request);
-				if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) { // check for the HTTP response 200 OK status
-					fileWriter = new FileWriter(SWTSplashScreen.ROOT_DIR + File.separator + BIN + File.separator + URL_TXT);
+				if (response.getStatusLine().getStatusCode() ==
+				    HttpStatus.SC_OK) { // check for the HTTP response 200 OK status
+					fileWriter = new FileWriter(
+							SWTSplashScreen.ROOT_DIR + File.separator + BIN + File.separator +
+							URL_TXT);
 					bufferedWriter = new BufferedWriter(fileWriter);
 					bufferedWriter.write(ideURL);
 					break;
 				} else {
 					if (log.isDebugEnabled()) {
 						log.debug("IDE Starting" + response.getStatusLine().getStatusCode());
-						bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+						bufferedReader = new BufferedReader(
+								new InputStreamReader(response.getEntity().getContent()));
 						result = new StringBuffer();
 						String line;
 						while ((line = bufferedReader.readLine()) != null) {
@@ -71,9 +83,16 @@ public class ServerRunner implements Runnable {
 						log.debug(result.toString());
 					}
 				}
+				try {
+					Thread.sleep(2500);
+				} catch (InterruptedException e) {
+					if (log.isDebugEnabled()) {
+						log.debug("Error making the  HTTP Client sleep.", e);
+					}
+				}
 			}
 		} catch (IOException e) {
-			log.error("Error while selecting the works " , e);
+			log.error("Error while executing the HTTP Client to check whether IDE is deployed.", e);
 			//TODO need to exit application
 		} finally {
 			try {

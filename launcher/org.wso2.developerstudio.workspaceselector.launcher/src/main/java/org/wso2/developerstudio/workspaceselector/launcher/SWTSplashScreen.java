@@ -14,10 +14,11 @@
 * limitations under the License.
 */
 
-package org.wso2.developerstudio.workspace.launcher.java;
+package org.wso2.developerstudio.workspaceselector.launcher;
 
-import org.developerstudio.workspace.utils.SWTShellManager;
-import org.developerstudio.workspace.utils.SWTResourceManager;
+import org.wso2.developerstudio.workspaceselector.launcher.ConfigurationContext;
+import org.wso2.developerstudio.workspaceselector.utils.SWTShellManager;
+import org.wso2.developerstudio.workspaceselector.utils.SWTResourceManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
@@ -27,6 +28,7 @@ import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.wso2.developerstudio.workspaceselector.utils.SplashScreenDesignParameters;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -69,23 +71,29 @@ public class SWTSplashScreen {
 			log.debug("Splash Screen Initiated.");
 		}
 
-		invokeWorkSpace();
+		showWorkspaceSelector();
+
+		try {
+			port = "" + getAvailablePort();
+		} catch (IOException e) {
+			log.error("Error while getting a vacant port for IDE", e);
+			//TODO need to exit application
+		}
+
+		writePortToFile();
 
 		/**
-		 * Run the background server instance process in a separate thread
-		 * to allow UI thread to run with the indeterminate splash screen
+		 * check whether IDE web app is finished deploying.
 		 */
-		ServerRunner serverRunner = new ServerRunner(port);
-		Thread serverThread = new Thread(serverRunner);
-		serverThread.start();
-		if (!serverThread.isAlive()) {
-			splashScreenShell.dispose();
-		}
+		ServerClient serverClient = new ServerClient(port);
+		Thread serverClientThread = new Thread(serverClient);
+		serverClientThread.start();
+
 		/**
 		 * Standard Eclipse recommended way of keeping an SWT widget alive until disposed by source,
 		 * eg: http://help.eclipse.org/indigo/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2Fswt.htm
 		 */
-		while (!splashScreenShell.isDisposed()) {
+		while (!splashScreenShell.isDisposed() && serverClientThread.isAlive()) {
 			if (!SPLASH_SCREEN_DISPLAY.readAndDispatch()){
 				SPLASH_SCREEN_DISPLAY.sleep();
 			}
@@ -122,21 +130,15 @@ public class SWTSplashScreen {
 		                      splashScreenDesignParameters.getProgressBarHeight());
 	}
 
-	private void invokeWorkSpace() {
+	private void showWorkspaceSelector() {
 		if (!isDefaultWorkSpaceSet()) {
-			WorkSpaceWindow workSpaceLauncher = new WorkSpaceWindow();
+			SWTWorkspaceSelector workSpaceLauncher = new SWTWorkspaceSelector();
 			if (!workSpaceLauncher.isUserWorkSpaceSet()) {
 				log.warn("workspace not selected !, Exiting due to user operation");
 				//TODO need to exit application
 			}
 		}
-		try {
-			port = "" + getAvailablePort();
-		} catch (IOException e) {
-			log.error("Error while getting a vacant port for IDE", e);
-			//TODO need to exit application
-		}
-		writePortToFile();
+
 	}
 
 	private void writePortToFile() {
@@ -147,7 +149,7 @@ public class SWTSplashScreen {
 			bufferedWriter = new BufferedWriter(fileWriter);
 			bufferedWriter.write(port);
 		} catch (Exception e) {
-			log.error("Error while selecting the works", e);
+			log.error("Error writing the port to file.", e);
 			System.exit(1);
 		} finally {
 			try {
@@ -159,7 +161,7 @@ public class SWTSplashScreen {
 					fileWriter.close();
 				}
 			} catch (IOException e) {
-				log.error("Error in closing the file writers " + e);
+				log.error("Error closing the file writer. " + e);
 			}
 		}
 	}
@@ -180,7 +182,7 @@ public class SWTSplashScreen {
 
 	private static boolean isDefaultWorkSpaceSet() {
 		try {
-			return Boolean.parseBoolean(ConfigManager.getDefaultWorkSpaceProperty());
+			return ConfigurationContext.isSetAsDefaultWorkSpace();
 		} catch (IOException e) {
 			log.error("error reading whether user has set default workspace in properties" + e);
 			return false;

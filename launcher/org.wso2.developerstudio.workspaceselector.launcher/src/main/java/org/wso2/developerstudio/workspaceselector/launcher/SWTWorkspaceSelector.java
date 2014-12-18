@@ -13,11 +13,11 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.wso2.developerstudio.workspace.launcher.java;
+package org.wso2.developerstudio.workspaceselector.launcher;
 
 import org.apache.commons.io.FilenameUtils;
-import org.developerstudio.workspace.utils.SWTShellManager;
-import org.developerstudio.workspace.utils.SWTResourceManager;
+import org.wso2.developerstudio.workspaceselector.utils.SWTShellManager;
+import org.wso2.developerstudio.workspaceselector.utils.SWTResourceManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.events.ModifyEvent;
@@ -41,8 +41,8 @@ import java.util.ResourceBundle;
  * It creates the user input workspace if it does not exist, and save the workspace into the IDE properties file,
  * to be used to save projects.
  */
-public class WorkSpaceWindow {
-	private static final Logger log = LoggerFactory.getLogger(WorkSpaceWindow.class);
+public class SWTWorkspaceSelector {
+	private static final Logger log = LoggerFactory.getLogger(SWTWorkspaceSelector.class);
 
 	private static final class WorkSpaceDesignParameters {
 		/**
@@ -143,9 +143,9 @@ public class WorkSpaceWindow {
 
 	public static final String DEVSTUDIO_WORKSPACE_PROPERTY = "developerstudio.workspace";
 	private static final ResourceBundle LAUNCHER_BUNDLE =
-			PropertyResourceBundle.getBundle("wso2.developerstudio.workspace.launcher.java.launcher");
+			PropertyResourceBundle.getBundle("org.wso2.developerstudio.workspaceselector.launcher.messages");
 	private static final File DEV_CONFIG_PROPERTY_FILE = new File(System.getProperty(
-			ConfigManager.CODENVY_LOCAL_CONF_DIR) + File.separator + ConfigManager.DEVSTUDIO_API_PROPERTIES_FILE);
+			ConfigurationContext.DEV_STUDIO_CONF_DIR) + File.separator + ConfigurationContext.DEV_STUDIO_PROPERTIES_FILE);
 
 	private Shell workSpaceShell;
 	private Text workSpaceText;
@@ -158,22 +158,22 @@ public class WorkSpaceWindow {
 	 */
 	private static final String USER_HOME = "user.home";
 
-	private static final String DEV_STUDIO_WORK_SPACE = "dev.studio.workspace";
-	private static final String OK_BUTTON_TEXT = "ok";
-	private static final String CANCEL_BUTTON_TEXT = "cancel";
-	private static final String BROWSE_BUTTON_TEXT = "browse";
+	private static final String DEV_STUDIO_WORK_SPACE = "value.default_workspace";
+	private static final String OK_BUTTON_TEXT = "btn.ok";
+	private static final String CANCEL_BUTTON_TEXT = "btn.cancel";
+	private static final String BROWSE_BUTTON_TEXT = "btn.browse";
 	private static final String USER_MESSAGE_TO_SELECT_WORKSPACE =
-			"wso2.developer.studio.stores.your.projects.in.a.folder.called.workspace.n.choose.a.workspace.folder.to.use.for.this.session";
-	private static final String SET_DEFAULT_WORKSPACE_MESSAGE = "use.this.as.default.and.do.not.ask.again";
-	private static final String BROWSE_DIALOG_MENU_MESSAGE = "select.your.workspace.directory";
-	private static final String WARNING_DIALOG_MENU_MESSAGE = "warning";
-	private static final String WORKSPACE_LABEL = "workspace";
-	private static final String WSO2_DEVELOPER_STUDIO = "wso2.developer.studio";
+			"label.workspace_selector_details";
+	private static final String SET_DEFAULT_WORKSPACE_MESSAGE = "label.use_as_default";
+	private static final String BROWSE_DIALOG_MENU_MESSAGE = "label.select_workspace";
+	private static final String WARNING_DIALOG_MENU_MESSAGE = "label.warning";
+	private static final String WORKSPACE_LABEL = "label.workspace";
+	private static final String WSO2_DEVELOPER_STUDIO = "label.developer_studio";
 
 	private static final SWTShellManager CENTER_SWT_SHELL = new SWTShellManager();
 	private static final Display WORK_SPACE_DISPLAY = Display.getDefault();
 
-	public WorkSpaceWindow() {
+	public SWTWorkspaceSelector() {
 		workSpaceWindowInit();
 		workSpaceShell.pack();
 		CENTER_SWT_SHELL.centerShellInDisplay(workSpaceShell); // center the shell in the current screen
@@ -399,7 +399,7 @@ public class WorkSpaceWindow {
 		} catch (SWTException swtE) {
 			log.error("Unable to open the directory dialog for file browsing " + swtE.getMessage(), swtE);
 			createErrorMessageDialog(LAUNCHER_BUNDLE.getString(
-					"error.in.opening.the.directory.dialog.please.enter.workspace.from.keyboard"));
+					"error.msg.filebrowser_error"));
 		}
 	}
 
@@ -411,7 +411,7 @@ public class WorkSpaceWindow {
 			}
 		} catch (SecurityException se) {
 			createErrorMessageDialog(LAUNCHER_BUNDLE.getString(
-					"please.set.permission.to.create.your.workspace.directory"));
+					"msg.permission_error"));
 			log.error("no permission to create workspace directory, " + se.getMessage(), se);
 		}
 		return false;
@@ -461,7 +461,7 @@ public class WorkSpaceWindow {
 			if (userSetWorkspace != null) {
 				okPressed(userSetWorkspace);
 			} else {
-				createErrorMessageDialog(LAUNCHER_BUNDLE.getString("workspace.entered.is.not.valid.please.retry"));
+				createErrorMessageDialog(LAUNCHER_BUNDLE.getString("msg.invalid_workspace"));
 			}
 		} else {
 			okPressed(userSetWorkspace);
@@ -481,12 +481,12 @@ public class WorkSpaceWindow {
 					workSpaceShell.close();
 				} else {
 					createErrorMessageDialog(MessageFormat.format(LAUNCHER_BUNDLE.getString(
-							LAUNCHER_BUNDLE.getString("unable.to.save.workspace.property.please.retry")),
+							LAUNCHER_BUNDLE.getString("error.msg.unable_to_save_workspace")),
 					                                              userWorkspace));
 				}
 			} else {
 				createErrorMessageDialog(MessageFormat.format(LAUNCHER_BUNDLE.getString(
-						"unable.to.create.the.workspace.0.specified.please.retry"), userWorkspace));
+						"msg.workspace_creation_error"), userWorkspace));
 			}
 		} else {
 			if (saveWorkSpaceProperty(userWorkspace)) {
@@ -494,7 +494,7 @@ public class WorkSpaceWindow {
 				workSpaceShell.close();
 			} else {
 				createErrorMessageDialog(MessageFormat.format(LAUNCHER_BUNDLE.getString(
-						"unable.to.save.workspace.property.please.retry"), userWorkspace));
+						"error.msg.unable_to_save_workspace"), userWorkspace));
 			}
 		}
 	}
@@ -536,7 +536,7 @@ public class WorkSpaceWindow {
 	private String getWorkSpaceLoc() {
 		if (DEV_CONFIG_PROPERTY_FILE.exists()) {
 			try {
-				return ConfigManager.getWorkspaceRootDirectory();
+				return ConfigurationContext.getWorkspaceRoot();
 			} catch (IOException e) {
 				log.error("error in reading the workspace directory from properties" + e, e);
 				return null;
@@ -584,9 +584,8 @@ public class WorkSpaceWindow {
 				}
 			}
 			System.setProperty(DEVSTUDIO_WORKSPACE_PROPERTY, workspace);
-			ConfigManager.setWorkspaceDirectory(workspace); // set the workspace into properties file
-			ConfigManager.setDefaultWorkSpaceProperty(
-					String.valueOf(isDefaultSet)); // set the check button result to properties file
+			ConfigurationContext.setWorkspaceRoot(workspace); // set the workspace into properties file
+			ConfigurationContext.setAsDefaultWorkSpace(isDefaultSet); // set the check button result to properties file
 			return true;
 		} catch (IOException e) {
 			log.error("Error in writing to workspace properties in to IDE properties " + e);

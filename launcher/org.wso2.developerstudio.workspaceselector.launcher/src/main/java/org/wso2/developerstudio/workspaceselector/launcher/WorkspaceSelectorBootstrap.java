@@ -13,10 +13,11 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.wso2.developerstudio.workspace.launcher.java;
+package org.wso2.developerstudio.workspaceselector.launcher;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.wso2.developerstudio.workspaceselector.utils.SplashScreenDesignParameters;
 
 import java.io.File;
 

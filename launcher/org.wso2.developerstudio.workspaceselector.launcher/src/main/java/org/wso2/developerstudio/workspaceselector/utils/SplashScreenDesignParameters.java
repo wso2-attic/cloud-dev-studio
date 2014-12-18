@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package org.wso2.developerstudio.workspace.launcher.java;
+package org.wso2.developerstudio.workspaceselector.utils;
 
 /**
  * This class stores all the design parameters necessary for the SplashScreen

@@ -8,7 +8,7 @@
  * Contributors:
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
-package org.developerstudio.workspace.utils;
+package org.wso2.developerstudio.workspaceselector.utils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
