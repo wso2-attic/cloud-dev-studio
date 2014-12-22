@@ -14,8 +14,8 @@
 * limitations under the License.
 */
 
-#ifndef CEF_TESTS_CEFSIMPLE_SIMPLE_APP_H_
-#define CEF_TESTS_CEFSIMPLE_SIMPLE_APP_H_
+#ifndef DEVS_CEF_CLIENT_APP_H_
+#define DEVS_CEF_CLIENT_APP_H_
 
 #include "include/cef_app.h"
 

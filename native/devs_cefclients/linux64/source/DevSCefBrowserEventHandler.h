@@ -14,8 +14,8 @@
 * limitations under the License.
 */
 
-#ifndef CEF_TESTS_CEFSIMPLE_SIMPLE_HANDLER_H_
-#define CEF_TESTS_CEFSIMPLE_SIMPLE_HANDLER_H_
+#ifndef DEVS_CEF_BROWSER_EVENT_HANDLER_H_
+#define DEVS_CEF_BROWSER_EVENT_HANDLER_H_
 
 #include "include/cef_client.h"
 
