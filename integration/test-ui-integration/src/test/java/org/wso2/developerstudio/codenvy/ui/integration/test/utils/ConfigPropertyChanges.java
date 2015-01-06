@@ -16,8 +16,6 @@
 
 package org.wso2.developerstudio.codenvy.ui.integration.test.utils;
 
-import org.wso2.developerstudio.server.launcher.ConfigManager;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -29,6 +27,9 @@ import java.util.Properties;
  */
 public class ConfigPropertyChanges {
 
+	public static final String IDE_URL = "developerstudio.ide.url";
+	public static final String WORKSPACE_ROOT_PROPERTY = "vfs.local.fs_root_dir";
+	public static final String SET_DEFAULT_WORKSPACE = "set.workspace.as.default";
 	/**
 	 * This method Loads the properties from properties file
 	 *
@@ -107,7 +108,7 @@ public class ConfigPropertyChanges {
 	 * @throws IOException
 	 */
 	public static void setDefaultWorkSpacePropertyTest(String propertyValue) throws IOException {
-		setTestAPIPropertyTest(ConfigManager.SET_DEFAULT_WORKSPACE, propertyValue);
+		setTestAPIPropertyTest(SET_DEFAULT_WORKSPACE, propertyValue);
 	}
 
 	/**
@@ -117,7 +118,7 @@ public class ConfigPropertyChanges {
 	 * @throws IOException
 	 */
 	public static void setWorkspaceDirectory(String workspace) throws IOException {
-		setTestAPIPropertyTest(ConfigManager.WORKSPACE_ROOT_PROPERTY, workspace);
+		setTestAPIPropertyTest(WORKSPACE_ROOT_PROPERTY, workspace);
 	}
 
 	/**
@@ -127,7 +128,7 @@ public class ConfigPropertyChanges {
 	 * @throws IOException
 	 */
 	public static String getIDEURLTest() throws IOException {
-		return getAPIPropertyTest(ConfigManager.IDE_URL, UITestConstants.PROPERTY_FILE_LOC + File.separator +
+		return getAPIPropertyTest(IDE_URL, UITestConstants.PROPERTY_FILE_LOC + File.separator +
 		                                                 UITestConstants.CONF_FILE);
 
 	}
@@ -143,3 +144,4 @@ public class ConfigPropertyChanges {
 		return getAPIPropertyTest(propertyKey, UITestConstants.UI_ELEM_PROPERTY_FILE_LOC);
 	}
 }
+
