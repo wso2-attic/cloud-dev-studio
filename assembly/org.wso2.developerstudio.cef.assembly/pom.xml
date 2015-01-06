@@ -113,7 +113,7 @@ limitations under the License.
                         <configuration>
                             <programs>
                                 <program>
-                                    <mainClass>org.wso2.developerstudio.workspace.launcher.java.WorkspaceSelectorBootstrap</mainClass>
+                                    <mainClass>org.wso2.developerstudio.workspaceselector.launcher.WorkspaceSelectorBootstrap</mainClass>
                                     <id>${assembler.app.name}_workspace</id>
                                 </program>
                                 <program>
@@ -163,7 +163,7 @@ limitations under the License.
                           </platforms>
                             <programs>
                                 <program>
-                                    <mainClass>org.wso2.developerstudio.workspace.launcher.java.WorkspaceSelectorBootstrap</mainClass>
+                                    <mainClass>org.wso2.developerstudio.workspaceselector.launcher.WorkspaceSelectorBootstrap</mainClass>
                                     <id>${assembler.app.name}_mac_workspace</id>
                                 </program>
                                 <program>
