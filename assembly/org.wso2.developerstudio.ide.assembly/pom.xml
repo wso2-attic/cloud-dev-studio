@@ -204,6 +204,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                             <arguments>
                                 <argument>clean</argument>
                                 <argument>install</argument>
+                                <argument>-Dskip-validate-sources=true</argument>
                             </arguments>
                         </configuration>
                     </execution>
