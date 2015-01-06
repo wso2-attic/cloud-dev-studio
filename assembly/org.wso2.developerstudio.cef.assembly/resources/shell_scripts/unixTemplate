@@ -18,7 +18,7 @@ PRGDIR=`dirname "$PRG"`
 BASEDIR=`cd "$PRGDIR/.." >/dev/null; pwd`
 
 export WSO2_DEVELOPER_STUDIO_PATH="$BASEDIR"
-export CODENVY_LOCAL_CONF_DIR="$WSO2_DEVELOPER_STUDIO_PATH/configuration"
+export DEV_STUDIO_CONF_DIR="$WSO2_DEVELOPER_STUDIO_PATH/configuration"
 
 # Only set CATALINA_HOME if not already set
 export CATALINA_HOME="$WSO2_DEVELOPER_STUDIO_PATH/tomcat"
@@ -110,7 +110,7 @@ exec "$JAVACMD" $JAVA_OPTS @EXTRA_JVM_ARGUMENTS@ \
   -classpath "$CLASSPATH" \
   -Dwso2.devstudio.base="$WSO2_DEVELOPER_STUDIO_PATH" \
   -Djava.library.path="$WSO2_DEVELOPER_STUDIO_PATH/lib" \
-  -Dcodenvy.local.conf.dir="${CODENVY_LOCAL_CONF_DIR}" \
+  -Ddeveloper_studio.local.conf.dir="$DEV_STUDIO_CONF_DIR" \
   -Dcatalina.base="$WSO2_DEVELOPER_STUDIO_PATH/temp" \
   -Djava.io.temp="$WSO2_DEVELOPER_STUDIO_PATH/temp" \
   -Dapp.name="@APP_NAME@" \
