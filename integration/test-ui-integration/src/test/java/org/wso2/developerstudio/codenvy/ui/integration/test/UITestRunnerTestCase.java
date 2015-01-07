@@ -20,10 +20,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import org.wso2.developerstudio.codenvy.ui.integration.test.action.AboutActionTest;
-import org.wso2.developerstudio.codenvy.ui.integration.test.action.NewProjectCreationTest;
 import org.wso2.developerstudio.codenvy.ui.integration.test.utils.ConfigPropertyChanges;
 import org.wso2.developerstudio.codenvy.ui.integration.test.utils.DevSWebDriver;
-import org.wso2.developerstudio.codenvy.ui.integration.test.utils.ProjectDirectoryStructureTest;
 import org.wso2.developerstudio.codenvy.ui.integration.test.utils.UITestConstants;
 
 import java.io.IOException;
@@ -38,9 +36,7 @@ public class UITestRunnerTestCase {
 
 	static DevSWebDriver driver;
 	AboutActionTest aboutDialogOpen;
-	NewProjectCreationTest createNewProject;
-
-
+	
 	@Test(description = "Get about Developer Studio About Action")
 	/**
 	 * This method tests the about dialog in the dev studio web application
@@ -55,49 +51,6 @@ public class UITestRunnerTestCase {
 		// Initialize elements to be used
 		aboutDialogOpen = PageFactory.initElements(driver, AboutActionTest.class);
 		aboutDialogOpen.selectWSO2DevStudioMenu();// test the about wizard
-	}
-
-	@Test(description = "Get about Developer Studio New Project Creation Wizard",
-	      dependsOnMethods = "testAboutDialogUI")
-	/**
-	 * This method tests the new project creation wizard UI on wso2 dev studio
-	 */
-	public void testNewProjectCreationUI() throws IOException {
-		createNewProject = PageFactory.initElements(driver, NewProjectCreationTest.class);
-		createNewProject.createNewWSO2AppServerProject();// test the new project creation wizard for All WSO2 Application Server Project Types
-	}
-
-	@Test(description = "validating and deleting the folder structures of JAXRSProject created",
-	      dependsOnMethods = "testNewProjectCreationUI")
-	/**
-	 *This method tests the project structure of the JAX RS project created by the dev studio
-	 */
-	public void testJaxRSProjectStructure() {
-		ProjectDirectoryStructureTest projectStructureValidation = new ProjectDirectoryStructureTest();
-		projectStructureValidation
-				.testDirectoryStructure(UITestConstants.JAX_RS_PROJECT_TYPE, UITestConstants.TEST_JAXRS_PROJECT_NAME);
-	}
-
-	@Test(description = "validating and deleting the folder structures of JAXWSProject created",
-	      dependsOnMethods = "testNewProjectCreationUI")
-	/**
-	 *This method tests the project structure of the JAX WS project created by the dev studio
-	 */
-	public void testJaxWSProjectStructure() {
-		ProjectDirectoryStructureTest projectStructureValidation = new ProjectDirectoryStructureTest();
-		projectStructureValidation
-				.testDirectoryStructure(UITestConstants.JAX_WS_PROJECT_TYPE, UITestConstants.TEST_JAXWS_PROJECT_NAME);
-	}
-
-	@Test(description = "validating and deleting the folder structures of Web Application created",
-	      dependsOnMethods = "testNewProjectCreationUI")
-	/**
-	 *This method tests the project structure of the Web Application project created by the dev studio
-	 */
-	public void testWebAppProjectStructure() {
-		ProjectDirectoryStructureTest projectStructureValidation = new ProjectDirectoryStructureTest();
-		projectStructureValidation
-				.testDirectoryStructure(UITestConstants.WEB_APP_PROJECT_TYPE, UITestConstants.TEST_WEBAPP_PROJECT_NAME);
 	}
 
 	@AfterClass(alwaysRun = true)
