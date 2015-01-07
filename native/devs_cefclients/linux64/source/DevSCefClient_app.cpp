@@ -14,11 +14,9 @@
 * limitations under the License.
 */
 
-#include "DevSCefClient_app.h"
 
 #include <string>
 #include <iostream>
-
 #include <sstream>
 #include <stdlib.h>
 #include <stdio.h>
@@ -30,6 +28,10 @@
 #include "include/cef_browser.h"
 #include "include/cef_command_line.h"
 #include "include/wrapper/cef_helpers.h"
+#include "DevSCefClient_app.h"
+#include "SystemUtils.h"
+
+
 
 char pid_killcmd[1024];
 char base_path[1024];
@@ -37,20 +39,7 @@ char base_path[1024];
 DevSCefClient::DevSCefClient() {
 }
 
-std::string GetFileContents(const char *filename) {
-    std::FILE *file = std::fopen(filename, "rb");
-    if (file) {
-        std::string contents;
-        std::fseek(file, 0, SEEK_END);
-        contents.resize(std::ftell(file));
-        std::rewind(file);
-        std::fread(&contents[0], 1, contents.size(), file);
-        std::fclose(file);
-        return (contents);
-    } else {
-        return "0";
-    }
-}
+
 
 void *ExecuteServerInBackground(void *args_ptr) {
 
@@ -78,8 +67,16 @@ void DevSCefClient::OnContextInitialized() {
 
     // Information used when creating the native window.
     CefWindowInfo window_info;
-    window_info.height = 1024;
-    window_info.width = 1024;
+    window_info.height = SystemUtils::DEFAULT_WINDOW_HEIGHT;
+    window_info.width = SystemUtils::DEFAULT_WINDOW_WIDTH;
+
+    int width, height;
+    if (SystemUtils::GetScreenSize(&width, &height) == 0) {
+    	//std::cout << "getScreenSize DefaultScreenOfDisplay size is " << height << ":" << width << std::endl;
+    	window_info.height = height;
+    	window_info.width = width;
+    }
+
 
 #if defined(OS_WIN)
     // On Windows we need to specify certain flags that will be passed to
@@ -108,7 +105,7 @@ void DevSCefClient::OnContextInitialized() {
     strncpy(workspace_selector_cmd_arr, workspace_selector_cmd.c_str(), 
             sizeof (workspace_selector_cmd_arr));
 
-    std::string bash_s = "/bin/bash";
+    std::string bash_s = SystemUtils::BIN_BASH;
     char bash[1024];
     strncpy(bash, bash_s.c_str(), sizeof (bash));
     std::string command_s = "-c";
@@ -145,8 +142,8 @@ void DevSCefClient::OnContextInitialized() {
         std::FILE *url_file = std::fopen(url_cpath, "rb");
         if (url_file) {
             std::fclose(url_file);
-            url = GetFileContents(url_cpath);
-            sever_pid = GetFileContents(pid_cpath);
+            url = SystemUtils::GetFileContents(url_cpath);
+            sever_pid = SystemUtils::GetFileContents(pid_cpath);
             int url_file_remove_status = std::remove(url_cpath);
             std::remove(pid_cpath);
             if (url_file_remove_status == 0) {
@@ -178,5 +175,7 @@ void DevSCefClient::OnContextInitialized() {
     CefBrowserHost::CreateBrowser(window_info, handler.get(), url,
             browser_settings, NULL);
 }
+
+
 
 

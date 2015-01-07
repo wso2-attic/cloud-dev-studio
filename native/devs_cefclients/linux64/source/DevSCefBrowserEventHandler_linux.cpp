@@ -14,17 +14,14 @@
 * limitations under the License.
 */
 
-#include "DevSCefBrowserEventHandler.h"
-
+#include <string>
 #include <X11/Xatom.h>
 #include <X11/Xlib.h>
-#include <string>
-
 #include "include/cef_browser.h"
 #include "include/wrapper/cef_helpers.h"
+#include "DevSCefBrowserEventHandler.h"
 
-void DevSCefBrowserEventHandler::OnTitleChange(CefRefPtr<CefBrowser> browser,
-        const CefString& title) {
+void DevSCefBrowserEventHandler::OnTitleChange(CefRefPtr<CefBrowser> browser,const CefString& title) {
     CEF_REQUIRE_UI_THREAD();
     std::string titleStr(title);
 
