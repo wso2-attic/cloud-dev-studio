@@ -25,7 +25,12 @@
 #include "include/wrapper/cef_closure_task.h"
 #include "include/wrapper/cef_helpers.h"
 
-extern char pid_killcmd[1024];
+#include <signal.h>
+
+
+
+//extern char pid_killcmd[1024];
+extern int serverPID;
 
 namespace {
     DevSCefBrowserEventHandler* g_instance = NULL;
@@ -55,7 +60,8 @@ void DevSCefBrowserEventHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
 bool DevSCefBrowserEventHandler::DoClose(CefRefPtr<CefBrowser> browser) {
     CEF_REQUIRE_UI_THREAD();
 
-    int server_shutdown_status = system(pid_killcmd);
+
+    int server_shutdown_status = kill(serverPID, SIGTERM);
     if (server_shutdown_status == 0) {
         std::cout << "Server shutting down is successful.";
     } else {

@@ -32,9 +32,8 @@
 #include "SystemUtils.h"
 
 
-
-char pid_killcmd[1024];
 char base_path[1024];
+int serverPID;
 
 DevSCefClient::DevSCefClient() {
 }
@@ -162,8 +161,8 @@ void DevSCefClient::OnContextInitialized() {
 
     }
 
-    std::string killcmd = "kill -9 " + sever_pid;
-    strncpy(pid_killcmd, killcmd.c_str(), sizeof (pid_killcmd));
+    serverPID = atoi(sever_pid.c_str());
+    //std::cout << "serverPID is " << serverPID << "\n";
 
     // SimpleHandler implements browser-level call-backs.
     CefRefPtr<DevSCefBrowserEventHandler> handler(new DevSCefBrowserEventHandler());
