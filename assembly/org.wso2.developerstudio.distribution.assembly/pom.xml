@@ -14,7 +14,8 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
@@ -27,7 +28,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
     <name>WSO2 Developer Studio :: Distribution</name>
     <build>
         <plugins>
-            <!-- <plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
@@ -39,58 +40,30 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                         </goals>
                         <configuration>
                             <tasks>
-                                <copy todir="${project.basedir}/target/wso2-developer-studio-linux64">
-                                    <fileset dir="${project.basedir}/resources/launcher-assembly-linux64" includes="**/*" />
-                                </copy>
-                                <copy todir="${project.basedir}/target/wso2-developer-studio-linux64/${assembly.tomcat.webapp.root}">
-                                    <fileset dir="${basedir}/target/${project.artifactId}-${project.version}/webapps/">
-                                        <include name="*.war"/>
-                                    </fileset>
-                                </copy>
-                                <chmod dir="${project.basedir}/target/wso2-developer-studio-linux64/bin"
-                                       includes="**/*.sh" perm="+x"/>
-                          </tasks>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>prepare-embedded-mac64-version</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <tasks>
-                                <copy todir="${project.basedir}/target/wso2-developer-studio-mac64">
-                                    <fileset dir="${project.basedir}/resources/launcher-assembly-mac64" includes="**/*" />
-                                </copy>
-                                <copy todir="${project.basedir}/target/wso2-developer-studio-mac64/${assembly.tomcat.webapp.root}">
-                                    <fileset dir="${basedir}/target/${project.artifactId}-${project.version}/webapps/">
-                                        <include name="*.war"/>
-                                    </fileset>
-                                </copy>
-                          </tasks>
+                                <unwar src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api.war"
+                                       dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api"
+                                        />
+                                <unwar src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/ws.war"
+                                       dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/ws"
+                                        />
+                                <unwar src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/java-ca.war"
+                                       dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/java-ca"
+                                        />
+                                <unwar src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/datasource.war"
+                                       dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/datasource"
+                                        />
+                                <unwar src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api-docs-ui.war"
+                                       dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api-docs-ui"
+                                        />
+
+                            </tasks>
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>-->
-         <plugin>
+            </plugin>
+            <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <executions>
-                  <!--  <execution>
-                        <id>create-distribution-zip</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <appendAssemblyId>false</appendAssemblyId>
-                            <updateOnly>false</updateOnly>
-                            <descriptors>
-                                <descriptor>${basedir}/resources/assembly/distribution-archive.xml</descriptor>
-                            </descriptors>
-                            <finalName>${project.artifactId}-${project.version}</finalName>
-                        </configuration>
-                    </execution> -->
                     <execution>
                         <id>package-embedded-linux64-binary</id>
                         <phase>package</phase>
@@ -101,12 +74,14 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                             <appendAssemblyId>false</appendAssemblyId>
                             <updateOnly>false</updateOnly>
                             <descriptors>
-                                <descriptor>${basedir}/resources/descriptors/binary-archive_linux64.xml</descriptor>
+                                <descriptor>
+                                    ${basedir}/resources/descriptors/binary-archive_linux64.xml
+                                </descriptor>
                             </descriptors>
                             <finalName>wso2-developer-studio-linux64</finalName>
                         </configuration>
                     </execution>
-                  <execution>
+                    <execution>
                         <id>package-embedded-mac64-binary</id>
                         <phase>package</phase>
                         <goals>
@@ -116,50 +91,15 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                             <appendAssemblyId>false</appendAssemblyId>
                             <updateOnly>false</updateOnly>
                             <descriptors>
-                                <descriptor>${basedir}/resources/descriptors/binary-archive_mac64.xml</descriptor>
+                                <descriptor>
+                                    ${basedir}/resources/descriptors/binary-archive_mac64.xml
+                                </descriptor>
                             </descriptors>
                             <finalName>wso2-developer-studio-mac64</finalName>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-          <!--  <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>2.6.1</version>
-                <executions>
-                    <execution>
-                        <phase>clean</phase>
-                        <configuration>
-                            <filesets>
-                                <fileset>
-                                    <directory>${basedir}/resources/launcher-assembly-linux64</directory>
-                                    <includes>
-                                        <include>**/*</include>
-                                    </includes>
-                                </fileset>
-                                <fileset>
-                                    <directory>${basedir}/resources/launcher-assembly-mac64</directory>
-                                    <includes>
-                                        <include>**/*</include>
-                                    </includes>
-                                </fileset>
-                                <fileset>
-                                    <directory>${basedir}/resources/codenvy-sdk</directory>
-                                    <includes>
-                                        <include>${com.codenvy.sdk.version}.zip</include>
-                                    </includes>
-                                </fileset>
-                                <fileset>
-                                    <directory>${basedir}/resources/extensions/${com.codenvy.sdk.version}</directory>
-                                    <includes>
-                                        <include>**/*</include>
-                                    </includes>
-                                </fileset>
-                            </filesets>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin> -->
         </plugins>
     </build>
 </project>
