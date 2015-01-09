@@ -13,23 +13,20 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-#include "DevSCefBrowserEventHandler.h"
 
 #include <sstream>
 #include <string>
 #include <iostream>
 #include <stdio.h>
+#include <signal.h>
 
+#include "DevSCefBrowserEventHandler.h"
 #include "include/base/cef_bind.h"
 #include "include/cef_app.h"
 #include "include/wrapper/cef_closure_task.h"
 #include "include/wrapper/cef_helpers.h"
 
-#include <signal.h>
 
-
-
-//extern char pid_killcmd[1024];
 extern int serverPID;
 
 namespace {
@@ -60,7 +57,7 @@ void DevSCefBrowserEventHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
 bool DevSCefBrowserEventHandler::DoClose(CefRefPtr<CefBrowser> browser) {
     CEF_REQUIRE_UI_THREAD();
 
-
+    //std::cout << "DevSCefClient::BASE_PATH" << SystemUtils::APPLICATION_BASE_PATH << std::endl;
     int server_shutdown_status = kill(serverPID, SIGTERM);
     if (server_shutdown_status == 0) {
         std::cout << "Server shutting down is successful.";

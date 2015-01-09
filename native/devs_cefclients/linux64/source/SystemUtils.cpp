@@ -25,6 +25,11 @@
 int	SystemUtils::DEFAULT_WINDOW_WIDTH = 1024;
 int	SystemUtils::DEFAULT_WINDOW_HEIGHT = 1024;
 std::string	SystemUtils::BIN_BASH = "/bin/bash";
+std::string	SystemUtils::APPLICATION_BASE_PATH = "/bin/bash";
+std::string	SystemUtils::WSO2STUDIO_SERVER_SH_AND = "/bin/wso2studio_server.sh &";
+std::string	SystemUtils::WSO2STUDIO_WORKSPACE = "/bin/wso2studio_workspace.sh";
+std::string	SystemUtils::BIN_URL_TXT = "bin/url.txt";
+std::string	SystemUtils::BIN_PID = "bin/pid";
 
 int SystemUtils::GetScreenSize(int *w, int*h) {
 	Display* display = NULL;

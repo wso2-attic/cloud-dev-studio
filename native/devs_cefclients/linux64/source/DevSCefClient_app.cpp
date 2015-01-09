@@ -32,19 +32,17 @@
 #include "SystemUtils.h"
 
 
-char base_path[1024];
+
 int serverPID;
 
 DevSCefClient::DevSCefClient() {
 }
 
 
-
 void *ExecuteServerInBackground(void *args_ptr) {
 
-    std::string path(base_path);
+    std::string server_launch_cmd = SystemUtils::APPLICATION_BASE_PATH + "/bin/wso2studio_server.sh &";
 
-    std::string server_launch_cmd = path + "/bin/wso2studio_server.sh &";
     char server_launch_command_arr[1024];
     strncpy(server_launch_command_arr, server_launch_cmd.c_str(), 
             sizeof (server_launch_command_arr));
@@ -83,15 +81,17 @@ void DevSCefClient::OnContextInitialized() {
     window_info.SetAsPopup(NULL, "DevSCefClient");
 #endif
 
+    char base_path[1024];
     realpath("../", base_path);
     std::string path(base_path);
+    SystemUtils::APPLICATION_BASE_PATH = path;
+    std::cout << "BASE_PATH is " << SystemUtils::APPLICATION_BASE_PATH << std::endl;
 
     //starting the server
     int server_args = 0;
     pthread_t server_thread;
 
-    if (pthread_create(&server_thread, NULL, ExecuteServerInBackground, 
-            &server_args)) {
+    if (pthread_create(&server_thread, NULL, ExecuteServerInBackground, &server_args)) {
         fprintf(stderr, "Error creating server thread.\n");
         std::cout << "Error creating server thread.\n" << stderr << std::endl;
     }
@@ -101,7 +101,7 @@ void DevSCefClient::OnContextInitialized() {
     // starting the workspace selector and splash screen
     std::string workspace_selector_cmd = path + "/bin/wso2studio_workspace.sh";
     char workspace_selector_cmd_arr[1024];
-    strncpy(workspace_selector_cmd_arr, workspace_selector_cmd.c_str(), 
+    strncpy(workspace_selector_cmd_arr, workspace_selector_cmd.c_str(),
             sizeof (workspace_selector_cmd_arr));
 
     std::string bash_s = SystemUtils::BIN_BASH;
