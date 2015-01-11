@@ -14,22 +14,19 @@
 * limitations under the License.
 */
 
-class SystemUtils
+
+
+class Messages
 {
-private:
-    int m_nMonth;
-
 public:
-    static int DEFAULT_WINDOW_WIDTH;
-    static int DEFAULT_WINDOW_HEIGHT;
-
-    static std::string BIN_BASH;
-    static std::string APPLICATION_BASE_PATH;
-    static std::string WSO2STUDIO_SERVER_SH_AND;
-    static std::string WSO2STUDIO_WORKSPACE;
-    static std::string BIN_URL_TXT;
-    static std::string BIN_PID;
-
-    static int GetScreenSize(int *w, int*h);
-    static std::string GetFileContents(const char *filename);
+    static std::string SERVER_STARTED;
+    static std::string SERVER_STARTUP_ERROR;
+    static std::string ERROR_CREATING_SERVER_THREAD;
+    static std::string WORKSPACE_SELECTOR_STARTED;
+    static std::string ERROR_IN_FILE_DELETE;
+    static std::string WAITING_FOR_URL;
+    static std::string ERROR_GETTING_DEFAULT_DISPLAY;
+    static std::string ERROR_GETTING_DEFAULT_SCREEN;
+    static std::string SERVER_SHUTDOWN_SUCESSFULL;
+    static std::string SERVER_SHUTDOWN_ERROR;
 };

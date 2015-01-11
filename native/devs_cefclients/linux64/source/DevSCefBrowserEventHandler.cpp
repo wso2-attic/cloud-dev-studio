@@ -25,6 +25,7 @@
 #include "include/cef_app.h"
 #include "include/wrapper/cef_closure_task.h"
 #include "include/wrapper/cef_helpers.h"
+#include "Messages.h"
 
 
 extern int serverPID;
@@ -60,11 +61,9 @@ bool DevSCefBrowserEventHandler::DoClose(CefRefPtr<CefBrowser> browser) {
     //std::cout << "DevSCefClient::BASE_PATH" << SystemUtils::APPLICATION_BASE_PATH << std::endl;
     int server_shutdown_status = kill(serverPID, SIGTERM);
     if (server_shutdown_status == 0) {
-        std::cout << "Server shutting down is successful.";
+        std::cout << Messages::SERVER_SHUTDOWN_SUCESSFULL;
     } else {
-        std::cerr << "Error during the server shutdown: "
-                "please refer to log for more details.\n"
-                "StatusCode: " << server_shutdown_status << '\n';
+        std::cerr << Messages::SERVER_SHUTDOWN_ERROR << server_shutdown_status << std::endl;
     }
 
     // Closing the main window requires special handling. See the DoClose()

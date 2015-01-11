@@ -20,16 +20,21 @@
 #include <X11/Xlib.h>
 #include <iostream>
 #include "SystemUtils.h"
+#include "Messages.h"
+
 
 
 int	SystemUtils::DEFAULT_WINDOW_WIDTH = 1024;
 int	SystemUtils::DEFAULT_WINDOW_HEIGHT = 1024;
+
 std::string	SystemUtils::BIN_BASH = "/bin/bash";
-std::string	SystemUtils::APPLICATION_BASE_PATH = "/bin/bash";
+std::string	SystemUtils::APPLICATION_BASE_PATH;
 std::string	SystemUtils::WSO2STUDIO_SERVER_SH_AND = "/bin/wso2studio_server.sh &";
 std::string	SystemUtils::WSO2STUDIO_WORKSPACE = "/bin/wso2studio_workspace.sh";
-std::string	SystemUtils::BIN_URL_TXT = "bin/url.txt";
-std::string	SystemUtils::BIN_PID = "bin/pid";
+std::string	SystemUtils::BIN_URL_TXT = "/bin/url.txt";
+std::string SystemUtils::BIN_PID = "/bin/pid";
+
+
 
 int SystemUtils::GetScreenSize(int *w, int*h) {
 	Display* display = NULL;
@@ -37,13 +42,13 @@ int SystemUtils::GetScreenSize(int *w, int*h) {
 
 	display = XOpenDisplay( NULL);
 	if (!display) {
-		std::cout << "Failed to open default display.\n";
+		std::cout << Messages::ERROR_GETTING_DEFAULT_DISPLAY;
 		return -1;
 	}
 
 	screen = DefaultScreenOfDisplay(display);
 	if (!screen) {
-		std::cout << "Failed to obtain the default screen of given display.\n";
+		std::cout << Messages::ERROR_GETTING_DEFAULT_SCREEN;
 		return -2;
 	}
 

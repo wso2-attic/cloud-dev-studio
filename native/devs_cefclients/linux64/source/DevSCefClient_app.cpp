@@ -30,6 +30,7 @@
 #include "include/wrapper/cef_helpers.h"
 #include "DevSCefClient_app.h"
 #include "SystemUtils.h"
+#include "Messages.h"
 
 
 
@@ -41,19 +42,16 @@ DevSCefClient::DevSCefClient() {
 
 void *ExecuteServerInBackground(void *args_ptr) {
 
-    std::string server_launch_cmd = SystemUtils::APPLICATION_BASE_PATH + "/bin/wso2studio_server.sh &";
+    std::string server_launch_cmd = SystemUtils::APPLICATION_BASE_PATH + SystemUtils::WSO2STUDIO_SERVER_SH_AND;
 
     char server_launch_command_arr[1024];
-    strncpy(server_launch_command_arr, server_launch_cmd.c_str(), 
-            sizeof (server_launch_command_arr));
+    strncpy(server_launch_command_arr, server_launch_cmd.c_str(), sizeof (server_launch_command_arr));
 
     int server_startup_status = system(server_launch_command_arr);
     if (server_startup_status == 0) {
-        std::cout << "Server started successfully.";
+        std::cout << Messages::SERVER_STARTED << std::endl;
     } else {
-        std::cerr << "Error during the server startup: "
-                "please refer to log for more details.\n"
-                "StatusCode: " << server_startup_status << '\n';
+        std::cerr << Messages::SERVER_STARTUP_ERROR << server_startup_status << std::endl;
     }
     return NULL;
 
@@ -85,55 +83,52 @@ void DevSCefClient::OnContextInitialized() {
     realpath("../", base_path);
     std::string path(base_path);
     SystemUtils::APPLICATION_BASE_PATH = path;
-    std::cout << "BASE_PATH is " << SystemUtils::APPLICATION_BASE_PATH << std::endl;
+    //std::cout << "BASE_PATH is " << SystemUtils::APPLICATION_BASE_PATH << std::endl;
 
     //starting the server
     int server_args = 0;
     pthread_t server_thread;
 
     if (pthread_create(&server_thread, NULL, ExecuteServerInBackground, &server_args)) {
-        fprintf(stderr, "Error creating server thread.\n");
-        std::cout << "Error creating server thread.\n" << stderr << std::endl;
+        std::cout << Messages::ERROR_CREATING_SERVER_THREAD << stderr << std::endl;
     }
 
-    usleep(2);
-
+    //usleep(2);
     // starting the workspace selector and splash screen
-    std::string workspace_selector_cmd = path + "/bin/wso2studio_workspace.sh";
+    std::string workspace_selector_cmd = path + SystemUtils::WSO2STUDIO_WORKSPACE;
     char workspace_selector_cmd_arr[1024];
     strncpy(workspace_selector_cmd_arr, workspace_selector_cmd.c_str(),
             sizeof (workspace_selector_cmd_arr));
 
+    //char bash[] = "bin/bash";
+    //char command[] = "-c";
     std::string bash_s = SystemUtils::BIN_BASH;
     char bash[1024];
     strncpy(bash, bash_s.c_str(), sizeof (bash));
     std::string command_s = "-c";
     char command[1024];
     strncpy(command, command_s.c_str(), sizeof (command));
-    char *name[] = {bash, command, workspace_selector_cmd_arr, NULL};
+    char *name[] = {bash,  command, workspace_selector_cmd_arr, NULL};
     int pid = fork();
     if (pid == 0) {
         int workspace_selector_status = execvp(name[0], name);
         if (workspace_selector_status == 0) {
-            std::cout << "workspace selector started successfully";
+            std::cout << Messages::WORKSPACE_SELECTOR_STARTED << std::endl;
         } else {
-            std::cerr << "Error during the server startup: "
-                    "please refer log files more details.\n"
-                    "StatusCode: " << workspace_selector_status << '\n';
+            std::cerr << Messages::SERVER_STARTUP_ERROR << workspace_selector_status << std::endl;
         }
     }
 
-    usleep(2);
-
+    //usleep(2);
     // waiting the sever startup
     std::string url;
     std::string sever_pid;
-    std::string urlpath = path + "/bin/url.txt";
+    std::string urlpath = path + SystemUtils::BIN_URL_TXT;
 
     char url_cpath[1024];
     strncpy(url_cpath, urlpath.c_str(), sizeof (url_cpath));
 
-    std::string pidpath = path + "/bin/pid";
+    std::string pidpath = path + SystemUtils::BIN_PID;
     char pid_cpath[1024];
     strncpy(pid_cpath, pidpath.c_str(), sizeof (pid_cpath));
 
@@ -143,25 +138,27 @@ void DevSCefClient::OnContextInitialized() {
             std::fclose(url_file);
             url = SystemUtils::GetFileContents(url_cpath);
             sever_pid = SystemUtils::GetFileContents(pid_cpath);
+
             int url_file_remove_status = std::remove(url_cpath);
-            std::remove(pid_cpath);
-            if (url_file_remove_status == 0) {
-                std::cout << "File was deleted successfully.\n";
-            } else {
-                std::cerr << "Error during file deletion: "
-                        "StatusCode: " 
-                        << url_file_remove_status << '\n';
+            if (url_file_remove_status != 0) {
+                std::cerr << Messages::ERROR_IN_FILE_DELETE << url_file_remove_status << std::endl;
             }
+
+            int pid_file_remove_status = std::remove(pid_cpath);
+            if (pid_file_remove_status != 0) {
+				std::cerr << Messages::ERROR_IN_FILE_DELETE << pid_file_remove_status << std::endl;
+			}
+
             break;
 
         } else {
-            std::cout << " Waiting for URL |";
+            std::cout << Messages::WAITING_FOR_URL;
             sleep(2);
         }
 
     }
 
-    serverPID = atoi(sever_pid.c_str());
+    serverPID = atoi(sever_pid.c_str()); //This is used in DevSCefBrowserEvemtHandler DoClose method to terminate the server
     //std::cout << "serverPID is " << serverPID << "\n";
 
     // SimpleHandler implements browser-level call-backs.
@@ -171,8 +168,7 @@ void DevSCefClient::OnContextInitialized() {
     CefBrowserSettings browser_settings;
 
     // Create the first browser window.
-    CefBrowserHost::CreateBrowser(window_info, handler.get(), url,
-            browser_settings, NULL);
+    CefBrowserHost::CreateBrowser(window_info, handler.get(), url, browser_settings, NULL);
 }
 
 
