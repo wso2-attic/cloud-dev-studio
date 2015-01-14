@@ -114,11 +114,11 @@ limitations under the License.
                             <programs>
                                 <program>
                                     <mainClass>org.wso2.developerstudio.workspaceselector.launcher.WorkspaceSelectorBootstrap</mainClass>
-                                    <id>${assembler.app.name}_workspace</id>
+                                    <id>workspace</id>
                                 </program>
                                 <program>
                                     <mainClass>org.wso2.developerstudio.server.launcher.ServerBootstrap</mainClass>
-                                    <id>${assembler.app.name}_server</id>
+                                    <id>server</id>
                                     <commandLineArguments>
                                         <commandLineArgument>${assembly.tomcat.webapp.root}</commandLineArgument>
                                     </commandLineArguments>
