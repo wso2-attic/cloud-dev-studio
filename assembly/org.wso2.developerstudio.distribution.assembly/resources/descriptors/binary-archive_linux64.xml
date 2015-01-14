@@ -19,8 +19,8 @@
             <directory>${project.basedir}/../org.wso2.developerstudio.cef.assembly/target/${assembler.dir.name}/${bin.location}</directory>
             <outputDirectory>/wso2-developer-studio-linux64/${bin.location}</outputDirectory>
             <includes>
-                <include>wso2studio_server.sh</include>
-                <include>wso2studio_workspace.sh</include>
+                <include>server.sh</include>
+                <include>workspace.sh</include>
             </includes>
             <useDefaultExcludes>true</useDefaultExcludes>
             <fileMode>0777</fileMode>
