@@ -48,7 +48,7 @@ public class ConfigurationContext {
 	 */
 	public static void setServerSystemProperties(String tomcatPort){
 
-		setSystemProperty("SERVER_PORT", tomcatPort );
+		setSystemProperty("SERVER_PORT", tomcatPort);
 
 		try {
 			setSystemProperty("WORKSPACE_ROOT",
@@ -137,8 +137,7 @@ public class ConfigurationContext {
 	 */
 	public static void setWorkspaceRoot(String workspace) throws IOException {
 		setDevStudioProperty(WORKSPACE_ROOT_PROPERTY, workspace);
-		setDevStudioProperty(WORKSPACE_ROOT_INDEX_PROPERTY,
-		                     workspace + File.separator + ".metadata");
+		setDevStudioProperty(WORKSPACE_ROOT_INDEX_PROPERTY, workspace);
 	}
 
 	/**
