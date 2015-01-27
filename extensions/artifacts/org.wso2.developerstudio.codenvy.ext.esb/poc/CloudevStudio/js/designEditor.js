@@ -104,7 +104,8 @@ var jsPlumbContainerCanvas= $("#jsPlumbContainer")
     editorItemCounter++;
     var newElemCreated = DRAGGED_ELEM + editorItemCounter;
     var element = $("<div></div>");
-    element.css({TOP: x, ICON_LEFT: X_OFFSET + xSpace}); //dynamically positioning the elements,
+    element.css({'top': 250, 'left': X_OFFSET + xSpace});
+    //element.css({TOP: 200, ICON_LEFT: X_OFFSET + xSpace}); //dynamically positioning the elements,
     element.attr(ID, newElemCreated);
     element.addClass(DRAGGABLE);
     /*loading element image resource on creating diagram from source, done only for log mediator, work in progress,

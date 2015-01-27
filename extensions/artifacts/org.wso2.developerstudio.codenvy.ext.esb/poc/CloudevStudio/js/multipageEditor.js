@@ -131,16 +131,23 @@ function registerJsPlumbBind() {
     });
 }
 
-//activating source view
 function activateSourceView() {
+    var sourceEditorTBox = $('#sourceEditorTextBox');
+    sourceEditorTBox.val(serializeGrapicalViewAndGetText());
+}
+
+function activateDesignView() {
+    var sourceEditorTextBox = $('#sourceEditorTextBox');
+    deserilizaTextAndCreateDesign(sourceEditorTextBox.val());
+}
+
+function serializeGrapicalViewAndGetText() {
     var prevElement = null;
     var nextElement = null;
     var connectionList = jsPlumb.getAllConnections();
     var jObj = null;
     var xmlElement = null;
-    var currentText = null;
-    var sourceEditorTextBox = $('#sourceEditorTextBox');
-    sourceEditorTextBox.val('<sequence name="sample_sequence">');
+    var currentText = '<sequence name="sample_sequence">';
 
     for (var connection in connectionList) {
         if (connectionList.hasOwnProperty(connection)) {
@@ -158,27 +165,24 @@ function activateSourceView() {
         console.log('serializing ' + jObj);
         console.log(jObj);
         xmlElement = '\n' + x2js.json2xml_str(jObj);
-        currentText = sourceEditorTextBox.val();
-        sourceEditorTextBox.val(currentText + xmlElement);
+        currentText = currentText + xmlElement;
     }
 
     jObj = $(nextElement).data('jsonConfig');
     xmlElement = '\n' + x2js.json2xml_str(jObj);
-    currentText = sourceEditorTBox.val();
-    sourceEditorTBox.val(currentText + xmlElement + '\n</sequence>');
+    currentText = currentText + xmlElement + '\n</sequence>';
+    return currentText;
 }
 
-//activating design view
-function activateDesignView() {
-    var sourceEditorTextBox = $('#sourceEditorTextBox');
-    var jsPlumbCont = $("#jsPlumbContainer");
 
-    console.log('activateDesignView');
-    var sequenceObj = x2js.xml_str2json(sourceEditorTextBox.val());
+function deserilizaTextAndCreateDesign(text) {
+    
+    var jsPlumbContainer = $("#jsPlumbContainer");
+    var sequenceObj = x2js.xml_str2json(text);
     var sequence = sequenceObj.sequence;
     var logArray = sequence.log;
 
-    jsPlumbCont.empty();
+    jsPlumbContainer.empty();
     var prevDivElement = null;
     var logArrayElem;
     for (logArrayElem in logArray) {
@@ -192,4 +196,48 @@ function activateDesignView() {
             prevDivElement = currentDiv;
             }
     }
+}
+
+
+var filePath = "";
+var fileContent = "";
+
+function receiveMessage (evt) {
+    var message =  evt.data;
+    var type = message._type;
+
+    if(type === 1){ 
+        // initial editor open message or when select graphical editor tab
+        filePath = message.filePath;
+        fileContent=message.content;
+        console.log(' trype 1 msg received from file :' + filePath + '          Content : ' + fileContent);
+        deserilizaTextAndCreateDesign(fileContent)
+
+    }else if (type === 2){ 
+        // when press the save on codenvy ide or either on text editor chose it sends this msg to get the content
+        var text = serializeGrapicalViewAndGetText();
+        console.log(' trype 2 msg received, fileContent    : ' + text);
+        sendSaveContentMessage(text);
+    }
+
+}
+
+if (window.addEventListener) {
+    // For standards-compliant web browsers
+    window.addEventListener("message", receiveMessage, false);
+}
+else {
+    window.attachEvent("onmessage", receiveMessage);
+}
+
+var sendSaveContentMessage = function(textContent) {
+    console.log('saving file ' + filePath + '     textContent     ' + textContent);
+    var msg = {'_type' : 3, 'content' : textContent, 'filePath':filePath };
+    parent.postMessage(msg, '*');
+}
+
+var sendDirtyContentMessage = function() {
+    console.log('making dirty true on file' + filePath);
+    var msg = {'_type' : 4, 'dirty' : true, 'filePath':filePath };
+    parent.postMessage(msg, '*');
 }

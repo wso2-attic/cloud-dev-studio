@@ -30,9 +30,12 @@
     <script src="js/libs/jquery-ui.js"></script>
     <script src="js/libs/x2jsLibrary.js"></script>
 
+    <script src="js/reciever.js"></script>
+    <script src="js/sender.js"></script>
     <script src="js/multipageEditor.js"></script>
     <script src="js/designEditor.js"></script>
     <script src="js/abstractMediator.js"></script>
+   
 
 </head>
 <body>
@@ -209,42 +212,14 @@
         </div>
     </div>
 </div>
+
 <div class="col-xs-10 col-lg-10 col-md-10">
-
-    <div class="tabbable tabs-below">
-        <ul class="nav nav-tabs" id="bottom-tabs">
-            <li class="active"><a href="#designID" data-toggle="tab">Design</a></li>
-            <li><a href="#sourceID" data-toggle="tab">Source</a></li>
-        </ul>
-    </div>
-    <br/>
-
-    <div class="bs-example bs-example-tabs">
-        <div id="myTabContent" class="tab-content">
-            <div class="tab-pane fade in active" id="designID">
-
-                <div class="well-lg" id="jsPlumbContainerWrapper"
-                     style="height: 800px;background: #ffffff;">
-                    <div id="jsPlumbContainer" style="position: relative;width: 100%;height: 100%;">
-                    </div>
-                </div>
-
-            </div>
-            <div class="tab-pane fade" id="sourceID">
-                <div class="well-lg" id="sourceEditor"
-                     style="height: 800px;background: #ffffff;">
-                    <textarea class="textareaCode" id="sourceEditorTextBox" wrap="logical"
-                              rows="30" cols="50">
-                    </textarea>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <br/>
-
-
+<div class="well-lg" id="jsPlumbContainerWrapper"
+     style="height: 800px;background: #ffffff;">
+    <div id="jsPlumbContainer" style="position: relative;width: 100%;height: 100%;" />
 </div>
+</div>
+
 </div>
 </div>
 </body>
