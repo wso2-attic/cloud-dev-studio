@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ * Copyright (c) 2014-2015, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,136 +15,124 @@
  */
 package org.wso2.developerstudio.server.launcher;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.ServletException;
-
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wso2.developerstudio.workspaceselector.launcher.ConfigurationContext;
 
+import javax.servlet.ServletException;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
+
+import static java.io.File.separator;
+import static org.wso2.developerstudio.server.launcher.ServerConstants.*;
+
 public class ServerBootstrap {
 
-	private static final String WEBAPP_WS = "ws";
+	private static final Logger log = LoggerFactory.getLogger(ServerBootstrap.class);
 
-	private static final String WS_CONTEXTPATH = "/ws";
+	private static String webRoot;
+	private static Tomcat tomcatServer;
 
-	private static final String JAVA_CA_WEBAPP = "java-ca";
-
-	private static final String JAVA_CA_CONTEXTPATH = "/java-ca";
-
-	public static final String WEBAPP_DATASOURCE = "datasource";
-
-	public static final String DATASOURCE_CONTEXTPATH = "/datasource";
-
-	public static final String WEBAPP_API = "api";
-
-	public static final String API_CONTEXTPATH = "/api";
-
-	private static final Logger logger = LoggerFactory
-			.getLogger(ServerBootstrap.class);
-
-	private static String rootDir;
-	private static final Map<String, String> mapContextToWebApp = new HashMap<>();
-	private static String webAppRoot;
-	private static int port;
-
-	// FIXME - Should load from the property file since this change with the SDK
-	static {
-		mapContextToWebApp.put(API_CONTEXTPATH, WEBAPP_API);
-		mapContextToWebApp.put(DATASOURCE_CONTEXTPATH, WEBAPP_DATASOURCE);
-		mapContextToWebApp.put(JAVA_CA_CONTEXTPATH, JAVA_CA_WEBAPP);
-		mapContextToWebApp.put(WS_CONTEXTPATH, WEBAPP_WS);
-	}
-
+	/**
+	 * Entry point of embedded Tomcat server.
+	 *
+	 * @param args console arguments
+	 */
 	public static void main(String args[]) {
 		try {
-			rootDir = System.getenv(Constants.STUDIO_ROOT_ENV_VAR_NAME);
-			String pid = System.getProperty("app.pid");
-			Files.write(Paths.get(rootDir + File.separator + "bin" + File.separator + "pid"),
-			            pid.getBytes());
+			String rootDir = System.getenv(STUDIO_ROOT_ENV_VAR_NAME);
+
+			String pid = System.getProperty(PID_SYS_PROPERTY);
+			Files.write(Paths.get(rootDir + PID_FILE_REL_PATH), pid.getBytes());
+
+			int port;
+			// wait till a port is available
 			while (true) {
-				if (Files.exists(Paths.get(
-						rootDir + File.separator + "bin" + File.separator + "PORT"))) {
-					byte[] portBytes = Files.readAllBytes(
-							Paths.get(rootDir + File.separator + "bin" + File.separator + "PORT"));
-					String portStr = new String(portBytes);
-					System.setProperty("server.port", portStr);
+				Path portFile = Paths.get(rootDir + PORT_FILE_REL_URL);
+				if (Files.exists(portFile)) {
+					String portStr = new String(Files.readAllBytes(portFile));
+					System.setProperty(SERVER_PORT_SYS_PROPERTY, portStr);
 					port = Integer.parseInt(portStr);
-					Files.deleteIfExists(
-							Paths.get(rootDir + File.separator + "bin" + File.separator + "PORT"));
+					Files.deleteIfExists(portFile);
 					break;
 				} else {
-					Thread.sleep(500);
+					Thread.sleep(DEFAULT_SLEEP_TIME);
 				}
 			}
-			logger.info("Root dir is" + rootDir);
-			logger.info("Starting WSO2 Developer Studio 4.0.0");
-			webAppRoot = rootDir + File.separator + args[0];
 
-			if (webAppRoot.equals("")) {
-				webAppRoot = rootDir + File.separator
-				             + Constants.DEFAULT_RELATIVE_WEB_ROOT;
-			}
+			log.info("Developer Studio root dir is {}.", rootDir);
+			log.info("Starting WSO2 Developer Studio 4.0.0");
 
-			logger.info("Tomcat web app root is set to : " + webAppRoot);
+			webRoot = rootDir + RELATIVE_WEB_ROOT;
+			log.info("Tomcat web app root is set to : {}", webRoot);
 
-			Tomcat tomcat = new DevsTomcatServer();
-			tomcat.setPort(port);
-			logger.info("Tomcat port is set to: " + port);
+			// Initialize embedded tomcat
+			tomcatServer = new EmbeddedServer();
+			tomcatServer.setPort(port);
+			log.info("Tomcat port is set to: {}", port);
 
-			// Alter codenvy properties to use custom tomcat port
+			final String ideURL = LOCAL_HOST + port + IDE_CONTEXT_PATH;
+			log.info("IDE URL is set to: {}", ideURL);
+
 			ConfigurationContext.setServerSystemProperties(Integer.toString(port));
-			final String ideURL = "http://localhost:" + port + WS_CONTEXTPATH;
-			logger.info("IDE URL is set to: " + ideURL);
 			ConfigurationContext.setIDEUrl(ideURL);
-			addWebApps(tomcat);
-			tomcat.addWebapp("/", rootDir + File.separator
-			                      + Constants.WEBAPPS_DIR + File.separator);
-			logger.info("Starting tomcat in background");
-			tomcat.start();
-			tomcat.getServer().await();
+
+			addWebAppsToTomcat();
+
+			log.info("Starting embedded tomcat server.");
+			tomcatServer.start();
+			tomcatServer.getServer().await();
 
 		} catch (IOException e) {
-			logger.error("Error querying available local ports for tomcat", e);
+			log.error("Error querying available local ports for tomcat.", e);
 			System.exit(1);
-		} catch (LifecycleException e) {
-			logger.error("Server startup failed ! " + e.getMessage(), e);
-			System.exit(1);
-		} catch (ServletException e1) {
-			logger.error("Server startup failed ! " + e1.getMessage(), e1);
-			System.exit(1);
-		} catch (InterruptedException e) {
-			logger.error("Server startup failed ! " + e.getMessage(), e);
+		} catch (LifecycleException | ServletException | InterruptedException e) {
+			log.error("Server startup failed : {}", e.getMessage(), e);
 			System.exit(1);
 		}
 	}
 
 	/**
-	 * method to call the start up in Splash Screen to display the
-	 * progress on IDE opening process to the user
-	 *
-	 * @param tomcat Tomcat Server
+	 * Add all web apps available in web root to embedded
+	 * tomcat instance for deploying WebApps
 	 */
-	private static void addWebApps(Tomcat tomcat) throws ServletException {
-		for (Object o : mapContextToWebApp.entrySet()) {
-			@SuppressWarnings("rawtypes")
-			Map.Entry webAppEntry = (Map.Entry) o;
-			tomcat.addWebapp(webAppEntry.getKey().toString(), new File(
-					webAppRoot + File.separator
-					+ webAppEntry.getValue().toString())
-					.getAbsolutePath());
-			logger.info("Adding web app : "
-			            + new File(webAppRoot + File.separator
-			                       + webAppEntry.getValue().toString())
-					.getAbsolutePath());
+	private static void addWebAppsToTomcat() throws ServletException {
+		List<String> webApps = getWebAppList();
+
+		if (webApps.isEmpty()) {
+			if (log.isDebugEnabled()) {
+				log.debug("No web apps are found in web root {}.", webRoot);
+			}
+			return;
 		}
+		for (String app : webApps) {
+			String path = new File(webRoot + separator + app).getAbsolutePath();
+			tomcatServer.addWebapp(separator + app, path);
+			log.info("Adding web app at: {}", path);
+		}
+	}
+
+	/**
+	 * Get a List of web apps in web app root.
+	 *
+	 * @return web app list
+	 */
+	private static List<String> getWebAppList() {
+		File webRootFolder = new File(webRoot);
+		String[] webApps = webRootFolder.list(new FilenameFilter() {
+			@Override
+			public boolean accept(File current, String name) {
+				return new File(current, name).isDirectory();
+			}
+		});
+		return Arrays.asList(webApps);
 	}
 }
