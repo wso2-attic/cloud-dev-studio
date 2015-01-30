@@ -2,9 +2,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.wso2.developerstudio</groupId>
-    <artifactId>wso2-che-ext-esbwebapp</artifactId>
+    <artifactId>esbeditor</artifactId>
     <packaging>war</packaging>
     <version>1.0.0</version>
-    <name>wso2-che-ext-esbwebapp</name>
+    <name>WSO2 esbeditor webapp for eclipse che</name>
     <url>http://maven.apache.org</url>
 </project>

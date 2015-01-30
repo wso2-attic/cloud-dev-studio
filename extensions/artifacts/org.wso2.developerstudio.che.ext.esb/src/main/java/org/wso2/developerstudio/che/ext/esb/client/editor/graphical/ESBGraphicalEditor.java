@@ -42,7 +42,7 @@ public class ESBGraphicalEditor extends AbstractEditorPresenter implements WSO2I
     private boolean isDirty = true;
 
     public ESBGraphicalEditor() {
-        editorFrame = new Frame("/jsplumb/index.html");
+        editorFrame = new Frame("/esbeditor/index.html");
         editorFrame.addLoadHandler(new LoadHandler() {
             @Override
             public void onLoad(LoadEvent event) {

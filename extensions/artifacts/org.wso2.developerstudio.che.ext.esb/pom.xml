@@ -27,7 +27,9 @@
     <name>WSO2 Developer Studio :: ESB Extension</name>
 
     <properties>
-        <codenvy.ide.version>3.5.0</codenvy.ide.version>
+
+        <com.codenvy.sdk.version>3.5.0</com.codenvy.sdk.version>
+        <com.google.gwt.gin.version>2.1.2</com.google.gwt.gin.version>
         <codenvy.plugin-java.version>1.6.0</codenvy.plugin-java.version>
         <com.google.gwt.gwtmockito>1.1.4</com.google.gwt.gwtmockito>
         <junit.version>4.11</junit.version>
@@ -39,17 +41,17 @@
         <dependency>
             <groupId>com.codenvy.ide</groupId>
             <artifactId>codenvy-ide-api</artifactId>
-            <version>${codenvy.ide.version}</version>
+            <version>${com.codenvy.sdk.version}</version>
         </dependency>
         <dependency>
             <groupId>com.codenvy.ide</groupId>
             <artifactId>codenvy-ide-jseditor</artifactId>
-            <version>${codenvy.ide.version}</version>
+            <version>${com.codenvy.sdk.version}</version>
         </dependency>
         <dependency>
             <groupId>com.codenvy.ide</groupId>
             <artifactId>codenvy-ide-ui</artifactId>
-            <version>${codenvy.ide.version}</version>
+            <version>${com.codenvy.sdk.version}</version>
         </dependency>
         <dependency>
             <groupId>com.codenvy.plugin-java</groupId>
@@ -137,7 +139,7 @@
         </testResources>
         <plugins>
 
-            <!--plugin>
+            <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.2</version>
                 <executions>
@@ -149,7 +151,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin-->
+            </plugin>
 
             <!--plugin>
                 <groupId>com.mycila</groupId>
