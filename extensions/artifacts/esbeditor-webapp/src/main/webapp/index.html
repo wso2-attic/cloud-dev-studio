@@ -1,0 +1,227 @@
+<!--/*
+ * Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>JsPlumb Demo for ESB Editor</title>
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+
+    <script src="js/libs/jquery.min.js"></script>
+    <script src="js/libs/jquery.ui.min.js"></script>
+    <script src="js/libs/jquery.jsPlumb-1.6.2-min..js"></script>
+    <script src="js/libs/bootstrap.min.js"></script>
+    <script src="js/libs/jquery-ui.js"></script>
+    <script src="js/libs/x2jsLibrary.js"></script>
+
+    <script src="js/reciever.js"></script>
+    <script src="js/sender.js"></script>
+    <script src="js/multipageEditor.js"></script>
+    <script src="js/designEditor.js"></script>
+    <script src="js/abstractMediator.js"></script>
+   
+
+</head>
+<body>
+<div class="container-fluid">
+<div class="row">
+<div class="col-xs-2 col-lg-2 col-md-2">
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                        Mediators
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse scrollable-collapse in">
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <img src="icons/call-mediator.gif" id="callMediator"
+                                 class="draggableIcon"> Call
+                        </li>
+                        <li class="list-group-item">
+                            <img src="icons/callTemplate-mediator.gif"
+                                 id="callTemplateMediator" class="draggableIcon"> Call
+                            Template
+                        </li>
+                        <li class="list-group-item">
+                            <img src="icons/drop-mediator.gif" id="dropMediator"
+                                 class="draggableIcon"> Drop
+                        </li>
+                        <li class="list-group-item">
+                            <img src="icons/log-mediator.gif" id="logMediator"
+                                 class="draggableIcon"> Log
+                        </li>
+                        <li class="list-group-item">
+                            <img src="icons/loopBack-mediator.gif" id="loopBackMediator"
+                                 class="draggableIcon"> LoopBack
+                        </li>
+                        <li class="list-group-item">
+                            <img src="icons/property-mediator.gif" id="propertyMediator"
+                                 class="draggableIcon"> Property
+                        </li>
+                        <li class="list-group-item">
+                            <img src="icons/respond-mediator.gif" id="respondMediator"
+                                 class="draggableIcon"> Respond
+                        </li>
+                        <li class="list-group-item">
+                            <img src="icons/send-mediator.gif" id="sendMediator"
+                                 class="draggableIcon"> Send
+                        </li>
+                    </ul>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <img src="icons/conditionalRouter-mediator.gif"
+                                 id="ConditionalRouterMediator" class="draggableIcon">
+                            Conditional Router
+                        </li>
+                        <li class="list-group-item">
+                            <img src="icons/filter-mediator.gif" id="FilterMediator"
+                                 class="draggableIcon"> Filter
+                        </li>
+                        <li class="list-group-item">
+                            <img src="icons/switch-mediator.gif" id="SwitchMediator"
+                                 class="draggableIcon"> Switch
+                        </li>
+                        <li class="list-group-item">
+                            <img src="icons/validate-mediator.gif" id="ValidateMediator"
+                                 class="draggableIcon"> Validate
+                        </li>
+                    </ul>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <img src="icons/bean-mediator.gif" id="BeanMediator"
+                                 class="draggableIcon"> Bean
+                        </li>
+                        <li class="list-group-item">
+                            <img src="icons/class-mediator.gif" id="ClassMediator"
+                                 class="draggableIcon"> Class
+                        </li>
+                        <li class="list-group-item">
+                            <img src="icons/command-mediator.gif" id="CommandMediator"
+                                 class="draggableIcon"> Command
+                        </li>
+                        <li class="list-group-item">
+                            <img src="icons/ejb-mediator.gif" id="EJBMediator"
+                                 class="draggableIcon"> EJB
+                        </li>
+                        <li class="list-group-item">
+                            <img src="icons/script-mediator.gif" id="ScriptMediator"
+                                 class="draggableIcon"> Script
+                        </li>
+                        <li class="list-group-item">
+                            <img src="icons/spring-mediator.gif" id="SpringMediator"
+                                 class="draggableIcon"> Spring
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                        Endpoints
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse scrollable-collapse">
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <img src="icons/address-endpoint.gif" id="AddressEndpoint"
+                                 class="draggableIcon"> Address Endpoint
+                        </li>
+                        <li class="list-group-item">
+                            <img src="icons/defalut-endpoint.gif" id="DefaultEndpoint"
+                                 class="draggableIcon"> Default Endpoint
+                        </li>
+                        <li class="list-group-item">
+                            <img src="icons/failover-endpoint.gif" id="FailoverEndpoint"
+                                 class="draggableIcon"> Failover Endpoint
+                        </li>
+                        <li class="list-group-item">
+                            <img src="icons/http-endpoint.gif" id="HttpEndpoint"
+                                 class="draggableIcon"> Http Endpoint
+                        </li>
+                        <li class="list-group-item">
+                            <img src="icons/loadbalance-endpoint.gif"
+                                 id="LoadBalanceEndpoint" class="draggableIcon"> LoadBalance
+                            Endpoint
+                        </li>
+                        <li class="list-group-item">
+                            <img src="icons/named-endpoint.gif" id="NamedEndpoint"
+                                 class="draggableIcon"> Named Endpoint
+                        </li>
+                        <li class="list-group-item">
+                            <img src="icons/recipientlist-endpoint.gif"
+                                 id="RecipientListEndpoint" class="draggableIcon">
+                            RecipientList Endpoint
+                        </li>
+                        <li class="list-group-item">
+                            <img src="icons/template-endpoint.gif" id="TemplateEndpoint"
+                                 class="draggableIcon"> Template Endpoint
+                        </li>
+                        <li class="list-group-item">
+                            <img src="icons/wsdl-endpoint.gif" id="WSDLEndpoint"
+                                 class="draggableIcon"> WSDL Endpoint
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion"
+                       href="#collapseThree">
+                        Links
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse scrollable-collapse">
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <img src="icons/address-endpoint.gif" id="AddressEndpoint2"
+                                 class="draggableIcon"> Address Endpoint
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-xs-10 col-lg-10 col-md-10">
+<div class="well-lg" id="jsPlumbContainerWrapper"
+     style="height: 800px;background: #ffffff;">
+    <div id="jsPlumbContainer" style="position: relative;width: 100%;height: 100%;" />
+</div>
+</div>
+
+</div>
+</div>
+</body>
+
+</html>
