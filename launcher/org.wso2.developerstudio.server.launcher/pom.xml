@@ -14,40 +14,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
-        <groupId>org.wso2.developerstudio</groupId>
         <artifactId>developerstudio-launcher-parent</artifactId>
+        <groupId>org.wso2.developerstudio</groupId>
         <version>4.0.0-SNAPSHOT</version>
     </parent>
-
     <artifactId>org.wso2.developerstudio.sever.launcher</artifactId>
-    <name>WSO2 Developer Studio :: Server Launcher</name>
     <packaging>jar</packaging>
-
+    <name>WSO2 Developer Studio :: Server Launcher</name>
     <dependencies>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-core</artifactId>
-            <version>${tomcat.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-logging-juli</artifactId>
-            <version>${tomcat.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-jasper</artifactId>
-            <version>${tomcat.version}</version>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.3.5</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tomcat</groupId>
@@ -65,10 +46,25 @@ limitations under the License.
             <version>${tomcat.version}</version>
         </dependency>
         <dependency>
-	        <groupId>org.apache.httpcomponents</groupId>
-	        <artifactId>httpclient</artifactId>
-	        <version>4.3.5</version>
-       </dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+            <version>${tomcat.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+            <version>${tomcat.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-logging-juli</artifactId>
+            <version>${tomcat.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.wso2.developerstudio</groupId>
             <artifactId>org.wso2.developerstudio.workspaceselector.launcher</artifactId>
@@ -76,7 +72,6 @@ limitations under the License.
             <scope>provided</scope>
         </dependency>
     </dependencies>
-
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
         <outputDirectory>target/classes</outputDirectory>

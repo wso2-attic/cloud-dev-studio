@@ -17,15 +17,13 @@ limitations under the License.
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.wso2.developerstudio</groupId>
         <artifactId>developerstudio-extension-core-parent</artifactId>
+        <groupId>org.wso2.developerstudio</groupId>
         <version>4.0.0-SNAPSHOT</version>
     </parent>
-
     <artifactId>core-extension</artifactId>
     <packaging>jar</packaging>
     <name>WSO2 Developer Studio :: Core Extension</name>
-
     <dependencies>
         <dependency>
             <groupId>com.codenvy.ide</groupId>
@@ -33,17 +31,16 @@ limitations under the License.
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.google.gwt.inject</groupId>
-            <artifactId>gin</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.google.gwt.inject</groupId>
+            <artifactId>gin</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
-
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
         <outputDirectory>target/classes</outputDirectory>
@@ -86,11 +83,6 @@ limitations under the License.
             </plugin>
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <configuration>
-                    <tasks>
-                        <copy file="target/${project.artifactId}-${project.version}.jar" tofile="../../../distribution/org.wso2.developerstudio.distribution/resources/extensions/${com.codenvy.sdk.version}/${project.artifactId}-${project.version}.jar"/>
-                    </tasks>
-                </configuration>
                 <executions>
                     <execution>
                         <phase>install</phase>
@@ -99,6 +91,11 @@ limitations under the License.
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <tasks>
+                        <copy file="target/${project.artifactId}-${project.version}.jar" tofile="../../../distribution/org.wso2.developerstudio.distribution/resources/extensions/${com.codenvy.sdk.version}/${project.artifactId}-${project.version}.jar" />
+                    </tasks>
+                </configuration>
             </plugin>
         </plugins>
     </build>

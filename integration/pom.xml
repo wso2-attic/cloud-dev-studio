@@ -14,49 +14,41 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.wso2.developerstudio</groupId>
         <artifactId>developerstudio-parent</artifactId>
+        <groupId>org.wso2.developerstudio</groupId>
         <version>4.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-
     <artifactId>developerstudio-integration-parent</artifactId>
-    <name>WSO2 Developer Studio :: Integration Parent</name>
     <packaging>pom</packaging>
-
+    <name>WSO2 Developer Studio :: Integration Parent</name>
     <modules>
         <module>test-common</module>
         <module>test-integration</module>
         <module>test-ui-integration</module>
-        <!--<module>test-ui-swt</module>--> <!--to introduce swt bot testing for the ui widget-->
+        <!--<module>test-ui-swt</module>-->
+        <!--to introduce swt bot testing for the ui widget-->
     </modules>
-
     <!--adding swtbot-->
     <!--<repositories>-->
-        <!--<repository>-->
-            <!--<id>kepler</id>-->
-            <!--<url>${kepler-repo.url}</url>-->
-            <!--<layout>p2</layout>-->
-        <!--</repository>-->
-        <!--<repository>-->
-            <!--<id>swtbot</id>-->
-            <!--<url>${swtbot-repo.url}</url>-->
-            <!--<layout>p2</layout>-->
-        <!--</repository>-->
+    <!--<repository>-->
+    <!--<id>kepler</id>-->
+    <!--<url>${kepler-repo.url}</url>-->
+    <!--<layout>p2</layout>-->
+    <!--</repository>-->
+    <!--<repository>-->
+    <!--<id>swtbot</id>-->
+    <!--<url>${swtbot-repo.url}</url>-->
+    <!--<layout>p2</layout>-->
+    <!--</repository>-->
     <!--</repositories>-->
-
     <!--<properties>-->
-        <!--<tycho.version>0.19.0</tycho.version>-->
-        <!--<kepler-repo.url>http://download.eclipse.org/releases/kepler</kepler-repo.url>-->
-        <!--<swtbot-repo.url>http://download.eclipse.org/technology/swtbot/releases/latest</swtbot-repo.url>-->
+    <!--<tycho.version>0.19.0</tycho.version>-->
+    <!--<kepler-repo.url>http://download.eclipse.org/releases/kepler</kepler-repo.url>-->
+    <!--<swtbot-repo.url>http://download.eclipse.org/technology/swtbot/releases/latest</swtbot-repo.url>-->
     <!--</properties>-->
-
     <!--adding swtbot-->
-
-
 </project>

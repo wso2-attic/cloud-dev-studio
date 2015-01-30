@@ -14,21 +14,94 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */ -->
-
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>developerstudio-integration-parent</artifactId>
         <groupId>org.wso2.developerstudio</groupId>
         <version>4.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
-
     <artifactId>test-ui-integration</artifactId>
-
-
+    <dependencies>
+        <dependency>
+            <groupId>emma</groupId>
+            <artifactId>emma</artifactId>
+            <version>${emma.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.lingala.zip4j</groupId>
+            <artifactId>zip4j</artifactId>
+            <version>${zip4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.rampart</groupId>
+            <artifactId>rampart-core</artifactId>
+            <version>1.6.1-wso2v13-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>opensaml</artifactId>
+                    <!-- declare the exclusion here -->
+                    <groupId>org.opensaml</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>slf4j-jdk14</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <version>1.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openqa.selenium.server</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon</groupId>
+            <artifactId>org.wso2.carbon.integration.common.admin.client</artifactId>
+            <version>${carbon.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon</groupId>
+            <artifactId>org.wso2.carbon.integration.common.extensions</artifactId>
+            <version>${carbon.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon.automation</groupId>
+            <artifactId>org.wso2.carbon.automation.engine</artifactId>
+            <version>${test.framework.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon.automation</groupId>
+            <artifactId>org.wso2.carbon.automation.extensions</artifactId>
+            <version>${test.framework.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon.automation</groupId>
+            <artifactId>org.wso2.carbon.automation.test.utils</artifactId>
+            <version>${test.framework.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>
@@ -36,7 +109,6 @@
                 <inherited>false</inherited>
                 <configuration>
                     <argLine>-Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=512m</argLine>
-
                     <suiteXmlFiles>
                         <suiteXmlFile>src/test/resources/testng-server-mgt.xml</suiteXmlFile>
                         <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
@@ -52,22 +124,19 @@
                             <name>java.io.tmpdir</name>
                             <value>${basedir}/target/</value>
                         </property>
-                        <!--<property>--> <!--since we are not using the carbon zip format-->
-                            <!--<name>carbon.zip</name>-->
-                            <!--<value>-->
-                            <!--</value>-->
+                        <!--<property>-->
+                        <!--since we are not using the carbon zip format-->
+                        <!--<name>carbon.zip</name>-->
+                        <!--<value>-->
+                        <!--</value>-->
                         <!--</property>-->
                         <property>
                             <name>framework.resource.location</name>
-                            <value>
-                                ${basedir}/src/test/resources/
-                            </value>
+                            <value>${basedir}/src/test/resources/</value>
                         </property>
                         <property>
                             <name>server.list</name>
-                            <value>
-                                DeveloperStudio
-                            </value>
+                            <value>DeveloperStudio</value>
                         </property>
                         <property>
                             <name>usedefaultlisteners</name>
@@ -82,14 +151,12 @@
                     <systemPropertyVariables>
                         <devs.home.target>${basedir}/../../assembly/org.wso2.developerstudio.distribution.assembly/target/</devs.home.target>
                     </systemPropertyVariables>
-
                     <workingDirectory>${basedir}/target</workingDirectory>
                 </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
-
                     <execution>
                         <id>copy-emma-dependencies</id>
                         <phase>compile</phase>
@@ -99,11 +166,9 @@
                         <configuration>
                             <outputDirectory>${project.build.directory}/emma</outputDirectory>
                             <includeTypes>jar</includeTypes>
-                            <includeArtifactIds>emma,org.wso2.carbon.automation.core
-                            </includeArtifactIds>
+                            <includeArtifactIds>emma,org.wso2.carbon.automation.core</includeArtifactIds>
                         </configuration>
                     </execution>
-
                     <execution>
                         <id>copy-secVerifier</id>
                         <phase>compile</phase>
@@ -142,13 +207,10 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${basedir}/src/test/resources/keystores/products
-                            </outputDirectory>
+                            <outputDirectory>${basedir}/src/test/resources/keystores/products</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>
-                                        ${basedir}/target/tobeCopied/wso2developerstudio-${project.version}/repository/resources/security/
-                                    </directory>
+                                    <directory>${basedir}/target/tobeCopied/wso2developerstudio-${project.version}/repository/resources/security/</directory>
                                     <includes>
                                         <include>**/*.jks</include>
                                     </includes>
@@ -163,13 +225,10 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${basedir}/src/test/resources/keystores/stratos
-                            </outputDirectory>
+                            <outputDirectory>${basedir}/src/test/resources/keystores/stratos</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>
-                                        ${basedir}/target/tobeCopied/wso2developerstudio-${project.version}/repository/resources/security/
-                                    </directory>
+                                    <directory>${basedir}/target/tobeCopied/wso2developerstudio-${project.version}/repository/resources/security/</directory>
                                     <includes>
                                         <include>**/*.jks</include>
                                     </includes>
@@ -184,13 +243,10 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${basedir}/src/test/resources/axis2config
-                            </outputDirectory>
+                            <outputDirectory>${basedir}/src/test/resources/axis2config</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>
-                                        ${basedir}/target/tobeCopied/wso2developerstudio-${project.version}/repository/conf/axis2/
-                                    </directory>
+                                    <directory>${basedir}/target/tobeCopied/wso2developerstudio-${project.version}/repository/conf/axis2/</directory>
                                     <includes>
                                         <include>**/*.xml</include>
                                     </includes>
@@ -205,13 +261,10 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${basedir}/src/test/resources/client/modules
-                            </outputDirectory>
+                            <outputDirectory>${basedir}/src/test/resources/client/modules</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>
-                                        ${basedir}/target/tobeCopied/wso2developerstudio-${project.version}/repository/deployment/client/modules
-                                    </directory>
+                                    <directory>${basedir}/target/tobeCopied/wso2developerstudio-${project.version}/repository/deployment/client/modules</directory>
                                     <includes>
                                         <include>**/*.mar</include>
                                     </includes>
@@ -223,83 +276,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <dependencies>
-        <dependency>
-            <groupId>emma</groupId>
-            <artifactId>emma</artifactId>
-            <version>${emma.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>6.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.wso2.carbon.automation</groupId>
-            <artifactId>org.wso2.carbon.automation.engine</artifactId>
-            <version>${test.framework.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.wso2.carbon.automation</groupId>
-            <artifactId>org.wso2.carbon.automation.extensions</artifactId>
-            <version>${test.framework.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.wso2.carbon.automation</groupId>
-            <artifactId>org.wso2.carbon.automation.test.utils</artifactId>
-            <version>${test.framework.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.wso2.carbon</groupId>
-            <artifactId>org.wso2.carbon.integration.common.admin.client</artifactId>
-            <version>${carbon.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.wso2.carbon</groupId>
-            <artifactId>org.wso2.carbon.integration.common.extensions</artifactId>
-            <version>${carbon.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.8.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
-            <version>1.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openqa.selenium.server</groupId>
-            <artifactId>selenium-server</artifactId>
-            <version>${selenium.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.lingala.zip4j</groupId>
-            <artifactId>zip4j</artifactId>
-            <version>${zip4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.rampart</groupId>
-            <artifactId>rampart-core</artifactId>
-            <version>1.6.1-wso2v13-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>  <!-- declare the exclusion here -->
-                    <groupId>org.opensaml</groupId>
-                    <artifactId>opensaml</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-jdk14</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-    </dependencies>
 </project>

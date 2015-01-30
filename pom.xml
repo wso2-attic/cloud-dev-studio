@@ -14,40 +14,88 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
+    <parent>
+        <artifactId>wso2</artifactId>
+        <groupId>org.wso2</groupId>
+        <version>1</version>
+    </parent>
     <groupId>org.wso2.developerstudio</groupId>
     <artifactId>developerstudio-parent</artifactId>
-    <name>WSO2 Developer Studio :: Parent POM</name>
     <version>4.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-
+    <name>WSO2 Developer Studio :: Parent POM</name>
     <modules>
-        <!--<module>extensions</module>-->
+        <module>extensions</module>
         <module>launcher</module>
         <module>assembly</module>
         <module>integration</module>
     </modules>
-
+    <scm>
+        <connection>scm:git:https://github.com/wso2/cloud-dev-studio.git</connection>
+        <developerConnection>scm:git:https://github.com/wso2/cloud-dev-studio.git</developerConnection>
+        <tag>HEAD</tag>
+        <url>https://github.com/wso2/cloud-dev-studio.git</url>
+    </scm>
+    <properties>
+        <appassembler.maven.plugin.version>1.8.1</appassembler.maven.plugin.version>
+        <assembler.app.name>wso2studio</assembler.app.name>
+        <assembler.dir.name>wso2-developer-studio-assembly</assembler.dir.name>
+        <assembly.tomcat.webapp.root>webapps</assembly.tomcat.webapp.root>
+        <axis2.wso2.version.aar.plugin>1.6.2</axis2.wso2.version.aar.plugin>
+        <bin.location>bin</bin.location>
+        <carbon.version>4.3.0-SNAPSHOT</carbon.version>
+        <cef.version>3.1750.1738</cef.version>
+        <codehauese.version>3.0.20</codehauese.version>
+        <com.codenvy.platform.apirunner.version>0.24.0</com.codenvy.platform.apirunner.version>
+        <com.codenvy.sdk.version>3.2.0</com.codenvy.sdk.version>
+        <com.google.gwt.gin.version>2.1.2</com.google.gwt.gin.version>
+        <com.google.gwt.version>2.6.0</com.google.gwt.version>
+        <com.googlecode.gwtquery.version>1.4.2</com.googlecode.gwtquery.version>
+        <commons.io.version>2.4</commons.io.version>
+        <conf.location>configuration</conf.location>
+        <emma.version>2.1.5320</emma.version>
+        <icons.location>icons</icons.location>
+        <kepler-repo.url>http://download.eclipse.org/releases/kepler</kepler-repo.url>
+        <lib.location>lib</lib.location>
+        <logs.location>logs</logs.location>
+        <maven-model.version>3.2.3</maven-model.version>
+        <maven.clean.plugin.version>2.6</maven.clean.plugin.version>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.istall.plugin.version>2.5.1</maven.istall.plugin.version>
+        <maven.sortpom.plugin.version>2.3.0</maven.sortpom.plugin.version>
+        <org.eclipse.swt.version>4.4</org.eclipse.swt.version>
+        <platform.integration.utils.version>4.3.0-SNAPSHOT</platform.integration.utils.version>
+        <previous.version>4.2.0</previous.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.scm.id>scm-server-id</project.scm.id>
+        <selenium.version>1.0-20081010.060147</selenium.version>
+        <skipUiTests>true</skipUiTests>
+        <slf4j.version>1.7.7</slf4j.version>
+        <swtbot-repo.url>http://download.eclipse.org/technology/swtbot/releases/latest</swtbot-repo.url>
+        <temp.location>temp</temp.location>
+        <test.framework.version>4.3.1</test.framework.version>
+        <test.framwork.version>4.3.1</test.framwork.version>
+        <tomcat.version>7.0.34</tomcat.version>
+        <tycho-version>0.7.0-SNAPSHOT</tycho-version>
+        <tycho.maven.version>0.19.0</tycho.maven.version>
+        <tycho.version>0.19.0</tycho.version>
+        <uitest.vmparams>-Xms2048m -Xmx3096m -XX:MaxPermSize=1024m</uitest.vmparams>
+        <zip4j.version>1.3.2</zip4j.version>
+    </properties>
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>com.codenvy.ide</groupId>
-                <artifactId>codenvy-ide-api</artifactId>
+                <artifactId>codenvy-ext-maven</artifactId>
                 <version>${com.codenvy.sdk.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.google.gwt.inject</groupId>
-                <artifactId>gin</artifactId>
-                <version>${com.google.gwt.gin.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.gwt</groupId>
-                <artifactId>gwt-user</artifactId>
-                <version>${com.google.gwt.version}</version>
+                <groupId>com.codenvy.ide</groupId>
+                <artifactId>codenvy-ide-api</artifactId>
+                <version>${com.codenvy.sdk.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.codenvy.ide</groupId>
@@ -55,9 +103,19 @@ limitations under the License.
                 <version>${com.codenvy.sdk.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.codenvy.ide</groupId>
-                <artifactId>codenvy-ext-maven</artifactId>
-                <version>${com.codenvy.sdk.version}</version>
+                <groupId>com.codenvy.platform-api</groupId>
+                <artifactId>codenvy-api-runner</artifactId>
+                <version>${com.codenvy.platform.apirunner.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.gwt</groupId>
+                <artifactId>gwt-user</artifactId>
+                <version>${com.google.gwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.gwt.inject</groupId>
+                <artifactId>gin</artifactId>
+                <version>${com.google.gwt.gin.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.googlecode.gwtquery</groupId>
@@ -65,13 +123,29 @@ limitations under the License.
                 <version>${com.googlecode.gwtquery.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.codenvy.platform-api</groupId>
-                <artifactId>codenvy-api-runner</artifactId>
-                <version>${com.codenvy.platform.apirunner.version}</version>
+                <groupId>org.wso2.carbon</groupId>
+                <artifactId>org.wso2.carbon.integration.common.admin.client</artifactId>
+                <version>${carbon.version}</version>
+                <scope>test</scope>
             </dependency>
-
-
-            <!--test integration dependencies-->
+            <dependency>
+                <groupId>org.wso2.carbon</groupId>
+                <artifactId>org.wso2.carbon.integration.common.extensions</artifactId>
+                <version>${carbon.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.carbon</groupId>
+                <artifactId>org.wso2.carbon.integration.common.tests</artifactId>
+                <version>${carbon.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.carbon</groupId>
+                <artifactId>org.wso2.carbon.integration.common.utils</artifactId>
+                <version>${carbon.version}</version>
+                <scope>test</scope>
+            </dependency>
             <dependency>
                 <groupId>org.wso2.carbon.automation</groupId>
                 <artifactId>org.wso2.carbon.automation.engine</artifactId>
@@ -90,95 +164,63 @@ limitations under the License.
                 <version>${test.framwork.version}</version>
                 <scope>test</scope>
             </dependency>
-            <dependency>
-                <groupId>org.wso2.carbon</groupId>
-                <artifactId>org.wso2.carbon.integration.common.extensions</artifactId>
-                <version>${carbon.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.wso2.carbon</groupId>
-                <artifactId>org.wso2.carbon.integration.common.admin.client</artifactId>
-                <version>${carbon.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.wso2.carbon</groupId>
-                <artifactId>org.wso2.carbon.integration.common.utils</artifactId>
-                <version>${carbon.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.wso2.carbon</groupId>
-                <artifactId>org.wso2.carbon.integration.common.tests</artifactId>
-                <version>${carbon.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <!--test integration dependencies-->
         </dependencies>
     </dependencyManagement>
-
     <repositories>
         <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
             <id>codenvy-public-repo</id>
             <name>codenvy public</name>
             <url>https://maven.codenvycorp.com/content/groups/public/</url>
-             <layout>default</layout>
-            <snapshots>
-              <enabled>false</enabled>
-            </snapshots>
+            <layout>default</layout>
         </repository>
         <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
             <id>wso2-public-repo</id>
             <name>wso2 public</name>
             <url>http://maven.wso2.org/nexus/content/groups/wso2-public/</url>
-             <layout>default</layout>
-            <snapshots>
-              <enabled>false</enabled>
-            </snapshots>
+            <layout>default</layout>
         </repository>
-      <repository>
-        <id>swt-repo</id>
-        <url>https://swt-repo.googlecode.com/svn/repo/</url>
-       </repository>
-        <!--for test automation dependencies-->
         <repository>
+            <id>swt-repo</id>
+            <url>https://swt-repo.googlecode.com/svn/repo/</url>
+        </repository>
+        <repository>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>ignore</checksumPolicy>
+            </releases>
             <id>wso2-nexus</id>
             <name>WSO2 internal Repository</name>
             <url>http://maven.wso2.org/nexus/content/groups/wso2-public/</url>
+        </repository>
+        <repository>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>daily</updatePolicy>
                 <checksumPolicy>ignore</checksumPolicy>
             </releases>
-        </repository>
-
-        <repository>
             <id>wso2.releases</id>
             <name>WSO2 internal Repository</name>
             <url>http://maven.wso2.org/nexus/content/repositories/releases/</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-                <checksumPolicy>ignore</checksumPolicy>
-            </releases>
         </repository>
-
         <repository>
-            <id>wso2.snapshots</id>
-            <name>WSO2 Snapshot Repository</name>
-            <url>http://maven.wso2.org/nexus/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
             <snapshots>
                 <enabled>true</enabled>
                 <updatePolicy>daily</updatePolicy>
             </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
+            <id>wso2.snapshots</id>
+            <name>WSO2 Snapshot Repository</name>
+            <url>http://maven.wso2.org/nexus/content/repositories/snapshots/</url>
         </repository>
-        <!--test integration repositories-->
-
-        <!--SWT bot repositories-->
         <repository>
             <id>kepler</id>
             <url>${kepler-repo.url}</url>
@@ -189,33 +231,62 @@ limitations under the License.
             <url>${swtbot-repo.url}</url>
             <layout>p2</layout>
         </repository>
-        <!--SWT bot repositories-->
     </repositories>
-
     <pluginRepositories>
         <pluginRepository>
+            <releases>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
             <id>codenvy-public-repo</id>
             <name>codenvy public</name>
             <url>https://maven.codenvycorp.com/content/groups/public/</url>
-            <snapshots>
-              <enabled>false</enabled>
-            </snapshots>
-              <releases>
-                  <updatePolicy>never</updatePolicy>
-             </releases>
         </pluginRepository>
     </pluginRepositories>
-
     <build>
         <plugins>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.2</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.google.code.sortpom</groupId>
+                <artifactId>maven-sortpom-plugin</artifactId>
+                <version>${maven.sortpom.plugin.version}</version>
+                <configuration>
+                    <expandEmptyElements>false</expandEmptyElements>
+                    <nrOfIndentSpace>4</nrOfIndentSpace>
+                    <createBackupFile>false</createBackupFile>
+                    <sortProperties>true</sortProperties>
+                    <sortDependencies>scope,groupId,artifactId</sortDependencies>
+                    <verifyFail>Stop</verifyFail>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+                    <preparationGoals>clean install</preparationGoals>
+                    <autoVersionSubmodules>false</autoVersionSubmodules>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.eclipse.tycho</groupId>
                 <artifactId>tycho-maven-plugin</artifactId>
                 <version>0.19.0</version>
                 <extensions>true</extensions>
             </plugin>
-
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -226,7 +297,6 @@ limitations under the License.
                             <goal>prepare-agent</goal>
                         </goals>
                         <configuration>
-                            <!-- Where to put jacoco coverage report -->
                             <destFile>../target/jacoco.exec</destFile>
                             <includes>
                                 <include>mathutils.*</include>
@@ -238,57 +308,4 @@ limitations under the License.
             </plugin>
         </plugins>
     </build>
-
-    <properties>
-        <com.codenvy.sdk.version>3.2.0</com.codenvy.sdk.version>
-        <com.google.gwt.gin.version>2.1.2</com.google.gwt.gin.version>
-        <com.google.gwt.version>2.6.0</com.google.gwt.version>
-        <com.codenvy.platform.apirunner.version>0.24.0</com.codenvy.platform.apirunner.version>
-        <maven.istall.plugin.version>2.5.1</maven.istall.plugin.version>
-        <maven.clean.plugin.version>2.6</maven.clean.plugin.version>
-        <appassembler.maven.plugin.version>1.8.1</appassembler.maven.plugin.version>
-        <com.googlecode.gwtquery.version>1.4.2</com.googlecode.gwtquery.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
-        <tomcat.version>7.0.34</tomcat.version>
-        <cef.version>3.1750.1738</cef.version>
-        <slf4j.version>1.7.7</slf4j.version>
-        <org.eclipse.swt.version>4.4</org.eclipse.swt.version>
-        <assembler.dir.name>wso2-developer-studio-assembly</assembler.dir.name>
-        <assembler.app.name>wso2studio</assembler.app.name>
-        <maven-model.version>3.2.3</maven-model.version>
-        <codehauese.version>3.0.20</codehauese.version>
-        <commons.io.version>2.4</commons.io.version>
-        <zip4j.version>1.3.2</zip4j.version>
-        <!--- IDE Structure -->
-        <bin.location>bin</bin.location>
-        <lib.location>lib</lib.location>
-        <conf.location>configuration</conf.location>
-        <icons.location>icons</icons.location>
-        <temp.location>temp</temp.location>
-        <logs.location>logs</logs.location>
-        <!-- <assembly.tomcat.webapp.root>repository/deployment/server/webapps</assembly.tomcat.webapp.root> -->
-        <assembly.tomcat.webapp.root>webapps</assembly.tomcat.webapp.root>
-        <!--integration test versions-->
-        <emma.version>2.1.5320</emma.version>
-        <axis2.wso2.version.aar.plugin>1.6.2</axis2.wso2.version.aar.plugin>
-        <previous.version>4.2.0</previous.version>
-        <test.framwork.version>4.3.1</test.framwork.version>
-        <platform.integration.utils.version>4.3.0-SNAPSHOT</platform.integration.utils.version>
-        <carbon.version>4.3.0-SNAPSHOT</carbon.version>
-        <test.framework.version>4.3.1</test.framework.version>
-        <tycho-version>0.7.0-SNAPSHOT</tycho-version>
-        <tycho.maven.version>0.19.0</tycho.maven.version>
-        <selenium.version>1.0-20081010.060147</selenium.version>
-        <uitest.vmparams>-Xms2048m -Xmx3096m -XX:MaxPermSize=1024m</uitest.vmparams>
-        <!--Skips UI tests by default and runs them only on user request-->
-        <skipUiTests>true</skipUiTests>
-
-        <!--swtbot dependencies-->
-            <tycho.version>0.19.0</tycho.version>
-            <kepler-repo.url>http://download.eclipse.org/releases/kepler</kepler-repo.url>
-            <swtbot-repo.url>http://download.eclipse.org/technology/swtbot/releases/latest</swtbot-repo.url>
-    </properties>
-
 </project>

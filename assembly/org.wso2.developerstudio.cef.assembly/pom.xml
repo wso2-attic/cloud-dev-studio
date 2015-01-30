@@ -14,21 +14,43 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
-        <groupId>org.wso2.developerstudio</groupId>
         <artifactId>developerstudio-distribution-parent</artifactId>
+        <groupId>org.wso2.developerstudio</groupId>
         <version>4.0.0-SNAPSHOT</version>
     </parent>
-
     <artifactId>developerstudio-assembly-cef</artifactId>
-    <name>WSO2 Developer Studio :: Assembly-CEF</name>
     <packaging>pom</packaging>
-
+    <name>WSO2 Developer Studio :: Assembly-CEF</name>
     <dependencies>
+        <dependency>
+            <groupId>com.codenvy.sdk</groupId>
+            <artifactId>codenvy-sdk-parent</artifactId>
+            <version>${com.codenvy.sdk.version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.swt</groupId>
+            <artifactId>org.eclipse.swt.cocoa.macosx.x86_64</artifactId>
+            <version>${org.eclipse.swt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.swt</groupId>
+            <artifactId>org.eclipse.swt.gtk.linux.x86_64</artifactId>
+            <version>${org.eclipse.swt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.7</version>
+        </dependency>
         <dependency>
             <groupId>org.wso2.developerstudio</groupId>
             <artifactId>org.wso2.developerstudio.sever.launcher</artifactId>
@@ -39,54 +61,7 @@ limitations under the License.
             <artifactId>org.wso2.developerstudio.workspaceselector.launcher</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.0.2</version>
-        </dependency>
-        <!-- <dependency>
-          <groupId>org.eclipse.swt</groupId>
-          <artifactId>org.eclipse.swt.cocoa.macosx</artifactId>
-          <version>${org.eclipse.swt.version}</version>
-        </dependency> -->
-       <dependency>
-        <groupId>org.eclipse.swt</groupId>
-        <artifactId>org.eclipse.swt.cocoa.macosx.x86_64</artifactId>
-        <version>${org.eclipse.swt.version}</version>
-       </dependency>
-       <!-- <dependency>
-         <groupId>org.eclipse.swt</groupId>
-         <artifactId>org.eclipse.swt.gtk.linux.x86</artifactId>
-         <version>${org.eclipse.swt.version}</version>
-       </dependency> -->
-       <dependency>
-        <groupId>org.eclipse.swt</groupId>
-        <artifactId>org.eclipse.swt.gtk.linux.x86_64</artifactId>
-        <version>${org.eclipse.swt.version}</version>
-       </dependency>
-      <!-- <dependency>
-        <groupId>org.eclipse.swt</groupId>
-        <artifactId>org.eclipse.swt.win32.win32.x86_64</artifactId>
-        <version>${org.eclipse.swt.version}</version>
-      </dependency> -->
-       <!-- <dependency>
-         <groupId>org.eclipse.swt</groupId>
-         <artifactId>org.eclipse.swt.win32.win32.x86</artifactId>
-         <version>${org.eclipse.swt.version}</version>
-       </dependency> -->
-	      <dependency>
-     		 <groupId>com.codenvy.sdk</groupId>
-     		 <artifactId>codenvy-sdk-parent</artifactId>
-     		 <version>${com.codenvy.sdk.version}</version>
-      		 <type>pom</type>
-      </dependency>
     </dependencies>
-
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
         <outputDirectory>target/classes</outputDirectory>
@@ -123,30 +98,23 @@ limitations under the License.
                                         <commandLineArgument>${assembly.tomcat.webapp.root}</commandLineArgument>
                                     </commandLineArguments>
                                 </program>
-
                             </programs>
                             <assembleDirectory>target/${assembler.dir.name}</assembleDirectory>
-
                             <generateRepository>true</generateRepository>
                             <repositoryLayout>flat</repositoryLayout>
                             <repositoryName>${lib.location}</repositoryName>
                             <useWildcardClassPath>true</useWildcardClassPath>
-
                             <configurationDirectory>${conf.location}</configurationDirectory>
                             <configurationSourceDirectory>${project.basedir}/resources/configs</configurationSourceDirectory>
                             <copyConfigurationDirectory>true</copyConfigurationDirectory>
                             <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
-
                             <logsDirectory>logs</logsDirectory>
                             <tempDirectory>temp</tempDirectory>
-
                             <binFileExtensions>
                                 <unix>.sh</unix>
                             </binFileExtensions>
-
                             <unixScriptTemplate>${project.basedir}/resources/shell_scripts/unixTemplate</unixScriptTemplate>
                             <windowsScriptTemplate>${project.basedir}/resources/shell_scripts/winTemplate</windowsScriptTemplate>
-
                             <licenseHeaderFile>${project.basedir}/resources/license_header.txt</licenseHeaderFile>
                         </configuration>
                     </execution>
@@ -157,10 +125,10 @@ limitations under the License.
                             <goal>assemble</goal>
                         </goals>
                         <configuration>
-                          <platforms>
-                            <!--<platform>windows</platform> -->
-                         <platform>unix</platform>
-                          </platforms>
+                            <platforms>
+                                <!--<platform>windows</platform> -->
+                                <platform>unix</platform>
+                            </platforms>
                             <programs>
                                 <program>
                                     <mainClass>org.wso2.developerstudio.workspaceselector.launcher.WorkspaceSelectorBootstrap</mainClass>
@@ -172,7 +140,6 @@ limitations under the License.
                                     <commandLineArguments>
                                         <commandLineArgument>${assembly.tomcat.webapp.root}</commandLineArgument>
                                     </commandLineArguments>
-
                                 </program>
                             </programs>
                             <assembleDirectory>target/${assembler.dir.name}</assembleDirectory>
@@ -180,12 +147,10 @@ limitations under the License.
                             <repositoryLayout>flat</repositoryLayout>
                             <repositoryName>${lib.location}</repositoryName>
                             <useWildcardClassPath>true</useWildcardClassPath>
-
                             <configurationDirectory>${conf.location}</configurationDirectory>
                             <configurationSourceDirectory>${project.basedir}/resources/configs</configurationSourceDirectory>
                             <copyConfigurationDirectory>true</copyConfigurationDirectory>
                             <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
-
                             <logsDirectory>${logs.location}</logsDirectory>
                             <tempDirectory>${temp.location}</tempDirectory>
                             <binFileExtensions>
@@ -199,27 +164,27 @@ limitations under the License.
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
-                  <execution>
-                      <id>prepare_disributions</id>
-                      <phase>prepare-package</phase>
-                      <goals>
-                          <goal>run</goal>
-                      </goals>
-                      <configuration>
-                          <tasks>
-                              <copy todir="${project.basedir}/target/${assembler.dir.name}/${icons.location}">
-                                  <fileset dir="${project.basedir}/resources/images/" includes="**/*" />
-                              </copy>
-                              <copy todir="${project.basedir}/target/${assembler.dir.name}">
-                                  <fileset dir="${project.basedir}/resources/" includes="README.md" />
-                              </copy>
-                              <copy todir="${project.basedir}/target/${assembler.dir.name}">
-                                  <fileset dir="${project.basedir}/resources/" includes="LICENSE.txt" />
-                              </copy>
-                              <delete dir="${project.basedir}/target/${assembler.dir.name}/repo"/>
-                          </tasks>
-                      </configuration>
-                  </execution>
+                    <execution>
+                        <id>prepare_disributions</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <copy todir="${project.basedir}/target/${assembler.dir.name}/${icons.location}">
+                                    <fileset dir="${project.basedir}/resources/images/" includes="**/*" />
+                                </copy>
+                                <copy todir="${project.basedir}/target/${assembler.dir.name}">
+                                    <fileset dir="${project.basedir}/resources/" includes="README.md" />
+                                </copy>
+                                <copy todir="${project.basedir}/target/${assembler.dir.name}">
+                                    <fileset dir="${project.basedir}/resources/" includes="LICENSE.txt" />
+                                </copy>
+                                <delete dir="${project.basedir}/target/${assembler.dir.name}/repo" />
+                            </tasks>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>

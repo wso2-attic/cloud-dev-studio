@@ -14,13 +14,11 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.wso2.developerstudio</groupId>
         <artifactId>developerstudio-distribution-parent</artifactId>
+        <groupId>org.wso2.developerstudio</groupId>
         <version>4.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>developerstudio-assembly-distributions</artifactId>
@@ -40,22 +38,11 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                         </goals>
                         <configuration>
                             <tasks>
-                                <unwar src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api.war"
-                                       dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api"
-                                        />
-                                <unwar src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/ws.war"
-                                       dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/ws"
-                                        />
-                                <unwar src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/java-ca.war"
-                                       dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/java-ca"
-                                        />
-                                <unwar src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/datasource.war"
-                                       dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/datasource"
-                                        />
-                                <unwar src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api-docs-ui.war"
-                                       dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api-docs-ui"
-                                        />
-
+                                <unwar dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api" src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api.war" />
+                                <unwar dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/ws" src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/ws.war" />
+                                <unwar dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/java-ca" src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/java-ca.war" />
+                                <unwar dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/datasource" src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/datasource.war" />
+                                <unwar dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api-docs-ui" src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api-docs-ui.war" />
                             </tasks>
                         </configuration>
                     </execution>
@@ -74,9 +61,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                             <appendAssemblyId>false</appendAssemblyId>
                             <updateOnly>false</updateOnly>
                             <descriptors>
-                                <descriptor>
-                                    ${basedir}/resources/descriptors/binary-archive_linux64.xml
-                                </descriptor>
+                                <descriptor>${basedir}/resources/descriptors/binary-archive_linux64.xml</descriptor>
                             </descriptors>
                             <finalName>wso2-developer-studio-linux64</finalName>
                         </configuration>
@@ -91,9 +76,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                             <appendAssemblyId>false</appendAssemblyId>
                             <updateOnly>false</updateOnly>
                             <descriptors>
-                                <descriptor>
-                                    ${basedir}/resources/descriptors/binary-archive_mac64.xml
-                                </descriptor>
+                                <descriptor>${basedir}/resources/descriptors/binary-archive_mac64.xml</descriptor>
                             </descriptors>
                             <finalName>wso2-developer-studio-mac64</finalName>
                         </configuration>
