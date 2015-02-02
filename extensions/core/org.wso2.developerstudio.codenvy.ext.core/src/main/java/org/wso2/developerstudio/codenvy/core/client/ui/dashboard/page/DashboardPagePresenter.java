@@ -96,6 +96,11 @@ public class DashboardPagePresenter extends AbstractEditorPresenter implements D
     public void activate() {
     }
 
+    @Override
+    public void close(boolean b) {
+
+    }
+
     public Map<String, List<DashboardItem>> generateItemMap() {
 
         itemMap =  new HashMap<String, List<DashboardItem>>();

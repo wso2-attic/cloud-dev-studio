@@ -45,11 +45,10 @@ limitations under the License.
         <assembly.tomcat.webapp.root>webapps</assembly.tomcat.webapp.root>
         <axis2.wso2.version.aar.plugin>1.6.2</axis2.wso2.version.aar.plugin>
         <bin.location>bin</bin.location>
-        <carbon.version>4.3.0-SNAPSHOT</carbon.version>
         <cef.version>3.1750.1738</cef.version>
         <codehauese.version>3.0.20</codehauese.version>
         <com.codenvy.platform.apirunner.version>0.24.0</com.codenvy.platform.apirunner.version>
-        <com.codenvy.sdk.version>3.2.0</com.codenvy.sdk.version>
+        <com.codenvy.sdk.version>3.5.0</com.codenvy.sdk.version>
         <com.google.gwt.gin.version>2.1.2</com.google.gwt.gin.version>
         <com.google.gwt.version>2.6.0</com.google.gwt.version>
         <com.googlecode.gwtquery.version>1.4.2</com.googlecode.gwtquery.version>
@@ -77,7 +76,6 @@ limitations under the License.
         <swtbot-repo.url>http://download.eclipse.org/technology/swtbot/releases/latest</swtbot-repo.url>
         <temp.location>temp</temp.location>
         <test.framework.version>4.3.1</test.framework.version>
-        <test.framwork.version>4.3.1</test.framwork.version>
         <tomcat.version>7.0.34</tomcat.version>
         <tycho.maven.version>0.19.0</tycho.maven.version>
         <tycho.version>0.19.0</tycho.version>
@@ -148,19 +146,19 @@ limitations under the License.
             <dependency>
                 <groupId>org.wso2.carbon.automation</groupId>
                 <artifactId>org.wso2.carbon.automation.engine</artifactId>
-                <version>${test.framwork.version}</version>
+                <version>${test.framework.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.wso2.carbon.automation</groupId>
                 <artifactId>org.wso2.carbon.automation.extensions</artifactId>
-                <version>${test.framwork.version}</version>
+                <version>${test.framework.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.wso2.carbon.automation</groupId>
                 <artifactId>org.wso2.carbon.automation.test.utils</artifactId>
-                <version>${test.framwork.version}</version>
+                <version>${test.framework.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
