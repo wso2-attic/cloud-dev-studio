@@ -67,7 +67,7 @@ limitations under the License.
         <maven.istall.plugin.version>2.5.1</maven.istall.plugin.version>
         <maven.sortpom.plugin.version>2.3.0</maven.sortpom.plugin.version>
         <org.eclipse.swt.version>4.4</org.eclipse.swt.version>
-        <platform.integration.utils.version>4.3.0-SNAPSHOT</platform.integration.utils.version>
+        <platform.integration.utils.version>4.3.0</platform.integration.utils.version>
         <previous.version>4.2.0</previous.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.scm.id>scm-server-id</project.scm.id>
@@ -79,7 +79,6 @@ limitations under the License.
         <test.framework.version>4.3.1</test.framework.version>
         <test.framwork.version>4.3.1</test.framwork.version>
         <tomcat.version>7.0.34</tomcat.version>
-        <tycho-version>0.7.0-SNAPSHOT</tycho-version>
         <tycho.maven.version>0.19.0</tycho.maven.version>
         <tycho.version>0.19.0</tycho.version>
         <uitest.vmparams>-Xms2048m -Xmx3096m -XX:MaxPermSize=1024m</uitest.vmparams>
