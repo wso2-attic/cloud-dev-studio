@@ -122,27 +122,27 @@ limitations under the License.
                 <version>${com.googlecode.gwtquery.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.wso2.carbon</groupId>
+                <groupId>org.wso2.carbon.automationutils</groupId>
                 <artifactId>org.wso2.carbon.integration.common.admin.client</artifactId>
-                <version>${carbon.version}</version>
+                <version>${platform.integration.utils.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.wso2.carbon</groupId>
+                <groupId>org.wso2.carbon.automationutils</groupId>
                 <artifactId>org.wso2.carbon.integration.common.extensions</artifactId>
-                <version>${carbon.version}</version>
+                <version>${platform.integration.utils.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.wso2.carbon</groupId>
+                <groupId>org.wso2.carbon.automationutils</groupId>
                 <artifactId>org.wso2.carbon.integration.common.tests</artifactId>
-                <version>${carbon.version}</version>
+                <version>${platform.integration.utils.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.wso2.carbon</groupId>
+                <groupId>org.wso2.carbon.automationutils</groupId>
                 <artifactId>org.wso2.carbon.integration.common.utils</artifactId>
-                <version>${carbon.version}</version>
+                <version>${platform.integration.utils.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
