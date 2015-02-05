@@ -22,6 +22,7 @@ import com.codenvy.api.project.server.ProjectGenerator;
 import com.codenvy.api.project.shared.dto.NewProject;
 import com.codenvy.ide.maven.tools.Model;
 
+
 import org.wso2.developerstudio.che.ext.esb.shared.ESBProjectConstants;
 
 
@@ -47,12 +48,16 @@ public class ESBProjectGenerator implements ProjectGenerator {
         model.setGroupId(newProjectDescriptor.getAttributes().get(ESBProjectConstants.GROUP_ID).get(0));
         model.setArtifactId(newProjectDescriptor.getAttributes().get(ESBProjectConstants.ARTIFACT_ID).get(0));
         model.setVersion(newProjectDescriptor.getAttributes().get(ESBProjectConstants.VERSION).get(0));
+
+
         FileEntry pomFile = baseFolder.createFile("pom.xml", (byte[])null, "text/xml");
 
         model.writeTo(pomFile.getVirtualFile());
 
-
-        FolderEntry dbsFolder = baseFolder.createFolder("SynapseConfigs");
-        dbsFolder.createFile(baseFolder.getName() + ".esb.proxy", TAG.getBytes(), "text/xml+wso2-esb");
+        FolderEntry srcFolder = baseFolder.createFolder("src");
+        FolderEntry srcMainFolder = srcFolder.createFolder("main");
+        FolderEntry synapseFolder = srcMainFolder.createFolder("synapse-config");
+        FolderEntry sequenceFolder = synapseFolder.createFolder("sequences");
+        //synapseFolder.createFile(baseFolder.getName() + ".esb.proxy", TAG.getBytes(), "text/xml+wso2-esb");
     }
 }
