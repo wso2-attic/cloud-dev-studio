@@ -21,8 +21,6 @@ public interface ServerConstants {
 
 	String RELATIVE_WEB_ROOT = separator + "webapps";
 	String STUDIO_ROOT_ENV_VAR_NAME = "WSO2_DEVELOPER_STUDIO_PATH";
-	String WEB_APPS_DIR = "webapps";
-	String WEB_XML_FILE = "web.xml";
 	String PID_SYS_PROPERTY = "app.pid";
 	String IDE_CONTEXT_PATH = "/ws";
 	String LOCAL_HOST = "http://localhost:";
