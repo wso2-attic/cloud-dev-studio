@@ -24,6 +24,13 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
     <artifactId>developerstudio-assembly-ide</artifactId>
     <packaging>pom</packaging>
     <name>WSO2 Developer Studio :: Assembly-IDE</name>
+    <dependencies>
+        <dependency>
+            <groupId>com.codenvy.sdk</groupId>
+            <artifactId>codenvy-sdk-parent</artifactId>
+            <version>${com.codenvy.sdk.version}</version>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>
