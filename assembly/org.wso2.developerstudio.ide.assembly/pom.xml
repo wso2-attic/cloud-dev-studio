@@ -24,13 +24,6 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
     <artifactId>developerstudio-assembly-ide</artifactId>
     <packaging>pom</packaging>
     <name>WSO2 Developer Studio :: Assembly-IDE</name>
-    <dependencies>
-        <dependency>
-            <groupId>com.codenvy.sdk</groupId>
-            <artifactId>codenvy-sdk-parent</artifactId>
-            <version>${com.codenvy.sdk.version}</version>
-        </dependency>
-    </dependencies>
     <build>
         <plugins>
             <plugin>
@@ -39,7 +32,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                 <version>2.8</version>
                 <executions>
                     <execution>
-                        <id>copy</id>
+                        <id>copy-sdk</id>
                         <phase>validate</phase>
                         <goals>
                             <goal>copy</goal>
@@ -56,6 +49,26 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                                     <outputDirectory>${basedir}/resources/codenvy-sdk/</outputDirectory>
                                     <destFileName>${com.codenvy.sdk.version}.zip</destFileName>
                                 </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-extensions</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <!--<artifactItem>-->
+                                    <!--<groupId>org.wso2.developerstudio</groupId>-->
+                                    <!--<artifactId>core-extension</artifactId>-->
+                                    <!--<version>4.0.0-SNAPSHOT</version>-->
+                                    <!--<type>jar</type>-->
+                                    <!--<overWrite>false</overWrite>-->
+                                    <!--<outputDirectory>${basedir}/target/${com.codenvy.sdk.version}/ext/</outputDirectory>-->
+                                    <!--<destFileName>core-extension-${com.codenvy.sdk.version}.jar</destFileName>-->
+                                <!--</artifactItem>-->
                             </artifactItems>
                         </configuration>
                     </execution>

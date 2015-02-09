@@ -48,7 +48,7 @@ limitations under the License.
         <cef.version>3.1750.1738</cef.version>
         <codehauese.version>3.0.20</codehauese.version>
         <com.codenvy.platform.apirunner.version>0.24.0</com.codenvy.platform.apirunner.version>
-        <com.codenvy.sdk.version>3.5.0</com.codenvy.sdk.version>
+        <com.codenvy.sdk.version>3.2.0</com.codenvy.sdk.version>
         <com.google.gwt.gin.version>2.1.2</com.google.gwt.gin.version>
         <com.google.gwt.version>2.6.0</com.google.gwt.version>
         <com.googlecode.gwtquery.version>1.4.2</com.googlecode.gwtquery.version>
