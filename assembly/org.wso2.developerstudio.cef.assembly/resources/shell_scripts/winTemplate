@@ -50,6 +50,9 @@ set BASEDIR=%~dp0\..
 set REPO=
 #ENV_SETUP#
 
+set WSO2_DEVELOPER_STUDIO_PATH=%BASEDIR%
+set DEV_STUDIO_CONF_DIR=%WSO2_DEVELOPER_STUDIO_PATH%\configuration
+
 if "%JAVACMD%"=="" set JAVACMD=#JAVA_BINARY#
 
 if "%REPO%"=="" set REPO=%BASEDIR%\#REPO#
@@ -64,8 +67,20 @@ if NOT "%CLASSPATH_PREFIX%" == "" set CLASSPATH=%CLASSPATH_PREFIX%;%CLASSPATH%
 @REM Reaching here means variables are defined and arguments have been captured
 :endInit
 
-%JAVACMD% %JAVA_OPTS% #EXTRA_JVM_ARGUMENTS# -classpath %CLASSPATH% -Dapp.name="#APP_NAME#" -Dapp.repo="%REPO%" -Dapp.home="%BASEDIR%" -Dbasedir="%BASEDIR%" #MAINCLASS# #APP_ARGUMENTS#%CMD_LINE_ARGS%
-if %ERRORLEVEL% NEQ 0 goto error
+@REM If you need remote debug uncomment the below line
+@REM -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=1044
+set COMMANDD_ARGS=-classpath %CLASSPATH% %JAVA_OPTS% ^
+  -Dwso2.devstudio.base="%WSO2_DEVELOPER_STUDIO_PATH%" ^
+  -Djava.library.path="%WSO2_DEVELOPER_STUDIO_PATH%\lib" ^
+  -Ddeveloper_studio.local.conf.dir="%DEV_STUDIO_CONF_DIR%" ^
+  -Dcatalina.base="%WSO2_DEVELOPER_STUDIO_PATH%\temp" ^
+  -Djava.io.temp="%WSO2_DEVELOPER_STUDIO_PATH%\temp" ^
+  -Dapp.name="workspace" ^
+  -Dapp.repo="%REPO%" ^
+  -Dapp.home="%BASEDIR%" ^
+  -Dbasedir="%BASEDIR%"
+%JAVACMD% %COMMANDD_ARGS% org.wso2.developerstudio.workspaceselector.launcher.WorkspaceSelectorBootstrap %CMD_LINE_ARGS%
+ if %ERRORLEVEL% NEQ 0 goto error
 goto end
 
 :error
