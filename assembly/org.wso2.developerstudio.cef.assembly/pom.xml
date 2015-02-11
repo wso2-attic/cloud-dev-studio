@@ -43,6 +43,11 @@ limitations under the License.
         </dependency>
         <dependency>
             <groupId>org.eclipse.swt</groupId>
+            <artifactId>org.eclipse.swt.win32.win32.x86_64</artifactId>
+            <version>${org.eclipse.swt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.swt</groupId>
             <artifactId>org.eclipse.swt.gtk.linux.x86_64</artifactId>
             <version>${org.eclipse.swt.version}</version>
         </dependency>
@@ -112,6 +117,7 @@ limitations under the License.
                             <tempDirectory>temp</tempDirectory>
                             <binFileExtensions>
                                 <unix>.sh</unix>
+                                <windows>.bat</windows>
                             </binFileExtensions>
                             <unixScriptTemplate>${project.basedir}/resources/shell_scripts/unixTemplate</unixScriptTemplate>
                             <windowsScriptTemplate>${project.basedir}/resources/shell_scripts/winTemplate</windowsScriptTemplate>

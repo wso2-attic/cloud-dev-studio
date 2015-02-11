@@ -81,6 +81,21 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                             <finalName>wso2-developer-studio-mac64</finalName>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>package-embedded-windows64-binary</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <updateOnly>false</updateOnly>
+                            <descriptors>
+                                <descriptor>${basedir}/resources/descriptors/binary-archive_win64.xml</descriptor>
+                            </descriptors>
+                            <finalName>wso2-developer-studio-windows64</finalName>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>

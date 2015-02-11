@@ -54,48 +54,12 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                             </artifactItems>
                         </configuration>
                     </execution>
-                    <!--<execution>-->
-                        <!--<id>copy-extensions</id>-->
-                        <!--<phase>generate-sources</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>copy</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<artifactItems>-->
-                                <!--<artifactItem>-->
-                                    <!--&lt;!&ndash;<groupId>org.wso2.developerstudio</groupId>&ndash;&gt;-->
-                                    <!--&lt;!&ndash;<artifactId>core-extension</artifactId>&ndash;&gt;-->
-                                    <!--&lt;!&ndash;<version>4.0.0-SNAPSHOT</version>&ndash;&gt;-->
-                                    <!--&lt;!&ndash;<type>jar</type>&ndash;&gt;-->
-                                    <!--&lt;!&ndash;<overWrite>false</overWrite>&ndash;&gt;-->
-                                    <!--&lt;!&ndash;<outputDirectory>${basedir}/target/${com.codenvy.sdk.version}/ext/</outputDirectory>&ndash;&gt;-->
-                                    <!--&lt;!&ndash;<destFileName>core-extension-${com.codenvy.sdk.version}.jar</destFileName>&ndash;&gt;-->
-                                <!--</artifactItem>-->
-                            <!--</artifactItems>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
                 </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
-                    <!--<execution>-->
-                        <!--<id>delete_remote.repositories_file</id>-->
-                        <!--<phase>validate</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>run</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<tasks>-->
-                                <!--<delete>-->
-                                    <!--<fileset dir="${settings.localRepository}/com/codenvy/sdk/codenvy-sdk-parent/${com.codenvy.sdk.version}">-->
-                                        <!--<include name="**/*.repositories" />-->
-                                    <!--</fileset>-->
-                                <!--</delete>-->
-                            <!--</tasks>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
                     <execution>
                         <id>unpack-default-sdk</id>
                         <phase>validate</phase>
