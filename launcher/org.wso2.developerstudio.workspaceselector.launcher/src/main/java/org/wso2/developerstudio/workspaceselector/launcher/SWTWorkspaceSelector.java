@@ -509,18 +509,19 @@ public class SWTWorkspaceSelector {
 	 */
 	private String validateUserWorkSpace(String workspace) {
 		workspace = FilenameUtils.normalize(workspace); // if not a valid file name will return null
-		String homeLoc = System.getProperty(USER_HOME);
-		if (workspace != null) {
-			if (workspace.contains(File.separator)) {
-				String[] workSpaceToCheck = workspace.split(File.separator);
-				File fileLocToCheck = new File(File.separator + workSpaceToCheck[1]);
-				if (null != homeLoc && !fileLocToCheck.exists()) {
-					return homeLoc + File.separator + workspace;
-				}
-			} else if (homeLoc != null) {
-				return homeLoc + File.separator + workspace;
-			}
-		}
+//TODO	redo this code thinking of all environments (windows)
+//		String homeLoc = System.getProperty(USER_HOME);
+//		if (workspace != null) {
+//			if (workspace.contains(File.separator)) {
+//				String[] workSpaceToCheck = workspace.split(File.separator);
+//				File fileLocToCheck = new File(File.separator + workSpaceToCheck[1]);
+//				if (null != homeLoc && !fileLocToCheck.exists()) {
+//					return homeLoc + File.separator + workspace;
+//				}
+//			} else if (homeLoc != null) {
+//				return homeLoc + File.separator + workspace;
+//			}
+//		}
 		return workspace;
 	}
 

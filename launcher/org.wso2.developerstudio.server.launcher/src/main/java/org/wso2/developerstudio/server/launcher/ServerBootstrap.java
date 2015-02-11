@@ -25,6 +25,7 @@ import javax.servlet.ServletException;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -49,9 +50,8 @@ public class ServerBootstrap {
 	public static void main(String args[]) {
 		try {
 			String rootDir = System.getenv(STUDIO_ROOT_ENV_VAR_NAME);
-
-			String pid = System.getProperty(PID_SYS_PROPERTY);
-			Files.write(Paths.get(rootDir + PID_FILE_REL_PATH), pid.getBytes());
+			int pid = getProcessPid(); //System.getProperty(PID_SYS_PROPERTY);
+			Files.write(Paths.get(rootDir + PID_FILE_REL_PATH), Integer.toString(pid).getBytes());
 
 			int port;
 			// wait till a port is available
@@ -99,6 +99,15 @@ public class ServerBootstrap {
 			System.exit(1);
 		}
 	}
+
+    private static int getProcessPid() {
+        int processPid = -1;
+        String pidStr = ManagementFactory.getRuntimeMXBean().getName();
+        if (pidStr.contains("@")) {
+            processPid = Integer.parseInt(pidStr.split("@")[0]);
+        }
+        return processPid;
+    }
 
 	/**
 	 * Add all web apps available in web root to embedded

@@ -79,7 +79,7 @@ set COMMANDD_ARGS=-classpath %CLASSPATH% %JAVA_OPTS% ^
   -Dapp.repo="%REPO%" ^
   -Dapp.home="%BASEDIR%" ^
   -Dbasedir="%BASEDIR%"
-%JAVACMD% %COMMANDD_ARGS% org.wso2.developerstudio.workspaceselector.launcher.WorkspaceSelectorBootstrap %CMD_LINE_ARGS%
+%JAVACMD% %COMMANDD_ARGS% #MAINCLASS# #APP_ARGUMENTS# %CMD_LINE_ARGS%
  if %ERRORLEVEL% NEQ 0 goto error
 goto end
 
