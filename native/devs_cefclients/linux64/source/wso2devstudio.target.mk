@@ -53,7 +53,7 @@ $(builddir)/libpdf.so: $(BUILDTYPE)/libpdf.so FORCE_DO_CMD
 	$(call do_cmd,copy)
 
 all_deps += $(builddir)/libpdf.so
-binary_distrib_cef_binary_3_2171_1902_linux64_cefclient_gyp_cefsimple_target_copies = $(builddir)/cef.pak $(builddir)/cef_100_percent.pak $(builddir)/cef_200_percent.pak $(builddir)/devtools_resources.pak $(builddir)/icudtl.dat $(builddir)/locales $(builddir)/chrome-sandbox $(builddir)/libcef.so $(builddir)/libffmpegsumo.so $(builddir)/libpdf.so
+binary_distrib_cef_binary_3_2171_1902_linux64_cefclient_gyp_wso2devstudio_target_copies = $(builddir)/cef.pak $(builddir)/cef_100_percent.pak $(builddir)/cef_200_percent.pak $(builddir)/devtools_resources.pak $(builddir)/icudtl.dat $(builddir)/locales $(builddir)/chrome-sandbox $(builddir)/libcef.so $(builddir)/libffmpegsumo.so $(builddir)/libpdf.so
 
 DEFS_Debug := \
 	'-DV8_DEPRECATION_WARNINGS' \
@@ -235,12 +235,12 @@ INCS_Release := \
 	-I.
 
 OBJS := \
-	$(obj).target/$(TARGET)/cefsimple/DevSCefClient_app.o \
-	$(obj).target/$(TARGET)/cefsimple/DevSCefBrowserEventHandler.o \
-	$(obj).target/$(TARGET)/cefsimple/DevSCefClient_linux.o \
-	$(obj).target/$(TARGET)/cefsimple/DevSCefBrowserEventHandler_linux.o \
-	$(obj).target/$(TARGET)/cefsimple/Messages.o   \
-	$(obj).target/$(TARGET)/cefsimple/SystemUtils.o
+	$(obj).target/$(TARGET)/wso2devstudio/DevSCefClient_app.o \
+	$(obj).target/$(TARGET)/wso2devstudio/DevSCefBrowserEventHandler.o \
+	$(obj).target/$(TARGET)/wso2devstudio/DevSCefClient_linux.o \
+	$(obj).target/$(TARGET)/wso2devstudio/DevSCefBrowserEventHandler_linux.o \
+	$(obj).target/$(TARGET)/wso2devstudio/Messages.o   \
+	$(obj).target/$(TARGET)/wso2devstudio/SystemUtils.o
 
 # Add to the list of files we specially track dependencies for.
 all_deps += $(OBJS)
@@ -249,7 +249,7 @@ all_deps += $(OBJS)
 $(OBJS): | $(obj).target/libcef_dll_wrapper.a
 
 # Make sure our actions/rules run before any of us.
-$(OBJS): | $(binary_distrib_cef_binary_3_2171_1902_linux64_cefclient_gyp_cefsimple_target_copies)
+$(OBJS): | $(binary_distrib_cef_binary_3_2171_1902_linux64_cefclient_gyp_wso2devstudio_target_copies)
 
 # CFLAGS et al overrides must be target-local.
 # See "Target-specific Variable Values" in the GNU Make manual.
@@ -273,10 +273,10 @@ $(obj).$(TOOLSET)/$(TARGET)/%.o: $(obj)/%.cpp FORCE_DO_CMD
 # End of this set of suffix rules
 ### Rules for final target.
 # Build our special outputs first.
-$(builddir)/cefsimple: | $(binary_distrib_cef_binary_3_2171_1902_linux64_cefclient_gyp_cefsimple_target_copies)
+$(builddir)/wso2devstudio: | $(binary_distrib_cef_binary_3_2171_1902_linux64_cefclient_gyp_wso2devstudio_target_copies)
 
 # Preserve order dependency of special output on deps.
-$(binary_distrib_cef_binary_3_2171_1902_linux64_cefclient_gyp_cefsimple_target_copies): | $(obj).target/libcef_dll_wrapper.a
+$(binary_distrib_cef_binary_3_2171_1902_linux64_cefclient_gyp_wso2devstudio_target_copies): | $(obj).target/libcef_dll_wrapper.a
 
 LDFLAGS_Debug := \
 	-Wl,-z,now \
@@ -310,19 +310,19 @@ LIBS := \
 	$(BUILDTYPE)/libcef.so \
 	-lX11
 
-$(builddir)/cefsimple: GYP_LDFLAGS := $(LDFLAGS_$(BUILDTYPE))
-$(builddir)/cefsimple: LIBS := $(LIBS)
-$(builddir)/cefsimple: LD_INPUTS := $(OBJS) $(obj).target/libcef_dll_wrapper.a
-$(builddir)/cefsimple: TOOLSET := $(TOOLSET)
-$(builddir)/cefsimple: $(OBJS) $(obj).target/libcef_dll_wrapper.a FORCE_DO_CMD
+$(builddir)/wso2devstudio: GYP_LDFLAGS := $(LDFLAGS_$(BUILDTYPE))
+$(builddir)/wso2devstudio: LIBS := $(LIBS)
+$(builddir)/wso2devstudio: LD_INPUTS := $(OBJS) $(obj).target/libcef_dll_wrapper.a
+$(builddir)/wso2devstudio: TOOLSET := $(TOOLSET)
+$(builddir)/wso2devstudio: $(OBJS) $(obj).target/libcef_dll_wrapper.a FORCE_DO_CMD
 	$(call do_cmd,link)
 
-all_deps += $(builddir)/cefsimple
+all_deps += $(builddir)/wso2devstudio
 # Add target alias
-.PHONY: cefsimple
-cefsimple: $(builddir)/cefsimple
+.PHONY: wso2devstudio
+wso2devstudio: $(builddir)/wso2devstudio
 
 # Add executable to "all" target.
 .PHONY: all
-all: $(builddir)/cefsimple
+all: $(builddir)/wso2devstudio
 
