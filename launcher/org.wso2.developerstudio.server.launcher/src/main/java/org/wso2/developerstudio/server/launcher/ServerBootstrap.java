@@ -37,9 +37,10 @@ import static org.wso2.developerstudio.server.launcher.ServerConstants.*;
 
 public class ServerBootstrap {
 
-	private static final Logger log = LoggerFactory.getLogger(ServerBootstrap.class);
+    private static final Logger log = LoggerFactory.getLogger(ServerBootstrap.class);
+    public static final String CONTEXT = "/";
 
-	private static String webRoot;
+    private static String webRoot;
 	private static Tomcat tomcatServer;
 
 	/**
@@ -124,7 +125,7 @@ public class ServerBootstrap {
 		}
 		for (String app : webApps) {
 			String path = new File(webRoot + separator + app).getAbsolutePath();
-			tomcatServer.addWebapp(separator + app, path);
+			tomcatServer.addWebapp(CONTEXT + app, path);
 			log.info("Adding web app at: {}", path);
 		}
 	}
