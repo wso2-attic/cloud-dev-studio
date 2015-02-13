@@ -11,11 +11,32 @@
 #include "include/cef_app.h"
 #include "include/wrapper/cef_closure_task.h"
 #include "include/wrapper/cef_helpers.h"
+#include <signal.h>
+
+
+extern int serverPID;
+
+
+int TerminateServerProcess(UINT uExitCode)
+{
+	DWORD dwProcessId = (DWORD)serverPID;
+    DWORD dwDesiredAccess = PROCESS_TERMINATE;
+    BOOL  bInheritHandle  = FALSE;
+    HANDLE hProcess = OpenProcess(dwDesiredAccess, bInheritHandle, dwProcessId);
+    if (hProcess == NULL)
+	{
+        return -1;
+	}
+
+    BOOL result = TerminateProcess(hProcess, uExitCode);
+
+    CloseHandle(hProcess);
+
+    return 0;
+}
 
 namespace {
-
-DevSCefBrowserEventHandler* g_instance = NULL;
-
+	DevSCefBrowserEventHandler* g_instance = NULL;
 }  // namespace
 
 DevSCefBrowserEventHandler::DevSCefBrowserEventHandler()
@@ -51,10 +72,11 @@ bool DevSCefBrowserEventHandler::DoClose(CefRefPtr<CefBrowser> browser) {
     is_closing_ = true;
   }
 
-  // Allow the close. For windowed browsers this will result in the OS close
-  // event being sent.
+  int res = TerminateServerProcess((DWORD)serverPID);
   return false;
 }
+
+
 
 void DevSCefBrowserEventHandler::OnBeforeClose(CefRefPtr<CefBrowser> browser) {
   CEF_REQUIRE_UI_THREAD();
