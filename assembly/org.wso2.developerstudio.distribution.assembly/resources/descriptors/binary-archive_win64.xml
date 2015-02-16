@@ -6,6 +6,14 @@
     </formats>
     <includeBaseDirectory>false</includeBaseDirectory>
     <fileSets>
+	<!--copying the cef resources into the zip file on zip creation -->
+	<fileSet>
+            <directory>${project.basedir}/../../native/devs_cefclients/win64/Release</directory>
+            <outputDirectory>/wso2-developer-studio-windows64/${bin.location}</outputDirectory>
+            <useDefaultExcludes>true</useDefaultExcludes>
+            <fileMode>0777</fileMode>
+            <directoryMode>0777</directoryMode>
+        </fileSet>
         <!--copy war files from ide assembly-->
         <fileSet>
             <directory>${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps</directory>
