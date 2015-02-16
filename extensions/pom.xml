@@ -25,8 +25,8 @@ limitations under the License.
     <packaging>pom</packaging>
     <name>WSO2 Developer Studio :: Extensions Parent</name>
     <modules>
-        <module>artifacts</module>
+        <!--<module>artifacts</module>-->
         <module>core</module>
-        <module>servers</module>
+        <!--<module>servers</module>-->
     </modules>
 </project>

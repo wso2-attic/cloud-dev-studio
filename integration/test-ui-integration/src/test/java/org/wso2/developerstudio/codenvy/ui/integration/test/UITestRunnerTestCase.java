@@ -47,7 +47,8 @@ public class UITestRunnerTestCase {
 		// Allows WebDriver to poll the DOM for a certain duration until the elements load
 		driver.manage().timeouts().implicitlyWait(UITestConstants.WAITING_TIME_CONSTANT, TimeUnit.SECONDS);
 		// Navigates to the web page
-		driver.get(ConfigPropertyChanges.getIDEURLTest());
+		String ideURL = ConfigPropertyChanges.getIDEURLTest().replace("\\", "");
+		driver.get(ideURL);
 		// Initialize elements to be used
 		aboutDialogOpen = PageFactory.initElements(driver, AboutActionTest.class);
 		aboutDialogOpen.selectWSO2DevStudioMenu();// test the about wizard
@@ -58,6 +59,8 @@ public class UITestRunnerTestCase {
 	 * finally close the browser and delete all directories used for testing, clean up
 	 */
 	public void closeBrowser() throws IOException, InterruptedException {
-		driver.quit();
+		if (driver != null) {
+			driver.quit();
+		}
 	}
 }
