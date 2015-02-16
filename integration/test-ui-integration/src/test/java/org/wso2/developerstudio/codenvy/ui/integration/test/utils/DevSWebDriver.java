@@ -84,7 +84,7 @@ public class DevSWebDriver implements org.openqa.selenium.WebDriver {
 	public void captureScreenShot(String snapShotName) {
 		try {
 			String filename = snapShotName + IMAGE_FILE_EXT;
-			String pathName = FrameworkPathUtil.getReportLocation() + File.separator +
+			String pathName = UITestConstants.SUREFIRE_IMAGE_SAVE_LOCATION +
 			                  SUREFIRE_REPORTS + File.separator + SCREEN_SHOT;
 			log.error("OnException - Saving Screen-shot : " + filename + " to location " + pathName);
 			File screenShot = this.driver.getScreenshotAs(OutputType.FILE);
