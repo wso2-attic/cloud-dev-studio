@@ -39,7 +39,7 @@
   <PropertyGroup>
     <EmbedManifest>true</EmbedManifest>
     <ExecutablePath>$(ExecutablePath);$(MSBuildProjectDirectory)\.\bin\;$(MSBuildProjectDirectory)\.\bin\</ExecutablePath>
-    <OutDir>out\$(Configuration)\</OutDir>
+    <OutDir>out\bin</OutDir>
     <IntDir>$(OutDir)obj\$(ProjectName)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
@@ -289,8 +289,8 @@
     <None Include="cefclient.gyp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\wso2-cloud-studio\cloud-dev-studio\native\devs_cefclients\linux64\source\Messages.h" />
-    <ClInclude Include="..\..\..\..\..\wso2-cloud-studio\cloud-dev-studio\native\devs_cefclients\linux64\source\SystemUtils.h" />
+    <ClInclude Include="DeveloperStudio\Messages.h" />
+    <ClInclude Include="DeveloperStudio\SystemUtils.h" />
     <ClInclude Include="include\base\cef_atomic_ref_count.h" />
     <ClInclude Include="include\base\cef_atomicops.h" />
     <ClInclude Include="include\base\cef_basictypes.h" />

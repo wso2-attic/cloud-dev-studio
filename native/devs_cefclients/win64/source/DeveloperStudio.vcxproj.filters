@@ -879,12 +879,6 @@
     <ClInclude Include="include\internal\cef_win.h">
       <Filter>include\internal</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\wso2-cloud-studio\cloud-dev-studio\native\devs_cefclients\linux64\source\SystemUtils.h">
-      <Filter>DeveloperStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\wso2-cloud-studio\cloud-dev-studio\native\devs_cefclients\linux64\source\Messages.h">
-      <Filter>DeveloperStudio</Filter>
-    </ClInclude>
     <ClInclude Include="DeveloperStudio\DevSCefBrowserEventHandler.h">
       <Filter>DeveloperStudio</Filter>
     </ClInclude>
@@ -892,6 +886,12 @@
       <Filter>DeveloperStudio</Filter>
     </ClInclude>
     <ClInclude Include="DeveloperStudio\resource.h">
+      <Filter>DeveloperStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="DeveloperStudio\SystemUtils.h">
+      <Filter>DeveloperStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="DeveloperStudio\Messages.h">
       <Filter>DeveloperStudio</Filter>
     </ClInclude>
   </ItemGroup>
