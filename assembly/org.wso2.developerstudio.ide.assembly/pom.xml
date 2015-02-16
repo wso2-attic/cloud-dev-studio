@@ -61,17 +61,17 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                             <goal>copy</goal>
                         </goals>
                         <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                <groupId>org.wso2.developerstudio</groupId>
-                                <artifactId>core-extension</artifactId>
-                                <version>4.0.0-SNAPSHOT</version>
-                                <type>jar</type>
-                                <overWrite>false</overWrite>
-                                <outputDirectory>${basedir}/target/${com.codenvy.sdk.version}/ext/</outputDirectory>
-                                <destFileName>core-extension-${com.codenvy.sdk.version}.jar</destFileName>
-                                </artifactItem>
-                            </artifactItems>
+                            <!--<artifactItems>-->
+                                <!--<artifactItem>-->
+                                <!--<groupId>org.wso2.developerstudio</groupId>-->
+                                <!--<artifactId>core-extension</artifactId>-->
+                                <!--<version>4.0.0-SNAPSHOT</version>-->
+                                <!--<type>jar</type>-->
+                                <!--<overWrite>false</overWrite>-->
+                                <!--<outputDirectory>${basedir}/target/${com.codenvy.sdk.version}/ext/</outputDirectory>-->
+                                <!--<destFileName>core-extension-${com.codenvy.sdk.version}.jar</destFileName>-->
+                                <!--</artifactItem>-->
+                            <!--</artifactItems>-->
                         </configuration>
                     </execution>
                 </executions>
