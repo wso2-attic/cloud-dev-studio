@@ -18,6 +18,7 @@
 #include <string>
 #include <cstdio>
 #include <iostream>
+#include "wtypes.h"
 #include "SystemUtils.h"
 #include "Messages.h"
 
@@ -43,3 +44,24 @@ std::string SystemUtils::GetFileContents(const char *filename) {
         return "0";
     }
 }
+
+// Get the horizontal and vertical screen sizes in pixel
+int SystemUtils::GetScreenSize(int* w, int* h)
+{
+   RECT desktop;
+   // Get a handle to the desktop window
+   const HWND hDesktop = GetDesktopWindow();
+   // Get the size of screen to the variable desktop
+   if (hDesktop != NULL) {
+		GetWindowRect(hDesktop, &desktop);
+		// The top left corner will have coordinates (0,0)
+	   // and the bottom right corner will have coordinates
+	   // (horizontal, vertical)
+	   *w = desktop.right;
+	   *h = desktop.bottom;
+	   return 0;
+   }
+   return -1;
+}
+
+

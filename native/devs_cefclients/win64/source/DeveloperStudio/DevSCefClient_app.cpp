@@ -14,21 +14,23 @@
 * limitations under the License.
 */
 
+
 #include "DeveloperStudio/DevSCefClient_app.h"
 
 #include <string>
-
-#include "DeveloperStudio/DevSCefBrowserEventHandler.h"
-#include "include/cef_browser.h"
-#include "include/cef_command_line.h"
-#include "include/wrapper/cef_helpers.h"
-#include "SystemUtils.h"
-#include "Messages.h"
 #include <windows.h>
 #include <stdio.h>
 #include <process.h>
 #include <direct.h>
 #include <stdlib.h>
+
+#include "SystemUtils.h"
+#include "Messages.h"
+#include "DeveloperStudio/DevSCefBrowserEventHandler.h"
+#include "include/cef_browser.h"
+#include "include/cef_command_line.h"
+#include "include/wrapper/cef_helpers.h"
+
 
 
 int serverPID;
@@ -86,16 +88,27 @@ void createWorkspaceProcess()
 DevSCefClient::DevSCefClient() {
 }
 
+
 void DevSCefClient::OnContextInitialized() {
 	CEF_REQUIRE_UI_THREAD();
 
 	// Information used when creating the native window.
 	CefWindowInfo window_info;
+	window_info.height = SystemUtils::DEFAULT_WINDOW_HEIGHT;
+    window_info.width = SystemUtils::DEFAULT_WINDOW_WIDTH;
+
+    int width, height;
+    if (SystemUtils::GetScreenSize(&width, &height) == 0) {
+    	//std::cout << "getScreenSize DefaultScreenOfDisplay size is " << height << ":" << width << std::endl;
+    	window_info.height = height;
+    	window_info.width = width;
+    }
 
 #if defined(OS_WIN)
 	// On Windows we need to specify certain flags that will be passed to
 	// CreateWindowEx().
-	window_info.SetAsPopup(NULL, "cefsimple");
+	
+	window_info.SetAsPopup(NULL, "WSO2 Developer Studio");
 #endif
 
 
