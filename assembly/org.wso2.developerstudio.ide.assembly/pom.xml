@@ -54,26 +54,26 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                             </artifactItems>
                         </configuration>
                     </execution>
-                    <!--<execution>-->
-                        <!--<id>copy-extensions</id>-->
-                        <!--<phase>initialize</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>copy</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<artifactItems>-->
-                                <!--<artifactItem>-->
-                                <!--<groupId>org.wso2.developerstudio</groupId>-->
-                                <!--<artifactId>core-extension</artifactId>-->
-                                <!--<version>4.0.0-SNAPSHOT</version>-->
-                                <!--<type>jar</type>-->
-                                <!--<overWrite>false</overWrite>-->
-                                <!--<outputDirectory>${basedir}/target/${com.codenvy.sdk.version}/ext/</outputDirectory>-->
-                                <!--<destFileName>core-extension-${com.codenvy.sdk.version}.jar</destFileName>-->
-                                <!--</artifactItem>-->
-                            <!--</artifactItems>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
+                    <execution>
+                        <id>copy-extensions</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                <groupId>org.wso2.developerstudio</groupId>
+                                <artifactId>core-extension</artifactId>
+                                <version>4.0.0-SNAPSHOT</version>
+                                <type>jar</type>
+                                <overWrite>false</overWrite>
+                                <outputDirectory>${basedir}/target/${com.codenvy.sdk.version}/ext/</outputDirectory>
+                                <destFileName>core-extension-4.0.0-SNAPSHOT.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>
