@@ -20,20 +20,20 @@
 #include "include/cef_app.h"
 
 class DevSCefClient : public CefApp,
-                  public CefBrowserProcessHandler {
- public:
-  DevSCefClient();
+	public CefBrowserProcessHandler {
+public:
+	DevSCefClient();
 
-  // CefApp methods:
-  virtual CefRefPtr<CefBrowserProcessHandler> GetBrowserProcessHandler()
-      OVERRIDE { return this; }
+	// CefApp methods:
+	virtual CefRefPtr<CefBrowserProcessHandler> GetBrowserProcessHandler()
+		OVERRIDE { return this; }
 
-  // CefBrowserProcessHandler methods:
-  virtual void OnContextInitialized() OVERRIDE;
+	// CefBrowserProcessHandler methods:
+	virtual void OnContextInitialized() OVERRIDE;
 
- private:
-  // Include the default reference counting implementation.
-  IMPLEMENT_REFCOUNTING(DevSCefClient);
+private:
+	// Include the default reference counting implementation.
+	IMPLEMENT_REFCOUNTING(DevSCefClient);
 };
 
 #endif  // CEF_TESTS_CEFSIMPLE_SIMPLE_APP_H_

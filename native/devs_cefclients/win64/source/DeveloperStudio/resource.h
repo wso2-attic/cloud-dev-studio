@@ -21,6 +21,9 @@
 
 #define IDI_CEFSIMPLE                   100
 #define IDI_SMALL                       101
+#define ID_WARN_CONSOLEMESSAGE          32000
+#define ID_WARN_DOWNLOADCOMPLETE        32001
+#define ID_WARN_DOWNLOADERROR           32002
 
 // Avoid files associated with MacOS
 #define _X86_

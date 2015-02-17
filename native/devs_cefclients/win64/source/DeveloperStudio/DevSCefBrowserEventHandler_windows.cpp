@@ -18,15 +18,48 @@
 
 #include <string>
 #include <windows.h>
+#include <shlobj.h> 
 
+#include "resource.h"
 #include "include/cef_browser.h"
 #include "include/wrapper/cef_helpers.h"
 
-void DevSCefBrowserEventHandler::OnTitleChange(CefRefPtr<CefBrowser> browser,
-                                  const CefString& title) {
-  CEF_REQUIRE_UI_THREAD();
+void DevSCefBrowserEventHandler::OnTitleChange(CefRefPtr<CefBrowser> browser, const CefString& title) {
+		CEF_REQUIRE_UI_THREAD();
 
-  CefWindowHandle hwnd = browser->GetHost()->GetWindowHandle();
-  LPCWSTR devStudioTitle = L"WSO2 Developer Studio ";
-  SetWindowText(hwnd, devStudioTitle); 
+		CefWindowHandle hwnd = browser->GetHost()->GetWindowHandle();
+		LPCWSTR devStudioTitle = L"WSO2 Developer Studio ";
+		SetWindowText(hwnd, devStudioTitle); 
+}
+
+void DevSCefBrowserEventHandler::SendNotification(NotificationType type) {
+	UINT id;
+	switch (type) {
+	case NOTIFY_CONSOLE_MESSAGE:
+		id = ID_WARN_CONSOLEMESSAGE;
+		break;
+	case NOTIFY_DOWNLOAD_COMPLETE:
+		id = ID_WARN_DOWNLOADCOMPLETE;
+		break;
+	case NOTIFY_DOWNLOAD_ERROR:
+		id = ID_WARN_DOWNLOADERROR;
+		break;
+	default:
+		return;
+	}
+	PostMessage(main_handle_, WM_COMMAND, id, 0);
+}
+
+
+std::string DevSCefBrowserEventHandler::GetDownloadPath(const std::string& file_name) {
+	TCHAR szFolderPath[MAX_PATH];
+	std::string path;
+
+	// Save the file in the user's "My Documents" folder.
+	if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_PERSONAL | CSIDL_FLAG_CREATE, NULL, 0, szFolderPath))) {
+		path = CefString(szFolderPath);
+		path += "\\" + file_name;
+	}
+
+	return path;
 }
