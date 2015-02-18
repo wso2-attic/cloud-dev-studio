@@ -22,6 +22,7 @@ limitations under the License.
         <version>4.0.0</version>
     </parent>
     <artifactId>core-extension</artifactId>
+     <version>4.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>WSO2 Developer Studio :: Core Extension</name>
     <dependencies>
@@ -81,7 +82,7 @@ limitations under the License.
                     <verifyFail>Warn</verifyFail>
                 </configuration>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
@@ -96,7 +97,7 @@ limitations under the License.
                         <copy file="target/${project.artifactId}-${project.version}.jar" tofile="../../../distribution/org.wso2.developerstudio.distribution/resources/extensions/${com.codenvy.sdk.version}/${project.artifactId}-${project.version}.jar" />
                     </tasks>
                 </configuration>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 </project>
