@@ -19,7 +19,7 @@ limitations under the License.
     <parent>
         <artifactId>developerstudio-extensions-parent</artifactId>
         <groupId>org.wso2.developerstudio</groupId>
-        <version>4.0.0</version>
+        <version>4.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>developerstudio-extension-core-parent</artifactId>
     <packaging>pom</packaging>
