@@ -27,7 +27,7 @@ limitations under the License.
     <packaging>pom</packaging>
     <name>WSO2 Developer Studio :: Parent POM</name>
     <modules>
-        <!--<module>extensions</module>-->
+        <module>extensions</module>
         <module>launcher</module>
         <module>assembly</module>
         <module>integration</module>
@@ -84,41 +84,41 @@ limitations under the License.
     </properties>
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>com.codenvy.ide</groupId>
-                <artifactId>codenvy-ext-maven</artifactId>
-                <version>${com.codenvy.sdk.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.codenvy.ide</groupId>
-                <artifactId>codenvy-ide-api</artifactId>
-                <version>${com.codenvy.sdk.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.codenvy.ide</groupId>
-                <artifactId>codenvy-maven-tools</artifactId>
-                <version>${com.codenvy.sdk.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.codenvy.platform-api</groupId>
-                <artifactId>codenvy-api-runner</artifactId>
-                <version>${com.codenvy.platform.apirunner.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.gwt</groupId>
-                <artifactId>gwt-user</artifactId>
-                <version>${com.google.gwt.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.gwt.inject</groupId>
-                <artifactId>gin</artifactId>
-                <version>${com.google.gwt.gin.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.googlecode.gwtquery</groupId>
-                <artifactId>gwtquery</artifactId>
-                <version>${com.googlecode.gwtquery.version}</version>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>com.codenvy.ide</groupId>-->
+                <!--<artifactId>codenvy-ext-maven</artifactId>-->
+                <!--<version>${com.codenvy.sdk.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>com.codenvy.ide</groupId>-->
+                <!--<artifactId>codenvy-ide-api</artifactId>-->
+                <!--<version>${com.codenvy.sdk.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>com.codenvy.ide</groupId>-->
+                <!--<artifactId>codenvy-maven-tools</artifactId>-->
+                <!--<version>${com.codenvy.sdk.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>com.codenvy.platform-api</groupId>-->
+                <!--<artifactId>codenvy-api-runner</artifactId>-->
+                <!--<version>${com.codenvy.platform.apirunner.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>com.google.gwt</groupId>-->
+                <!--<artifactId>gwt-user</artifactId>-->
+                <!--<version>${com.google.gwt.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>com.google.gwt.inject</groupId>-->
+                <!--<artifactId>gin</artifactId>-->
+                <!--<version>${com.google.gwt.gin.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>com.googlecode.gwtquery</groupId>-->
+                <!--<artifactId>gwtquery</artifactId>-->
+                <!--<version>${com.googlecode.gwtquery.version}</version>-->
+            <!--</dependency>-->
             <dependency>
                 <groupId>org.wso2.carbon.automationutils</groupId>
                 <artifactId>org.wso2.carbon.integration.common.admin.client</artifactId>
