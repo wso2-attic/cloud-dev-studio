@@ -51,54 +51,53 @@ public class SWTSplashScreen {
 	private final ProgressBar progressBar;
 
 	public static final String ROOT_DIR = System.getenv(STUDIO_ROOT_ENV_VAR_NAME);
-	private String port;
 
 	public SWTSplashScreen(SplashScreenDesignParameters splashScreenDesignParameters) {
-		SWTShellManager SWTShellManager = new SWTShellManager();
 		splashScreenShell = new Shell(SPLASH_SCREEN_DISPLAY, SWT.NONE);
 		progressBar = new ProgressBar(splashScreenShell, SWT.HORIZONTAL | SWT.INDETERMINATE);
-
-		splashScreenShell.setSize(splashScreenDesignParameters.getShellWidth(),
-		                          splashScreenDesignParameters.getShellHeight());
-		splashScreenShell.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		// making the workSpaceSelectorShell appear in the centerShellInDisplay of the monitor
-		SWTShellManager.centerShellInDisplay(splashScreenShell);
-
 		splashScreenInit(splashScreenDesignParameters);
-		splashScreenShell.pack();
-		splashScreenShell.open();
-		if (log.isDebugEnabled()) {
-			log.debug("Splash Screen Initiated.");
-		}
-
-		showWorkspaceSelector();
-
-		try {
-			port = "" + getAvailablePort();
-		} catch (IOException e) {
-			log.error("Error while getting a vacant port for IDE", e);
-			//TODO need to exit application
-		}
-
-		writePortToFile();
-
-		/**
-		 * check whether IDE web app is finished deploying.
-		 */
-		ServerClient serverClient = new ServerClient(port);
-		Thread serverClientThread = new Thread(serverClient);
-		serverClientThread.start();
-
-		/**
-		 * Standard Eclipse recommended way of keeping an SWT widget alive until disposed by source,
-		 * eg: http://help.eclipse.org/indigo/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2Fswt.htm
-		 */
-		while (!splashScreenShell.isDisposed() && serverClientThread.isAlive()) {
-			if (!SPLASH_SCREEN_DISPLAY.readAndDispatch()){
-				SPLASH_SCREEN_DISPLAY.sleep();
-			}
-		}
 	}
+
+    public void showSplashScreen() {
+        splashScreenShell.open();
+        if (log.isDebugEnabled()) {
+            log.debug("Splash Screen Initiated.");
+        }
+
+        int port = -1;
+        if (!isDefaultWorkSpaceSet()) {
+            SWTWorkspaceSelector workspaceSelector = new SWTWorkspaceSelector();
+            workspaceSelector.openDialog();
+            if (workspaceSelector.isUserWorkSpaceSet()){
+               port = getAvailablePort();
+            } else {
+               log.info("workspace cancelled ");
+            }
+        }
+
+        writePortToFile(port);
+
+        if (port > 0) {
+            /**
+             * check whether IDE web app is finished deploying.
+             */
+            ServerClient serverClient = new ServerClient(port);
+            Thread serverClientThread = new Thread(serverClient);
+            serverClientThread.start();
+
+            /**
+             * Standard Eclipse recommended way of keeping an SWT widget alive until disposed by source,
+             * eg: http://help.eclipse.org/indigo/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2Fswt.htm
+             */
+            while (!splashScreenShell.isDisposed() && serverClientThread.isAlive()) {
+                if (!SPLASH_SCREEN_DISPLAY.readAndDispatch()) {
+                    SPLASH_SCREEN_DISPLAY.sleep();
+                }
+            }
+        }
+
+        SPLASH_SCREEN_DISPLAY.dispose();
+    }
 
 	/**
 	 * initiate the view components
@@ -106,6 +105,14 @@ public class SWTSplashScreen {
 	 * a blank splash screen shell will be created with the progress bar
 	 */
 	private void splashScreenInit(SplashScreenDesignParameters splashScreenDesignParameters) {
+
+        splashScreenShell.setSize(splashScreenDesignParameters.getShellWidth(),
+                splashScreenDesignParameters.getShellHeight());
+        splashScreenShell.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+        // making the workSpaceSelectorShell appear in the centerShellInDisplay of the monitor
+        SWTShellManager shellManager = new SWTShellManager();
+        shellManager.centerShellInDisplay(splashScreenShell);
+
 		final Label imageLabel = new Label(splashScreenShell, SWT.FILL);
 		String imageLocation = splashScreenDesignParameters.getSplashImageLoc();
 		Image splashScreenImage = SWTResourceManager.getImage(imageLocation);
@@ -128,26 +135,17 @@ public class SWTSplashScreen {
 		                      splashScreenDesignParameters.getProgressBarYLoc(),
 		                      splashScreenDesignParameters.getProgressBarWidth(),
 		                      splashScreenDesignParameters.getProgressBarHeight());
+
+        splashScreenShell.pack();
 	}
 
-	private void showWorkspaceSelector() {
-		if (!isDefaultWorkSpaceSet()) {
-			SWTWorkspaceSelector workSpaceLauncher = new SWTWorkspaceSelector();
-			if (!workSpaceLauncher.isUserWorkSpaceSet()) {
-				log.warn("workspace not selected !, Exiting due to user operation");
-				//TODO need to exit application
-			}
-		}
-
-	}
-
-	private void writePortToFile() {
+	private void writePortToFile(int port) {
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		try {
 			fileWriter = new FileWriter(ROOT_DIR + File.separator + BIN + File.separator + PORT);
 			bufferedWriter = new BufferedWriter(fileWriter);
-			bufferedWriter.write(port);
+			bufferedWriter.write(Integer.toString(port));
 		} catch (Exception e) {
 			log.error("Error writing the port to file.", e);
 			System.exit(1);
@@ -166,16 +164,22 @@ public class SWTSplashScreen {
 		}
 	}
 
-	private int getAvailablePort() throws IOException {
+	private int getAvailablePort() {
 		ServerSocket socket = null;
-		Integer port = null;
+		int port = -1;
 		try {
 			socket = new ServerSocket(0);
 			port = socket.getLocalPort();
+        } catch (IOException e) {
+            log.error("Error while getting a vacant port for IDE", e);
 		} finally {
 			if (null != socket) {
-				socket.close();
-			}
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    log.error("Error while closing the opened socket", e);
+                }
+            }
 		}
 		return port;
 	}

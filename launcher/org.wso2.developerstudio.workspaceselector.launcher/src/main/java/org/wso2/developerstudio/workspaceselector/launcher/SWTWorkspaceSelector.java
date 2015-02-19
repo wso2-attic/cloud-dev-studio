@@ -175,21 +175,24 @@ public class SWTWorkspaceSelector {
 
 	public SWTWorkspaceSelector() {
 		workSpaceWindowInit();
-		workSpaceShell.pack();
-		CENTER_SWT_SHELL.centerShellInDisplay(workSpaceShell); // center the shell in the current screen
-		workSpaceShell.open();
-		/**
-		 * Standard Eclipse recommended way of keeping an SWT widget alive until disposed by source,
-		 * eg: http://help.eclipse.org/indigo/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2Fswt.htm
-		 */
-		while (!workSpaceShell.isDisposed()) {
-			if (!WORK_SPACE_DISPLAY.readAndDispatch()) {
-				WORK_SPACE_DISPLAY.sleep();
-			}
-		}
 	}
 
-	/**
+    public void openDialog() {
+        workSpaceShell.open();
+        /**
+         * Standard Eclipse recommended way of keeping an SWT widget alive until disposed by source,
+         * eg: http://help.eclipse.org/indigo/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2Fswt.htm
+         */
+        while (!workSpaceShell.isDisposed()) {
+            if (!WORK_SPACE_DISPLAY.readAndDispatch()) {
+                WORK_SPACE_DISPLAY.sleep();
+            }
+        }
+
+        //return workSpaceText.getText();
+    }
+
+    /**
 	 * This method initiates the workspace selector SWT widget with all UI components
 	 */
 	private void workSpaceWindowInit() {
@@ -366,6 +369,9 @@ public class SWTWorkspaceSelector {
 				onOkPress();
 			}
 		});
+
+        workSpaceShell.pack();
+        CENTER_SWT_SHELL.centerShellInDisplay(workSpaceShell); // center the shell in the current screen
 	}
 
 	/**
@@ -374,7 +380,7 @@ public class SWTWorkspaceSelector {
 	 * defaultWorkSpace the default workspace hardcoded for developer studio to be used on first time run,
 	 */
 	private void setInitialWorkSpaceText() {
-		String currentWorkSpaceLoc = getWorkSpaceLoc();
+		String currentWorkSpaceLoc = getWorkSpaceLocationFromProperties();
 		if (currentWorkSpaceLoc != null) { // read the currently set workspace value in IDE properties
 			workSpaceText.setText(currentWorkSpaceLoc);
 		} else {
@@ -398,8 +404,7 @@ public class SWTWorkspaceSelector {
 			}
 		} catch (SWTException swtE) {
 			log.error("Unable to open the directory dialog for file browsing " + swtE.getMessage(), swtE);
-			createErrorMessageDialog(LAUNCHER_BUNDLE.getString(
-					"error.msg.filebrowser_error"));
+			createErrorMessageDialog(LAUNCHER_BUNDLE.getString("error.msg.filebrowser_error"));
 		}
 	}
 
@@ -534,7 +539,7 @@ public class SWTWorkspaceSelector {
 	 *
 	 * @return the current workspace location set for the IDE
 	 */
-	private String getWorkSpaceLoc() {
+	private String getWorkSpaceLocationFromProperties() {
 		if (DEV_CONFIG_PROPERTY_FILE.exists()) {
 			try {
 				return ConfigurationContext.getWorkspaceRoot();

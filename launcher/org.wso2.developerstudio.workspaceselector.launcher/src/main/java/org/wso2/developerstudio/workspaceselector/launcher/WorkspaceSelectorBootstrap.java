@@ -88,6 +88,7 @@ public class WorkspaceSelectorBootstrap {
 		splashScreenDesignParameters.setProgressBarXLoc(SplashScreenParameters.PROGRESS_BAR_X_LOC);
 		splashScreenDesignParameters.setProgressBarYLoc(SplashScreenParameters.PROGRESS_BAR_Y_LOC);
 
-		new SWTSplashScreen(splashScreenDesignParameters);
+        SWTSplashScreen splashScreen = new SWTSplashScreen(splashScreenDesignParameters);
+        splashScreen.showSplashScreen();
 	}
 }

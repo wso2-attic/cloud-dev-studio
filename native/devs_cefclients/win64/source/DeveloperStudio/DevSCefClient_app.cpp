@@ -128,42 +128,48 @@ void DevSCefClient::OnContextInitialized() {
 
 	createWorkspaceProcess();
 
-	std::string urlpath = SystemUtils::BIN_URL_TXT;
-	char url_cpath[512];
-	strncpy(url_cpath, urlpath.c_str(), sizeof (url_cpath));
-
-	std::string pidpath = SystemUtils::BIN_PID;
-	char pid_cpath[512];
-	strncpy(pid_cpath, pidpath.c_str(), sizeof (pid_cpath));
-
-	std::string url;
-	std::string sever_pid;
+	const char* pidFilePath = SystemUtils::BIN_PID.c_str();
 	while (true) {
-		std::FILE *url_file = std::fopen(url_cpath, "rb");
-		if (url_file) {
-			std::fclose(url_file);
-			url = SystemUtils::GetFileContents(url_cpath);
-			sever_pid = SystemUtils::GetFileContents(pid_cpath);
-
-			int url_file_remove_status = std::remove(url_cpath);
-			if (url_file_remove_status != 0) {
-				//cout << Messages::ERROR_IN_FILE_DELETE << url_file_remove_status << std::endl;
-			}
-
-			int pid_file_remove_status = std::remove(pid_cpath);
-			if (pid_file_remove_status != 0) {
-				//std::cerr << Messages::ERROR_IN_FILE_DELETE << pid_file_remove_status << std::endl;
-			}
-
+		std::FILE *pidFile = std::fopen(pidFilePath, "rb");
+		if (pidFile) {
+			std::fclose(pidFile);
 			break;
 		} else {
-			//std::cout << Messages::WAITING_FOR_URL;
 			Sleep(2);
 		}
 	}
 
+	std::string sever_pid = SystemUtils::GetFileContents(pidFilePath);
+	serverPID = atoi(sever_pid.c_str()); 
+	int pid_file_remove_status = std::remove(pidFilePath);
+	if (pid_file_remove_status != 0) {
+		//std::cerr << Messages::ERROR_IN_FILE_DELETE << pid_file_remove_status << std::endl;
+	}
+	if (serverPID < 0) {
+		//TODO find a way to exit the cef
+		return;
+	}
 
-	serverPID = atoi(sever_pid.c_str()); //This is used in DevSCefBrowserEvemtHandler DoClose method to terminate the server
+	//wait for url file
+	const char * url_cpath = SystemUtils::BIN_URL_TXT.c_str();
+	while (true) {
+		std::FILE *url_file = std::fopen(url_cpath, "rb");
+		if (url_file) {
+			std::fclose(url_file);
+			break;
+		} else {
+			Sleep(2);
+		}
+	}
+
+	//read url file
+	std::string url = SystemUtils::GetFileContents(url_cpath);
+	//close url file
+	int url_file_remove_status = std::remove(url_cpath);
+	if (url_file_remove_status != 0) {
+		//cout << Messages::ERROR_IN_FILE_DELETE << url_file_remove_status << std::endl;
+	}
+	
 
 	// SimpleHandler implements browser-level callbacks.
 	CefRefPtr<DevSCefBrowserEventHandler> handler(new DevSCefBrowserEventHandler());

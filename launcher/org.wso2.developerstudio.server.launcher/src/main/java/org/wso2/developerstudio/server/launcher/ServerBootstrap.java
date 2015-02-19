@@ -40,8 +40,8 @@ public class ServerBootstrap {
     private static final Logger log = LoggerFactory.getLogger(ServerBootstrap.class);
     public static final String CONTEXT = "/";
 
-    private static String webRoot;
-	private static Tomcat tomcatServer;
+    //private String webRoot;
+	//private Tomcat tomcatServer;
 
 	/**
 	 * Entry point of embedded Tomcat server.
@@ -49,12 +49,10 @@ public class ServerBootstrap {
 	 * @param args console arguments
 	 */
 	public static void main(String args[]) {
-		try {
-			String rootDir = System.getenv(STUDIO_ROOT_ENV_VAR_NAME);
-			int pid = getProcessPid(); //System.getProperty(PID_SYS_PROPERTY);
-			Files.write(Paths.get(rootDir + PID_FILE_REL_PATH), Integer.toString(pid).getBytes());
 
-			int port;
+        int port = -1;
+        String rootDir = System.getenv(STUDIO_ROOT_ENV_VAR_NAME);
+        try {
 			// wait till a port is available
 			while (true) {
 				Path portFile = Paths.get(rootDir + PORT_FILE_REL_URL);
@@ -69,37 +67,60 @@ public class ServerBootstrap {
 				}
 			}
 
-			log.info("Developer Studio root dir is {}.", rootDir);
-			log.info("Starting WSO2 Developer Studio 4.0.0");
+        } catch (IOException | InterruptedException e) {
+            log.error("Error querying available local ports for tomcat.", e);
+            System.exit(1);
+        }
 
-			webRoot = rootDir + RELATIVE_WEB_ROOT;
-			log.info("Tomcat web app root is set to : {}", webRoot);
+        int pid = -1;
+        if (port > 0) {
+            pid = getProcessPid(); //System.getProperty(PID_SYS_PROPERTY);
+            writePIDFile(rootDir, pid);
+            startTomcatServer(rootDir, port);
+        } else {
+            writePIDFile(rootDir, pid);
+            log.info("Could not get a valid PORT, therefore exiting..");
+        }
+    }
 
-			// Initialize embedded tomcat
-			tomcatServer = new EmbeddedServer();
-			tomcatServer.setPort(port);
-			log.info("Tomcat port is set to: {}", port);
+    private static void writePIDFile(String rootDir, int pid) {
+        try {
+            Files.write(Paths.get(rootDir + PID_FILE_REL_PATH), Integer.toString(pid).getBytes());
+        } catch (IOException e) {
+            log.info("Could not write PID to the file");
+        }
+    }
 
-			final String ideURL = LOCAL_HOST + port + IDE_CONTEXT_PATH;
-			log.info("IDE URL is set to: {}", ideURL);
 
-			ConfigurationContext.setServerSystemProperties(Integer.toString(port));
-			ConfigurationContext.setIDEUrl(ideURL);
+    private static void startTomcatServer(String rootDir, int port) {
+        log.info("Developer Studio root dir is {}.", rootDir);
+        log.info("Starting WSO2 Developer Studio 4.0.0");
 
-			addWebAppsToTomcat();
+        String webRoot = rootDir + RELATIVE_WEB_ROOT;
+        log.info("Tomcat web app root is set to : {}", webRoot);
 
-			log.info("Starting embedded tomcat server.");
-			tomcatServer.start();
-			tomcatServer.getServer().await();
+        // Initialize embedded tomcat
+        Tomcat tomcatServer = new EmbeddedServer();
+        tomcatServer.setPort(port);
+        log.info("Tomcat port is set to: {}", port);
 
-		} catch (IOException e) {
-			log.error("Error querying available local ports for tomcat.", e);
-			System.exit(1);
-		} catch (LifecycleException | ServletException | InterruptedException e) {
-			log.error("Server startup failed : {}", e.getMessage(), e);
-			System.exit(1);
-		}
-	}
+        final String ideURL = LOCAL_HOST + port + IDE_CONTEXT_PATH;
+        log.info("IDE URL is set to: {}", ideURL);
+
+        try {
+            ConfigurationContext.setServerSystemProperties(Integer.toString(port));
+            ConfigurationContext.setIDEUrl(ideURL);
+
+            addWebAppsToTomcat(tomcatServer, webRoot);
+
+            log.info("Starting embedded tomcat server.");
+            tomcatServer.start();
+            tomcatServer.getServer().await();
+
+        } catch (IOException | LifecycleException | ServletException e) {
+            log.error("Server startup failed : {}", e.getMessage(), e);
+        }
+    }
 
     private static int getProcessPid() {
         int processPid = -1;
@@ -114,8 +135,8 @@ public class ServerBootstrap {
 	 * Add all web apps available in web root to embedded
 	 * tomcat instance for deploying WebApps
 	 */
-	private static void addWebAppsToTomcat() throws ServletException {
-		List<String> webApps = getWebAppList();
+	private static void addWebAppsToTomcat(Tomcat tomcatServer, String webRoot) throws ServletException {
+		List<String> webApps = getWebAppList(webRoot);
 
 		if (webApps.isEmpty()) {
 			if (log.isDebugEnabled()) {
@@ -135,7 +156,7 @@ public class ServerBootstrap {
 	 *
 	 * @return web app list
 	 */
-	private static List<String> getWebAppList() {
+	private static List<String> getWebAppList(String webRoot) {
 		File webRootFolder = new File(webRoot);
 		String[] webApps = webRootFolder.list(new FilenameFilter() {
 			@Override

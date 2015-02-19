@@ -45,9 +45,9 @@ public class ServerClient implements Runnable {
     private static final String BIN = "bin";
 
     private static final int CLIENT_SLEEP_TIME = 2500;
-    private final String port;
+    private final int port;
 
-    public ServerClient(String port) {
+    public ServerClient(int port) {
         this.port = port;
     }
 
