@@ -124,39 +124,53 @@ void DevSCefClient::OnContextInitialized() {
     std::string url;
     std::string sever_pid;
     std::string urlpath = path + SystemUtils::BIN_URL_TXT;
-
+	
     char url_cpath[1024];
     strncpy(url_cpath, urlpath.c_str(), sizeof (url_cpath));
 
     std::string pidpath = path + SystemUtils::BIN_PID;
     char pid_cpath[1024];
     strncpy(pid_cpath, pidpath.c_str(), sizeof (pid_cpath));
+    //wait for the pid file, accommodate for the close button in workspace selector
+	while (true) {
+		std::FILE *pidFile = std::fopen(pid_cpath, "rb");
+		if (pidFile) {
+			std::fclose(pidFile);
+			break;
+		} else {
+			sleep(2);
+		}
+	}
 
+	sever_pid = SystemUtils::GetFileContents(pid_cpath);
+	serverPID = atoi(sever_pid.c_str());
+	int pid_file_remove_status = std::remove(pid_cpath);
+	if (pid_file_remove_status != 0) {
+		std::cerr << Messages::ERROR_IN_FILE_DELETE << pid_file_remove_status << std::endl;
+	}
+	if (serverPID < 0) {
+		//TODO find a way to exit the cef
+		return;
+	}
+
+	//check for the url file
     while (true) {
         std::FILE *url_file = std::fopen(url_cpath, "rb");
         if (url_file) {
             std::fclose(url_file);
-            url = SystemUtils::GetFileContents(url_cpath);
-            sever_pid = SystemUtils::GetFileContents(pid_cpath);
-
-            int url_file_remove_status = std::remove(url_cpath);
-            if (url_file_remove_status != 0) {
-                std::cerr << Messages::ERROR_IN_FILE_DELETE << url_file_remove_status << std::endl;
-            }
-
-            int pid_file_remove_status = std::remove(pid_cpath);
-            if (pid_file_remove_status != 0) {
-				std::cerr << Messages::ERROR_IN_FILE_DELETE << pid_file_remove_status << std::endl;
-			}
-
             break;
-
         } else {
             std::cout << Messages::WAITING_FOR_URL;
             sleep(2);
         }
-
     }
+
+	url = SystemUtils::GetFileContents(url_cpath);
+       int url_file_remove_status = std::remove(url_cpath);
+       if (url_file_remove_status != 0) {
+             std::cerr << Messages::ERROR_IN_FILE_DELETE << url_file_remove_status << std::endl;
+      }
+
 
     serverPID = atoi(sever_pid.c_str()); //This is used in DevSCefBrowserEvemtHandler DoClose method to terminate the server
     //std::cout << "serverPID is " << serverPID << "\n";
@@ -170,7 +184,6 @@ void DevSCefClient::OnContextInitialized() {
     // Create the first browser window.
     CefBrowserHost::CreateBrowser(window_info, handler.get(), url, browser_settings, NULL);
 }
-
 
 
 
