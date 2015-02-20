@@ -28,6 +28,26 @@
 
 extern int serverPID;
 
+HWND GetRootHwnd(CefRefPtr<CefBrowser> browser) {
+  return ::GetAncestor(browser->GetHost()->GetWindowHandle(), GA_ROOT);
+}
+
+// Toggles the current display state.
+void Toggle(HWND root_hwnd, UINT nCmdShow) {
+  // Retrieve current window placement information.
+  WINDOWPLACEMENT placement;
+  ::GetWindowPlacement(root_hwnd, &placement);
+
+  if (placement.showCmd == nCmdShow)
+    ::ShowWindow(root_hwnd, SW_RESTORE);
+  else
+    ::ShowWindow(root_hwnd, nCmdShow);
+}
+
+void Maximize(CefRefPtr<CefBrowser> browser) {
+  Toggle(GetRootHwnd(browser), SW_MAXIMIZE);
+}
+
 int TerminateServerProcess(UINT uExitCode)
 {
 	DWORD dwProcessId = (DWORD)serverPID;
@@ -87,6 +107,7 @@ void DevSCefBrowserEventHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
 
 	// Add to the list of existing browsers.
 	browser_list_.push_back(browser);
+	Maximize(browser);
 }
 
 bool DevSCefBrowserEventHandler::DoClose(CefRefPtr<CefBrowser> browser) {

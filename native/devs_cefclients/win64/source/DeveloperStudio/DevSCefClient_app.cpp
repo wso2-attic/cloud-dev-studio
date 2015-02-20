@@ -35,6 +35,7 @@
 
 int serverPID;
 
+
 BOOL createProcess(const char* command, STARTUPINFO si, PROCESS_INFORMATION pi)
 {
 	wchar_t wcharCommand[64];
@@ -94,16 +95,7 @@ void DevSCefClient::OnContextInitialized() {
 
 	// Information used when creating the native window.
 	CefWindowInfo window_info;
-	window_info.height = SystemUtils::DEFAULT_WINDOW_HEIGHT;
-    window_info.width = SystemUtils::DEFAULT_WINDOW_WIDTH;
-
-    int width, height;
-    if (SystemUtils::GetScreenSize(&width, &height) == 0) {
-    	//std::cout << "getScreenSize DefaultScreenOfDisplay size is " << height << ":" << width << std::endl;
-    	window_info.height = height;
-    	window_info.width = width;
-    }
-
+	
 #if defined(OS_WIN)
 	// On Windows we need to specify certain flags that will be passed to
 	// CreateWindowEx().
@@ -169,7 +161,6 @@ void DevSCefClient::OnContextInitialized() {
 	if (url_file_remove_status != 0) {
 		//cout << Messages::ERROR_IN_FILE_DELETE << url_file_remove_status << std::endl;
 	}
-	
 
 	// SimpleHandler implements browser-level callbacks.
 	CefRefPtr<DevSCefBrowserEventHandler> handler(new DevSCefBrowserEventHandler());
