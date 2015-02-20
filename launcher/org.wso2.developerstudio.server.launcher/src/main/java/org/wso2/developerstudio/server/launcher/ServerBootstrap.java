@@ -36,20 +36,17 @@ import static java.io.File.separator;
 import static org.wso2.developerstudio.server.launcher.ServerConstants.*;
 
 public class ServerBootstrap {
-
     private static final Logger log = LoggerFactory.getLogger(ServerBootstrap.class);
     public static final String CONTEXT = "/";
-
-    //private String webRoot;
-	//private Tomcat tomcatServer;
-
 	/**
 	 * Entry point of embedded Tomcat server.
-	 *
 	 * @param args console arguments
 	 */
-	public static void main(String args[]) {
-
+	public static void main(String args[]) throws IOException, ServletException, LifecycleException {
+		/**
+		 * default value of port is set to "-1" so that on user operation other depending applications will exit
+		 * if port = -1
+		 */
         int port = -1;
         String rootDir = System.getenv(STUDIO_ROOT_ENV_VAR_NAME);
         try {
@@ -66,35 +63,37 @@ public class ServerBootstrap {
 					Thread.sleep(DEFAULT_SLEEP_TIME);
 				}
 			}
-
         } catch (IOException | InterruptedException e) {
             log.error("Error querying available local ports for tomcat.", e);
             System.exit(1);
         }
-
+		/**
+		 * default value of pid is set to "-1" so that on user operation other depending applications will exit
+		 * if pid = -1
+		 */
         int pid = -1;
         if (port > 0) {
             pid = getProcessPid(); //System.getProperty(PID_SYS_PROPERTY);
-            writePIDFile(rootDir, pid);
-            startTomcatServer(rootDir, port);
+	        writePIDFile(rootDir, pid);
+	        startTomcatServer(rootDir, port);
         } else {
-            writePIDFile(rootDir, pid);
-            log.info("Could not get a valid PORT, therefore exiting..");
+	        writePIDFile(rootDir, pid);
+	        log.info("Exiting due to user operation ..");
         }
-    }
+	}
 
     private static void writePIDFile(String rootDir, int pid) {
         try {
             Files.write(Paths.get(rootDir + PID_FILE_REL_PATH), Integer.toString(pid).getBytes());
         } catch (IOException e) {
-            log.info("Could not write PID to the file");
+            log.error("Could not write PID to the file", e);
         }
     }
 
-
-    private static void startTomcatServer(String rootDir, int port) {
+    private static void startTomcatServer(String rootDir, int port)
+		    throws IOException, ServletException, LifecycleException {
         log.info("Developer Studio root dir is {}.", rootDir);
-        log.info("Starting WSO2 Developer Studio 4.0.0");
+        log.info("Starting WSO2 Developer Studio");
 
         String webRoot = rootDir + RELATIVE_WEB_ROOT;
         log.info("Tomcat web app root is set to : {}", webRoot);
@@ -110,15 +109,20 @@ public class ServerBootstrap {
         try {
             ConfigurationContext.setServerSystemProperties(Integer.toString(port));
             ConfigurationContext.setIDEUrl(ideURL);
-
             addWebAppsToTomcat(tomcatServer, webRoot);
-
             log.info("Starting embedded tomcat server.");
             tomcatServer.start();
             tomcatServer.getServer().await();
 
-        } catch (IOException | LifecycleException | ServletException e) {
-            log.error("Server startup failed : {}", e.getMessage(), e);
+        } catch (IOException  e ) {
+            log.error("Server startup failed : {}", e);
+	        throw new IOException();
+        } catch ( ServletException e){
+	        log.error("Server startup failed : {}", e);
+	        throw new ServletException();
+	    } catch (LifecycleException e ){
+	        log.error("Server startup failed : {}", e);
+	        throw new LifecycleException();
         }
     }
 
@@ -153,7 +157,6 @@ public class ServerBootstrap {
 
 	/**
 	 * Get a List of web apps in web app root.
-	 *
 	 * @return web app list
 	 */
 	private static List<String> getWebAppList(String webRoot) {

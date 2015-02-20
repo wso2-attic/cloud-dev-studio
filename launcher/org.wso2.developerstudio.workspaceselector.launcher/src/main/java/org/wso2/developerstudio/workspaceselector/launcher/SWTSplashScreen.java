@@ -16,9 +16,6 @@
 
 package org.wso2.developerstudio.workspaceselector.launcher;
 
-import org.wso2.developerstudio.workspaceselector.launcher.ConfigurationContext;
-import org.wso2.developerstudio.workspaceselector.utils.SWTShellManager;
-import org.wso2.developerstudio.workspaceselector.utils.SWTResourceManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
@@ -28,6 +25,8 @@ import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.wso2.developerstudio.workspaceselector.utils.SWTResourceManager;
+import org.wso2.developerstudio.workspaceselector.utils.SWTShellManager;
 import org.wso2.developerstudio.workspaceselector.utils.SplashScreenDesignParameters;
 
 import java.io.BufferedWriter;
@@ -63,7 +62,10 @@ public class SWTSplashScreen {
         if (log.isDebugEnabled()) {
             log.debug("Splash Screen Initiated.");
         }
-
+	    /**
+	     * default value of port is set to "-1" so that on user operation other depending applications will exit
+	     * if port = -1
+	     */
         int port = -1;
         if (!isDefaultWorkSpaceSet()) {
             SWTWorkspaceSelector workspaceSelector = new SWTWorkspaceSelector();
