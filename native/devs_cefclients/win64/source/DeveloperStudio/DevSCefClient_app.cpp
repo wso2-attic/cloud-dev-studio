@@ -95,11 +95,11 @@ void DevSCefClient::OnContextInitialized() {
 
 	// Information used when creating the native window.
 	CefWindowInfo window_info;
-	
+
 #if defined(OS_WIN)
 	// On Windows we need to specify certain flags that will be passed to
 	// CreateWindowEx().
-	
+
 	window_info.SetAsPopup(NULL, "WSO2 Developer Studio");
 #endif
 
@@ -137,37 +137,40 @@ void DevSCefClient::OnContextInitialized() {
 	if (pid_file_remove_status != 0) {
 		//std::cerr << Messages::ERROR_IN_FILE_DELETE << pid_file_remove_status << std::endl;
 	}
-	if (serverPID < 0) {
-		//TODO find a way to exit the cef
-		return;
-	}
 
-	//wait for url file
-	const char * url_cpath = SystemUtils::BIN_URL_TXT.c_str();
-	while (true) {
-		std::FILE *url_file = std::fopen(url_cpath, "rb");
-		if (url_file) {
-			std::fclose(url_file);
-			break;
-		} else {
-			Sleep(2);
+	if (serverPID > 0) {
+
+		//wait for url file
+		const char * url_cpath = SystemUtils::BIN_URL_TXT.c_str();
+		while (true) {
+			std::FILE *url_file = std::fopen(url_cpath, "rb");
+			if (url_file) {
+				std::fclose(url_file);
+				break;
+			} else {
+				Sleep(2);
+			}
 		}
+
+		//read url file
+		std::string url = SystemUtils::GetFileContents(url_cpath);
+		//close url file
+		int url_file_remove_status = std::remove(url_cpath);
+		if (url_file_remove_status != 0) {
+			//cout << Messages::ERROR_IN_FILE_DELETE << url_file_remove_status << std::endl;
+		}
+
+		// SimpleHandler implements browser-level callbacks.
+		CefRefPtr<DevSCefBrowserEventHandler> handler(new DevSCefBrowserEventHandler());
+
+		// Specify CEF browser settings here.
+		CefBrowserSettings browser_settings;
+
+		// Create the first browser window.
+		CefBrowserHost::CreateBrowser(window_info, handler.get(), url, browser_settings, NULL);
+	} else {
+		HANDLE currentProcessHandle = GetCurrentProcess();
+		TerminateProcess(currentProcessHandle, 0);
 	}
 
-	//read url file
-	std::string url = SystemUtils::GetFileContents(url_cpath);
-	//close url file
-	int url_file_remove_status = std::remove(url_cpath);
-	if (url_file_remove_status != 0) {
-		//cout << Messages::ERROR_IN_FILE_DELETE << url_file_remove_status << std::endl;
-	}
-
-	// SimpleHandler implements browser-level callbacks.
-	CefRefPtr<DevSCefBrowserEventHandler> handler(new DevSCefBrowserEventHandler());
-
-	// Specify CEF browser settings here.
-	CefBrowserSettings browser_settings;
-
-	// Create the first browser window.
-	CefBrowserHost::CreateBrowser(window_info, handler.get(), url, browser_settings, NULL);
 }
