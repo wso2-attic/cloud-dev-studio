@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+* Copyright (c) 2014 -2015s, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -15,7 +15,10 @@
 */
 package org.wso2.developerstudio.codenvy.ext.appfactory.shared;
 
-public interface AppFactoryExtConstants {
+/**
+ * Class for keeping constant values used in App Factory extension module
+ */
+public interface AppFactoryExtensionConstants {
 
 	String EXT_NAME = "App Factory Tools";
 	String EXT_VERSION = "1.0.0";
@@ -23,12 +26,9 @@ public interface AppFactoryExtConstants {
 	String OPEN_AF_PERSPECTIVE_ACTION_ID = "wso2AFOpenPerspectiveAction";
 	String OPEN_AF_PERSPECTIVE_ACTION_NAME = "App Factory Perspective";
 
-	String WSO2_APP_FAC_VIEW_APPLIST = "Applications List";
+	String WSO2_APP_FAC_VIEW_APP_LIST = "Applications List";
 	String WSO2_APP_FAC_VIEW_CONSOLE = "Console";
-	String WSO2_APP_FAC_VIEW_APPDETAILS = "Application Details";
-
-	String ACTION_LOGIN_AF_ID = "wso2AFLoginAction";
-	String ACTION_LOGIN_AF_NAME = "Login to App Factory";
+	String WSO2_APP_FAC_VIEW_APP_DETAILS = "Application Details";
 
 	String AF_CLIENT_REST_SERVICE_PATH = "afclient";
 	String AF_CLIENT_LOGIN_METHOD_PATH = "login";
