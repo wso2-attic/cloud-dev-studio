@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+* Copyright (c) 2014-2015, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.wso2.developerstudio.codenvy.ext.appfactory.client;
+package org.wso2.developerstudio.codenvy.ext.appfactory.client.resources;
 
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.ImageResource;
@@ -24,4 +24,9 @@ import com.google.gwt.resources.client.ImageResource;
 public interface AppFactoryExtensionResources extends ClientBundle {
 
 	@Source("users.gif") ImageResource getLoginIcon();
+
+	@Source("app-list.png") ImageResource getAppListIcon();
+
+	@Source("refresh.gif") ImageResource getRefreshIcon();
+
 }

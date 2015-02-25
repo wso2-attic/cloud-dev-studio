@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ * Copyright (c) 2014-2015, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,15 @@
 package org.wso2.developerstudio.codenvy.ext.appfactory.client.inject;
 
 import com.codenvy.ide.api.extension.ExtensionGinModule;
-import org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.part.factory.AppFactoryPartsFactory;
+import org.wso2.developerstudio.codenvy.ext.appfactory.client.factory.AppFactoryPartsFactory;
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
 
 @ExtensionGinModule
 public class GinModule extends AbstractGinModule {
 
-	@Override
-	protected void configure() {
-		install(new GinFactoryModuleBuilder().build(AppFactoryPartsFactory.class));
-	}
+    @Override
+    protected void configure() {
+        install(new GinFactoryModuleBuilder().build(AppFactoryPartsFactory.class));
+    }
 }
