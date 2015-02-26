@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+* Copyright (c) 2014-2015, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -22,18 +22,27 @@ import com.google.inject.ImplementedBy;
 @ImplementedBy(AppListViewImpl.class)
 public interface AppListView extends View<AppListView.ActionDelegate> {
 
-	/**
-	 * Required for delegating functions from view.
-	 */
-	public interface ActionDelegate extends BaseActionDelegate {
-		void onButtonClicked();
-	}
+    /**
+     * Interface for App list view action delegation
+     */
+    public interface ActionDelegate extends BaseActionDelegate {
 
-	/**
-	 * Set title of my part.
-	 *
-	 * @param title part title
-	 */
-	void setTitle(String title);
+        /**
+         * Action Handler for login button clicked
+         */
+        void onLoginButtonClicked();
+
+        /**
+         * Action Handler for refresh button clicked
+         */
+        void onRefreshButtonClicked();
+    }
+
+    /**
+     * Set title of App list part.
+     *
+     * @param title part title
+     */
+    void setTitle(String title);
 
 }

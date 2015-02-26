@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+* Copyright (c) 2014-2015, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -17,49 +17,84 @@ package org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.part.applist;
 
 import com.codenvy.ide.api.parts.base.BasePresenter;
 import com.google.gwt.resources.client.ImageResource;
+
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.dialog.login.LoginPresenter;
+import org.wso2.developerstudio.codenvy.ext.appfactory.client.resources.AppFactoryExtensionResources;
+import org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.login.LoginPresenter;
 
+import javax.annotation.Nonnull;
+
+/**
+ * Provides a view handler to the App list part which is shown with App Factory perspective
+ */
 public class AppListPresenter extends BasePresenter implements AppListView.ActionDelegate {
 
-	private AppListView view;
-	private String title;
-	private LoginPresenter loginPresenter;
+    private AppListView appListView;
+    private String title;
+    private LoginPresenter loginPresenter;
+    private AppFactoryExtensionResources extensionResources;
 
-	@Inject
-	public AppListPresenter(AppListView view, @Assisted String title,
-	                        LoginPresenter loginPresenter) {
-		this.view = view;
-		this.view.setDelegate(this);
-		this.view.setTitle(title);
-		this.title = title;
-		this.loginPresenter = loginPresenter;
-	}
+    /**
+     * Creates an App list part presenter with GWT injected App list view, login presenter, and extension resources
+     */
+    @Inject
+    public AppListPresenter(AppListView appListView, @Assisted String title,
+                            LoginPresenter loginPresenter, AppFactoryExtensionResources extensionResources) {
+        this.appListView = appListView;
+        this.appListView.setDelegate(this);
+        this.appListView.setTitle(title);
+        this.title = title;
+        this.loginPresenter = loginPresenter;
+    }
 
-	@Override
-	public void onButtonClicked() {
-		loginPresenter.showDialog();
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Nonnull
+    public String getTitle() {
+        return title;
+    }
 
-	@Override
-	public String getTitle() {
-		return title;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ImageResource getTitleImage() {
+        return extensionResources.getLoginIcon();
+    }
 
-	@Override
-	public ImageResource getTitleImage() {
-		return null;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getTitleToolTip() {
+        return title;
+    }
 
-	@Override
-	public String getTitleToolTip() {
-		return "Tooltip";
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void go(AcceptsOneWidget container) {
+        container.setWidget(appListView);
+    }
 
-	@Override
-	public void go(AcceptsOneWidget container) {
-		container.setWidget(view);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onLoginButtonClicked() {
+        loginPresenter.showDialog();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onRefreshButtonClicked() {
+        //TODO - Need to implement the logic with App Factory server side implementation
+    }
 }
