@@ -47,4 +47,7 @@ public interface AppFactoryExtensionConstants {
 
 	String INVALID_HOST_URL_ERROR_MESSAGE = "Invalid Host URL";
 
+	String LOGIN_ACTION = "Login";
+	String REFRESH_ACTION = "Refresh";
+
 }
