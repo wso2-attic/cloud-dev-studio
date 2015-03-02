@@ -29,4 +29,6 @@ public interface AppFactoryExtensionResources extends ClientBundle {
 
 	@Source("refresh.gif") ImageResource getRefreshIcon();
 
+	@Source("console.gif") ImageResource getConsoleIcon();
+
 }

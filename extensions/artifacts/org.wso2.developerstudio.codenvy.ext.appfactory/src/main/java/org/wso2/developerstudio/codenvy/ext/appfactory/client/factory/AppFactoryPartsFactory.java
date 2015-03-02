@@ -17,6 +17,7 @@ package org.wso2.developerstudio.codenvy.ext.appfactory.client.factory;
 
 import org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.part.appdetails.AppDetailsPresenter;
 import org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.part.applist.AppListPresenter;
+import org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.part.console.ConsolePresenter;
 
 import javax.validation.constraints.NotNull;
 
@@ -48,6 +49,6 @@ public interface AppFactoryPartsFactory {
      * @param title Console Title
      * @return Console View
      */
-    AppDetailsPresenter createConsolePart(@NotNull String title);
+    ConsolePresenter createConsolePart(@NotNull String title);
 
 }
