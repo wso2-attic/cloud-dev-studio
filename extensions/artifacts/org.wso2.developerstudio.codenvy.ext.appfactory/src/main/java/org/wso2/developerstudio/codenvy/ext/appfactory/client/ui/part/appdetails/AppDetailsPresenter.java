@@ -20,18 +20,17 @@ import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.part.applist.AppListView;
 
-public class AppDetailsPresenter extends BasePresenter implements AppListView.ActionDelegate {
+public class AppDetailsPresenter extends BasePresenter implements AppDetailsView.ActionDelegate {
 
-	private AppListView view;
+	private AppDetailsView appDetailsView;
 	private String title;
 
 	@Inject
-	public AppDetailsPresenter(AppListView view, @Assisted String title) {
-		this.view = view;
-		this.view.setDelegate(this);
-		this.view.setTitle(title);
+	public AppDetailsPresenter(AppDetailsView appDetailsView, @Assisted String title) {
+		this.appDetailsView = appDetailsView;
+		this.appDetailsView.setDelegate(this);
+		this.appDetailsView.setTitle(title);
 		this.title = title;
 	}
 
@@ -56,7 +55,7 @@ public class AppDetailsPresenter extends BasePresenter implements AppListView.Ac
 
 	@Override
 	public void go(AcceptsOneWidget container) {
-		container.setWidget(view);
+		container.setWidget(appDetailsView);
 	}
 
 }

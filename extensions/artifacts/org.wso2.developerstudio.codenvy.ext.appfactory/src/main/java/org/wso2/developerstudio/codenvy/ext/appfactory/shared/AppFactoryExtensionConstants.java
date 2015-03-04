@@ -33,4 +33,21 @@ public interface AppFactoryExtensionConstants {
 	String AF_CLIENT_REST_SERVICE_PATH = "afclient";
 	String AF_CLIENT_LOGIN_METHOD_PATH = "login";
 
+	String WSO2_APP_CLOUD_URL_LABEL = "WSO2 App Cloud:";
+	String WSO2_APP_CLOUD_USER_LABEL = "Email:";
+	String WSO2_APP_FACTORY_URL_LABEL = "App Factory URL:";
+	String WSO2_APP_FACTORY_USER_LABEL = "User:";
+
+	String APP_CLOUD_APP_FACTORY_LOGIN_TITLE = "App Cloud/ App Factory Login";
+
+	String URL_PREFIX_HTTP = "http:";
+	String URL_PREFIX_HTTPS = "https:";
+	String URL_PREFIX_FTP = "ftp:";
+	String COLON_SEPARATOR = ":";
+
+	String INVALID_HOST_URL_ERROR_MESSAGE = "Invalid Host URL";
+
+	String LOGIN_ACTION = "Login";
+	String REFRESH_ACTION = "Refresh";
+
 }
