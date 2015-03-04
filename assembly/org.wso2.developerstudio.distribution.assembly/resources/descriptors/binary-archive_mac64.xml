@@ -6,13 +6,14 @@
     </formats>
     <includeBaseDirectory>false</includeBaseDirectory>
     <fileSets>
+        <!--copying the cef resources into the zip file on zip creation -->
         <fileSet>
-          <directory>${project.basedir}/../../native/devs_cefclients/mac64/Release/devs.app</directory>
-          <outputDirectory>/wso2-developer-studio-mac64/devs.app</outputDirectory>
-          <useDefaultExcludes>true</useDefaultExcludes>
-          <fileMode>0777</fileMode>
-          <directoryMode>0777</directoryMode>
-       </fileSet>
+            <directory>${project.basedir}/target/cef-binaries/${cef.binary.version}/mac-64</directory>
+            <outputDirectory>/wso2-developer-studio-mac64</outputDirectory>
+            <useDefaultExcludes>true</useDefaultExcludes>
+            <fileMode>0777</fileMode>
+            <directoryMode>0777</directoryMode>
+        </fileSet>
        <fileSet>
            <directory>${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps</directory>
            <outputDirectory>/wso2-developer-studio-mac64/${assembly.tomcat.webapp.root}</outputDirectory>

@@ -81,6 +81,7 @@ limitations under the License.
         <tycho.version>0.19.0</tycho.version>
         <uitest.vmparams>-Xms2048m -Xmx3096m -XX:MaxPermSize=1024m</uitest.vmparams>
         <zip4j.version>1.3.2</zip4j.version>
+        <cef.binary.version>1.0.0</cef.binary.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -171,6 +172,15 @@ limitations under the License.
             <id>codenvy-public-repo</id>
             <name>codenvy public</name>
             <url>https://maven.codenvycorp.com/content/groups/public/</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>cef-binary-repo</id>
+            <name>cef binary</name>
+            <url>http://maven.wso2.org/nexus/content/repositories/orgwso2developerstudio-132/</url>
             <layout>default</layout>
         </repository>
         <repository>

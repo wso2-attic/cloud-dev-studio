@@ -38,12 +38,86 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                         </goals>
                         <configuration>
                             <tasks>
-                                <unwar dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api" src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api.war" />
-                                <unwar dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/ws" src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/ws.war" />
-                                <unwar dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/java-ca" src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/java-ca.war" />
-                                <unwar dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/datasource" src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/datasource.war" />
-                                <unwar dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api-docs-ui" src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api-docs-ui.war" />
+                                <unwar dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api" src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api.war"/>
+                                <unwar dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/ws" src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/ws.war"/>
+                                <unwar dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/java-ca" src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/java-ca.war"/>
+                                <unwar dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/datasource" src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/datasource.war"/>
+                                <unwar dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api-docs-ui" src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api-docs-ui.war"/>
                             </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--adding cef binaries for relevant packs-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.8</version>
+                <executions>
+                    <execution>
+                        <id>copy-cef-binaries-linux</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.wso2.developerstudio</groupId>
+                                    <artifactId>cef-binary-linux-64</artifactId>
+                                    <version>${cef.binary.version}</version>
+                                    <type>zip</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>
+                                        ${basedir}/target/cef-binaries/${cef.binary.version}/linux-64
+                                    </outputDirectory>
+                                    <destFileName>linux64</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-cef-binaries-win</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.wso2.developerstudio</groupId>
+                                    <artifactId>cef-binary-win-64</artifactId>
+                                    <version>${cef.binary.version}</version>
+                                    <type>zip</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>
+                                        ${basedir}/target/cef-binaries/${cef.binary.version}/win-64
+                                    </outputDirectory>
+                                    <destFileName>windows</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-cef-binaries-mac</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.wso2.developerstudio</groupId>
+                                    <artifactId>cef-binary-mac-64</artifactId>
+                                    <version>${cef.binary.version}</version>
+                                    <type>zip</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>
+                                        ${basedir}/target/cef-binaries/${cef.binary.version}/mac-64
+                                    </outputDirectory>
+                                    <destFileName>macos64</destFileName>
+                                </artifactItem>
+                            </artifactItems>
                         </configuration>
                     </execution>
                 </executions>
@@ -61,7 +135,9 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                             <appendAssemblyId>false</appendAssemblyId>
                             <updateOnly>false</updateOnly>
                             <descriptors>
-                                <descriptor>${basedir}/resources/descriptors/binary-archive_linux64.xml</descriptor>
+                                <descriptor>
+                                    ${basedir}/resources/descriptors/binary-archive_linux64.xml
+                                </descriptor>
                             </descriptors>
                             <finalName>wso2-developer-studio-linux64</finalName>
                         </configuration>
@@ -76,7 +152,9 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                             <appendAssemblyId>false</appendAssemblyId>
                             <updateOnly>false</updateOnly>
                             <descriptors>
-                                <descriptor>${basedir}/resources/descriptors/binary-archive_mac64.xml</descriptor>
+                                <descriptor>
+                                    ${basedir}/resources/descriptors/binary-archive_mac64.xml
+                                </descriptor>
                             </descriptors>
                             <finalName>wso2-developer-studio-mac64</finalName>
                         </configuration>
@@ -91,7 +169,9 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                             <appendAssemblyId>false</appendAssemblyId>
                             <updateOnly>false</updateOnly>
                             <descriptors>
-                                <descriptor>${basedir}/resources/descriptors/binary-archive_win64.xml</descriptor>
+                                <descriptor>
+                                    ${basedir}/resources/descriptors/binary-archive_win64.xml
+                                </descriptor>
                             </descriptors>
                             <finalName>wso2-developer-studio-windows64</finalName>
                         </configuration>
