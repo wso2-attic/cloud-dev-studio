@@ -17,9 +17,9 @@
        <fileSet>
            <directory>${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps</directory>
            <outputDirectory>/wso2-developer-studio-mac64/${assembly.tomcat.webapp.root}</outputDirectory>
-           <includes>
-               <include>*.war</include>
-           </includes>
+           <excludes>
+               <exclude>*.war</exclude>
+           </excludes>
            <useDefaultExcludes>true</useDefaultExcludes>
            <fileMode>0777</fileMode>
            <directoryMode>0777</directoryMode>
