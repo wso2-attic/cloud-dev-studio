@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.login.LoginPresenter;
 import org.wso2.developerstudio.codenvy.ext.appfactory.client.factory.AppFactoryPartsFactory;
 import org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.part.appdetails.AppDetailsPresenter;
+import org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.part.console.ConsolePresenter;
 import org.wso2.developerstudio.codenvy.ext.appfactory.shared.AppFactoryExtensionConstants;
 
 import static com.codenvy.ide.api.parts.PartStackType.TOOLING;
@@ -64,7 +65,7 @@ public class OpenPerspectiveAction extends Action {
                 AppFactoryExtensionConstants.WSO2_APP_FAC_VIEW_APP_DETAILS);
         workspaceAgent.openPart(appDetailsPresenter, TOOLING);
 
-        AppDetailsPresenter consolePresenter = appFactoryPartsFactory.createAppDetailsPart(
+        ConsolePresenter consolePresenter = appFactoryPartsFactory.createConsolePart(
                 AppFactoryExtensionConstants.WSO2_APP_FAC_VIEW_CONSOLE);
         workspaceAgent.openPart(consolePresenter, INFORMATION);
         workspaceAgent.setActivePart(consolePresenter);

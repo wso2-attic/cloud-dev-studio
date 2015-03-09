@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014-2015, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+* Copyright (c) 2015, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -13,40 +13,33 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.part.applist;
+package org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.part.console;
 
 import com.codenvy.ide.api.parts.base.BasePresenter;
 import com.google.gwt.resources.client.ImageResource;
-
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import org.wso2.developerstudio.codenvy.ext.appfactory.client.resources.AppFactoryExtensionResources;
-import org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.login.LoginPresenter;
-
-import javax.annotation.Nonnull;
 
 /**
- * Provides a view handler to the App list part which is shown with App Factory perspective
+ * Provides a view handler to the console part which is shown with App Factory perspective
  */
-public class AppListPresenter extends BasePresenter implements AppListView.ActionDelegate {
+public class ConsolePresenter extends BasePresenter implements ConsoleView.ActionDelegate {
 
-    private AppListView appListView;
+    private ConsoleView consoleView;
     private String title;
-    private LoginPresenter loginPresenter;
     private AppFactoryExtensionResources extensionResources;
 
     /**
-     * Creates an App list part presenter with GWT injected App list view, login presenter, and extension resources
+     * Creates a console part presenter with GWT injected console view, and a title
      */
     @Inject
-    public AppListPresenter(AppListView appListView, @Assisted String title,
-                            LoginPresenter loginPresenter, AppFactoryExtensionResources extensionResources) {
-        this.appListView = appListView;
-        this.appListView.setDelegate(this);
-        this.appListView.setTitle(title);
+    public ConsolePresenter(ConsoleView consoleView, @Assisted String title, AppFactoryExtensionResources extensionResources) {
+        this.consoleView = consoleView;
+        this.consoleView.setDelegate(this);
+        this.consoleView.setTitle(title);
         this.title = title;
-        this.loginPresenter = loginPresenter;
         this.extensionResources = extensionResources;
     }
 
@@ -54,7 +47,6 @@ public class AppListPresenter extends BasePresenter implements AppListView.Actio
      * {@inheritDoc}
      */
     @Override
-    @Nonnull
     public String getTitle() {
         return title;
     }
@@ -64,7 +56,7 @@ public class AppListPresenter extends BasePresenter implements AppListView.Actio
      */
     @Override
     public ImageResource getTitleImage() {
-        return extensionResources.getLoginIcon();
+        return extensionResources.getConsoleIcon();
     }
 
     /**
@@ -80,22 +72,14 @@ public class AppListPresenter extends BasePresenter implements AppListView.Actio
      */
     @Override
     public void go(AcceptsOneWidget container) {
-        container.setWidget(appListView);
+        container.setWidget(consoleView);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void onLoginButtonClicked() {
-        loginPresenter.showDialog();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onRefreshButtonClicked() {
+    public void onClearButtonClicked() {
         //TODO - Need to implement the logic with App Factory server side implementation
     }
 }
