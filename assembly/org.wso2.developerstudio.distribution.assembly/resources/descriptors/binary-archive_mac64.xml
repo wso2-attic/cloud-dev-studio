@@ -8,7 +8,7 @@
     <fileSets>
         <!--copying the cef resources into the zip file on zip creation -->
         <fileSet>
-            <directory>${project.basedir}/target/cef-binaries/${cef.binary.version}/mac-64</directory>
+            <directory>${project.basedir}/target/cef-binaries/${cef.binary.version}/mac-64/Release</directory>
             <outputDirectory>/wso2-developer-studio-mac64</outputDirectory>
             <useDefaultExcludes>true</useDefaultExcludes>
             <fileMode>0777</fileMode>
