@@ -54,6 +54,11 @@ limitations under the License.
             <artifactId>commons-validator</artifactId>
             <version>1.4.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.3.6</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -65,6 +70,9 @@ limitations under the License.
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>${project.build.directory}/generated-sources/dto/</directory>
             </resource>
         </resources>
         <plugins>
@@ -88,6 +96,89 @@ limitations under the License.
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <id>add-resource</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.directory}/generated-sources/dto/META-INF</directory>
+                                    <targetPath>META-INF</targetPath>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-sources/dto/</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.codenvy.platform-api</groupId>
+                <artifactId>codenvy-dto-maven-plugin</artifactId>
+                <version>0.30.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-client</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <dtoPackages>
+                                <package>org.wso2.developerstudio.codenvy.ext.appfactory.shared.dto</package>
+                            </dtoPackages>
+                            <outputDirectory>${project.build.directory}/generated-sources/dto/</outputDirectory>
+                            <genClassName>org.wso2.developerstudio.codenvy.ext.appfactory.client.DTOClientImpls
+                            </genClassName>
+                            <impl>client</impl>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-server</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <dtoPackages>
+                                <package>org.wso2.developerstudio.codenvy.ext.appfactory.shared.dto</package>
+                            </dtoPackages>
+                            <outputDirectory>${project.build.directory}/generated-sources/dto/</outputDirectory>
+                            <genClassName>org.wso2.developerstudio.codenvy.ext.appfactory.client.DTOClientImpls
+                            </genClassName>
+                            <impl>server</impl>
+                        </configuration>
+                    </execution>
+                </executions>
+                <!--<dependencies>
+                    <dependency>
+                        <groupId>${project.groupId}</groupId>
+                        <artifactId>${project.artifactId}</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                    &lt;!&ndash;
+                    Other dependencies if DTOs from current project need them.
+                    &ndash;&gt;
+                </dependencies>-->
             </plugin>
             <plugin>
                 <groupId>com.google.code.sortpom</groupId>
