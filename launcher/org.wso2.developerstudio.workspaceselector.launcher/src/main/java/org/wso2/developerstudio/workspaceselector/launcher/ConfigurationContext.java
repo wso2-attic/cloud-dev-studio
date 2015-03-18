@@ -33,13 +33,6 @@ public class ConfigurationContext {
 	public static final String WORKSPACE_ROOT_INDEX_PROPERTY = "vfs.local.fs_index_root_dir";
 	public static final String IS_DEFAULT_WORKSPACE = "set.workspace.as.default";
 
-	public static final String RUNNER_URL = "runner.slave_runner_urls";
-	public static final String BUILDER_URL = "builder.slave_builder_urls";
-	public static final String API_ENDPOINT = "api.endpoint";
-	public static final String EVENT_SUBSCRIPTION_URL = "notification.client.event_subscriptions";
-	public static final String PROJECT_BASE_ICON_URL = "project.base_icon_url";
-	public static final String GITHUB_AUTH_REDIRECT_URI = "security.local.oauth.github-redirect-uris";
-
 	/**
 	 * Sets system properties used by Eclipse Che
 	 *

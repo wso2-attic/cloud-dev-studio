@@ -51,6 +51,11 @@ limitations under the License.
             <version>${org.eclipse.swt.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.wso2.developerstudio</groupId>
+            <artifactId>org.wso2.developerstudio.portchanger</artifactId>
+            <version>4.0.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>

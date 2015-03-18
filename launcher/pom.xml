@@ -26,6 +26,6 @@ limitations under the License.
     <name>WSO2 Developer Studio :: Launcher Parent</name>
     <modules>
         <module>org.wso2.developerstudio.workspaceselector.launcher</module>
-        <module>org.wso2.developerstudio.server.launcher</module>
+        <module>org.wso2.developerstudio.checonfigs</module>
     </modules>
 </project>

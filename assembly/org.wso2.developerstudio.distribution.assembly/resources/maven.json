@@ -1,0 +1,362 @@
+[
+    {
+        "displayName": "JSP",
+        "category": "Samples - Hello World",
+        "description": "A simple JSP application that returns user's input.",
+        "source": {
+            "type": "zip",
+            "location": "${project.template_location_dir}/web-jsp-java-basic.zip",
+            "parameters": {
+                "branch": "3.1.0",
+                "keepVcs": "false"
+            }
+        },
+        "runners": {
+            "default": "system:/java/web/tomcat7",
+            "configs": {
+                "recommend": {
+                    "ram": 256
+                }
+            }
+        },
+        "builders": {
+            "default": "maven"
+        }
+    },
+    {
+        "displayName": "Spring",
+        "category": "Samples - Hello World",
+        "description": "A basic example using Spring servlets. The app returns values entered into a submit form.",
+        "source": {
+            "type": "zip",
+            "location": "${project.template_location_dir}/web-spring-java-simple.zip",
+            "parameters": {
+                "branch": "3.1.0",
+                "keepVcs": "false"
+            }
+        },
+        "runners": {
+            "default": "system:/java/web/tomcat7",
+            "configs": {
+                "recommend": {
+                    "ram": 256
+                }
+            }
+        },
+        "builders": {
+            "default": "maven"
+        }
+    },
+    {
+        "displayName": "GWT",
+        "category": "Samples - Hello World",
+        "description": "A GWT 2.6.1 application that returns user's input and information on application server and user agent.",
+        "source": {
+            "type": "zip",
+            "location": "${project.template_location_dir}/web-gwt-java-simple.zip",
+            "parameters": {
+                "branch": "3.1.0",
+                "keepVcs": "false"
+            }
+        },
+        "runners": {
+            "default": "system:/java/web/tomcat7",
+            "configs": {
+                "recommend": {
+                    "ram": 256
+                }
+            }
+        },
+        "builders": {
+            "default": "maven"
+        }
+    },
+    {
+        "displayName": "Grails",
+        "category": "Samples - Hello World",
+        "description": "Default Grails application welcoming a user and providing information on application status and installed plug-ins.",
+        "source": {
+            "type": "zip",
+            "location": "${project.template_location_dir}/web-grails-java-simple.zip",
+            "parameters": {
+                "branch": "3.1.0",
+                "keepVcs": "false"
+            }
+        },
+        "runners": {
+            "default": "system:/java/web/tomcat7",
+            "configs": {
+                "recommend": {
+                    "ram": 1024
+                }
+            }
+        },
+        "builders": {
+            "default": "maven"
+        }
+    },
+    {
+        "displayName": "JSF",
+        "category": "Samples - Hello World",
+        "description": "A basic 'What's Your Name' application that returns user's input.",
+        "source": {
+            "type": "zip",
+            "location": "${project.template_location_dir}/web-jsf-java-simple.zip",
+            "parameters": {
+                "branch": "3.1.0",
+                "keepVcs": "false"
+            }
+        },
+        "runners": {
+            "default": "system:/java/web/tomcat7",
+            "configs": {
+                "recommend": {
+                    "ram": 256
+                }
+            }
+        },
+        "builders": {
+            "default": "maven"
+        }
+    },
+    {
+        "displayName": "Lift",
+        "category": "Samples - Hello World",
+        "description": "Application demonstrating a simple user account, login, edit account, password recovery and logout procedures.",
+        "source": {
+            "type": "zip",
+            "location": "${project.template_location_dir}/web-lift-java-simple.zip",
+            "parameters": {
+                "branch": "3.1.0",
+                "keepVcs": "false"
+            }
+        },
+        "runners": {
+            "default": "system:/java/web/tomcat7",
+            "configs": {
+                "recommend": {
+                    "ram": 256
+                }
+            }
+        },
+        "builders": {
+            "default": "maven"
+        }
+    },
+    {
+        "displayName": "Struts",
+        "category": "Samples - Hello World",
+        "description": "A simple Struts app with a simple 'What's Your Name?' box that returns user's input.",
+        "source": {
+            "type": "zip",
+            "location": "${project.template_location_dir}/web-struts-java-simple.zip",
+            "parameters": {
+                "branch": "3.1.0",
+                "keepVcs": "false"
+            }
+        },
+        "runners": {
+            "default": "system:/java/web/tomcat7",
+            "configs": {
+                "recommend": {
+                    "ram": 256
+                }
+            }
+        },
+        "builders": {
+            "default": "maven"
+        }
+    },
+    {
+        "displayName": "Vaadin",
+        "category": "Samples - Hello World",
+        "description": "An online address book built with Vaadin.",
+        "source": {
+            "type": "zip",
+            "location": "${project.template_location_dir}/web-vaadin-java-simple.zip",
+            "parameters": {
+                "branch": "3.1.0",
+                "keepVcs": "false"
+            }
+        },
+        "runners": {
+            "default": "system:/java/web/tomcat7",
+            "configs": {
+                "recommend": {
+                    "ram": 256
+                }
+            }
+        },
+        "builders": {
+            "default": "maven"
+        }
+    },
+    {
+        "displayName": "Tapestry",
+        "category": "Samples - Hello World",
+        "description": "A simple application demonstrating the Tapestry web framework.",
+        "source": {
+            "type": "zip",
+            "location": "${project.template_location_dir}/web-tapestry-java-simple.zip",
+            "parameters": {
+                "branch": "3.1.0",
+                "keepVcs": "false"
+            }
+        },
+        "runners": {
+            "default": "system:/java/web/tomcat7",
+            "configs": {
+                "recommend": {
+                    "ram": 256
+                }
+            }
+        },
+        "builders": {
+            "default": "maven"
+        }
+    },
+    {
+        "displayName": "Wicket",
+        "category": "Samples - Hello World",
+        "description": "Quick Start Wicket web application which is a part of the Wicket bundle.",
+        "source": {
+            "type": "zip",
+            "location": "${project.template_location_dir}/web-wicket-java-simple.zip",
+            "parameters": {
+                "branch": "3.1.0",
+                "keepVcs": "false"
+            }
+        },
+        "runners": {
+            "default": "system:/java/web/tomcat7",
+            "configs": {
+                "recommend": {
+                    "ram": 256
+                }
+            }
+        },
+        "builders": {
+            "default": "maven"
+        }
+    },
+    {
+        "displayName": "Groovy",
+        "category": "Samples - Hello World",
+        "description": "A basic scripting console to run JavaScript.",
+        "source": {
+            "type": "zip",
+            "location": "${project.template_location_dir}/web-groovy-java-simple.zip",
+            "parameters": {
+                "branch": "3.1.0",
+                "keepVcs": "false"
+            }
+        },
+        "runners": {
+            "default": "system:/java/web/tomcat7",
+            "configs": {
+                "recommend": {
+                    "ram": 256
+                }
+            }
+        },
+        "builders": {
+            "default": "maven"
+        }
+    },
+    {
+        "displayName": "JRuby Spring",
+        "category": "Samples - Hello World",
+        "description": "A basic JRuby application compiled into WAR with JRuby Maven plugin and run in an application server.",
+        "source": {
+            "type": "zip",
+            "location": "${project.template_location_dir}/web-jruby-java-simple.zip",
+            "parameters": {
+                "branch": "3.1.0",
+                "keepVcs": "false"
+            }
+        },
+        "runners": {
+            "default": "system:/java/web/tomcat7",
+            "configs": {
+                "recommend": {
+                    "ram": 256
+                }
+            }
+        },
+        "builders": {
+            "default": "maven"
+        }
+    },
+    {
+        "displayName": "Jython Servlet",
+        "category": "Samples - Hello World",
+        "description": "A simple Jython web application packaged with Maven",
+        "source": {
+            "type": "zip",
+            "location": "${project.template_location_dir}/web-jython-java-simple.zip",
+            "parameters": {
+                "branch": "3.1.0",
+                "keepVcs": "false"
+            }
+        },
+        "runners": {
+            "default": "system:/java/web/tomcat7",
+            "configs": {
+                "recommend": {
+                    "ram": 256
+                }
+            }
+        },
+        "builders": {
+            "default": "maven"
+        }
+    },
+    {
+        "displayName": "Shale",
+        "category": "Samples - Hello World",
+        "description": "An application using Shale web framework. Returns user's input",
+        "source": {
+            "type": "zip",
+            "location": "${project.template_location_dir}/web-shale-java-simple.zip",
+            "parameters": {
+                "branch": "3.1.0",
+                "keepVcs": "false"
+            }
+        },
+        "runners": {
+            "default": "system:/java/web/tomcat7",
+            "configs": {
+                "recommend": {
+                    "ram": 256
+                }
+            }
+        },
+        "builders": {
+            "default": "maven"
+        }
+    },
+    {
+        "displayName": "Velocity",
+        "category": "Samples - Hello World",
+        "description": "A simple web application using Velocity Framework.",
+        "source": {
+            "type": "zip",
+            "location": "${project.template_location_dir}/web-velocity-java-simple.zip",
+            "parameters": {
+                "branch": "3.1.0",
+                "keepVcs": "false"
+            }
+        },
+        "runners": {
+            "default": "system:/java/web/tomcat7",
+            "configs": {
+                "recommend": {
+                    "ram": 256
+                }
+            }
+        },
+        "builders": {
+            "default": "maven"
+        }
+    }
+]

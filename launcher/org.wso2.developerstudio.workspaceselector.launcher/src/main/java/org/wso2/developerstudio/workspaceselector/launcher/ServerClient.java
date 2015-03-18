@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 
-import static java.io.File.*;
+import static java.io.File.separator;
 
 /**
  * This class would get the server up on the port value retrieved from the workspace class,
@@ -74,12 +74,18 @@ public class ServerClient implements Runnable {
                 } catch (HttpHostConnectException e) {
                     //do nothing here since we need to wait till we get a sucesful response to open the client
                 }
-
                 // check for the HTTP response 200 OK status
                 if (response != null && response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+
+                    ConfigurationContext.setServerSystemProperties(Integer.toString(port));
+                    ConfigurationContext.setIDEUrl(ideURL);
+
                     log.info("Response recieved from : {}", ideURL);
+
                     String path = SWTSplashScreen.ROOT_DIR + separator + BIN + separator + URL_TXT;
+
                     log.info("Write url to file : {}", path);
+
                     fileWriter = new FileWriter(path);
                     bufferedWriter = new BufferedWriter(fileWriter);
                     bufferedWriter.write(ideURL);

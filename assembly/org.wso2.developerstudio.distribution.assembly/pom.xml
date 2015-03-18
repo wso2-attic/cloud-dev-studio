@@ -32,7 +32,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                 <executions>
                     <execution>
                         <id>prepare-embedded-linux64-version</id>
-                        <phase>prepare-package</phase>
+                        <phase>generate-sources</phase>
                         <goals>
                             <goal>run</goal>
                         </goals>
@@ -43,9 +43,82 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                                 <unwar dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/java-ca" src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/java-ca.war"/>
                                 <unwar dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/datasource" src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/datasource.war"/>
                                 <unwar dest="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api-docs-ui" src="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api-docs-ui.war"/>
+                                <delete file ="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api/WEB-INF/classes/maven.json"/>
+                                <copy file="${basedir}/resources/maven.json"
+                                      tofile="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api/WEB-INF/classes/maven.json" />
+                                <!--zip the che templates, when ned project templates are introduced in che need to update here-->
+                                <zip destfile="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-spring-java-simple.zip"
+                                     basedir="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-spring-java-simple" />
+                                <zip destfile="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-struts-java-simple.zip"
+                                     basedir="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-struts-java-simple" />
+                                <zip destfile="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-tapestry-java-simple.zip"
+                                     basedir="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-tapestry-java-simple" />
+                                <zip destfile="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-vaadin-java-simple.zip"
+                                     basedir="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-vaadin-java-simple" />
+                                <zip destfile="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-velocity-java-simple.zip"
+                                     basedir="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-velocity-java-simple" />
+                                <zip destfile="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-wicket-java-simple.zip"
+                                     basedir="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-wicket-java-simple" />
+                                <zip destfile="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-grails-java-simple.zip"
+                                     basedir="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-grails-java-simple" />
+                                <zip destfile="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-groovy-java-simple.zip"
+                                     basedir="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-groovy-java-simple" />
+                                <zip destfile="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-gwt-java-simple.zip"
+                                     basedir="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-gwt-java-simple" />
+                                <zip destfile="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-jruby-java-simple.zip"
+                                     basedir="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-jruby-java-simple" />
+                                <zip destfile="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-jsf-java-simple.zip"
+                                     basedir="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-jsf-java-simple" />
+                                <zip destfile="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-jsp-java-basic.zip"
+                                     basedir="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-jsp-java-basic" />
+                                <zip destfile="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-jython-java-simple.zip"
+                                     basedir="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-jython-java-simple" />
+                                <zip destfile="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-lift-java-simple.zip"
+                                     basedir="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-lift-java-simple" />
+                                <zip destfile="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-shale-java-simple.zip"
+                                     basedir="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-shale-java-simple" />
+
+                                <delete dir ="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-shale-java-simple"/>
+                                <delete dir ="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-lift-java-simple"/>
+                                <delete dir ="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-jython-java-simple"/>
+                                <delete dir ="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-jsp-java-basic"/>
+                                <delete dir ="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-jsf-java-simple"/>
+                                <delete dir ="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-jruby-java-simple"/>
+                                <delete dir ="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-gwt-java-simple"/>
+                                <delete dir ="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-groovy-java-simple"/>
+                                <delete dir ="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-grails-java-simple"/>
+                                <delete dir ="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-wicket-java-simple"/>
+                                <delete dir ="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-velocity-java-simple"/>
+                                <delete dir ="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-vaadin-java-simple"/>
+                                <delete dir ="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-tapestry-java-simple"/>
+                                <delete dir ="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-struts-java-simple"/>
+                                <delete dir ="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-spring-java-simple"/>
+
                             </tasks>
                         </configuration>
                     </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${maven.exec.plugin.version}</version>
+                <executions>
+                <execution>
+                    <id>change-codenvy-configurations</id>
+                    <phase>prepare-package</phase>
+                    <goals>
+                        <goal>java</goal>
+                    </goals>
+                    <configuration>
+                        <mainClass>org.wso2.developerstudio.checonfigs.EclipseCheConfigurations</mainClass>
+                        <arguments>
+                            <argument>${devstudio.startup.port}</argument>
+                            <argument>${devstudio.shutdown.port}</argument>
+                            <argument>${basedir}/../org.wso2.developerstudio.ide.assembly//target/${com.codenvy.sdk.version}</argument>
+                        </arguments>
+                    </configuration>
+                </execution>
                 </executions>
             </plugin>
             <!--adding cef binaries for relevant packs-->
@@ -178,6 +251,24 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>file-exists</id>
+                    <phase>install</phase>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                    <configuration>
+                        <target>
+                            <delete dir="target/cef-binaries"/>
+                        </target>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
         </plugins>
     </build>
 </project>

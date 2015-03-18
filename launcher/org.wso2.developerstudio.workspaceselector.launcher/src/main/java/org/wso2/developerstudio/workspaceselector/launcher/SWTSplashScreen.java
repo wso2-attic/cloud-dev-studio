@@ -25,15 +25,25 @@ import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.wso2.developerstudio.checonfigs.EclipseCheConfigurations;
 import org.wso2.developerstudio.workspaceselector.utils.SWTResourceManager;
 import org.wso2.developerstudio.workspaceselector.utils.SWTShellManager;
 import org.wso2.developerstudio.workspaceselector.utils.SplashScreenDesignParameters;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.ServerSocket;
+
+import static java.io.File.separator;
 
 /**
  * This class is generating the splash screen for starting the dev-studio
@@ -46,6 +56,10 @@ public class SWTSplashScreen {
 	private static final Display SPLASH_SCREEN_DISPLAY = Display.getDefault();
 	private static final String PORT = "PORT";
 	private static final String BIN = "bin";
+	private static final String CONF_SERVER_XML_LOC = separator + "conf" + separator + "server.xml";
+	private static final String CONNECTOR_XML_TAG = "Connector";
+	private static final String SERVER_XML_TAG = "Server";
+	private static final String PORT_ATTRIBUTE = "port";
 	private final Shell splashScreenShell;
 	private final ProgressBar progressBar;
 
@@ -57,49 +71,69 @@ public class SWTSplashScreen {
 		splashScreenInit(splashScreenDesignParameters);
 	}
 
-    public void showSplashScreen() {
-        splashScreenShell.open();
-        if (log.isDebugEnabled()) {
-            log.debug("Splash Screen Initiated.");
-        }
-	    /**
-	     * default value of port is set to "-1" so that on user operation other depending applications will exit
-	     * if port = -1
-	     */
-        int port = -1;
-        if (!isDefaultWorkSpaceSet()) {
-            SWTWorkspaceSelector workspaceSelector = new SWTWorkspaceSelector();
-            workspaceSelector.openDialog();
-            if (workspaceSelector.isUserWorkSpaceSet()){
-               port = getAvailablePort();
-            } else {
-               log.info("workspace cancelled ");
-            }
-        }
+	public void showSplashScreen() {
+		splashScreenShell.open();
+		if (log.isDebugEnabled()) {
+			log.debug("Splash Screen Initiated.");
+		}
+		/**
+		 * default value of port is set to "-1" so that on user operation other depending applications will exit
+		 * if port = -1
+		 */
+		int port = -1;
+		if (!isDefaultWorkSpaceSet()) {
+			SWTWorkspaceSelector workspaceSelector = new SWTWorkspaceSelector();
+			workspaceSelector.openDialog();
+			if (workspaceSelector.isUserWorkSpaceSet()) {
+				String[] portValues = getTomcatRunningPort(ROOT_DIR);
+				String currentRunPort = portValues[0];
+				String currentShutPort = portValues[1];
 
-        writePortToFile(port);
+				if (currentRunPort != null && currentShutPort != null) {
+					int currentStartUpPort = Integer.parseInt(currentRunPort);
+					int currentShutDownPort = Integer.parseInt(currentShutPort);
+					if (isLocalPortInUse(currentStartUpPort) ||
+					    isLocalPortInUse(currentShutDownPort)) {
+						EclipseCheConfigurations eclipseCheConfigurations = new EclipseCheConfigurations();
+						int startUpPort = getAvailablePort();
+						int shutDownPort = getAvailablePort();
+						if (eclipseCheConfigurations.changeRunningPort(String.valueOf(startUpPort),
+						                                            String.valueOf(shutDownPort),
+						                                            ROOT_DIR, currentRunPort)) {
+							port = startUpPort;
+						} // if initial port is in use and new port values cannot be written to files port will remain -1
+					} else {
+						port = currentStartUpPort;
+					}
+				} // if current port cannot be read, port will remain as -1
+			} else {
+				log.info("workspace cancelled ");
+			}
+		}
 
-        if (port > 0) {
-            /**
-             * check whether IDE web app is finished deploying.
-             */
-            ServerClient serverClient = new ServerClient(port);
-            Thread serverClientThread = new Thread(serverClient);
-            serverClientThread.start();
+		writePortToFile(port);//if -1 is written to port native code will exit
 
-            /**
-             * Standard Eclipse recommended way of keeping an SWT widget alive until disposed by source,
-             * eg: http://help.eclipse.org/indigo/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2Fswt.htm
-             */
-            while (!splashScreenShell.isDisposed() && serverClientThread.isAlive()) {
-                if (!SPLASH_SCREEN_DISPLAY.readAndDispatch()) {
-                    SPLASH_SCREEN_DISPLAY.sleep();
-                }
-            }
-        }
+		if (port > 0) {
+			/**
+			 * check whether IDE web app is finished deploying.
+			 */
+			ServerClient serverClient = new ServerClient(port);
+			Thread serverClientThread = new Thread(serverClient);
+			serverClientThread.start();
 
-        SPLASH_SCREEN_DISPLAY.dispose();
-    }
+			/**
+			 * Standard Eclipse recommended way of keeping an SWT widget alive until disposed by source,
+			 * eg: http://help.eclipse.org/indigo/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2Fswt.htm
+			 */
+			while (!splashScreenShell.isDisposed() && serverClientThread.isAlive()) {
+				if (!SPLASH_SCREEN_DISPLAY.readAndDispatch()) {
+					SPLASH_SCREEN_DISPLAY.sleep();
+				}
+			}
+		}
+
+		SPLASH_SCREEN_DISPLAY.dispose();
+	}
 
 	/**
 	 * initiate the view components
@@ -108,12 +142,12 @@ public class SWTSplashScreen {
 	 */
 	private void splashScreenInit(SplashScreenDesignParameters splashScreenDesignParameters) {
 
-        splashScreenShell.setSize(splashScreenDesignParameters.getShellWidth(),
-                splashScreenDesignParameters.getShellHeight());
-        splashScreenShell.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-        // making the workSpaceSelectorShell appear in the centerShellInDisplay of the monitor
-        SWTShellManager shellManager = new SWTShellManager();
-        shellManager.centerShellInDisplay(splashScreenShell);
+		splashScreenShell.setSize(splashScreenDesignParameters.getShellWidth(),
+		                          splashScreenDesignParameters.getShellHeight());
+		splashScreenShell.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		// making the workSpaceSelectorShell appear in the centerShellInDisplay of the monitor
+		SWTShellManager shellManager = new SWTShellManager();
+		shellManager.centerShellInDisplay(splashScreenShell);
 
 		final Label imageLabel = new Label(splashScreenShell, SWT.FILL);
 		String imageLocation = splashScreenDesignParameters.getSplashImageLoc();
@@ -125,7 +159,8 @@ public class SWTSplashScreen {
 
 			imageLabel.setAlignment(SWT.CENTER);
 			imageLabel.setImage(splashScreenImage);
-			imageLabel.setBounds(imageLabelXLoc, imageLabelYLoc, splashScreenDesignParameters.getImageLabelWidth(),
+			imageLabel.setBounds(imageLabelXLoc, imageLabelYLoc,
+			                     splashScreenDesignParameters.getImageLabelWidth(),
 			                     splashScreenDesignParameters.getImageLabelHeight());
 		} else { // if image is null then create a splash screen with a blank view
 			log.error("Splash Screen image resource is not available at " + imageLocation);
@@ -138,7 +173,7 @@ public class SWTSplashScreen {
 		                      splashScreenDesignParameters.getProgressBarWidth(),
 		                      splashScreenDesignParameters.getProgressBarHeight());
 
-        splashScreenShell.pack();
+		splashScreenShell.pack();
 	}
 
 	private void writePortToFile(int port) {
@@ -166,26 +201,6 @@ public class SWTSplashScreen {
 		}
 	}
 
-	private int getAvailablePort() {
-		ServerSocket socket = null;
-		int port = -1;
-		try {
-			socket = new ServerSocket(0);
-			port = socket.getLocalPort();
-        } catch (IOException e) {
-            log.error("Error while getting a vacant port for IDE", e);
-		} finally {
-			if (null != socket) {
-                try {
-                    socket.close();
-                } catch (IOException e) {
-                    log.error("Error while closing the opened socket", e);
-                }
-            }
-		}
-		return port;
-	}
-
 	private static boolean isDefaultWorkSpaceSet() {
 		try {
 			return ConfigurationContext.isSetAsDefaultWorkSpace();
@@ -194,4 +209,68 @@ public class SWTSplashScreen {
 			return false;
 		}
 	}
+
+	/**
+	 * Since build will fail if it could not configure at least one of the files (server.xml and setenv files of eclipse che)
+	 * checking the server.xml only is sufficient to get the running port
+	 *
+	 * @param rootDir developer studio root directory
+	 * @return the port configured for developer studio startup
+	 */
+	private static String[] getTomcatRunningPort(String rootDir) {
+		String[] runningPort = new String[2];
+
+		String filePath = rootDir + CONF_SERVER_XML_LOC;
+		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+		try {
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+			Document doc = docBuilder.parse(filePath);
+			Node connectorNode = doc.getElementsByTagName(CONNECTOR_XML_TAG).item(0);
+			NamedNodeMap connectorAttr = connectorNode.getAttributes();
+			Node connectorPortAttr = connectorAttr.getNamedItem(PORT_ATTRIBUTE);
+			runningPort[0] = connectorPortAttr.getTextContent();
+
+			Node serverNode = doc.getElementsByTagName(SERVER_XML_TAG).item(0);
+			NamedNodeMap serverAttr = serverNode.getAttributes();
+			Node serverPortAttr = serverAttr.getNamedItem(PORT_ATTRIBUTE);
+			runningPort[1] = serverPortAttr.getTextContent();
+
+		} catch (IOException | SAXException | ParserConfigurationException e) {
+			log.error("could not retrieve the running port configured in tomcat", e);
+		}
+		return runningPort;
+	}
+
+	private static boolean isLocalPortInUse(int port) {
+		try {
+			// ServerSocket try to open a LOCAL port
+			new ServerSocket(port).close();
+			// local port can be opened, it's available
+			return false;
+		} catch (IOException e) {
+			// local port cannot be opened, it's in use
+			return true;
+		}
+	}
+
+	private static int getAvailablePort() {
+		ServerSocket socket = null;
+		int port = -1;
+		try {
+			socket = new ServerSocket(0);
+			port = socket.getLocalPort();
+		} catch (IOException e) {
+			log.error("Error while getting a vacant port for IDE", e);
+		} finally {
+			if (null != socket) {
+				try {
+					socket.close();
+				} catch (IOException e) {
+					log.error("Error while closing the opened socket", e);
+				}
+			}
+		}
+		return port;
+	}
+
 }

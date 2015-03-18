@@ -58,13 +58,13 @@ limitations under the License.
         </dependency>
         <dependency>
             <groupId>org.wso2.developerstudio</groupId>
-            <artifactId>org.wso2.developerstudio.sever.launcher</artifactId>
+            <artifactId>org.wso2.developerstudio.workspaceselector.launcher</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>org.wso2.developerstudio</groupId>
-            <artifactId>org.wso2.developerstudio.workspaceselector.launcher</artifactId>
-            <version>${project.parent.version}</version>
+            <artifactId>org.wso2.developerstudio.portchanger</artifactId>
+            <version>4.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
     <build>
@@ -95,13 +95,6 @@ limitations under the License.
                                 <program>
                                     <mainClass>org.wso2.developerstudio.workspaceselector.launcher.WorkspaceSelectorBootstrap</mainClass>
                                     <id>workspace</id>
-                                </program>
-                                <program>
-                                    <mainClass>org.wso2.developerstudio.server.launcher.ServerBootstrap</mainClass>
-                                    <id>server</id>
-                                    <commandLineArguments>
-                                        <commandLineArgument>${assembly.tomcat.webapp.root}</commandLineArgument>
-                                    </commandLineArguments>
                                 </program>
                             </programs>
                             <assembleDirectory>target/${assembler.dir.name}</assembleDirectory>
@@ -139,13 +132,6 @@ limitations under the License.
                                 <program>
                                     <mainClass>org.wso2.developerstudio.workspaceselector.launcher.WorkspaceSelectorBootstrap</mainClass>
                                     <id>${assembler.app.name}_mac_workspace</id>
-                                </program>
-                                <program>
-                                    <mainClass>org.wso2.developerstudio.server.launcher.ServerBootstrap</mainClass>
-                                    <id>${assembler.app.name}_mac_server</id>
-                                    <commandLineArguments>
-                                        <commandLineArgument>${assembly.tomcat.webapp.root}</commandLineArgument>
-                                    </commandLineArguments>
                                 </program>
                             </programs>
                             <assembleDirectory>target/${assembler.dir.name}</assembleDirectory>

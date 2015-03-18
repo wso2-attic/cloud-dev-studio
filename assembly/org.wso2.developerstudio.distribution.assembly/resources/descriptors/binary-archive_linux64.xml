@@ -6,28 +6,31 @@
     </formats>
     <includeBaseDirectory>false</includeBaseDirectory>
     <fileSets>
-	<!--copying the cef resources into the zip file on zip creation -->
-	<fileSet>
+      <fileSet>
+            <directory>${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}</directory>
+            <outputDirectory>/wso2-developer-studio-linux64</outputDirectory>
+            <excludes>
+                <exclude>webapps/api.war</exclude>
+                <exclude>webapps/ws.war</exclude>
+                <exclude>webapps/datasource.war</exclude>
+                <exclude>webapps/java-ca.war</exclude>
+                <exclude>webapps/api-docs-ui.war</exclude>
+            </excludes>
+            <fileMode>0777</fileMode>
+            <directoryMode>0777</directoryMode>
+        </fileSet>
+        <!--copying the cef resources into the zip file on zip creation -->
+	  <fileSet>
         <directory>${project.basedir}/target/cef-binaries/${cef.binary.version}/linux-64/Release</directory>
             <outputDirectory>/wso2-developer-studio-linux64/${bin.location}</outputDirectory>
             <useDefaultExcludes>true</useDefaultExcludes>
             <fileMode>0777</fileMode>
             <directoryMode>0777</directoryMode>
         </fileSet>
-      <fileSet>
-          <directory>${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps</directory>
-          <outputDirectory>/wso2-developer-studio-linux64/${assembly.tomcat.webapp.root}</outputDirectory>
-          <excludes>
-              <exclude>*.war</exclude>
-          </excludes>
-          <fileMode>0777</fileMode>
-          <directoryMode>0777</directoryMode>
-      </fileSet>
         <fileSet>
             <directory>${project.basedir}/../org.wso2.developerstudio.cef.assembly/target/${assembler.dir.name}/${bin.location}</directory>
             <outputDirectory>/wso2-developer-studio-linux64/${bin.location}</outputDirectory>
             <includes>
-                <include>server.sh</include>
                 <include>workspace.sh</include>
             </includes>
             <useDefaultExcludes>true</useDefaultExcludes>
@@ -53,6 +56,19 @@
             <excludes>
                 <exclude>org.eclipse.swt.cocoa.macosx.x86_64-4.4.jar</exclude>
                 <exclude>org.eclipse.swt.win32.win32.x86_64-4.4.jar</exclude>
+                <exclude>tomcat-api-7.0.34.jar</exclude>
+                <exclude>tomcat-el-api-7.0.34.jar</exclude>
+                <exclude>tomcat-embed-core-7.0.34.jar</exclude>
+                <exclude>tomcat-embed-jasper-7.0.34.jar</exclude>
+                <exclude>tomcat-embed-logging-juli-7.0.34.jar</exclude>
+                <exclude>tomcat-jasper-7.0.34.jar</exclude>
+                <exclude>tomcat-jasper-el-7.0.34.jar</exclude>
+                <exclude>tomcat-jsp-api-7.0.34.jar</exclude>
+                <exclude>tomcat-juli-7.0.34.jar</exclude>
+                <exclude>tomcat-servlet-api-7.0.34.jar</exclude>
+                <exclude>tomcat-util-7.0.34.jar</exclude>
+                <exclude>ecj-4.2.1.jar</exclude>
+                <exclude>slf4j-log4j12-1.7.7.jar</exclude>
             </excludes>
             <useDefaultExcludes>true</useDefaultExcludes>
             <fileMode>0777</fileMode>
