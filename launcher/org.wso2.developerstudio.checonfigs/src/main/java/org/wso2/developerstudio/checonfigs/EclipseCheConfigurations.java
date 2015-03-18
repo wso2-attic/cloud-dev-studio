@@ -44,7 +44,6 @@ public class EclipseCheConfigurations {
 
 	private static final Logger log = LoggerFactory.getLogger(EclipseCheConfigurations.class);
 
-
 	public static void main(String[] args) throws Exception {
 		String developerStudioPort = args[0]; //dev studio startup port value
 		String shutDownPort = args[1]; //dev studio shutdown port
@@ -173,13 +172,20 @@ public class EclipseCheConfigurations {
 
 	/**
 	 * edit the codenvy-api-properties file for che project template location set
+	 *
 	 * @throws IOException
 	 */
 	public static void editForCheTemplateLoc(String rootDir) throws IOException {
 		Properties properties = loadPropertiesFromFile(rootDir + Constants.CODENVY_API_PROPERTIES_FILE);
-		String propertyValue = Constants.CATALINA_BASE_TEMP_CHE_TEMPLATES;
-		String propertyKey = Constants.PROJECT_TEMPLATE_DESCRIPTIONS_DIR;
-		properties.setProperty(propertyKey, propertyValue);
+
+		String propertyTemplateValue = Constants.CATALINA_BASE_TEMP_CHE_TEMPLATES;
+		String propertyTemplateKey = Constants.PROJECT_TEMPLATE_LOCATION_DIR;
+		properties.setProperty(propertyTemplateKey, propertyTemplateValue);
+
+		String propertyMavenJsonKey = Constants.PROJECT_TEMPLATE_DESCRIPTION_DIR;
+		String proprtyMavenJsonValue = Constants.MAVEN_JSON_FILE_LOCATION;
+		properties.setProperty(propertyMavenJsonKey, proprtyMavenJsonValue);
+
 		storePropertiesToFile(rootDir + Constants.CODENVY_API_PROPERTIES_FILE, properties);
 	}
 
@@ -200,7 +206,6 @@ public class EclipseCheConfigurations {
 		} finally {
 			in.close();
 		}
-
 		return properties;
 	}
 

@@ -35,11 +35,15 @@ public interface Constants {
 	static final String DEFAULT_PORT = "8080";
 
 	static final String CONF_SERVER_XML_LOC = separator + CONF_FOLDER + separator + SERVER_XML;
-	static final String BIN_SETENV_SH_LOC = separator + BIN_FOLDER+ separator + SETENV_SH;
-	static final String BIN_SETENV_BAT_LOC = separator + BIN_FOLDER+ separator + SETENV_bat;
+	static final String BIN_SETENV_SH_LOC = separator + BIN_FOLDER + separator + SETENV_SH;
+	static final String BIN_SETENV_BAT_LOC = separator + BIN_FOLDER + separator + SETENV_bat;
 	static final String CODENVY_API_CONFIGURATION_PROPERTIES = "codenvy-api-configuration.properties";
-	static final String CODENVY_API_PROPERTIES_FILE = separator + "webapps" + separator + "api" + separator + "WEB-INF" + separator + "classes" + separator + "codenvy" + separator +
-	                                                  CODENVY_API_CONFIGURATION_PROPERTIES;
+	static final String CODENVY_API_PROPERTIES_FILE =
+			separator + "webapps" + separator + "api" + separator + "WEB-INF" + separator + "classes" + separator +
+			"codenvy" + separator +
+			CODENVY_API_CONFIGURATION_PROPERTIES;
 	public static final String CATALINA_BASE_TEMP_CHE_TEMPLATES = "${catalina.base}/temp/che-templates";
-	public static final String PROJECT_TEMPLATE_DESCRIPTIONS_DIR = "project.template_descriptions_dir";
+	public static final String PROJECT_TEMPLATE_LOCATION_DIR = "project.template_location_dir";
+	public static final String PROJECT_TEMPLATE_DESCRIPTION_DIR = "project.template_descriptions_dir";
+	public static final String MAVEN_JSON_FILE_LOCATION = "${catalina.base}/conf";
 }
