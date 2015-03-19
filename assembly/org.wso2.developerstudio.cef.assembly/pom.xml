@@ -63,7 +63,7 @@ limitations under the License.
         </dependency>
         <dependency>
             <groupId>org.wso2.developerstudio</groupId>
-            <artifactId>org.wso2.developerstudio.portchanger</artifactId>
+            <artifactId>org.wso2.developerstudio.checonfigs</artifactId>
             <version>4.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

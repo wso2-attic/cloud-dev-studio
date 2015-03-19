@@ -205,7 +205,7 @@ public class SWTSplashScreen {
 		try {
 			return ConfigurationContext.isSetAsDefaultWorkSpace();
 		} catch (IOException e) {
-			log.error("error reading whether user has set default workspace in properties" + e);
+			log.warn("error reading whether user has set default workspace in properties " + e);
 			return false;
 		}
 	}

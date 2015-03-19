@@ -6,7 +6,8 @@
 
 # if no output from the remote ssh cmd, bail out
 
-cd target/3.7.0/temp
+cd target/3.7.3/temp
+
 file="che-templates"
 if [ -f "$file" ]
 then
@@ -16,6 +17,7 @@ else
 fi
 
 cd che-templates
+
 git clone https://github.com/codenvy-templates/web-jsp-java-basic.git
 git clone https://github.com/codenvy-templates/web-spring-java-simple.git
 git clone https://github.com/codenvy-templates/web-gwt-java-simple.git

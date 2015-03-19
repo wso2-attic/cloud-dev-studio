@@ -8,9 +8,9 @@
         <groupId>org.wso2.developerstudio</groupId>
         <version>4.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>org.wso2.developerstudio.portchanger</artifactId>
+    <artifactId>org.wso2.developerstudio.checonfigs</artifactId>
     <packaging>jar</packaging>
-    <name>WSO2 Developer Studio :: Port Changer</name>
+    <name>WSO2 Developer Studio :: Che Configuration Editor</name>
        <dependencies>
            <dependency>
                <groupId>org.slf4j</groupId>
