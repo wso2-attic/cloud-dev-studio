@@ -23,10 +23,10 @@
 #include "include/cef_app.h"
 #include "include/wrapper/cef_closure_task.h"
 #include "include/wrapper/cef_helpers.h"
+#include "SystemUtils.h"
 
 
-
-extern int serverPID;
+extern int serverPort;
 
 HWND GetRootHwnd(CefRefPtr<CefBrowser> browser) {
   return ::GetAncestor(browser->GetHost()->GetWindowHandle(), GA_ROOT);
@@ -48,6 +48,7 @@ void Maximize(CefRefPtr<CefBrowser> browser) {
   Toggle(GetRootHwnd(browser), SW_MAXIMIZE);
 }
 
+/*
 int TerminateServerProcess(UINT uExitCode)
 {
 	DWORD dwProcessId = (DWORD)serverPID;
@@ -64,6 +65,25 @@ int TerminateServerProcess(UINT uExitCode)
 
 	return 0;
 }
+*/
+
+
+BOOL createCheServerStopProcess()
+{
+	STARTUPINFO serverStartupInfo;
+	PROCESS_INFORMATION serverProcessInfo;
+	ZeroMemory( &serverStartupInfo, sizeof(serverStartupInfo) );
+	serverStartupInfo.cb = sizeof(serverStartupInfo);
+	ZeroMemory( &serverProcessInfo, sizeof(serverProcessInfo) );
+
+	//to hide the cmd window
+	serverStartupInfo.wShowWindow = SW_HIDE;
+	serverStartupInfo.dwFlags = STARTF_USESHOWWINDOW;
+
+	BOOL result = SystemUtils::CreateInternalProcess(SystemUtils::WSO2STUDIO_CHE_SH_STOP_AND.c_str(), serverStartupInfo , serverProcessInfo);
+	return result;
+}
+
 
 
 namespace {
@@ -121,7 +141,8 @@ bool DevSCefBrowserEventHandler::DoClose(CefRefPtr<CefBrowser> browser) {
 		is_closing_ = true;
 	}
 
-	int res = TerminateServerProcess((DWORD)serverPID);
+	//int res = TerminateServerProcess((DWORD)serverPID);
+	int res = createCheServerStopProcess();
 	return false;
 }
 

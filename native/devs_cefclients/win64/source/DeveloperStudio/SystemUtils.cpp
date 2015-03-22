@@ -16,8 +16,13 @@
 
 
 #include <string>
+#include <windows.h>
+#include <stdio.h>
 #include <cstdio>
 #include <iostream>
+#include <process.h>
+#include <direct.h>
+#include <stdlib.h>
 #include "wtypes.h"
 #include "SystemUtils.h"
 #include "Messages.h"
@@ -25,10 +30,12 @@
 int	SystemUtils::DEFAULT_WINDOW_WIDTH = 1024;
 int	SystemUtils::DEFAULT_WINDOW_HEIGHT = 1024;
 std::string	SystemUtils::APPLICATION_BASE_PATH;
-std::string	SystemUtils::WSO2STUDIO_SERVER_SH_AND = "server.bat";
+std::string	SystemUtils::WSO2STUDIO_CHE_SH_AND = "cmd che.bat run ";
+std::string	SystemUtils::WSO2STUDIO_CHE_SH_STOP_AND = "che.bat stop ";
 std::string	SystemUtils::WSO2STUDIO_WORKSPACE = "workspace.bat";
 std::string	SystemUtils::BIN_URL_TXT = "url.txt";
-std::string SystemUtils::BIN_PID = "pid";
+std::string SystemUtils::BIN_PORT = "PORT";
+
 
 std::string SystemUtils::GetFileContents(const char *filename) {
     std::FILE *file = std::fopen(filename, "rb");
@@ -44,6 +51,25 @@ std::string SystemUtils::GetFileContents(const char *filename) {
         return "0";
     }
 }
+
+BOOL SystemUtils::CreateInternalProcess(const char* command, STARTUPINFO si, PROCESS_INFORMATION pi)
+{
+	wchar_t wcharCommand[64];
+	mbstowcs(wcharCommand, command, strlen(command)+1);//Plus null
+
+	BOOL result = CreateProcess( NULL,   // No module name (use command line)
+		wcharCommand,        // Command line
+		NULL,           // Process handle not inheritable
+		NULL,           // Thread handle not inheritable
+		FALSE,          // Set handle inheritance to FALSE
+		0,              // No creation flags
+		NULL,           // Use parent's environment block
+		NULL,           // Use parent's starting directory 
+		&si,            // Pointer to STARTUPINFO structure
+		&pi );          // Pointer to PROCESS_INFORMATION structure
+	return result;
+}
+
 
 // Get the horizontal and vertical screen sizes in pixel
 int SystemUtils::GetScreenSize(int* w, int* h)
