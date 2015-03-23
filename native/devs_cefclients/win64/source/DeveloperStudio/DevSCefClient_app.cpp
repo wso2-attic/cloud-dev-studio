@@ -17,6 +17,7 @@
 
 #include "DeveloperStudio/DevSCefClient_app.h"
 
+
 #include <string>
 #include <windows.h>
 #include <stdio.h>
@@ -33,26 +34,8 @@
 
 
 
-int serverPID;
+int serverPORT;
 
-
-BOOL createProcess(const char* command, STARTUPINFO si, PROCESS_INFORMATION pi)
-{
-	wchar_t wcharCommand[64];
-	mbstowcs(wcharCommand, command, strlen(command)+1);//Plus null
-
-	BOOL result = CreateProcess( NULL,   // No module name (use command line)
-		wcharCommand,        // Command line
-		NULL,           // Process handle not inheritable
-		NULL,           // Thread handle not inheritable
-		FALSE,          // Set handle inheritance to FALSE
-		0,              // No creation flags
-		NULL,           // Use parent's environment block
-		NULL,           // Use parent's starting directory 
-		&si,            // Pointer to STARTUPINFO structure
-		&pi );          // Pointer to PROCESS_INFORMATION structure
-	return result;
-}
 
 void createServerProcess()
 {
@@ -66,7 +49,7 @@ void createServerProcess()
 	serverStartupInfo.wShowWindow = SW_HIDE;
 	serverStartupInfo.dwFlags = STARTF_USESHOWWINDOW;
 
-	BOOL result = createProcess("server.bat run", serverStartupInfo , serverProcessInfo);
+	BOOL result = SystemUtils::CreateInternalProcess("che.bat run", serverStartupInfo , serverProcessInfo);
 }
 
 void createWorkspaceProcess()
@@ -82,7 +65,7 @@ void createWorkspaceProcess()
 	workspaceStartupInfo.wShowWindow = SW_HIDE;
 	workspaceStartupInfo.dwFlags = STARTF_USESHOWWINDOW;
 
-	BOOL result = createProcess("workspace.bat run", workspaceStartupInfo , workspaceProcessInfo);
+	BOOL result = SystemUtils::CreateInternalProcess("workspace.bat", workspaceStartupInfo , workspaceProcessInfo);
 }
 
 
@@ -116,34 +99,36 @@ void DevSCefClient::OnContextInitialized() {
 	SystemUtils::APPLICATION_BASE_PATH = path;
 	free(base_path);
 
-	createServerProcess();
-
 	createWorkspaceProcess();
 
-	const char* pidFilePath = SystemUtils::BIN_PID.c_str();
+	const char* portFilePath = SystemUtils::BIN_PORT.c_str();
 	while (true) {
-		std::FILE *pidFile = std::fopen(pidFilePath, "rb");
-		if (pidFile) {
-			std::fclose(pidFile);
+		std::FILE *portFile = std::fopen(portFilePath, "rb");
+		if (portFile) {
+			std::fclose(portFile);
 			break;
 		} else {
 			Sleep(2);
 		}
 	}
 
-	std::string sever_pid = SystemUtils::GetFileContents(pidFilePath);
-	serverPID = atoi(sever_pid.c_str()); 
-	int pid_file_remove_status = std::remove(pidFilePath);
+	
+	createServerProcess();
+
+	std::string sever_port = SystemUtils::GetFileContents(portFilePath);
+	serverPORT = atoi(sever_port.c_str()); //This is used in DevSCefBrowserEvemtHandler DoClose method to terminate the server
+	int pid_file_remove_status = std::remove(portFilePath);
 	if (pid_file_remove_status != 0) {
 		//std::cerr << Messages::ERROR_IN_FILE_DELETE << pid_file_remove_status << std::endl;
 	}
+	
 
-	if (serverPID > 0) {
+	if (serverPORT > 0) {
 
 		//wait for url file
 		const char * url_cpath = SystemUtils::BIN_URL_TXT.c_str();
 		while (true) {
-			std::FILE *url_file = std::fopen(url_cpath, "rb");
+			std::FILE *url_file = std::fopen("url.txt", "rb");
 			if (url_file) {
 				std::fclose(url_file);
 				break;
