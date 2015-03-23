@@ -34,27 +34,22 @@
 
 
 
-int serverPID;
+int serverPORT;
+
 
 DevSCefClient::DevSCefClient() {
 }
 
+void *ExecuteCheServerInBackground(void *args_ptr) {
 
-void *ExecuteServerInBackground(void *args_ptr) {
-
-    std::string server_launch_cmd = SystemUtils::APPLICATION_BASE_PATH + SystemUtils::WSO2STUDIO_SERVER_SH_AND;
-
-    char server_launch_command_arr[1024];
-    strncpy(server_launch_command_arr, server_launch_cmd.c_str(), sizeof (server_launch_command_arr));
-
-    int server_startup_status = system(server_launch_command_arr);
-    if (server_startup_status == 0) {
-        std::cout << Messages::SERVER_STARTED << std::endl;
-    } else {
-        std::cerr << Messages::SERVER_STARTUP_ERROR << server_startup_status << std::endl;
-    }
+    std::string server_launch_cmd = SystemUtils::APPLICATION_BASE_PATH + SystemUtils::WSO2STUDIO_CHE_SH_AND;
+    int server_startup_status = system(server_launch_cmd.c_str());
+        if (server_startup_status == 0) {
+            std::cout << Messages::SERVER_STARTED << std::endl;
+        } else {
+            std::cerr << Messages::SERVER_STARTUP_ERROR << server_startup_status << std::endl;
+        }
     return NULL;
-
 }
 
 void DevSCefClient::OnContextInitialized() {
@@ -67,123 +62,107 @@ void DevSCefClient::OnContextInitialized() {
 
     int width, height;
     if (SystemUtils::GetScreenSize(&width, &height) == 0) {
-    	//std::cout << "getScreenSize DefaultScreenOfDisplay size is " << height << ":" << width << std::endl;
     	window_info.height = height;
     	window_info.width = width;
     }
 
 
-#if defined(OS_WIN)
-    // On Windows we need to specify certain flags that will be passed to
-    // CreateWindowEx().
-    window_info.SetAsPopup(NULL, "DevSCefClient");
-#endif
+  char *actualpath;
+  actualpath = realpath("../", NULL);
 
-    char base_path[1024];
-    realpath("../", base_path);
-    std::string path(base_path);
-    SystemUtils::APPLICATION_BASE_PATH = path;
-    //std::cout << "BASE_PATH is " << SystemUtils::APPLICATION_BASE_PATH << std::endl;
+  if (actualpath != NULL) {
 
-    //starting the server
-    int server_args = 0;
-    pthread_t server_thread;
+   		std::string path(actualpath);
+        SystemUtils::APPLICATION_BASE_PATH = path;
+  
+        // starting the workspace selector and splash screen
+        std::string workspace_selector_cmd = path + SystemUtils::WSO2STUDIO_WORKSPACE;
+        std::string bash_s = SystemUtils::BIN_BASH;
 
-    if (pthread_create(&server_thread, NULL, ExecuteServerInBackground, &server_args)) {
-        std::cout << Messages::ERROR_CREATING_SERVER_THREAD << stderr << std::endl;
-    }
+        char workspace_selector_cmd_arr[1024];
+        strncpy(workspace_selector_cmd_arr, workspace_selector_cmd.c_str(), sizeof (workspace_selector_cmd_arr));
 
-    //usleep(2);
-    // starting the workspace selector and splash screen
-    std::string workspace_selector_cmd = path + SystemUtils::WSO2STUDIO_WORKSPACE;
-    char workspace_selector_cmd_arr[1024];
-    strncpy(workspace_selector_cmd_arr, workspace_selector_cmd.c_str(),
-            sizeof (workspace_selector_cmd_arr));
+        char bash[1024];
+        strncpy(bash, bash_s.c_str(), sizeof (bash));
+        std::string command_s = "-c";
 
-    //char bash[] = "bin/bash";
-    //char command[] = "-c";
-    std::string bash_s = SystemUtils::BIN_BASH;
-    char bash[1024];
-    strncpy(bash, bash_s.c_str(), sizeof (bash));
-    std::string command_s = "-c";
-    char command[1024];
-    strncpy(command, command_s.c_str(), sizeof (command));
-    char *name[] = {bash,  command, workspace_selector_cmd_arr, NULL};
-    int pid = fork();
-    if (pid == 0) {
-        int workspace_selector_status = execvp(name[0], name);
-        if (workspace_selector_status == 0) {
-            std::cout << Messages::WORKSPACE_SELECTOR_STARTED << std::endl;
-        } else {
-            std::cerr << Messages::SERVER_STARTUP_ERROR << workspace_selector_status << std::endl;
-        }
-    }
+        char command[1024];
+        strncpy(command, command_s.c_str(), sizeof (command));
+        char *name[] = {bash,  command, workspace_selector_cmd_arr, NULL};
 
-    //usleep(2);
-    // waiting the sever startup
-    std::string url;
-    std::string sever_pid;
-    std::string urlpath = path + SystemUtils::BIN_URL_TXT;
-	
-    char url_cpath[1024];
-    strncpy(url_cpath, urlpath.c_str(), sizeof (url_cpath));
+        int pid = fork();
+            if (pid == 0) {
+                int workspace_selector_status = execvp(bash_s.c_str(), name);
+                if (workspace_selector_status == 0) {
+                    std::cout << Messages::WORKSPACE_SELECTOR_STARTED << std::endl;
+                } else {
+                    std::cerr << Messages::SERVER_STARTUP_ERROR << workspace_selector_status << std::endl;
+                }
+            }
+        // waiting the sever startup
+        std::string url;
+        std::string sever_port;
+        std::string urlpath = path + SystemUtils::BIN_URL_TXT;
 
-    std::string pidpath = path + SystemUtils::BIN_PID;
-    char pid_cpath[1024];
-    strncpy(pid_cpath, pidpath.c_str(), sizeof (pid_cpath));
-    //wait for the pid file, accommodate for the close button in workspace selector
-	while (true) {
-		std::FILE *pidFile = std::fopen(pid_cpath, "rb");
-		if (pidFile) {
-			std::fclose(pidFile);
-			break;
-		} else {
-			sleep(2);
-		}
-	}
+        std::string portpath = path + SystemUtils::BIN_PORT;
 
-	sever_pid = SystemUtils::GetFileContents(pid_cpath);
-	serverPID = atoi(sever_pid.c_str());
-	int pid_file_remove_status = std::remove(pid_cpath);
-	if (pid_file_remove_status != 0) {
-		std::cerr << Messages::ERROR_IN_FILE_DELETE << pid_file_remove_status << std::endl;
-	}
-	if (serverPID < 0) {
-		//TODO find a way to exit the cef
-		return;
-	}
+        //wait for the port file, accommodate for the close button in workspace selector
+            while (true) {
+                std::FILE *portFile = std::fopen(portpath.c_str(), "rb");
+                if (portFile) {
+                    std::fclose(portFile);
+                    break;
+                } else {
+                    sleep(2);
+                }
+            }
 
-	//check for the url file
-    while (true) {
-        std::FILE *url_file = std::fopen(url_cpath, "rb");
-        if (url_file) {
-            std::fclose(url_file);
-            break;
-        } else {
-            std::cout << Messages::WAITING_FOR_URL;
-            sleep(2);
-        }
-    }
+        sever_port = SystemUtils::GetFileContents(portpath.c_str());
+        serverPORT = atoi(sever_port.c_str());
+        int port_file_remove_status = std::remove(portpath.c_str());
+            if (port_file_remove_status != 0) {
+                std::cerr << Messages::ERROR_IN_FILE_DELETE << port_file_remove_status << std::endl;
+            }
+            if (serverPORT < 0) {
+                //TODO find a way to exit the cef
+                return;
+            }
+        pthread_t che_thread;
+        int server_args = 0;
 
-	url = SystemUtils::GetFileContents(url_cpath);
-       int url_file_remove_status = std::remove(url_cpath);
-       if (url_file_remove_status != 0) {
-             std::cerr << Messages::ERROR_IN_FILE_DELETE << url_file_remove_status << std::endl;
-      }
+            if (pthread_create(&che_thread, NULL, ExecuteCheServerInBackground, (void *)&server_args)) {
+                std::cout << Messages::ERROR_CREATING_SERVER_THREAD << stderr << std::endl;
+            }
+
+        //check for the url file
+            while (true) {
+                std::FILE *url_file = std::fopen(urlpath.c_str(), "rb");
+                if (url_file) {
+                    std::fclose(url_file);
+                    break;
+                } else {
+                    std::cout << Messages::WAITING_FOR_URL;
+                    sleep(2);
+                }
+            }
+
+        url = SystemUtils::GetFileContents(urlpath.c_str());
+        int url_file_remove_status = std::remove(urlpath.c_str());
+            if (url_file_remove_status != 0) {
+                 std::cerr << Messages::ERROR_IN_FILE_DELETE << url_file_remove_status << std::endl;
+             }
 
 
-    serverPID = atoi(sever_pid.c_str()); //This is used in DevSCefBrowserEvemtHandler DoClose method to terminate the server
-    //std::cout << "serverPID is " << serverPID << "\n";
+        serverPORT = atoi(sever_port.c_str()); //This is used in DevSCefBrowserEvemtHandler DoClose method to terminate the server
+        //std::cout << "serverPORT is " << serverPORT << "\n";
 
-    // SimpleHandler implements browser-level call-backs.
-    CefRefPtr<DevSCefBrowserEventHandler> handler(new DevSCefBrowserEventHandler());
+        // SimpleHandler implements browser-level call-backs.
+        CefRefPtr<DevSCefBrowserEventHandler> handler(new DevSCefBrowserEventHandler());
 
-    // Specify CEF browser settings here.
-    CefBrowserSettings browser_settings;
+        // Specify CEF browser settings here.
+        CefBrowserSettings browser_settings;
 
-    // Create the first browser window.
-    CefBrowserHost::CreateBrowser(window_info, handler.get(), url, browser_settings, NULL);
+        // Create the first browser window.
+        CefBrowserHost::CreateBrowser(window_info, handler.get(), url, browser_settings, NULL);
+   }
 }
-
-
-

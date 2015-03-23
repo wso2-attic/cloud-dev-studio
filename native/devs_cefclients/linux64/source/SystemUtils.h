@@ -25,10 +25,11 @@ public:
 
     static std::string BIN_BASH;
     static std::string APPLICATION_BASE_PATH;
-    static std::string WSO2STUDIO_SERVER_SH_AND;
+    static std::string WSO2STUDIO_CHE_SH_STOP_AND;
+    static std::string WSO2STUDIO_CHE_SH_AND;
     static std::string WSO2STUDIO_WORKSPACE;
     static std::string BIN_URL_TXT;
-    static std::string BIN_PID;
+    static std::string BIN_PORT;
 
     static int GetScreenSize(int *w, int*h);
     static std::string GetFileContents(const char *filename);

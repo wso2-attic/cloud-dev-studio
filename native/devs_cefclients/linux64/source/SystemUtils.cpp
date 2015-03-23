@@ -29,10 +29,11 @@ int	SystemUtils::DEFAULT_WINDOW_HEIGHT = 1024;
 
 std::string	SystemUtils::BIN_BASH = "/bin/bash";
 std::string	SystemUtils::APPLICATION_BASE_PATH;
-std::string	SystemUtils::WSO2STUDIO_SERVER_SH_AND = "/bin/server.sh &";
+std::string	SystemUtils::WSO2STUDIO_CHE_SH_AND = "/bin/che.sh start &";
+std::string	SystemUtils::WSO2STUDIO_CHE_SH_STOP_AND = "/bin/che.sh stop &";
 std::string	SystemUtils::WSO2STUDIO_WORKSPACE = "/bin/workspace.sh";
 std::string	SystemUtils::BIN_URL_TXT = "/bin/url.txt";
-std::string SystemUtils::BIN_PID = "/bin/pid";
+std::string SystemUtils::BIN_PORT = "/bin/PORT";
 
 
 
@@ -67,8 +68,9 @@ std::string SystemUtils::GetFileContents(const char *filename) {
         std::fseek(file, 0, SEEK_END);
         contents.resize(std::ftell(file));
         std::rewind(file);
-        std::fread(&contents[0], 1, contents.size(), file);
-        std::fclose(file);
+        if (std::fread(&contents[0], 1, contents.size(), file)){
+			std::fclose(file);
+			}        
         return (contents);
     } else {
         return "0";

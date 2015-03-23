@@ -26,12 +26,27 @@
 #include "include/wrapper/cef_closure_task.h"
 #include "include/wrapper/cef_helpers.h"
 #include "Messages.h"
+#include "SystemUtils.h"
 
 
 extern int serverPID;
 
 namespace {
     DevSCefBrowserEventHandler* g_instance = NULL;
+}
+
+void *ExecuteCheServerStopInBackground(void *args_ptr) {
+
+    std::string che_launch_cmd = SystemUtils::APPLICATION_BASE_PATH + SystemUtils::WSO2STUDIO_CHE_SH_STOP_AND;
+
+    int server_startup_status = system(che_launch_cmd.c_str());
+    if (server_startup_status == 0) {
+        std::cout << Messages::SERVER_SHUTDOWN_SUCESSFULL << std::endl;
+    } else {
+        std::cerr << Messages::SERVER_SHUTDOWN_ERROR << server_startup_status << std::endl;
+    }
+    return NULL;
+
 }
 
 DevSCefBrowserEventHandler::DevSCefBrowserEventHandler()
@@ -57,14 +72,12 @@ void DevSCefBrowserEventHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
 
 bool DevSCefBrowserEventHandler::DoClose(CefRefPtr<CefBrowser> browser) {
     CEF_REQUIRE_UI_THREAD();
+    int server_args = 0;
+    pthread_t che_thread;
 
-    //std::cout << "DevSCefClient::BASE_PATH" << SystemUtils::APPLICATION_BASE_PATH << std::endl;
-    int server_shutdown_status = kill(serverPID, SIGTERM);
-    if (server_shutdown_status == 0) {
-        std::cout << Messages::SERVER_SHUTDOWN_SUCESSFULL;
-    } else {
-        std::cerr << Messages::SERVER_SHUTDOWN_ERROR << server_shutdown_status << std::endl;
-    }
+     if (pthread_create(&che_thread, NULL, ExecuteCheServerStopInBackground, (void *)&server_args)) {
+            std::cout << Messages::ERROR_CREATING_SERVER_THREAD << stderr << std::endl;
+        }
 
     // Closing the main window requires special handling. See the DoClose()
     // documentation in the CEF header for a detailed description of this
@@ -73,6 +86,7 @@ bool DevSCefBrowserEventHandler::DoClose(CefRefPtr<CefBrowser> browser) {
         // Set a flag to indicate that the window close should be allowed.
         is_closing_ = true;
     }
+
 
     // Allow the close. For windowed browsers this will result in the OS close
     // event being sent.
@@ -133,3 +147,5 @@ void DevSCefBrowserEventHandler::CloseAllBrowsers(bool force_close) {
     for (; it != browser_list_.end(); ++it)
         (*it)->GetHost()->CloseBrowser(force_close);
 }
+
+
