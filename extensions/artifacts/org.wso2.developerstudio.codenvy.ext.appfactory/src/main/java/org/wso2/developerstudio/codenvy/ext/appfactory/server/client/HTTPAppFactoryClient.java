@@ -57,7 +57,7 @@ import java.util.Set;
  * Handles all type of HTTP/HTTPS requests and responses from DevStudio to AppFactory/ AppCloud server
  */
 public class HTTPAppFactoryClient {
-    private static final Logger logger = LoggerFactory.getLogger(HTTPAppFactoryClient.class);
+    private static final Logger log = LoggerFactory.getLogger(HTTPAppFactoryClient.class);
 
     private static HttpClient client;
     private static String cookie;
@@ -86,7 +86,7 @@ public class HTTPAppFactoryClient {
         try {
             httpLoginRequest.setEntity(createEntityFromRequestParams(loginRequestParams));
         } catch (UnsupportedEncodingException e) {
-            logger.error("Error in encoding login request parameters to an entity, Parameters : " + loginRequestParams, e);
+            log.error("Error in encoding login request parameters to an entity, Parameters : " + loginRequestParams, e);
             throw new AppFactoryServerException("Unable to login user, Details : " + loginRequestParams, e);
         }
 
@@ -94,7 +94,7 @@ public class HTTPAppFactoryClient {
         try {
             httpLoginResponse = client.execute(httpLoginRequest);
         } catch (IOException e) {
-            logger.error("Error while sending HTTP Post request to server, Server URL : " + serverURL
+            log.error("Error while sending HTTP Post request to server, Server URL : " + serverURL
                     + ", HTTP Request : " + httpLoginRequest, e);
             throw new AppFactoryServerException("Unable to login user, Details : " + loginRequestParams, e);
         }
@@ -111,7 +111,7 @@ public class HTTPAppFactoryClient {
             try {
                 bufferedReader = new BufferedReader(new InputStreamReader(loginResponseEntity.getContent()));
             } catch (IOException e) {
-                logger.error("Unable to create an input stream from HTTP response received", e);
+                log.error("Unable to create an input stream from HTTP response received", e);
                 throw new AppFactoryServerException("Unable to login user, Details : " + loginRequestParams, e);
             }
 
@@ -120,7 +120,7 @@ public class HTTPAppFactoryClient {
                     responseBuilder.append(responseLine);
                 }
             } catch (IOException e) {
-                logger.error("Error in reading login response", e);
+                log.error("Error in reading login response", e);
                 throw new AppFactoryServerException("Unable to login user, Details : " + loginRequestParams, e);
             }
             successLogin = responseBuilder.toString();
@@ -137,7 +137,7 @@ public class HTTPAppFactoryClient {
             try {
                 EntityUtils.consume(loginResponseEntity);
             } catch (IOException e) {
-                logger.error("Error in closing Entity stream of App Factory login response", e);
+                log.error("Error in closing Entity stream of App Factory login response", e);
             }
 
         } else {
@@ -162,25 +162,27 @@ public class HTTPAppFactoryClient {
         try {
             sslContext = SSLContext.getInstance("TLS");
         } catch (NoSuchAlgorithmException e) {
-            logger.error("Unable to create an SSL context for TLS provider", e);
+            log.error("Unable to create an SSL context for TLS provider", e);
             throw new AppFactoryServerException("Error in wrapping HTTP client", e);
         }
         X509TrustManager trustManager = new X509TrustManager() {
 
             public void checkClientTrusted(X509Certificate[] xcs, String string) throws CertificateException {
+                throw new UnsupportedOperationException("Unsupported trust manager operation invoked");
             }
 
             public void checkServerTrusted(X509Certificate[] xcs, String string) throws CertificateException {
+                throw new UnsupportedOperationException("Unsupported trust manager operation invoked");
             }
 
             public X509Certificate[] getAcceptedIssuers() {
-                return null;
+                return new X509Certificate[0];
             }
         };
         try {
             sslContext.init(null, new TrustManager[]{trustManager}, null);
         } catch (KeyManagementException e) {
-            logger.error("Error when initializing context with trust manager", e);
+            log.error("Error when initializing context with trust manager", e);
             throw new AppFactoryServerException("Error in wrapping HTTP client", e);
         }
         SSLSocketFactory socketFactory = new SSLSocketFactory(sslContext);
@@ -192,7 +194,7 @@ public class HTTPAppFactoryClient {
         try {
             url = new URL(serverURL);
         } catch (MalformedURLException e) {
-            logger.error("Can't create a URL instance with given server URL, URL : " + serverURL, e);
+            log.error("Can't create a URL instance with given server URL, URL : " + serverURL, e);
             throw new AppFactoryServerException("Error in wrapping HTTP client", e);
         }
         int port = url.getPort();

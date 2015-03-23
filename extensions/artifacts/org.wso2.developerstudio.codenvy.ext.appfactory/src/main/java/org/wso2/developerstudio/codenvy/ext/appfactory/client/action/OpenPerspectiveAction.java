@@ -35,7 +35,7 @@ import static com.codenvy.ide.api.parts.PartStackType.INFORMATION;
  * This is an Action class to open App Factory perspective
  */
 public class OpenPerspectiveAction extends Action {
-    private static final Logger logger = LoggerFactory.getLogger(OpenPerspectiveAction.class);
+    private static final Logger log = LoggerFactory.getLogger(OpenPerspectiveAction.class);
 
     @Inject
     private AppFactoryPartsFactory appFactoryPartsFactory;
@@ -70,8 +70,8 @@ public class OpenPerspectiveAction extends Action {
         workspaceAgent.openPart(consolePresenter, INFORMATION);
         workspaceAgent.setActivePart(consolePresenter);
 
-        if (logger.isDebugEnabled()) {
-            logger.debug("Opening the App Factory perspective is successful");
+        if (log.isDebugEnabled()) {
+            log.debug("Opening the App Factory perspective is successful");
         }
     }
 }
