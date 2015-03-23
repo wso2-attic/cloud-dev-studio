@@ -63,13 +63,13 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                <groupId>org.wso2.developerstudio</groupId>
-                                <artifactId>core-extension</artifactId>
-                                <version>4.0.0-SNAPSHOT</version>
-                                <type>jar</type>
-                                <overWrite>false</overWrite>
-                                <outputDirectory>${basedir}/target/${com.codenvy.sdk.version}/ext/</outputDirectory>
-                                <destFileName>core-extension-4.0.0-SNAPSHOT.jar</destFileName>
+                                    <groupId>org.wso2.developerstudio</groupId>
+                                    <artifactId>core-extension</artifactId>
+                                    <version>4.0.0-SNAPSHOT</version>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${basedir}/target/${com.codenvy.sdk.version}/ext/</outputDirectory>
+                                    <destFileName>core-extension-4.0.0-SNAPSHOT.jar</destFileName>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
@@ -88,12 +88,15 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                         </goals>
                         <configuration>
                             <tasks>
-                                <echo message="unpacking codenvy sdk V${com.codenvy.sdk.version}" />
-                                <unzip dest="${basedir}/target/${com.codenvy.sdk.version}" src="${basedir}/resources/codenvy-sdk/${com.codenvy.sdk.version}.zip" />
-                                <chmod dir="${basedir}/target/${com.codenvy.sdk.version}/" includes="**/*.sh" perm="+x" />
+                                <echo message="unpacking codenvy sdk V${com.codenvy.sdk.version}"/>
+                                <unzip dest="${basedir}/target/${com.codenvy.sdk.version}"
+                                       src="${basedir}/resources/codenvy-sdk/${com.codenvy.sdk.version}.zip"/>
+                                <chmod dir="${basedir}/target/${com.codenvy.sdk.version}/" includes="**/*.sh"
+                                       perm="+x"/>
 
-                                <delete file="${project.basedir}/target/${com.codenvy.sdk.version}/sdk-resources/pom.xml" />
-                                <copy file="${basedir}/resources/template/pom-template.xml" tofile="${project.basedir}/target/${com.codenvy.sdk.version}/sdk-resources/pom.xml" />
+                                <delete file="${project.basedir}/target/${com.codenvy.sdk.version}/sdk-resources/pom.xml"/>
+                                <copy file="${basedir}/resources/template/pom-template.xml"
+                                      tofile="${project.basedir}/target/${com.codenvy.sdk.version}/sdk-resources/pom.xml"/>
                             </tasks>
                         </configuration>
                     </execution>
@@ -105,18 +108,21 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                         </goals>
                         <configuration>
                             <tasks>
-                                <delete file="${basedir}/target/${com.codenvy.sdk.version}/webapps/ws.war" />
-                                <copy file="${basedir}/target/${com.codenvy.sdk.version}/sdk-resources/temp/target/assembly-ide-${com.codenvy.sdk.version}.war" tofile="${basedir}/target/${com.codenvy.sdk.version}/webapps/ws.war" />
-                                <delete dir="${basedir}/target/${com.codenvy.sdk.version}/webapps/ws" />
-                                <unwar dest="${basedir}/target/${com.codenvy.sdk.version}/webapps/api" src="${basedir}/target/${com.codenvy.sdk.version}/webapps/api.war" />
+                                <delete file="${basedir}/target/${com.codenvy.sdk.version}/webapps/ws.war"/>
+                                <copy file="${basedir}/target/${com.codenvy.sdk.version}/sdk-resources/temp/target/assembly-ide-${com.codenvy.sdk.version}.war"
+                                      tofile="${basedir}/target/${com.codenvy.sdk.version}/webapps/ws.war"/>
+                                <delete dir="${basedir}/target/${com.codenvy.sdk.version}/webapps/ws"/>
+                                <unwar dest="${basedir}/target/${com.codenvy.sdk.version}/webapps/api"
+                                       src="${basedir}/target/${com.codenvy.sdk.version}/webapps/api.war"/>
                                 <copy todir="${basedir}/target/${com.codenvy.sdk.version}/webapps/api/WEB-INF/lib">
                                     <fileset dir="${basedir}/target/${com.codenvy.sdk.version}/ext">
-                                        <include name="*.jar" />
+                                        <include name="*.jar"/>
                                     </fileset>
                                 </copy>
-                                <delete file="${basedir}/target/${com.codenvy.sdk.version}/webapps/api.war" />
-                                <war basedir="${basedir}/target/${com.codenvy.sdk.version}/webapps/api" destfile="${basedir}/target/${com.codenvy.sdk.version}/webapps/api.war" />
-                                <delete dir="${basedir}/target/${com.codenvy.sdk.version}/webapps/api" />
+                                <delete file="${basedir}/target/${com.codenvy.sdk.version}/webapps/api.war"/>
+                                <war basedir="${basedir}/target/${com.codenvy.sdk.version}/webapps/api"
+                                     destfile="${basedir}/target/${com.codenvy.sdk.version}/webapps/api.war"/>
+                                <delete dir="${basedir}/target/${com.codenvy.sdk.version}/webapps/api"/>
                             </tasks>
                         </configuration>
                     </execution>
@@ -135,12 +141,15 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                         </goals>
                         <configuration>
                             <additionalClasspathElements>
-                                <additionalClasspathElement>${basedir}/target/${com.codenvy.sdk.version}/sdk-tools/codenvy-sdk-tools.jar</additionalClasspathElement>
+                                <additionalClasspathElement>
+                                    ${basedir}/target/${com.codenvy.sdk.version}/sdk-tools/codenvy-sdk-tools.jar
+                                </additionalClasspathElement>
                             </additionalClasspathElements>
                             <mainClass>com.codenvy.ide.sdk.tools.InstallExtension</mainClass>
                             <arguments>
                                 <argument>--extDir=${basedir}/target/${com.codenvy.sdk.version}/ext</argument>
-                                <argument>--extResourcesDir=${basedir}/target/${com.codenvy.sdk.version}/sdk-resources</argument>
+                                <argument>--extResourcesDir=${basedir}/target/${com.codenvy.sdk.version}/sdk-resources
+                                </argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -152,7 +161,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${basedir}/resources/template/che-template-clone.sh</executable>
+                            <executable>${basedir}/resources/template/che-template-clone${script.extension}</executable>
                         </configuration>
                     </execution>
                     <execution>
@@ -163,7 +172,8 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                         </goals>
                         <configuration>
                             <executable>mvn</executable>
-                            <workingDirectory>${project.basedir}/target/${com.codenvy.sdk.version}/sdk-resources/temp/</workingDirectory>
+                            <workingDirectory>${project.basedir}/target/${com.codenvy.sdk.version}/sdk-resources/temp/
+                            </workingDirectory>
                             <arguments>
                                 <argument>clean</argument>
                                 <argument>install</argument>
@@ -197,4 +207,39 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>Windows</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <properties>
+                <script.extension>.bat</script.extension>
+            </properties>
+        </profile>
+        <profile>
+            <id>unix</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <properties>
+                <script.extension>.sh</script.extension>
+            </properties>
+        </profile>
+        <profile>
+            <id>mac</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                </os>
+            </activation>
+            <properties>
+                <script.extension>.sh</script.extension>
+            </properties>
+        </profile>
+    </profiles>
 </project>
