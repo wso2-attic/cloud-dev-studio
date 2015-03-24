@@ -46,6 +46,11 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                                 <delete file ="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/webapps/api/WEB-INF/classes/maven.json"/>
                                 <copy file="${basedir}/resources/maven.json"
                                       tofile="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/conf/maven.json" />
+                                <!--copying the developer studio license and README-->
+                                <copy file="${basedir}/resources/LICENSE.txt"
+                                      tofile="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/LICENSE.txt" />
+                                <copy file="${basedir}/resources/README.md"
+                                      tofile="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/README.md" />
                                 <!--zip the che templates, when ned project templates are introduced in che need to update here-->
                                 <zip destfile="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-spring-java-simple.zip"
                                      basedir="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-spring-java-simple" />

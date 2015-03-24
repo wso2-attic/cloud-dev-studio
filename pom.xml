@@ -53,7 +53,7 @@ limitations under the License.
         <com.google.gwt.version>2.6.0</com.google.gwt.version>
         <com.googlecode.gwtquery.version>1.4.2</com.googlecode.gwtquery.version>
         <commons.io.version>2.4</commons.io.version>
-        <conf.location>configuration</conf.location>
+        <conf.location>conf</conf.location>
         <emma.version>2.1.5320</emma.version>
         <icons.location>icons</icons.location>
         <kepler-repo.url>http://download.eclipse.org/releases/kepler</kepler-repo.url>

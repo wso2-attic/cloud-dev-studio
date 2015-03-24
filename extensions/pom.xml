@@ -30,7 +30,7 @@ limitations under the License.
     <properties>
         <codehauese.version>3.0.20</codehauese.version>
         <com.codenvy.platform.apirunner.version>0.24.0</com.codenvy.platform.apirunner.version>
-        <com.codenvy.sdk.version>3.7.0</com.codenvy.sdk.version>
+        <com.codenvy.ide.version>3.7.0</com.codenvy.ide.version>
         <com.google.gwt.gin.version>2.1.2</com.google.gwt.gin.version>
         <com.google.gwt.version>2.6.0</com.google.gwt.version>
         <com.googlecode.gwtquery.version>1.4.2</com.googlecode.gwtquery.version>
@@ -52,17 +52,17 @@ limitations under the License.
             <dependency>
                 <groupId>com.codenvy.ide</groupId>
                 <artifactId>codenvy-ext-maven</artifactId>
-                <version>${com.codenvy.sdk.version}</version>
+                <version>${com.codenvy.ide.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.codenvy.ide</groupId>
                 <artifactId>codenvy-ide-api</artifactId>
-                <version>${com.codenvy.sdk.version}</version>
+                <version>${com.codenvy.ide.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.codenvy.ide</groupId>
                 <artifactId>codenvy-maven-tools</artifactId>
-                <version>${com.codenvy.sdk.version}</version>
+                <version>${com.codenvy.ide.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.codenvy.platform-api</groupId>

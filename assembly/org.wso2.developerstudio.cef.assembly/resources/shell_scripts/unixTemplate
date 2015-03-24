@@ -18,7 +18,7 @@ PRGDIR=`dirname "$PRG"`
 BASEDIR=`cd "$PRGDIR/.." >/dev/null; pwd`
 
 export WSO2_DEVELOPER_STUDIO_PATH="$BASEDIR"
-export DEV_STUDIO_CONF_DIR="$WSO2_DEVELOPER_STUDIO_PATH/configuration"
+export DEV_STUDIO_CONF_DIR="$WSO2_DEVELOPER_STUDIO_PATH/conf"
 
 # Only set CATALINA_HOME if not already set
 export CATALINA_HOME="$WSO2_DEVELOPER_STUDIO_PATH/tomcat"
