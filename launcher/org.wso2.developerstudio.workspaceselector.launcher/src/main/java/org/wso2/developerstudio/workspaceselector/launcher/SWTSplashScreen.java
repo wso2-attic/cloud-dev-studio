@@ -81,35 +81,35 @@ public class SWTSplashScreen {
 		 * if port = -1
 		 */
 		int port = -1;
-		if (!isDefaultWorkSpaceSet()) {
-			SWTWorkspaceSelector workspaceSelector = new SWTWorkspaceSelector();
+        SWTWorkspaceSelector workspaceSelector = new SWTWorkspaceSelector();
+        if (!isDefaultWorkSpaceSet()) {
 			workspaceSelector.openDialog();
-			if (workspaceSelector.isUserWorkSpaceSet()) {
-				String[] portValues = getTomcatRunningPort(ROOT_DIR);
-				String currentRunPort = portValues[0];
-				String currentShutPort = portValues[1];
-
-				if (currentRunPort != null && currentShutPort != null) {
-					int currentStartUpPort = Integer.parseInt(currentRunPort);
-					int currentShutDownPort = Integer.parseInt(currentShutPort);
-					if (isLocalPortInUse(currentStartUpPort) ||
-					    isLocalPortInUse(currentShutDownPort)) {
-						EclipseCheConfigurations eclipseCheConfigurations = new EclipseCheConfigurations();
-						int startUpPort = getAvailablePort();
-						int shutDownPort = getAvailablePort();
-						if (eclipseCheConfigurations.changeRunningPort(String.valueOf(startUpPort),
-						                                            String.valueOf(shutDownPort),
-						                                            ROOT_DIR, currentRunPort)) {
-							port = startUpPort;
-						} // if initial port is in use and new port values cannot be written to files port will remain -1
-					} else {
-						port = currentStartUpPort;
-					}
-				} // if current port cannot be read, port will remain as -1
-			} else {
-				log.info("workspace cancelled ");
-			}
 		}
+        if (workspaceSelector.isUserWorkSpaceSet() || isDefaultWorkSpaceSet()) {
+            String[] portValues = getTomcatRunningPort(ROOT_DIR);
+            String currentRunPort = portValues[0];
+            String currentShutPort = portValues[1];
+
+            if (currentRunPort != null && currentShutPort != null) {
+                int currentStartUpPort = Integer.parseInt(currentRunPort);
+                int currentShutDownPort = Integer.parseInt(currentShutPort);
+                if (isLocalPortInUse(currentStartUpPort) ||
+                        isLocalPortInUse(currentShutDownPort)) {
+                    EclipseCheConfigurations eclipseCheConfigurations = new EclipseCheConfigurations();
+                    int startUpPort = getAvailablePort();
+                    int shutDownPort = getAvailablePort();
+                    if (eclipseCheConfigurations.changeRunningPort(String.valueOf(startUpPort),
+                            String.valueOf(shutDownPort),
+                            ROOT_DIR, currentRunPort)) {
+                        port = startUpPort;
+                    } // if initial port is in use and new port values cannot be written to files port will remain -1
+                } else {
+                    port = currentStartUpPort;
+                }
+            } // if current port cannot be read, port will remain as -1
+        } else {
+            log.info("workspace cancelled ");
+        }
 
 		writePortToFile(port);//if -1 is written to port native code will exit
 
