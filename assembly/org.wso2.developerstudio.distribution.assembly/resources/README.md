@@ -19,6 +19,12 @@ How to run Developer Studio 4.0.0
 
                This will open the WSO2 Developer Studio.
 
+Requirements
+==================
+
+ Needs JDK 1.7.xx to run developer studio
+
+
 
 WSO2 ESB 4.8.1 distribution directory structure
 =============================================

@@ -7,6 +7,14 @@ Welcome to the WSO2 Developer Studio 4.0.0 - M0
 Developer Studio 4.0.0 is an Eclipse Che based Development Tool, and is a standalone version for the cloud based Eclipse Che.
 
 
+Requirements
+==================
+
+ Needs maven 3.1.x or higher to build
+
+ Needs JDK 1.7.xx to run developer studio
+
+
 WSO2 ESB 4.8.1 distribution directory structure
 =============================================
 	developer-studio home
