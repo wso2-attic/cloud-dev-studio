@@ -1,5 +1,5 @@
 =====================================================================
-  WSO2 Developer Studio 4.0.0
+  WSO2 Developer Studio 4.0.0 - M0
 =====================================================================
 
 Welcome to the WSO2 Developer Studio 4.0.0 release
@@ -11,14 +11,14 @@ How to run Developer Studio 4.0.0
 
 2) Go to bin folder
 
-3) In linux execute the wso2 wso2studio.sh file as
-        ./ wso2devstudio
+3) In linux environment execute the wso2 wso2studio.sh file as sh wso2devstudio
 
-   In windows execute the Developerstudio.exe file
+   In windows environment execute the Developerstudio.exe file
 
-   In mac os run the devs app file in the wso2-developerstudio-mac extraction (outside bin folder)
+   In mac os environment run the devs app file in the wso2-developerstudio-mac extraction (outside bin folder)
 
                This will open the WSO2 Developer Studio.
+
 
 WSO2 ESB 4.8.1 distribution directory structure
 =============================================
