@@ -2,7 +2,7 @@
   WSO2 Developer Studio 4.0.0 - M0
 =====================================================================
 
-Welcome to the WSO2 Developer Studio 4.0.0 release
+Welcome to the WSO2 Developer Studio 4.0.0 : M0 release
 
 How to run Developer Studio 4.0.0
 =============================================
