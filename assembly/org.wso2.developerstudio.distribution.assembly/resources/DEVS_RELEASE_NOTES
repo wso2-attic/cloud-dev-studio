@@ -22,5 +22,6 @@ Known Issues for Developer Studio 4.0.0 :M0
        
      [4] If you have $CATALINA_HOME / $CATALINA_BASE variables set in your machine permanently, Developer Studio Startup will fail
      
+     [5] Currently the work-space location by user is not used to save projects, this will be an empty folder
 
 

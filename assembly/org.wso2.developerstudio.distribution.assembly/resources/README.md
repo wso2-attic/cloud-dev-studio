@@ -103,8 +103,12 @@ Known issues of WSO2 Developer Studio - 4.0.0
 Linux startup may fail on first attempt due to libudev.so file not being instaled in the OS.
  In this case please run the install.sh file shipped with the pack in the bin folder and retry
 
-New Project types under Codenvy in the project creation window are not working in the Che-SDK 3.7.3 which is distributed in Develoepr Studio 4.0.0
+New Project types under Codenvy in the project creation window are not working in the Che-SDK 3.7.3,
+ which is distributed in Develoepr Studio 4.0.0
 
+Currently the work-space location by user is not used to save projects, this will be an empty folder
+
+If you have $CATALINA_HOME / $CATALINA_BASE variables set in your machine permanently, Developer Studio Startup will fail
  
 
 Issue Tracker
