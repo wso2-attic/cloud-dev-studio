@@ -6,9 +6,9 @@
     </formats>
     <includeBaseDirectory>false</includeBaseDirectory>
     <fileSets>
-      <fileSet>
+        <fileSet>
             <directory>${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}</directory>
-            <outputDirectory>/wso2-developer-studio-linux64</outputDirectory>
+            <outputDirectory>/wso2-developer-studio-linux64-${developerstudio.release}</outputDirectory>
             <excludes>
                 <exclude>webapps/api.war</exclude>
                 <exclude>webapps/ws.war</exclude>
@@ -20,16 +20,16 @@
             <directoryMode>0777</directoryMode>
         </fileSet>
         <!--copying the cef resources into the zip file on zip creation -->
-	  <fileSet>
-        <directory>${project.basedir}/target/cef-binaries/${cef.binary.version}/linux-64/Release</directory>
-            <outputDirectory>/wso2-developer-studio-linux64/${bin.location}</outputDirectory>
+        <fileSet>
+            <directory>${project.basedir}/target/cef-binaries/${cef.binary.version}/linux-64/Release</directory>
+            <outputDirectory>/wso2-developer-studio-linux64-${developerstudio.release}/${bin.location}</outputDirectory>
             <useDefaultExcludes>true</useDefaultExcludes>
             <fileMode>0777</fileMode>
             <directoryMode>0777</directoryMode>
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/../org.wso2.developerstudio.cef.assembly/target/${assembler.dir.name}/${bin.location}</directory>
-            <outputDirectory>/wso2-developer-studio-linux64/${bin.location}</outputDirectory>
+            <outputDirectory>/wso2-developer-studio-linux64-${developerstudio.release}/${bin.location}</outputDirectory>
             <includes>
                 <include>workspace.sh</include>
             </includes>
@@ -39,7 +39,7 @@
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/resources/install_scripts/Linux</directory>
-            <outputDirectory>/wso2-developer-studio-linux64/${bin.location}</outputDirectory>
+            <outputDirectory>/wso2-developer-studio-linux64-${developerstudio.release}/${bin.location}</outputDirectory>
             <includes>
                 <include>install.sh</include>
             </includes>
@@ -49,7 +49,7 @@
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/../org.wso2.developerstudio.cef.assembly/target/${assembler.dir.name}/${lib.location}</directory>
-            <outputDirectory>/wso2-developer-studio-linux64/${lib.location}</outputDirectory>
+            <outputDirectory>/wso2-developer-studio-linux64-${developerstudio.release}/${lib.location}</outputDirectory>
             <includes>
                 <include>*.*</include>
             </includes>
@@ -76,7 +76,7 @@
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/../org.wso2.developerstudio.cef.assembly/target/${assembler.dir.name}/${conf.location}</directory>
-            <outputDirectory>/wso2-developer-studio-linux64/${conf.location}</outputDirectory>
+            <outputDirectory>/wso2-developer-studio-linux64-${developerstudio.release}/${conf.location}</outputDirectory>
             <includes>
                 <include>*.*</include>
             </includes>
@@ -86,7 +86,7 @@
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/../org.wso2.developerstudio.cef.assembly/target/${assembler.dir.name}/${icons.location}</directory>
-            <outputDirectory>/wso2-developer-studio-linux64/${icons.location}</outputDirectory>
+            <outputDirectory>/wso2-developer-studio-linux64-${developerstudio.release}/${icons.location}</outputDirectory>
             <includes>
                 <include>*.*</include>
             </includes>
@@ -96,14 +96,14 @@
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/../org.wso2.developerstudio.cef.assembly/target/${assembler.dir.name}/${temp.location}</directory>
-            <outputDirectory>/wso2-developer-studio-linux64/${temp.location}</outputDirectory>
+            <outputDirectory>/wso2-developer-studio-linux64-${developerstudio.release}/${temp.location}</outputDirectory>
             <useDefaultExcludes>true</useDefaultExcludes>
             <fileMode>0666</fileMode>
             <directoryMode>0755</directoryMode>
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/../org.wso2.developerstudio.cef.assembly/target/${assembler.dir.name}/${logs.location}</directory>
-            <outputDirectory>/wso2-developer-studio-linux64/${logs.location}</outputDirectory>
+            <outputDirectory>/wso2-developer-studio-linux64-${developerstudio.release}/${logs.location}</outputDirectory>
             <useDefaultExcludes>true</useDefaultExcludes>
             <fileMode>0666</fileMode>
             <directoryMode>0755</directoryMode>
