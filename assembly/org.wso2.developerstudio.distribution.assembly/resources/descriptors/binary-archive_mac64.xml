@@ -29,7 +29,7 @@
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/../org.wso2.developerstudio.cef.assembly/target/${assembler.dir.name}/${bin.location}</directory>
-            <outputDirectory>/wso2-developer-studio-mac64-${developerstudio.release}-${developerstudio.release}/${bin.location}</outputDirectory>
+            <outputDirectory>/wso2-developer-studio-mac64-${developerstudio.release}/${bin.location}</outputDirectory>
             <includes>
                 <include>wso2studio_mac_workspace.sh</include>
             </includes>
@@ -39,7 +39,7 @@
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/../org.wso2.developerstudio.cef.assembly/target/${assembler.dir.name}/${lib.location}</directory>
-            <outputDirectory>/wso2-developer-studio-mac64-${developerstudio.release}-${developerstudio.release}/${lib.location}</outputDirectory>
+            <outputDirectory>/wso2-developer-studio-mac64-${developerstudio.release}/${lib.location}</outputDirectory>
             <includes>
                 <include>*.*</include>
             </includes>
@@ -66,7 +66,7 @@
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/../org.wso2.developerstudio.cef.assembly/target/${assembler.dir.name}/${conf.location}</directory>
-            <outputDirectory>/wso2-developer-studio-mac64-${developerstudio.release}-${developerstudio.release}/${conf.location}</outputDirectory>
+            <outputDirectory>/wso2-developer-studio-mac64-${developerstudio.release}/${conf.location}</outputDirectory>
             <includes>
                 <include>*.*</include>
             </includes>
@@ -76,7 +76,7 @@
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/../org.wso2.developerstudio.cef.assembly/target/${assembler.dir.name}/${icons.location}</directory>
-            <outputDirectory>/wso2-developer-studio-mac64-${developerstudio.release}-${developerstudio.release}/${icons.location}</outputDirectory>
+            <outputDirectory>/wso2-developer-studio-mac64-${developerstudio.release}/${icons.location}</outputDirectory>
             <includes>
                 <include>*.*</include>
             </includes>
@@ -86,14 +86,14 @@
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/../org.wso2.developerstudio.cef.assembly/target/${assembler.dir.name}/${temp.location}</directory>
-            <outputDirectory>/wso2-developer-studio-mac64-${developerstudio.release}-${developerstudio.release}/${temp.location}</outputDirectory>
+            <outputDirectory>/wso2-developer-studio-mac64-${developerstudio.release}/${temp.location}</outputDirectory>
             <useDefaultExcludes>true</useDefaultExcludes>
             <fileMode>0666</fileMode>
             <directoryMode>0755</directoryMode>
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/../org.wso2.developerstudio.cef.assembly/target/${assembler.dir.name}/${logs.location}</directory>
-            <outputDirectory>/wso2-developer-studio-mac64-${developerstudio.release}-${developerstudio.release}/${logs.location}</outputDirectory>
+            <outputDirectory>/wso2-developer-studio-mac64-${developerstudio.release}/${logs.location}</outputDirectory>
             <useDefaultExcludes>true</useDefaultExcludes>
             <fileMode>0666</fileMode>
             <directoryMode>0755</directoryMode>
