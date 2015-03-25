@@ -144,15 +144,6 @@ limitations under the License.
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-            <id>cef-binary-repo</id>
-            <name>cef binary</name>
-            <url>http://maven.wso2.org/nexus/content/repositories/orgwso2developerstudio-017/</url>
-            <layout>default</layout>
-        </repository>
-        <repository>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
             <id>wso2-public-repo</id>
             <name>wso2 public</name>
             <url>http://maven.wso2.org/nexus/content/groups/wso2-public/</url>
