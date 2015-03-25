@@ -117,7 +117,7 @@ public class SWTSplashScreen {
 			/**
 			 * check whether IDE web app is finished deploying.
 			 */
-			ServerClient serverClient = new ServerClient(port);
+			ServerClient serverClient = new ServerClient(port, SPLASH_SCREEN_DISPLAY);
 			Thread serverClientThread = new Thread(serverClient);
 			serverClientThread.start();
 
@@ -131,8 +131,6 @@ public class SWTSplashScreen {
 				}
 			}
 		}
-
-		SPLASH_SCREEN_DISPLAY.dispose();
 	}
 
 	/**

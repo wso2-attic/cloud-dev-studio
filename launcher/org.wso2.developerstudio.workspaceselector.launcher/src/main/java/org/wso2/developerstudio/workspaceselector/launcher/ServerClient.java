@@ -22,6 +22,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.eclipse.swt.widgets.Display;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,9 +47,11 @@ public class ServerClient implements Runnable {
 
     private static final int CLIENT_SLEEP_TIME = 2500;
     private final int port;
+    private Display splash_screen_display = null;
 
-    public ServerClient(int port) {
+    public ServerClient(int port, Display splashScreen) {
         this.port = port;
+        this.splash_screen_display = splashScreen;
     }
 
     @Override
@@ -89,6 +92,7 @@ public class ServerClient implements Runnable {
                     fileWriter = new FileWriter(path);
                     bufferedWriter = new BufferedWriter(fileWriter);
                     bufferedWriter.write(ideURL);
+                    splash_screen_display.dispose();
                     break;
                 } else {
                     writeToDebugLog(response);
@@ -128,7 +132,8 @@ public class ServerClient implements Runnable {
         if (log.isDebugEnabled()) {
             StringBuffer result;
             log.debug("HTTP Response Error : Status-Code:{}",
-                    response.getStatusLine().getStatusCode());
+                    response.getStatusLine().getStatusCode() +
+                      "check if you have CATALINA_SERVER parameter set in your machine, if so please remove and retry");
             try {
                 BufferedReader bufferedReader = new BufferedReader(
                         new InputStreamReader(response.getEntity().getContent()));

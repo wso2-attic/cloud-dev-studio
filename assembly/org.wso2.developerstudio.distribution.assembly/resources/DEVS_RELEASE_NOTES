@@ -1,0 +1,26 @@
+==========================================================================
+Developer Studio 4.0.0 : M0 Release Notes
+==========================================================================
+
+
+
+
+This is Developer Studio 4.0.0 : M0 release
+
+Standalone mode development tool based on Eclipse Che
+
+
+Known Issues for Developer Studio 4.0.0 :M0
+==========================================================================
+
+     [1] Linux startup may fail with error message on libudev.so file not found, 
+            In this case, please run install.sh in bin folder and retry 
+
+     [2] Codenvy extension and Codenvy tutorial projects cannot be created.
+       
+     [3] Windows app might not start on first attempt, In this case Please re-try
+       
+     [4] If you have $CATALINA_HOME / $CATALINA_BASE variables set in your machine permanently, Developer Studio Startup will fail
+     
+
+
