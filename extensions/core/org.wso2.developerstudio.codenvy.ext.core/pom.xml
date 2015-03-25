@@ -19,10 +19,10 @@ limitations under the License.
     <parent>
         <artifactId>developerstudio-extension-core-parent</artifactId>
         <groupId>org.wso2.developerstudio</groupId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.0.0-M0</version>
     </parent>
     <artifactId>core-extension</artifactId>
-     <version>4.0.0-SNAPSHOT</version>
+     <version>4.0.0-M0</version>
     <packaging>jar</packaging>
     <name>WSO2 Developer Studio :: Core Extension</name>
     <dependencies>

@@ -19,7 +19,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
     <parent>
         <artifactId>developerstudio-distribution-parent</artifactId>
         <groupId>org.wso2.developerstudio</groupId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.0.0-M0</version>
     </parent>
     <artifactId>developerstudio-assembly-ide</artifactId>
     <packaging>pom</packaging>
@@ -65,11 +65,11 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                                 <artifactItem>
                                     <groupId>org.wso2.developerstudio</groupId>
                                     <artifactId>core-extension</artifactId>
-                                    <version>4.0.0-SNAPSHOT</version>
+                                    <version>4.0.0-M0</version>
                                     <type>jar</type>
                                     <overWrite>false</overWrite>
                                     <outputDirectory>${basedir}/target/${com.codenvy.sdk.version}/ext/</outputDirectory>
-                                    <destFileName>core-extension-4.0.0-SNAPSHOT.jar</destFileName>
+                                    <destFileName>core-extension-4.0.0-M0.jar</destFileName>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>

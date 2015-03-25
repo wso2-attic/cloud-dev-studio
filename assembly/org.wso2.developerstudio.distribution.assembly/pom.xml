@@ -19,7 +19,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
     <parent>
         <artifactId>developerstudio-distribution-parent</artifactId>
         <groupId>org.wso2.developerstudio</groupId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.0.0-M0</version>
     </parent>
     <artifactId>developerstudio-assembly-distributions</artifactId>
     <packaging>pom</packaging>
@@ -219,7 +219,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                                     ${basedir}/resources/descriptors/binary-archive_linux64.xml
                                 </descriptor>
                             </descriptors>
-                            <finalName>wso2-developer-studio-linux64</finalName>
+                            <finalName>wso2-developer-studio-linux64-${developerstudio.release}</finalName>
                         </configuration>
                     </execution>
                     <execution>
@@ -236,7 +236,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                                     ${basedir}/resources/descriptors/binary-archive_mac64.xml
                                 </descriptor>
                             </descriptors>
-                            <finalName>wso2-developer-studio-mac64</finalName>
+                            <finalName>wso2-developer-studio-mac64-${developerstudio.release}</finalName>
                         </configuration>
                     </execution>
                     <execution>
@@ -253,7 +253,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                                     ${basedir}/resources/descriptors/binary-archive_win64.xml
                                 </descriptor>
                             </descriptors>
-                            <finalName>wso2-developer-studio-windows64</finalName>
+                            <finalName>wso2-developer-studio-windows64-${developerstudio.release}</finalName>
                         </configuration>
                     </execution>
                 </executions>
