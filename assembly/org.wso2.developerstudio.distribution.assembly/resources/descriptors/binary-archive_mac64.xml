@@ -15,6 +15,18 @@
                 <exclude>webapps/datasource.war</exclude>
                 <exclude>webapps/java-ca.war</exclude>
                 <exclude>webapps/api-docs-ui.war</exclude>
+                <exclude>bin/che.bat</exclude>
+                <exclude>bin/configtest.bat</exclude>
+                <exclude>bin/daemon.bat</exclude>
+                <exclude>bin/digest.bat</exclude>
+                <exclude>bin/setclasspath.bat</exclude>
+                <exclude>bin/setenv.bat</exclude>
+                <exclude>bin/shutdown.bat</exclude>
+                <exclude>bin/startup.bat</exclude>
+                <exclude>bin/version.bat</exclude>
+                <exclude>bin/tool-wrapper.bat</exclude>
+                <exclude>bin/cpappend.bat</exclude>
+                <exclude>extInstall.bat</exclude>
             </excludes>
             <fileMode>0777</fileMode>
             <directoryMode>0777</directoryMode>
