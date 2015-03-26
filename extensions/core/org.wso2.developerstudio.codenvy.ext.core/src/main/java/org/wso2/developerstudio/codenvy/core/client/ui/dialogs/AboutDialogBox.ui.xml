@@ -42,7 +42,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                 <g:Image url='{resources.getStudioBanner.getSafeUri.asString}'/>
                 <br></br>
                 <div style="margin-left:20px">
-                    Version : 4.0.0-M1
+                    Version : 4.0.0-M0
                     <br></br>
                     Licensed under the Apache License 2.0
                 </div>
