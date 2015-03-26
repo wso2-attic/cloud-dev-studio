@@ -15,6 +15,17 @@
                 <exclude>webapps/datasource.war</exclude>
                 <exclude>webapps/java-ca.war</exclude>
                 <exclude>webapps/api-docs-ui.war</exclude>
+                <exclude>bin/che.sh</exclude>
+                <exclude>bin/configtest.sh</exclude>
+                <exclude>bin/daemon.sh</exclude>
+                <exclude>bin/digest.sh</exclude>
+                <exclude>bin/setclasspath.sh</exclude>
+                <exclude>bin/setenv.sh</exclude>
+                <exclude>bin/shutdown.sh</exclude>
+                <exclude>bin/startup.sh</exclude>
+                <exclude>bin/version.sh</exclude>
+                <exclude>bin/tool-wrapper.sh</exclude>
+                <exclude>bin/cpappend.sh</exclude>
             </excludes>
             <fileMode>0777</fileMode>
             <directoryMode>0777</directoryMode>
@@ -47,17 +58,6 @@
             <excludes>
                 <exclude>org.eclipse.swt.cocoa.macosx.x86_64-4.4.jar</exclude>
                 <exclude>org.eclipse.swt.gtk.linux.x86_64-4.4.jar</exclude>
-                <exclude>tomcat-api-7.0.34.jar</exclude>
-                <exclude>tomcat-el-api-7.0.34.jar</exclude>
-                <exclude>tomcat-embed-core-7.0.34.jar</exclude>
-                <exclude>tomcat-embed-jasper-7.0.34.jar</exclude>
-                <exclude>tomcat-embed-logging-juli-7.0.34.jar</exclude>
-                <exclude>tomcat-jasper-7.0.34.jar</exclude>
-                <exclude>tomcat-jasper-el-7.0.34.jar</exclude>
-                <exclude>tomcat-jsp-api-7.0.34.jar</exclude>
-                <exclude>tomcat-juli-7.0.34.jar</exclude>
-                <exclude>tomcat-servlet-api-7.0.34.jar</exclude>
-                <exclude>tomcat-util-7.0.34.jar</exclude>
                 <exclude>ecj-4.2.1.jar</exclude>
                 <exclude>slf4j-log4j12-1.7.7.jar</exclude>
             </excludes>
