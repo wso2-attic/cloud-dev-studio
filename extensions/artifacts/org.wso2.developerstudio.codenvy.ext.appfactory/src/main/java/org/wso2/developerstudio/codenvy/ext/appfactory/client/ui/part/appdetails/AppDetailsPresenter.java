@@ -36,6 +36,7 @@ public class AppDetailsPresenter extends BasePresenter implements AppDetailsView
 
 	@Override
 	public void onButtonClicked() {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override

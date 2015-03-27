@@ -32,7 +32,7 @@ import org.wso2.developerstudio.codenvy.ext.appfactory.shared.AppFactoryExtensio
 @Extension(title = CoreExtConstants.EXT_NAME_PREFIX + AppFactoryExtensionConstants.EXT_NAME,
         version = AppFactoryExtensionConstants.EXT_VERSION)
 public class AppFactoryExtension {
-    private static final Logger logger = LoggerFactory.getLogger(OpenPerspectiveAction.class);
+    private static final Logger log = LoggerFactory.getLogger(OpenPerspectiveAction.class);
 
     @Inject
     public AppFactoryExtension(ActionManager actManager, OpenPerspectiveAction openAFAction,
@@ -44,12 +44,12 @@ public class AppFactoryExtension {
                     openAFAction);
             wso2ActionGroup.add(openAFAction);
 
-            if (logger.isDebugEnabled()) {
-                logger.debug("App Factory Extension successfully activated");
+            if (log.isDebugEnabled()) {
+                log.debug("App Factory Extension successfully activated");
             }
         } catch (Exception e) {
             //Handling Runtime Exceptions occurred while installing App Factory extension
-            logger.error("Error occurred while initializing App Factory extension", e);
+            log.error("Error occurred while initializing App Factory extension", e);
             notificationManager.showNotification(
                     new Notification("App Factory tools initiation failed.", Notification.Type.ERROR));
         }

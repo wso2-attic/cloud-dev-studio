@@ -15,40 +15,29 @@
 */
 package org.wso2.developerstudio.codenvy.ext.appfactory.server.rest.api;
 
-import com.google.inject.Inject;
-import org.wso2.developerstudio.codenvy.ext.appfactory.server.jaggery.api.client.AppFactoryClient;
+import org.wso2.developerstudio.codenvy.ext.appfactory.server.authentication.Authenticator;
+import org.wso2.developerstudio.codenvy.ext.appfactory.server.exception.AppFactoryServerException;
+import org.wso2.developerstudio.codenvy.ext.appfactory.shared.dto.AppFactoryLoginInfo;
 import org.wso2.developerstudio.codenvy.ext.appfactory.shared.AppFactoryExtensionConstants;
-import org.wso2.developerstudio.codenvy.ext.appfactory.shared.dto.AFLoginResponse;
+import org.wso2.developerstudio.codenvy.ext.appfactory.shared.dto.AppFactoryLoginResponse;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.POST; 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.core.Context;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
- * Implements the logic for connecting cloud DevStudio with App Factory/ App Cloud server using Rest API
+ * Implements the logic for connecting cloud Developer Studio GWT based client side with server side using Rest API
  */
-@Path(AppFactoryExtensionConstants.AF_CLIENT_REST_SERVICE_PATH)
+@Path("/" + AppFactoryExtensionConstants.AF_CLIENT_REST_SERVICE_PATH)
 public class AppFactoryClientService {
-
-    @Inject
-    AppFactoryClient aFClient;
 
     @POST
     @Path(AppFactoryExtensionConstants.AF_CLIENT_LOGIN_METHOD_PATH)
-    public AFLoginResponse login(@FormParam("userName") String userName,
-                                 @FormParam("password") String password,
-                                 @Context HttpServletRequest request) {
-        boolean loggedIn = false;
-
-        HttpSession session = request.getSession();
-
-        if (session.getAttribute("wso2AFLoggedInUser") != null) {
-            //Need to implement the logic with App Factory server side implementation
-        }
-
-        return new AFLoginResponse(loggedIn);
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public AppFactoryLoginResponse login(AppFactoryLoginInfo loginInfo) throws AppFactoryServerException {
+        return Authenticator.getInstance().authenticate(loginInfo);
     }
 }
