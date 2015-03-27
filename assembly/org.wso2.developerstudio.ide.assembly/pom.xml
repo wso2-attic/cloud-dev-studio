@@ -145,6 +145,11 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                                     ${basedir}/target/${com.codenvy.sdk.version}/sdk-tools/codenvy-sdk-tools.jar
                                 </additionalClasspathElement>
                             </additionalClasspathElements>
+                            <!--
+         to get rid of the warning: [WARNING] Warning: killAfter is now deprecated. Do you need it ? Please comment on MEXEC-6.
+         see: method execute() in https://github.com/ispringer/exec-maven-plugin/blob/master/src/main/java/org/codehaus/mojo/exec/ExecJavaMojo.java
+                            -->
+                            <killAfter>-1</killAfter>
                             <mainClass>com.codenvy.ide.sdk.tools.InstallExtension</mainClass>
                             <arguments>
                                 <argument>--extDir=${basedir}/target/${com.codenvy.sdk.version}/ext</argument>

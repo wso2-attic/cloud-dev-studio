@@ -26,7 +26,6 @@
                 <exclude>bin/version.sh</exclude>
                 <exclude>bin/tool-wrapper.sh</exclude>
                 <exclude>bin/cpappend.sh</exclude>
-                <exclude>extInstall.sh</exclude>
             </excludes>
             <fileMode>0777</fileMode>
             <directoryMode>0777</directoryMode>
