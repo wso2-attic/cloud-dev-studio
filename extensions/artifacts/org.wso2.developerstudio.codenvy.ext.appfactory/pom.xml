@@ -163,8 +163,7 @@ limitations under the License.
                                 <package>org.wso2.developerstudio.codenvy.ext.appfactory.shared.dto</package>
                             </dtoPackages>
                             <outputDirectory>${project.build.directory}/generated-sources/dto/</outputDirectory>
-                            <genClassName>org.wso2.developerstudio.codenvy.ext.appfactory.client.DTOClientImpls
-                            </genClassName>
+                            <genClassName>org.wso2.developerstudio.codenvy.ext.appfactory.server.DtoServerImpls</genClassName>
                             <impl>server</impl>
                         </configuration>
                     </execution>
