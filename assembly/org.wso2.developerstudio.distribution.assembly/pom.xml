@@ -101,6 +101,12 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                                 <delete dir ="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-struts-java-simple"/>
                                 <delete dir ="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/temp/che-templates/web-spring-java-simple"/>
 
+                                <delete dir ="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/sdk-tools"/>
+                                <delete dir ="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/sdk-resources"/>
+                                <delete file ="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/RUNNING_CheSDK.txt"/>
+                                <delete file ="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/extInstall.bat"/>
+                                <delete file ="${project.basedir}/../org.wso2.developerstudio.ide.assembly/target/${com.codenvy.sdk.version}/extInstall.sh"/>
+
                             </tasks>
                         </configuration>
                     </execution>

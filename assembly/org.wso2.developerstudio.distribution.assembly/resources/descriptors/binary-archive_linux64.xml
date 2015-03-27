@@ -26,7 +26,6 @@
                 <exclude>bin/version.bat</exclude>
                 <exclude>bin/tool-wrapper.bat</exclude>
                 <exclude>bin/cpappend.bat</exclude>
-                <exclude>extInstall.bat</exclude>
             </excludes>
             <fileMode>0777</fileMode>
             <directoryMode>0777</directoryMode>
