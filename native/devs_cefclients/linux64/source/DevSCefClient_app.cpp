@@ -33,6 +33,8 @@
 #include "Messages.h"
 #include "DeveloperStudioProcess.h"
 
+DeveloperStudioProcess *developerStudioProcess;
+
 DevSCefClient::DevSCefClient() {
 }
 
@@ -50,9 +52,11 @@ void DevSCefClient::OnContextInitialized() {
     	window_info.width = width;
     }
 
-     if (DeveloperStudioProcess::StartProcess() == 0) {
+    developerStudioProcess = new DeveloperStudioProcess;
 
-        std::string operatingURL = DeveloperStudioProcess::GetURLFromFile();
+     if (developerStudioProcess->StartProcess() == 0) {
+
+        std::string operatingURL = developerStudioProcess->GetURLFromFile();
         // SimpleHandler implements browser-level call-backs.
         CefRefPtr<DevSCefBrowserEventHandler> handler(new DevSCefBrowserEventHandler());
 

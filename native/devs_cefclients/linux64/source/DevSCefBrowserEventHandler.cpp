@@ -29,6 +29,8 @@
 #include "SystemUtils.h"
 #include "DeveloperStudioProcess.h"
 
+extern DeveloperStudioProcess *developerStudioProcess;
+
 namespace {
     DevSCefBrowserEventHandler* g_instance = NULL;
 }
@@ -57,7 +59,7 @@ void DevSCefBrowserEventHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
 bool DevSCefBrowserEventHandler::DoClose(CefRefPtr<CefBrowser> browser) {
     CEF_REQUIRE_UI_THREAD();
 
-    DeveloperStudioProcess::StopProcess();
+    developerStudioProcess->StopProcess();
 
     // Closing the main window requires special handling. See the DoClose()
     // documentation in the CEF header for a detailed description of this

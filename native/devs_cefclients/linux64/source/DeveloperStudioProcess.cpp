@@ -14,9 +14,9 @@
 * limitations under the License.
 */
 
+#include <string>
 #include <cstdio>
 #include <X11/Xlib.h>
-#include <string>
 #include <iostream>
 #include <sstream>
 #include <stdlib.h>

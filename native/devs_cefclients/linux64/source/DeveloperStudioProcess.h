@@ -14,15 +14,15 @@
 * limitations under the License.
 */
 
-#include <string.h>
+#include <string>
 
 class DeveloperStudioProcess
 {
 
 public:
-	static int GetServerPort();
-	static int StartProcess();
-	static int StopProcess();
-	static int StartWorksSpaceSelector();
-	static std:string GetURLFromFile();
+	int GetServerPort();
+	int StartProcess();
+	int StopProcess();
+	int StartWorksSpaceSelector();
+	std::string GetURLFromFile();
 };
