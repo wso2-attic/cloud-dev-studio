@@ -27,26 +27,10 @@
 #include "include/wrapper/cef_helpers.h"
 #include "Messages.h"
 #include "SystemUtils.h"
-
-
-extern int serverPID;
+#include "DeveloperStudioProcess.h"
 
 namespace {
     DevSCefBrowserEventHandler* g_instance = NULL;
-}
-
-void *ExecuteCheServerStopInBackground(void *args_ptr) {
-
-    std::string che_launch_cmd = SystemUtils::APPLICATION_BASE_PATH + SystemUtils::WSO2STUDIO_CHE_SH_STOP_AND;
-
-    int server_startup_status = system(che_launch_cmd.c_str());
-    if (server_startup_status == 0) {
-        std::cout << Messages::SERVER_SHUTDOWN_SUCESSFULL << std::endl;
-    } else {
-        std::cerr << Messages::SERVER_SHUTDOWN_ERROR << server_startup_status << std::endl;
-    }
-    return NULL;
-
 }
 
 DevSCefBrowserEventHandler::DevSCefBrowserEventHandler()
@@ -72,12 +56,8 @@ void DevSCefBrowserEventHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
 
 bool DevSCefBrowserEventHandler::DoClose(CefRefPtr<CefBrowser> browser) {
     CEF_REQUIRE_UI_THREAD();
-    int server_args = 0;
-    pthread_t che_thread;
 
-     if (pthread_create(&che_thread, NULL, ExecuteCheServerStopInBackground, (void *)&server_args)) {
-            std::cout << Messages::ERROR_CREATING_SERVER_THREAD << stderr << std::endl;
-        }
+    DeveloperStudioProcess::StopProcess();
 
     // Closing the main window requires special handling. See the DoClose()
     // documentation in the CEF header for a detailed description of this

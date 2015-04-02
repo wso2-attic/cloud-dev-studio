@@ -240,7 +240,8 @@ OBJS := \
 	$(obj).target/$(TARGET)/wso2devstudio/DevSCefClient_linux.o \
 	$(obj).target/$(TARGET)/wso2devstudio/DevSCefBrowserEventHandler_linux.o \
 	$(obj).target/$(TARGET)/wso2devstudio/Messages.o   \
-	$(obj).target/$(TARGET)/wso2devstudio/SystemUtils.o
+	$(obj).target/$(TARGET)/wso2devstudio/SystemUtils.o \
+	$(obj).target/$(TARGET)/wso2devstudio/DeveloperStudioProcess.o
 
 # Add to the list of files we specially track dependencies for.
 all_deps += $(OBJS)
