@@ -50,17 +50,9 @@ void DevSCefClient::OnContextInitialized() {
     	window_info.width = width;
     }
 
-     if (DeveloperStudioProcess::StartProcess() == 0 ) {
+     if (DeveloperStudioProcess::StartProcess() == 0) {
 
-        std::string urlpath = SystemUtils::APPLICATION_BASE_PATH + SystemUtils::BIN_URL_TXT;
-        std::string url = SystemUtils::GetFileContents(urlpath.c_str());
-
-        //delete the url file for this session startup
-        int url_file_remove_status = std::remove(urlpath.c_str());
-        if (url_file_remove_status != 0) {
-             std::cerr << Messages::ERROR_IN_FILE_DELETE << url_file_remove_status << std::endl;
-         }
-
+        std::string operatingURL = DeveloperStudioProcess::GetURLFromFile();
         // SimpleHandler implements browser-level call-backs.
         CefRefPtr<DevSCefBrowserEventHandler> handler(new DevSCefBrowserEventHandler());
 
@@ -68,6 +60,6 @@ void DevSCefClient::OnContextInitialized() {
         CefBrowserSettings browser_settings;
 
         // Create the first browser window.
-        CefBrowserHost::CreateBrowser(window_info, handler.get(), url, browser_settings, NULL);
+        CefBrowserHost::CreateBrowser(window_info, handler.get(), operatingURL, browser_settings, NULL);
      }
 }

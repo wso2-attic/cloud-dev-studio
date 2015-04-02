@@ -71,7 +71,6 @@ void *ExecuteCheServerStopInBackground(void *args_ptr) {
         std::cerr << Messages::SERVER_SHUTDOWN_ERROR << server_startup_status << std::endl;
     }
     return NULL;
-
 }
 
 int DeveloperStudioProcess::StartWorksSpaceSelector() {
@@ -103,7 +102,6 @@ int DeveloperStudioProcess::StartWorksSpaceSelector() {
         }
     }
     return success;
-
 }
 
 
@@ -173,4 +171,16 @@ int DeveloperStudioProcess::StopProcess() {
      }
 
      return success;
+}
+
+std::string DeveloperStudioProcess::GetURLFromFile(){
+    std::string urlpath = SystemUtils::APPLICATION_BASE_PATH + SystemUtils::BIN_URL_TXT;
+    std::string url = SystemUtils::GetFileContents(urlpath.c_str());
+
+    //delete the url file for this session startup
+    int url_file_remove_status = std::remove(urlpath.c_str());
+    if (url_file_remove_status != 0) {
+         std::cerr << Messages::ERROR_IN_FILE_DELETE << url_file_remove_status << std::endl;
+     }
+   return url;
 }

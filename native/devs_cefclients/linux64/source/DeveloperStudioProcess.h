@@ -24,4 +24,5 @@ public:
 	static int StartProcess();
 	static int StopProcess();
 	static int StartWorksSpaceSelector();
+	static std:string GetURLFromFile();
 };
