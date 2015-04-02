@@ -14,9 +14,10 @@
 * limitations under the License.
 */
 
+#include <string>
+#include "DeveloperStudioProcess.h"
 #include "DeveloperStudio/DevSCefBrowserEventHandler.h"
 #include <sstream>
-#include <string>
 #include <signal.h>
 
 #include "include/base/cef_bind.h"
@@ -26,7 +27,7 @@
 #include "SystemUtils.h"
 
 
-extern int serverPort;
+extern DeveloperStudioProcess *devsProcess;
 
 HWND GetRootHwnd(CefRefPtr<CefBrowser> browser) {
   return ::GetAncestor(browser->GetHost()->GetWindowHandle(), GA_ROOT);
@@ -47,44 +48,6 @@ void Toggle(HWND root_hwnd, UINT nCmdShow) {
 void Maximize(CefRefPtr<CefBrowser> browser) {
   Toggle(GetRootHwnd(browser), SW_MAXIMIZE);
 }
-
-/*
-int TerminateServerProcess(UINT uExitCode)
-{
-	DWORD dwProcessId = (DWORD)serverPID;
-	DWORD dwDesiredAccess = PROCESS_TERMINATE;
-	BOOL  bInheritHandle  = FALSE;
-	HANDLE hProcess = OpenProcess(dwDesiredAccess, bInheritHandle, dwProcessId);
-	if (hProcess == NULL) {
-		return -1;
-	}
-
-	BOOL result = TerminateProcess(hProcess, uExitCode);
-
-	CloseHandle(hProcess);
-
-	return 0;
-}
-*/
-
-
-BOOL createCheServerStopProcess()
-{
-	STARTUPINFO serverStartupInfo;
-	PROCESS_INFORMATION serverProcessInfo;
-	ZeroMemory( &serverStartupInfo, sizeof(serverStartupInfo) );
-	serverStartupInfo.cb = sizeof(serverStartupInfo);
-	ZeroMemory( &serverProcessInfo, sizeof(serverProcessInfo) );
-
-	//to hide the cmd window
-	serverStartupInfo.wShowWindow = SW_HIDE;
-	serverStartupInfo.dwFlags = STARTF_USESHOWWINDOW;
-
-	BOOL result = SystemUtils::CreateInternalProcess(SystemUtils::WSO2STUDIO_CHE_SH_STOP_AND.c_str(), serverStartupInfo , serverProcessInfo);
-	return result;
-}
-
-
 
 namespace {
 	DevSCefBrowserEventHandler* g_instance = NULL;
@@ -142,7 +105,9 @@ bool DevSCefBrowserEventHandler::DoClose(CefRefPtr<CefBrowser> browser) {
 	}
 
 	//int res = TerminateServerProcess((DWORD)serverPID);
-	int res = createCheServerStopProcess();
+	int res = devsProcess->Stop();
+	delete devsProcess;
+	devsProcess = NULL;
 	return false;
 }
 

@@ -894,6 +894,9 @@
     <ClInclude Include="DeveloperStudio\Messages.h">
       <Filter>DeveloperStudio</Filter>
     </ClInclude>
+    <ClInclude Include="DeveloperStudio\DeveloperStudioProcess.h">
+      <Filter>DeveloperStudio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DeveloperStudio\DevSCefBrowserEventHandler.cpp">
@@ -912,6 +915,9 @@
       <Filter>DeveloperStudio</Filter>
     </ClCompile>
     <ClCompile Include="DeveloperStudio\SystemUtils.cpp">
+      <Filter>DeveloperStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="DeveloperStudio\DeveloperStudioProcess.cpp">
       <Filter>DeveloperStudio</Filter>
     </ClCompile>
   </ItemGroup>

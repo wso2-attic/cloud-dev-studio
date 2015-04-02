@@ -30,8 +30,8 @@
 int	SystemUtils::DEFAULT_WINDOW_WIDTH = 1024;
 int	SystemUtils::DEFAULT_WINDOW_HEIGHT = 1024;
 std::string	SystemUtils::APPLICATION_BASE_PATH;
-std::string	SystemUtils::WSO2STUDIO_CHE_SH_AND = "cmd che.bat run ";
-std::string	SystemUtils::WSO2STUDIO_CHE_SH_STOP_AND = "che.bat stop ";
+std::string	SystemUtils::WSO2STUDIO_CHE_START = "che.bat run";
+std::string	SystemUtils::WSO2STUDIO_CHE_STOP = "che.bat stop";
 std::string	SystemUtils::WSO2STUDIO_WORKSPACE = "workspace.bat";
 std::string	SystemUtils::BIN_URL_TXT = "url.txt";
 std::string SystemUtils::BIN_PORT = "PORT";

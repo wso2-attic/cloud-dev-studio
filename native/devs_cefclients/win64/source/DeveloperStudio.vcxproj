@@ -289,6 +289,7 @@
     <None Include="cefclient.gyp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DeveloperStudio\DeveloperStudioProcess.h" />
     <ClInclude Include="DeveloperStudio\Messages.h" />
     <ClInclude Include="DeveloperStudio\SystemUtils.h" />
     <ClInclude Include="include\base\cef_atomic_ref_count.h" />
@@ -410,6 +411,7 @@
     <ClInclude Include="DeveloperStudio\resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DeveloperStudio\DeveloperStudioProcess.cpp" />
     <ClCompile Include="DeveloperStudio\DevSCefClient_app.cpp" />
     <ClCompile Include="DeveloperStudio\DevSCefBrowserEventHandler.cpp" />
     <ClCompile Include="DeveloperStudio\DevSCefClient_windows.cpp" />
