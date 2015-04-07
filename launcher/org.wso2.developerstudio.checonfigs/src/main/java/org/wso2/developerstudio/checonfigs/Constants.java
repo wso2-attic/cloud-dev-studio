@@ -42,7 +42,7 @@ public interface Constants {
 			separator + "webapps" + separator + "api" + separator + "WEB-INF" + separator + "classes" + separator +
 			"codenvy" + separator +
 			CODENVY_API_CONFIGURATION_PROPERTIES;
-	public static final String CATALINA_BASE_TEMP_CHE_TEMPLATES = "${catalina.base}/temp/che-templates";
+	public static final String CATALINA_BASE_TEMP_CHE_TEMPLATES = "${catalina.base}/samples/che-templates";
 	public static final String PROJECT_TEMPLATE_LOCATION_DIR = "project.template_location_dir";
 	public static final String PROJECT_TEMPLATE_DESCRIPTION_DIR = "project.template_descriptions_dir";
 	public static final String MAVEN_JSON_FILE_LOCATION = "${catalina.base}/conf";
