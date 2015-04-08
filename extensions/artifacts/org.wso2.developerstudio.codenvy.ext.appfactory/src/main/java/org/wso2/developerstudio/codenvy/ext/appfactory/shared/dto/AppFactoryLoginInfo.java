@@ -15,9 +15,12 @@
 */
 package org.wso2.developerstudio.codenvy.ext.appfactory.shared.dto;
 
+import com.codenvy.dto.shared.DTO;
+
 /**
  * A bean class that keeps login information necessary to authentication related operations
  */
+@DTO
 public class AppFactoryLoginInfo {
     private String serverURL;
     private String userName;

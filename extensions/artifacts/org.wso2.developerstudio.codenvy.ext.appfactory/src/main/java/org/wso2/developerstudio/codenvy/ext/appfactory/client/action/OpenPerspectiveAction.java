@@ -20,8 +20,6 @@ import com.codenvy.ide.api.action.ActionEvent;
 import com.codenvy.ide.api.parts.PartPresenter;
 import com.codenvy.ide.api.parts.WorkspaceAgent;
 import com.google.inject.Inject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.login.LoginPresenter;
 import org.wso2.developerstudio.codenvy.ext.appfactory.client.factory.AppFactoryPartsFactory;
 import org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.part.appdetails.AppDetailsPresenter;
@@ -35,7 +33,6 @@ import static com.codenvy.ide.api.parts.PartStackType.INFORMATION;
  * This is an Action class to open App Factory perspective
  */
 public class OpenPerspectiveAction extends Action {
-    private static final Logger log = LoggerFactory.getLogger(OpenPerspectiveAction.class);
 
     @Inject
     private AppFactoryPartsFactory appFactoryPartsFactory;
@@ -70,8 +67,5 @@ public class OpenPerspectiveAction extends Action {
         workspaceAgent.openPart(consolePresenter, INFORMATION);
         workspaceAgent.setActivePart(consolePresenter);
 
-        if (log.isDebugEnabled()) {
-            log.debug("Opening the App Factory perspective is successful");
-        }
     }
 }

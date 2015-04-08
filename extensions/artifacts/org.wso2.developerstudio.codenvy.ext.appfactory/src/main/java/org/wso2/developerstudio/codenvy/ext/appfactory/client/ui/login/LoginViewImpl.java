@@ -20,13 +20,7 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RadioButton;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.PasswordTextBox;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
 import com.google.inject.Inject;
 import org.wso2.developerstudio.codenvy.ext.appfactory.shared.AppFactoryExtensionConstants;
 
@@ -40,7 +34,7 @@ public class LoginViewImpl extends DialogBox implements LoginView {
     /**
      * Interface defines the UI binder for <code>LoginViewImpl</code> class with <code>LoginViewImpl.ui.xml</code> file
      */
-    interface LoginViewImplUiBinder extends UiBinder<DialogBox, LoginViewImpl> {
+    interface LoginViewImplUiBinder extends UiBinder<DockLayoutPanel, LoginViewImpl> {
         //No body, since it is only for binding purpose
     }
 
