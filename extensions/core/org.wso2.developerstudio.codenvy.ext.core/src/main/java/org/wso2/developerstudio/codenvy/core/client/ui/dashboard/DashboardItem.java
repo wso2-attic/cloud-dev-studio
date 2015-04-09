@@ -15,8 +15,8 @@
 */
 package org.wso2.developerstudio.codenvy.core.client.ui.dashboard;
 
-import com.codenvy.ide.api.action.Action;
 import com.google.gwt.resources.client.ImageResource;
+import org.eclipse.che.ide.api.action.Action;
 
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;

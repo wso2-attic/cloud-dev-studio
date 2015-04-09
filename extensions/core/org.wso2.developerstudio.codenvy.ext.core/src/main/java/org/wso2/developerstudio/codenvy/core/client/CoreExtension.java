@@ -15,13 +15,13 @@
 */
 package org.wso2.developerstudio.codenvy.core.client;
 
-import com.codenvy.ide.api.action.ActionManager;
-import com.codenvy.ide.api.action.DefaultActionGroup;
-import com.codenvy.ide.api.action.IdeActions;
-import com.codenvy.ide.api.extension.Extension;
-import com.codenvy.ide.api.parts.WorkspaceAgent;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.eclipse.che.ide.api.action.ActionManager;
+import org.eclipse.che.ide.api.action.DefaultActionGroup;
+import org.eclipse.che.ide.api.action.IdeActions;
+import org.eclipse.che.ide.api.extension.Extension;
+import org.eclipse.che.ide.api.parts.WorkspaceAgent;
 import org.wso2.developerstudio.codenvy.core.client.actions.AboutDialogBoxAction;
 import org.wso2.developerstudio.codenvy.core.client.actions.OpenDashboardAction;
 import org.wso2.developerstudio.codenvy.core.client.ui.dashboard.DashboardItemRegistry;

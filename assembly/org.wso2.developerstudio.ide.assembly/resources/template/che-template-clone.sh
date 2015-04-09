@@ -6,7 +6,7 @@
 
 # if no output from the remote ssh cmd, bail out
 
-cd target/3.7.3/temp
+cd target/3.8.0/temp
 
 file="che-templates"
 if [ -f "$file" ]

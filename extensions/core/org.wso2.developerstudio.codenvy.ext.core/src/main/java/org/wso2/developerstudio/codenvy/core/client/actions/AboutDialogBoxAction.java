@@ -15,9 +15,9 @@
 */
 package org.wso2.developerstudio.codenvy.core.client.actions;
 
-import com.codenvy.ide.api.action.Action;
-import com.codenvy.ide.api.action.ActionEvent;
 import com.google.inject.Inject;
+import org.eclipse.che.ide.api.action.Action;
+import org.eclipse.che.ide.api.action.ActionEvent;
 import org.wso2.developerstudio.codenvy.core.client.ui.dialogs.AboutDialogBox;
 import org.wso2.developerstudio.codenvy.core.shared.CoreExtConstants;
 

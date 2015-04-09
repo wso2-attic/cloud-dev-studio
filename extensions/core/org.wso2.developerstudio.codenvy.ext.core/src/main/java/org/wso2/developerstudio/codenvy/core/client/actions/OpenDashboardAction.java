@@ -15,11 +15,11 @@
 */
 package org.wso2.developerstudio.codenvy.core.client.actions;
 
-import com.codenvy.ide.api.action.Action;
-import com.codenvy.ide.api.action.ActionEvent;
-import com.codenvy.ide.api.parts.PartStackType;
-import com.codenvy.ide.api.parts.WorkspaceAgent;
 import com.google.inject.Inject;
+import org.eclipse.che.ide.api.action.Action;
+import org.eclipse.che.ide.api.action.ActionEvent;
+import org.eclipse.che.ide.api.parts.PartStackType;
+import org.eclipse.che.ide.api.parts.WorkspaceAgent;
 import org.wso2.developerstudio.codenvy.core.client.ui.dashboard.page.DashboardPagePresenter;
 import org.wso2.developerstudio.codenvy.core.shared.CoreExtConstants;
 

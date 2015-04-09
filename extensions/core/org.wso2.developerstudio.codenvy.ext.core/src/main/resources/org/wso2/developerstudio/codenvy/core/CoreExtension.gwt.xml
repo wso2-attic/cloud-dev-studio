@@ -15,7 +15,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 -->
 <module>
     <inherits name="com.google.gwt.user.User"/>
-    <inherits name="com.codenvy.ide.Api"/>
+    <inherits name="org.eclipse.che.ide.Api"/>
     <inherits name="com.google.gwt.inject.Inject"/>
     <inherits name="com.google.gwt.resources.Resources" />
 

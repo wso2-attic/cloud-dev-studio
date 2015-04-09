@@ -145,7 +145,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                                     ${basedir}/target/${com.codenvy.sdk.version}/sdk-tools/codenvy-sdk-tools.jar
                                 </additionalClasspathElement>
                             </additionalClasspathElements>
-                            <mainClass>com.codenvy.ide.sdk.tools.InstallExtension</mainClass>
+                            <mainClass>org.eclipse.che.ide.sdk.tools.InstallExtension</mainClass>
                             <arguments>
                                 <argument>--extDir=${basedir}/target/${com.codenvy.sdk.version}/ext</argument>
                                 <argument>--extResourcesDir=${basedir}/target/${com.codenvy.sdk.version}/sdk-resources

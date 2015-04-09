@@ -16,16 +16,15 @@
 package org.wso2.developerstudio.codenvy.core.client.ui.dashboard.page;
 
 
-import com.codenvy.ide.api.mvp.View;
 import com.google.inject.ImplementedBy;
-import org.wso2.developerstudio.codenvy.core.client.ui.dashboard.DashboardCategory;
+import org.eclipse.che.ide.api.mvp.View;
 import org.wso2.developerstudio.codenvy.core.client.ui.dashboard.DashboardItem;
 
 import java.util.List;
 import java.util.Map;
 
 @ImplementedBy(DashboardPageViewImpl.class)
-public interface DashboardPageView extends View<DashboardPageView.ActionDelegate>{
+public interface DashboardPageView extends View<DashboardPageView.ActionDelegate> {
 
     interface ActionDelegate{}
 

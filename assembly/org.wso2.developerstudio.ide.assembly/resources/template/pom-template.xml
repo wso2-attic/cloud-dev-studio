@@ -13,7 +13,7 @@
     <parent>
         <artifactId>codenvy-sdk-parent</artifactId>
         <groupId>com.codenvy.sdk</groupId>
-        <version>3.7.3</version>
+        <version>3.8.0</version>
     </parent>
     <artifactId>assembly-ide</artifactId>
     <packaging>war</packaging>
@@ -37,11 +37,6 @@
             <groupId>com.codenvy.ide</groupId>
             <artifactId>codenvy-ext-github</artifactId>
             <version>${codenvy.plugin.git.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.codenvy.ide</groupId>
-            <artifactId>codenvy-ext-runner</artifactId>
-            <version>${codenvy.ide.version}</version>
         </dependency>
         <dependency>
             <groupId>com.codenvy.ide</groupId>
@@ -155,6 +150,11 @@
             <version>${codenvy.plugin-java.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.codenvy.plugin-runner</groupId>
+            <artifactId>codenvy-plugin-runner</artifactId>
+            <version>${codenvy.plugin.runner.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.codenvy.plugin-sdk</groupId>
             <artifactId>codenvy-ext-plugins</artifactId>
             <version>${codenvy.plugin-sdk.version}</version>
@@ -208,6 +208,7 @@
             <layout>default</layout>
         </repository>
     </repositories>
+
     <build>
         <resources>
             <resource>
@@ -227,7 +228,7 @@
                             <goal>java</goal>
                         </goals>
                         <configuration>
-                            <mainClass>com.codenvy.util.ExtensionManagerGenerator</mainClass>
+                            <mainClass>org.eclipse.che.util.ExtensionManagerGenerator</mainClass>
                             <arguments>
                                 <argument>--rootDir=${generated.sources.directory}</argument>
                             </arguments>
@@ -240,7 +241,7 @@
                             <goal>java</goal>
                         </goals>
                         <configuration>
-                            <mainClass>com.codenvy.util.IDEInjectorGenerator</mainClass>
+                            <mainClass>org.eclipse.che.util.IDEInjectorGenerator</mainClass>
                             <arguments>
                                 <argument>--rootDir=${generated.sources.directory}</argument>
                             </arguments>
@@ -253,7 +254,7 @@
                             <goal>java</goal>
                         </goals>
                         <configuration>
-                            <mainClass>com.codenvy.util.DtoFactoryVisitorRegistryGenerator</mainClass>
+                            <mainClass>org.eclipse.che.util.DtoFactoryVisitorRegistryGenerator</mainClass>
                             <arguments>
                                 <argument>--rootDir=${generated.sources.directory}</argument>
                             </arguments>
@@ -293,8 +294,8 @@
                 <configuration>
                     <extraJvmArgs>-Xss512m -Xmx2048m -XX:MaxPermSize=1024m</extraJvmArgs>
                     <modules>
-                        <module>com.codenvy.ide.IDE</module>
-                        <module>com.codenvy.ide.ext.java.JavaParserWorker</module>
+                        <module>org.eclipse.che.ide.IDE</module>
+                        <module>org.eclipse.che.ide.ext.java.JavaParserWorker</module>
                     </modules>
                     <logLevel>INFO</logLevel>
                     <!--<style>PRETTY</style>-->
@@ -314,8 +315,7 @@
                         <configuration>
                             <tasks>
                                 <move todir="${project.build.directory}/${project.artifactId}-${project.version}/_app/javaParserWorker">
-                                    <fileset
-                                            dir="${project.build.directory}/${project.artifactId}-${project.version}/javaParserWorker"/>
+                                    <fileset dir="${project.build.directory}/${project.artifactId}-${project.version}/javaParserWorker" />
                                 </move>
                             </tasks>
                         </configuration>
@@ -328,12 +328,9 @@
                         </goals>
                         <configuration>
                             <tasks>
-                                <echo append="false"
-                                      file="${project.build.directory}/classes/com/codenvy/ide/BuildInfo.properties">
-                                    revision = ${revision}
+                                <echo append="false" file="${project.build.directory}/classes/org/eclipse/che/ide/BuildInfo.properties">revision = ${revision}
                                     buildTime = ${timestamp}
-                                    version = ${project.version}
-                                </echo>
+                                    version = ${project.version}</echo>
                             </tasks>
                         </configuration>
                     </execution>
@@ -345,8 +342,7 @@
                 <configuration>
                     <packagingIncludes>WEB-INF/web.xml,
                         _app/**,
-                        IDE.jsp
-                    </packagingIncludes>
+                        IDE.jsp</packagingIncludes>
                 </configuration>
             </plugin>
             <plugin>
