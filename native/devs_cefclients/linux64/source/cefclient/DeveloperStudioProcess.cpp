@@ -16,7 +16,6 @@
 
 #include <string>
 #include <cstdio>
-#include <X11/Xlib.h>
 #include <iostream>
 #include <sstream>
 #include <stdlib.h>
@@ -26,11 +25,9 @@
 
 
 #include "DeveloperStudioProcess.h"
-#include "DevSCefBrowserEventHandler.h"
 #include "include/cef_browser.h"
 #include "include/cef_command_line.h"
 #include "include/wrapper/cef_helpers.h"
-#include "DevSCefClient_app.h"
 #include "SystemUtils.h"
 #include "Messages.h"
 
