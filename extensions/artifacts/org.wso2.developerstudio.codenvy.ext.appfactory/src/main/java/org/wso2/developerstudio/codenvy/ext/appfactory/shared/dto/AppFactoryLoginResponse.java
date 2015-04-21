@@ -15,9 +15,12 @@
 */
 package org.wso2.developerstudio.codenvy.ext.appfactory.shared.dto;
 
+import com.codenvy.dto.shared.DTO;
+
 /**
  * A bean class that keeps login response information
  */
+@DTO
 public class AppFactoryLoginResponse {
 	private boolean loggedIn;
 	private boolean erroneousRequest;
