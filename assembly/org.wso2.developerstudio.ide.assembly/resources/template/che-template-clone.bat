@@ -6,7 +6,7 @@
 
 # if no output from the remote ssh cmd, bail out
 
-cd target\3.8.0\temp
+cd target\3.9.1\temp
 
 IF EXIST che-templates (
     echo che-templates exist

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+Copyright (c) 2014-2015, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,20 +14,24 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <artifactId>developerstudio-distribution-parent</artifactId>
         <groupId>org.wso2.developerstudio</groupId>
         <version>4.0.0-SNAPSHOT</version>
     </parent>
+
     <artifactId>developerstudio-assembly-cef</artifactId>
     <packaging>pom</packaging>
     <name>WSO2 Developer Studio :: Assembly-CEF</name>
+
     <dependencies>
         <dependency>
-            <groupId>com.codenvy.sdk</groupId>
-            <artifactId>codenvy-sdk-parent</artifactId>
+            <groupId>org.eclipse.che.sdk</groupId>
+            <artifactId>che-sdk-parent</artifactId>
             <version>${com.codenvy.sdk.version}</version>
             <type>pom</type>
         </dependency>
@@ -67,6 +71,7 @@ limitations under the License.
             <version>4.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
+
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
         <outputDirectory>target/classes</outputDirectory>
@@ -93,7 +98,9 @@ limitations under the License.
                         <configuration>
                             <programs>
                                 <program>
-                                    <mainClass>org.wso2.developerstudio.workspaceselector.launcher.WorkspaceSelectorBootstrap</mainClass>
+                                    <mainClass>
+                                        org.wso2.developerstudio.workspaceselector.launcher.WorkspaceSelectorBootstrap
+                                    </mainClass>
                                     <id>workspace</id>
                                 </program>
                             </programs>
@@ -103,7 +110,8 @@ limitations under the License.
                             <repositoryName>${lib.location}</repositoryName>
                             <useWildcardClassPath>true</useWildcardClassPath>
                             <configurationDirectory>${conf.location}</configurationDirectory>
-                            <configurationSourceDirectory>${project.basedir}/resources/configs</configurationSourceDirectory>
+                            <configurationSourceDirectory>${project.basedir}/resources/configs
+                            </configurationSourceDirectory>
                             <copyConfigurationDirectory>true</copyConfigurationDirectory>
                             <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
                             <logsDirectory>logs</logsDirectory>
@@ -112,8 +120,10 @@ limitations under the License.
                                 <unix>.sh</unix>
                                 <windows>.bat</windows>
                             </binFileExtensions>
-                            <unixScriptTemplate>${project.basedir}/resources/shell_scripts/unixTemplate</unixScriptTemplate>
-                            <windowsScriptTemplate>${project.basedir}/resources/shell_scripts/winTemplate</windowsScriptTemplate>
+                            <unixScriptTemplate>${project.basedir}/resources/shell_scripts/unixTemplate
+                            </unixScriptTemplate>
+                            <windowsScriptTemplate>${project.basedir}/resources/shell_scripts/winTemplate
+                            </windowsScriptTemplate>
                             <licenseHeaderFile>${project.basedir}/resources/license_header.txt</licenseHeaderFile>
                         </configuration>
                     </execution>
@@ -130,7 +140,9 @@ limitations under the License.
                             </platforms>
                             <programs>
                                 <program>
-                                    <mainClass>org.wso2.developerstudio.workspaceselector.launcher.WorkspaceSelectorBootstrap</mainClass>
+                                    <mainClass>
+                                        org.wso2.developerstudio.workspaceselector.launcher.WorkspaceSelectorBootstrap
+                                    </mainClass>
                                     <id>${assembler.app.name}_mac_workspace</id>
                                 </program>
                             </programs>
@@ -140,7 +152,8 @@ limitations under the License.
                             <repositoryName>${lib.location}</repositoryName>
                             <useWildcardClassPath>true</useWildcardClassPath>
                             <configurationDirectory>${conf.location}</configurationDirectory>
-                            <configurationSourceDirectory>${project.basedir}/resources/configs</configurationSourceDirectory>
+                            <configurationSourceDirectory>${project.basedir}/resources/configs
+                            </configurationSourceDirectory>
                             <copyConfigurationDirectory>true</copyConfigurationDirectory>
                             <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
                             <logsDirectory>${logs.location}</logsDirectory>
@@ -148,7 +161,8 @@ limitations under the License.
                             <binFileExtensions>
                                 <unix>.sh</unix>
                             </binFileExtensions>
-                            <unixScriptTemplate>${project.basedir}/resources/shell_scripts/osxTemplate</unixScriptTemplate>
+                            <unixScriptTemplate>${project.basedir}/resources/shell_scripts/osxTemplate
+                            </unixScriptTemplate>
                         </configuration>
                     </execution>
                 </executions>
@@ -165,15 +179,15 @@ limitations under the License.
                         <configuration>
                             <tasks>
                                 <copy todir="${project.basedir}/target/${assembler.dir.name}/${icons.location}">
-                                    <fileset dir="${project.basedir}/resources/images/" includes="**/*" />
+                                    <fileset dir="${project.basedir}/resources/images/" includes="**/*"/>
                                 </copy>
                                 <copy todir="${project.basedir}/target/${assembler.dir.name}">
-                                    <fileset dir="${project.basedir}/resources/" includes="README.md" />
+                                    <fileset dir="${project.basedir}/resources/" includes="README.md"/>
                                 </copy>
                                 <copy todir="${project.basedir}/target/${assembler.dir.name}">
-                                    <fileset dir="${project.basedir}/resources/" includes="LICENSE.txt" />
+                                    <fileset dir="${project.basedir}/resources/" includes="LICENSE.txt"/>
                                 </copy>
-                                <delete dir="${project.basedir}/target/${assembler.dir.name}/repo" />
+                                <delete dir="${project.basedir}/target/${assembler.dir.name}/repo"/>
                             </tasks>
                         </configuration>
                     </execution>
