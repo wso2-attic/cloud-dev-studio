@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+Copyright (c) 2014-2015, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,30 +14,36 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <artifactId>wso2</artifactId>
         <groupId>org.wso2</groupId>
         <version>1</version>
     </parent>
+
     <groupId>org.wso2.developerstudio</groupId>
     <artifactId>developerstudio-parent</artifactId>
     <version>4.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>WSO2 Developer Studio :: Parent POM</name>
+
     <modules>
         <module>extensions</module>
         <module>launcher</module>
         <module>assembly</module>
         <module>integration</module>
     </modules>
+
     <scm>
         <connection>scm:git:https://github.com/wso2/cloud-dev-studio.git</connection>
         <developerConnection>scm:git:https://github.com/wso2/cloud-dev-studio.git</developerConnection>
         <tag>HEAD</tag>
         <url>https://github.com/wso2/cloud-dev-studio.git</url>
     </scm>
+
     <properties>
         <developerstudio.release>4.0.0-SNAPSHOT</developerstudio.release>
         <appassembler.maven.plugin.version>1.8.1</appassembler.maven.plugin.version>
@@ -49,7 +55,7 @@ limitations under the License.
         <cef.version>3.1750.1738</cef.version>
         <codehauese.version>3.0.20</codehauese.version>
         <com.codenvy.platform.apirunner.version>0.24.0</com.codenvy.platform.apirunner.version>
-        <com.codenvy.sdk.version>3.8.0</com.codenvy.sdk.version>
+        <com.codenvy.sdk.version>3.9.1</com.codenvy.sdk.version>
         <com.google.gwt.gin.version>2.1.2</com.google.gwt.gin.version>
         <com.google.gwt.version>2.6.0</com.google.gwt.version>
         <com.googlecode.gwtquery.version>1.4.2</com.googlecode.gwtquery.version>
@@ -84,6 +90,7 @@ limitations under the License.
         <zip4j.version>1.3.2</zip4j.version>
         <cef.binary.version>1.0.0</cef.binary.version>
     </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -130,6 +137,7 @@ limitations under the License.
             </dependency>
         </dependencies>
     </dependencyManagement>
+
     <repositories>
         <repository>
             <snapshots>
@@ -196,6 +204,7 @@ limitations under the License.
             <layout>p2</layout>
         </repository>
     </repositories>
+
     <pluginRepositories>
         <pluginRepository>
             <releases>
@@ -209,7 +218,9 @@ limitations under the License.
             <url>https://maven.codenvycorp.com/content/groups/public/</url>
         </pluginRepository>
     </pluginRepositories>
+
     <build>
+        <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

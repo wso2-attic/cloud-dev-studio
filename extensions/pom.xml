@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+Copyright (c) 2014-2015, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,13 +14,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>developerstudio-parent</artifactId>
+        <groupId>org.wso2.developerstudio</groupId>
+        <version>4.0.0-SNAPSHOT</version>
+    </parent>
+
     <artifactId>developerstudio-extensions-parent</artifactId>
-    <groupId>org.wso2.developerstudio</groupId>
     <version>4.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>WSO2 Developer Studio :: Extensions Parent</name>
+    <name>WSO2 Developer Studio : Extensions Parent</name>
+
     <modules>
         <!--<module>artifacts</module>-->
         <module>core</module>
@@ -30,7 +38,6 @@ limitations under the License.
     <properties>
         <codehauese.version>3.0.20</codehauese.version>
         <com.codenvy.platform.apirunner.version>0.24.0</com.codenvy.platform.apirunner.version>
-        <com.codenvy.ide.version>3.8.0</com.codenvy.ide.version>
         <com.google.gwt.gin.version>2.1.2</com.google.gwt.gin.version>
         <com.google.gwt.version>2.6.0</com.google.gwt.version>
         <com.googlecode.gwtquery.version>1.4.2</com.googlecode.gwtquery.version>
@@ -47,27 +54,28 @@ limitations under the License.
         <maven.sortpom.plugin.version>2.3.0</maven.sortpom.plugin.version>
         <platform.integration.utils.version>4.3.0</platform.integration.utils.version>
     </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.codenvy.ide</groupId>
-                <artifactId>codenvy-ext-maven</artifactId>
-                <version>${com.codenvy.ide.version}</version>
+                <groupId>org.eclipse.che.plugin</groupId>
+                <artifactId>che-plugin-java-ext-maven</artifactId>
+                <version>${com.codenvy.sdk.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.codenvy.ide</groupId>
-                <artifactId>codenvy-ide-api</artifactId>
-                <version>${com.codenvy.ide.version}</version>
+                <groupId>org.eclipse.che.core</groupId>
+                <artifactId>che-core-ide-api</artifactId>
+                <version>${com.codenvy.sdk.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.codenvy.ide</groupId>
-                <artifactId>codenvy-maven-tools</artifactId>
-                <version>${com.codenvy.ide.version}</version>
+                <groupId>org.eclipse.che.plugin</groupId>
+                <artifactId>che-plugin-java-maven-tools</artifactId>
+                <version>${com.codenvy.sdk.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.codenvy.platform-api</groupId>
-                <artifactId>codenvy-api-runner</artifactId>
-                <version>${com.codenvy.platform.apirunner.version}</version>
+                <groupId>org.eclipse.che.core</groupId>
+                <artifactId>che-core-api-runner</artifactId>
+                <version>${com.codenvy.sdk.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.gwt</groupId>
@@ -86,6 +94,7 @@ limitations under the License.
             </dependency>
         </dependencies>
     </dependencyManagement>
+
     <repositories>
         <repository>
             <snapshots>
@@ -142,8 +151,8 @@ limitations under the License.
             <url>${kepler-repo.url}</url>
             <layout>p2</layout>
         </repository>
-
     </repositories>
+
     <pluginRepositories>
         <pluginRepository>
             <releases>
@@ -157,6 +166,7 @@ limitations under the License.
             <url>https://maven.codenvycorp.com/content/groups/public/</url>
         </pluginRepository>
     </pluginRepositories>
+
     <build>
         <plugins>
             <plugin>

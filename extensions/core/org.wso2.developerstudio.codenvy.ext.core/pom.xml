@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+Copyright (c) 2014-2015, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,22 +14,26 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <artifactId>developerstudio-extension-core-parent</artifactId>
         <groupId>org.wso2.developerstudio</groupId>
         <version>4.0.0-SNAPSHOT</version>
     </parent>
+
     <artifactId>core-extension</artifactId>
-     <version>4.0.0-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>WSO2 Developer Studio :: Core Extension</name>
+    <name>WSO2 Developer Studio : Core Extension</name>
+
     <dependencies>
         <dependency>
-            <groupId>com.codenvy.ide</groupId>
-            <artifactId>codenvy-ide-api</artifactId>
-            <scope>provided</scope>
+            <groupId>org.eclipse.che.core</groupId>
+            <artifactId>che-core-ide-api</artifactId>
+            <version>${com.codenvy.sdk.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.gwt</groupId>
@@ -42,6 +46,7 @@ limitations under the License.
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
         <outputDirectory>target/classes</outputDirectory>

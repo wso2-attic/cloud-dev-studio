@@ -20,30 +20,30 @@ import static java.io.File.separator;
 
 public interface Constants {
 
-	static final String BIN_FOLDER = "bin";
-	static final String CONF_FOLDER = "conf";
-	static final String SETENV_SH = "setenv.sh";
-	static final String SETENV_bat = "setenv.bat";
-	static final String SERVER_XML = "server.xml";
+    String BIN_FOLDER = "bin";
+    String CONF_FOLDER = "conf";
+    String SETENV_SH = "setenv.sh";
+    String SETENV_bat = "setenv.bat";
+    String SERVER_XML = "server.xml";
 
-	static final String CONNECTOR_XML_TAG = "Connector";
-	static final String SERVER_TAG = "Server";
-	static final String PORT_ATTRIBUTE = "port";
+    String CONNECTOR_XML_TAG = "Connector";
+    String SERVER_TAG = "Server";
+    String PORT_ATTRIBUTE = "port";
 
-	static final String EXPORT_SERVER_PORT = "export SERVER_PORT=";
-	static final String SET_SERVER_PORT = "set SERVER_PORT=";
-	static final String DEFAULT_PORT = "8080";
+    String EXPORT_SERVER_PORT = "export SERVER_PORT=";
+    String SET_SERVER_PORT = "set SERVER_PORT=";
+    String DEFAULT_PORT = "8080";
 
-	static final String CONF_SERVER_XML_LOC = separator + CONF_FOLDER + separator + SERVER_XML;
-	static final String BIN_SETENV_SH_LOC = separator + BIN_FOLDER + separator + SETENV_SH;
-	static final String BIN_SETENV_BAT_LOC = separator + BIN_FOLDER + separator + SETENV_bat;
-	static final String CODENVY_API_CONFIGURATION_PROPERTIES = "codenvy-api-configuration.properties";
-	static final String CODENVY_API_PROPERTIES_FILE =
-			separator + "webapps" + separator + "api" + separator + "WEB-INF" + separator + "classes" + separator +
-			"codenvy" + separator +
-			CODENVY_API_CONFIGURATION_PROPERTIES;
-	public static final String CATALINA_BASE_TEMP_CHE_TEMPLATES = "${catalina.base}/samples/che-templates";
-	public static final String PROJECT_TEMPLATE_LOCATION_DIR = "project.template_location_dir";
-	public static final String PROJECT_TEMPLATE_DESCRIPTION_DIR = "project.template_descriptions_dir";
-	public static final String MAVEN_JSON_FILE_LOCATION = "${catalina.base}/conf";
+    String CONF_SERVER_XML_LOC = separator + CONF_FOLDER + separator + SERVER_XML;
+    String BIN_SETENV_SH_LOC = separator + BIN_FOLDER + separator + SETENV_SH;
+    String BIN_SETENV_BAT_LOC = separator + BIN_FOLDER + separator + SETENV_bat;
+    String CODENVY_API_CONFIGURATION_PROPERTIES = "codenvy-api-configuration.properties";
+    String CODENVY_API_PROPERTIES_FILE =
+            separator + "webapps" + separator + "api" + separator + "WEB-INF" + separator + "classes" + separator +
+                    "codenvy" + separator +
+                    CODENVY_API_CONFIGURATION_PROPERTIES;
+    String CATALINA_BASE_TEMP_CHE_TEMPLATES = "${catalina.base}/samples/che-templates";
+    String PROJECT_TEMPLATE_LOCATION_DIR = "project.template_location_dir";
+    String PROJECT_TEMPLATE_DESCRIPTION_DIR = "project.template_descriptions_dir";
+    String MAVEN_JSON_FILE_LOCATION = "${catalina.base}/conf";
 }

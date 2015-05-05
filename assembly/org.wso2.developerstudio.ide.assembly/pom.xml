@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+Copyright (c) 2014-2015, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -14,18 +14,20 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <artifactId>developerstudio-distribution-parent</artifactId>
         <groupId>org.wso2.developerstudio</groupId>
         <version>4.0.0-SNAPSHOT</version>
     </parent>
+
     <artifactId>developerstudio-assembly-ide</artifactId>
     <packaging>pom</packaging>
     <name>WSO2 Developer Studio :: Assembly-IDE</name>
-    <dependencies>
-    </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -42,7 +44,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>com.codenvy.sdk</groupId>
+                                    <groupId>org.eclipse.che.sdk</groupId>
                                     <artifactId>assembly-sdk</artifactId>
                                     <version>${com.codenvy.sdk.version}</version>
                                     <!-- SET WSO2 Version-->
@@ -142,7 +144,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
                         <configuration>
                             <additionalClasspathElements>
                                 <additionalClasspathElement>
-                                    ${basedir}/target/${com.codenvy.sdk.version}/sdk-tools/codenvy-sdk-tools.jar
+                                    ${basedir}/target/${com.codenvy.sdk.version}/sdk-tools/che-plugin-sdk-tools.jar
                                 </additionalClasspathElement>
                             </additionalClasspathElements>
                             <mainClass>org.eclipse.che.ide.sdk.tools.InstallExtension</mainClass>
@@ -207,6 +209,7 @@ Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
             </plugin>
         </plugins>
     </build>
+
     <profiles>
         <profile>
             <id>Windows</id>
