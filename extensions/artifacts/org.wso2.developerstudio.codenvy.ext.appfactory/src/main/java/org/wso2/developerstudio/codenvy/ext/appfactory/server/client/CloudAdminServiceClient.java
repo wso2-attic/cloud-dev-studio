@@ -104,7 +104,7 @@ public class CloudAdminServiceClient {
         try {
             cookieList.add(getCookie(credentials.getTenantAwareUserName(), credentials.getPassword()));
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Error while getting authentication cookies for user: " + credentials.getTenantAwareUserName());
         }
         reqHeaders.put("Cookie", cookieList);
         headers.put(MessageContext.HTTP_REQUEST_HEADERS, reqHeaders);
