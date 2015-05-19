@@ -17,10 +17,19 @@ Copyright (c) 2014-2015, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 
     <g:VerticalPanel width="100%">
-        <g:HorizontalPanel ui:field="btnPanel">
+        <g:HorizontalPanel ui:field="buttonPanel">
+            <g:SimplePanel ui:field="loginButtonPanel">
+            </g:SimplePanel>
+            <g:SimplePanel ui:field="refreshButtonPanel">
+            </g:SimplePanel>
+            <g:SimplePanel width="10">
+            </g:SimplePanel>
+            <g:SimplePanel width="10">
+                <g:Label text="" ui:field="messageLabel"/>
+            </g:SimplePanel>
         </g:HorizontalPanel>
-        <g:HorizontalPanel ui:field="loginIconPanel">
-        </g:HorizontalPanel>
+        <g:VerticalPanel ui:field="appListPanel">
+        </g:VerticalPanel>
         <g:TabLayoutPanel barHeight="20" ui:field="tabLayoutPanel">
             <g:tab>
                 <g:header>App Info</g:header>

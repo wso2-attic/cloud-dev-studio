@@ -23,12 +23,16 @@ import com.google.gwt.resources.client.ImageResource;
  */
 public interface AppFactoryExtensionResources extends ClientBundle {
 
-	@Source("users.gif") ImageResource getLoginIcon();
+    @Source("users.gif")
+    ImageResource getLoginIcon();
 
-	@Source("app-list.png") ImageResource getAppListIcon();
+    @Source("app-list.png")
+    ImageResource getAppListIcon();
 
-	@Source("refresh.gif") ImageResource getRefreshIcon();
+    @Source("refresh.gif")
+    ImageResource getRefreshIcon();
 
-	@Source("console.gif") ImageResource getConsoleIcon();
+    @Source("console.gif")
+    ImageResource getConsoleIcon();
 
 }

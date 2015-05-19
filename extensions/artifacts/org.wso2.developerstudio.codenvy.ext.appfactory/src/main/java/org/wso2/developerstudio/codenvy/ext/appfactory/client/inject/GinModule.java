@@ -15,7 +15,7 @@
  */
 package org.wso2.developerstudio.codenvy.ext.appfactory.client.inject;
 
-import com.codenvy.ide.api.extension.ExtensionGinModule;
+import org.eclipse.che.ide.api.extension.ExtensionGinModule;
 import org.wso2.developerstudio.codenvy.ext.appfactory.client.factory.AppFactoryPartsFactory;
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;

@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+* Copyright (c) 2014-2015, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
 */
 package org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.part.appdetails;
 
-import com.codenvy.ide.api.parts.PartStackUIResources;
-import com.codenvy.ide.api.parts.base.BaseView;
+import org.eclipse.che.ide.api.parts.PartStackUIResources;
+import org.eclipse.che.ide.api.parts.base.BaseView;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -26,24 +26,24 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
 public class AppDetailsViewImpl extends BaseView<AppDetailsView.ActionDelegate>
-		implements AppDetailsView {
+        implements AppDetailsView {
 
-	interface AppFacPartViewImplUiBinder extends UiBinder<Widget, AppDetailsViewImpl> {
-	}
+    interface AppFacPartViewImplUiBinder extends UiBinder<Widget, AppDetailsViewImpl> {
+    }
 
-	@UiField
-	Button button;
+    @UiField
+    Button button;
 
-	@Inject
-	public AppDetailsViewImpl(AppFacPartViewImplUiBinder ourUiBinder,
-	                          PartStackUIResources resources) {
-		super(resources);
-		container.add(ourUiBinder.createAndBindUi(this));
-	}
+    @Inject
+    public AppDetailsViewImpl(AppFacPartViewImplUiBinder ourUiBinder,
+                              PartStackUIResources resources) {
+        super(resources);
+        setContentWidget(ourUiBinder.createAndBindUi(this));
+    }
 
-	@UiHandler("button")
-	public void onButtonClicked(ClickEvent event) {
-		delegate.onButtonClicked();
-	}
+    @UiHandler("button")
+    public void onButtonClicked(ClickEvent event) {
+        delegate.onButtonClicked();
+    }
 
 }

@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+* Copyright (c) 2014-2015, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -15,25 +15,25 @@
 */
 package org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.part.appdetails;
 
-import com.codenvy.ide.api.mvp.View;
-import com.codenvy.ide.api.parts.base.BaseActionDelegate;
+import org.eclipse.che.ide.api.mvp.View;
+import org.eclipse.che.ide.api.parts.base.BaseActionDelegate;
 import com.google.inject.ImplementedBy;
 
 @ImplementedBy(AppDetailsViewImpl.class)
 public interface AppDetailsView extends View<AppDetailsView.ActionDelegate> {
 
-	/**
-	 * Required for delegating functions from view.
-	 */
-	public interface ActionDelegate extends BaseActionDelegate {
-		void onButtonClicked();
-	}
+    /**
+     * Required for delegating functions from view.
+     */
+    public interface ActionDelegate extends BaseActionDelegate {
+        void onButtonClicked();
+    }
 
-	/**
-	 * Set title of my part.
-	 *
-	 * @param title part title
-	 */
-	void setTitle(String title);
+    /**
+     * Set title of my part.
+     *
+     * @param title part title
+     */
+    void setTitle(String title);
 
 }

@@ -20,7 +20,14 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RadioButton;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.PasswordTextBox;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import org.wso2.developerstudio.codenvy.ext.appfactory.shared.AppFactoryExtensionConstants;
 
@@ -214,8 +221,14 @@ public class LoginViewImpl extends DialogBox implements LoginView {
      * {@inheritDoc}
      */
     @Override
-    public void setErrorMessage(String errorMessage) {
+    public void setMessage(String errorMessage) {
         this.errorMessage.setText(errorMessage);
+        this.errorMessage.setVisible(true);
+    }
+
+    @Override
+    public void enableLoginButton(boolean enable) {
+        okButton.setEnabled(enable);
     }
 
     @UiHandler("okButton")
@@ -239,7 +252,17 @@ public class LoginViewImpl extends DialogBox implements LoginView {
     }
 
     @UiHandler("hostURL")
-    public void onHostChange(KeyUpEvent event) {
+    public void onHostChanged(KeyUpEvent event) {
+        delegate.onValueChanged();
+    }
+
+    @UiHandler("userName")
+    public void onUserNameChanged(KeyUpEvent event) {
+        delegate.onValueChanged();
+    }
+
+    @UiHandler("password")
+    public void onPasswordChanged(KeyUpEvent event) {
         delegate.onValueChanged();
     }
 
