@@ -128,7 +128,7 @@ public class AppListPresenter extends BasePresenter implements AppListView.Actio
     public void onRefreshButtonClicked() {
         //Disabling the refresh button till process completes
         appListView.enableRefreshButton(false);
-        appListView.setMessage("Loading Applications...");
+        appListView.setMessage(AppFactoryExtensionConstants.LOADING_APPLICATIONS_MESSAGE);
         appListView.removeData();
 
         final HTTPRequestInfo appListRequest = dtoFactory.createDto(HTTPRequestInfo.class);
@@ -146,7 +146,7 @@ public class AppListPresenter extends BasePresenter implements AppListView.Actio
                     @Override
                     protected void onSuccess(AppFactoryHTTPResponse appListResponse) {
                         if (appListResponse.isRequestSuccess()) {
-                            // Instantiate the factory
+                            // Instantiate the AutoBean factory
                             AppFactoryAutoBeanFactory autoBeanFactory = GWT.create(AppFactoryAutoBeanFactory.class);
                             AutoBean<AppInfoList> bean = AutoBeanCodex.decode(autoBeanFactory, AppInfoList.class,
                                     "{\"appInfoList\": " + appListResponse.getResponse() + "}");
@@ -154,7 +154,7 @@ public class AppListPresenter extends BasePresenter implements AppListView.Actio
                             appListView.setAppData(appInfoList);
                             appListView.setMessage(AppFactoryExtensionConstants.EMPTY_STRING);
                         } else {
-                            appListView.setMessage("Loading Applications Failed...");
+                            appListView.setMessage(AppFactoryExtensionConstants.LOADING_APPLICATIONS_FAILED_MESSGE);
                             notificationManager.showError(appListResponse.getErrorType().toString() + "...");
                         }
                         //Enabling refresh button once its done
@@ -163,8 +163,8 @@ public class AppListPresenter extends BasePresenter implements AppListView.Actio
 
                     @Override
                     protected void onFailure(Throwable exception) {
-                        appListView.setMessage("Loading Applications Failed...");
-                        notificationManager.showError("An Unexpected Error Occurred");
+                        appListView.setMessage(AppFactoryExtensionConstants.LOADING_APPLICATIONS_FAILED_MESSGE);
+                        notificationManager.showError(AppFactoryExtensionConstants.UNEXPECTED_ERROR_OCCURRED_MESSAGE);
                         //Enabling refresh button once its done
                         appListView.enableRefreshButton(true);
                     }
