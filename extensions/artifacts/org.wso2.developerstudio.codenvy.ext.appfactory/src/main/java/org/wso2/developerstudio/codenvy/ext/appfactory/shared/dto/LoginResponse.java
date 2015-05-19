@@ -15,38 +15,23 @@
 */
 package org.wso2.developerstudio.codenvy.ext.appfactory.shared.dto;
 
-import com.codenvy.dto.shared.DTO;
+import org.eclipse.che.dto.shared.DTO;
 
 /**
- * A bean class that keeps login response information
+ * A DTO class that keeps login response information
  */
 @DTO
-public class AppFactoryLoginResponse {
-	private boolean loggedIn;
-	private boolean erroneousRequest;
-	private ErrorType errorType;
+public interface LoginResponse {
 
-	public boolean isLoggedIn() {
-		return loggedIn;
-	}
+    boolean isLoggedIn();
 
-	public void setLoggedIn(boolean loggedIn) {
-		this.loggedIn = loggedIn;
-	}
+    void setLoggedIn(boolean loggedIn);
 
-	public boolean isErroneousRequest() {
-		return erroneousRequest;
-	}
+    boolean isErroneousRequest();
 
-	public void setErroneousRequest(boolean erroneousRequest) {
-		this.erroneousRequest = erroneousRequest;
-	}
+    void setErroneousRequest(boolean erroneousRequest);
 
-	public ErrorType getErrorType() {
-		return errorType;
-	}
+    String getErrorMessage();
 
-	public void setErrorType(ErrorType errorType) {
-		this.errorType = errorType;
-	}
+    void setErrorMessage(String message);
 }

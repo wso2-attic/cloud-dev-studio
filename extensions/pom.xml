@@ -25,7 +25,6 @@ limitations under the License.
     </parent>
 
     <artifactId>developerstudio-extensions-parent</artifactId>
-    <version>4.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>WSO2 Developer Studio : Extensions Parent</name>
 
@@ -34,26 +33,6 @@ limitations under the License.
         <module>core</module>
         <!--<module>servers</module>-->
     </modules>
-
-    <properties>
-        <codehauese.version>3.0.20</codehauese.version>
-        <com.codenvy.platform.apirunner.version>0.24.0</com.codenvy.platform.apirunner.version>
-        <com.google.gwt.gin.version>2.1.2</com.google.gwt.gin.version>
-        <com.google.gwt.version>2.6.0</com.google.gwt.version>
-        <com.googlecode.gwtquery.version>1.4.2</com.googlecode.gwtquery.version>
-        <commons.io.version>2.4</commons.io.version>
-        <icons.location>icons</icons.location>
-        <kepler-repo.url>http://download.eclipse.org/releases/kepler</kepler-repo.url>
-        <lib.location>lib</lib.location>
-        <logs.location>logs</logs.location>
-        <maven-model.version>3.2.3</maven-model.version>
-        <maven.clean.plugin.version>2.6</maven.clean.plugin.version>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
-        <maven.istall.plugin.version>2.5.1</maven.istall.plugin.version>
-        <maven.sortpom.plugin.version>2.3.0</maven.sortpom.plugin.version>
-        <platform.integration.utils.version>4.3.0</platform.integration.utils.version>
-    </properties>
 
     <dependencyManagement>
         <dependencies>
@@ -172,7 +151,7 @@ limitations under the License.
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.2</version>
+                <version>${maven.compiler.plugin.version}</version>
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>

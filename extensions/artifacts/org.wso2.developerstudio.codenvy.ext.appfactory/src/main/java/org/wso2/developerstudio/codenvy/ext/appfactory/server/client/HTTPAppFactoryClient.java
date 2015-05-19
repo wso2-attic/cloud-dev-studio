@@ -15,9 +15,12 @@
 */
 package org.wso2.developerstudio.codenvy.ext.appfactory.server.client;
 
+import com.sun.tools.internal.ws.wsdl.document.http.HTTPConstants;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -26,14 +29,18 @@ import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.wso2.developerstudio.codenvy.ext.appfactory.server.authentication.Authenticator;
+import org.wso2.developerstudio.codenvy.ext.appfactory.server.constants.AppFactoryAPIConstants;
 import org.wso2.developerstudio.codenvy.ext.appfactory.server.exception.AppFactoryServerException;
-import org.wso2.developerstudio.codenvy.ext.appfactory.shared.dto.AppFactoryLoginResponse;
+import org.wso2.developerstudio.codenvy.ext.appfactory.shared.dto.AppFactoryHTTPResponse;
 import org.wso2.developerstudio.codenvy.ext.appfactory.shared.dto.ErrorType;
+import org.wso2.developerstudio.codenvy.ext.appfactory.shared.dto.LoginResponse;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -70,13 +77,14 @@ public class HTTPAppFactoryClient {
      * @return Populated AppFactoryLoginResponse object
      * @throws org.wso2.developerstudio.codenvy.ext.appfactory.server.exception.AppFactoryServerException
      */
-    public static AppFactoryLoginResponse doLogin(String serverURL, Map<String, String> loginRequestParams)
+    public static LoginResponse doLogin(String serverURL, Map<String, String> loginRequestParams)
             throws AppFactoryServerException {
-        AppFactoryLoginResponse loginResponse = new AppFactoryLoginResponse();
+        LoginResponse loginResponse = org.eclipse.che.dto.server.DtoFactory.getInstance().createDto(LoginResponse
+                .class);
         String successLogin;
 
         //Creating an http client and wrap it
-        client = new DefaultHttpClient();
+        client = HttpClientBuilder.create().build();
         client = wrapClient(client, serverURL);
 
         //Creating a http post request by giving server URL
@@ -99,7 +107,7 @@ public class HTTPAppFactoryClient {
             throw new AppFactoryServerException("Unable to login user, Details : " + loginRequestParams, e);
         }
 
-        if (200 == httpLoginResponse.getStatusLine().getStatusCode()) {    //If response status is 200(OK)
+        if (HttpStatus.SC_OK == httpLoginResponse.getStatusLine().getStatusCode()) {    //If response status is 200(OK)
             //Extracting cookie value from response
             cookie = httpLoginResponse.getFirstHeader("Set-Cookie").getValue().split(";")[0];
 
@@ -110,28 +118,27 @@ public class HTTPAppFactoryClient {
 
             try {
                 bufferedReader = new BufferedReader(new InputStreamReader(loginResponseEntity.getContent()));
+                while ((responseLine = bufferedReader.readLine()) != null) {
+                    responseBuilder.append(responseLine);
+                }
             } catch (IOException e) {
                 log.error("Unable to create an input stream from HTTP response received", e);
                 throw new AppFactoryServerException("Unable to login user, Details : " + loginRequestParams, e);
             }
 
-            try {
-                while ((responseLine = bufferedReader.readLine()) != null) {
-                    responseBuilder.append(responseLine);
-                }
-            } catch (IOException e) {
-                log.error("Error in reading login response", e);
-                throw new AppFactoryServerException("Unable to login user, Details : " + loginRequestParams, e);
-            }
             successLogin = responseBuilder.toString();
 
             if ("true".equals(successLogin)) {
                 loginResponse.setLoggedIn(true);
                 loginResponse.setErroneousRequest(false);
+            } else if ("false".equals(successLogin)) {
+                loginResponse.setLoggedIn(false);
+                loginResponse.setErroneousRequest(true);
+                loginResponse.setErrorMessage("Invalid User Credentials");
             } else {
                 loginResponse.setLoggedIn(false);
                 loginResponse.setErroneousRequest(true);
-                loginResponse.setErrorType(ErrorType.INVALID_CREDENTIALS);
+                loginResponse.setErrorMessage("Invalid Response from App Factory/ App Cloud");
             }
 
             try {
@@ -141,13 +148,117 @@ public class HTTPAppFactoryClient {
             }
 
         } else {
+            log.error("Connection failed to App Factory/ App Cloud, Server URL: " + serverURL);
             loginResponse.setLoggedIn(false);
             loginResponse.setErroneousRequest(true);
-            loginResponse.setErrorType(ErrorType.CONNECTION_FAILURE);
+            loginResponse.setErrorMessage("Connection failed to App Factory/ App Cloud");
         }
 
-
         return loginResponse;
+    }
+
+    /**
+     * Send an HTTP Post request to App Factory/ App Cloud server and return the response from server
+     *
+     * @param serverURL     AppFactory/ AppCloud server URL to connect
+     * @param requestParams Map that contains request params as key value pairs
+     * @return String response from server
+     * @throws org.wso2.developerstudio.codenvy.ext.appfactory.server.exception.AppFactoryServerException
+     */
+    public static AppFactoryHTTPResponse sendHTTPPostRequest(String serverURL, Map<String, String> requestParams)
+            throws AppFactoryServerException {
+        AppFactoryHTTPResponse appFactoryHttpResponse = org.eclipse.che.dto.server.DtoFactory.getInstance()
+                .createDto(AppFactoryHTTPResponse.class);
+        HttpResponse httpResponse;
+        String response;
+
+        //If the user not already authenticated, send authentication failure to client
+        if (client == null || cookie == null) {
+            appFactoryHttpResponse.setRequestSuccess(false);
+            appFactoryHttpResponse.setErrorType(ErrorType.AUTHENTICATION_FAILURE);
+            return appFactoryHttpResponse;
+        }
+
+        //Creating a http post request by giving server URL
+        HttpPost httpPostRequest = new HttpPost(serverURL);
+        requestParams.put(AppFactoryAPIConstants.USERNAME_PARAM, Authenticator.getInstance().getUserCredentials()
+                .getUserName());
+
+        try {
+            httpPostRequest.setEntity(createEntityFromRequestParams(requestParams));
+        } catch (UnsupportedEncodingException e) {
+            log.error("Error in encoding login request parameters to an entity, Parameters : " + requestParams, e);
+            throw new AppFactoryServerException("Error while processing HTTP Post request, Details : " +
+                    requestParams, e);
+        }
+
+        //Setting HTTP cookie with the request
+        httpPostRequest.setHeader("Cookie", cookie);
+
+        //Sending HTTP post request to AppFactory/ AppCloud
+        try {
+            httpResponse = client.execute(httpPostRequest);
+        } catch (ClientProtocolException e) {
+            log.error("Error while sending HTTP Post request to server, Server URL : " + serverURL
+                    + ", HTTP Request : " + httpPostRequest, e);
+            throw new AppFactoryServerException("Error while processing HTTP Post request, Details : " +
+                    requestParams, e);
+        } catch (IOException e) {
+            log.error("Error while sending HTTP Post request to server, Server URL : " + serverURL
+                    + ", HTTP Request : " + httpPostRequest, e);
+            appFactoryHttpResponse.setRequestSuccess(false);
+            appFactoryHttpResponse.setErrorType(ErrorType.CONNECTION_FAILURE);
+            return appFactoryHttpResponse;
+        }
+
+        if (200 == httpResponse.getStatusLine().getStatusCode()) {
+            HttpEntity responseEntity = httpResponse.getEntity();
+            StringBuilder responseBuilder = new StringBuilder();
+            BufferedReader bufferedReader;
+            String responseLine;
+
+            try {
+                bufferedReader = new BufferedReader(new InputStreamReader(responseEntity.getContent()));
+            } catch (IOException e) {
+                log.error("Unable to create an input stream from HTTP response received", e);
+                throw new AppFactoryServerException("Error while processing HTTP Post request, Details : " +
+                        requestParams, e);
+            }
+
+            try {
+                while ((responseLine = bufferedReader.readLine()) != null) {
+                    responseBuilder.append(responseLine);
+                }
+            } catch (IOException e) {
+                log.error("Error in reading HTTP response", e);
+                throw new AppFactoryServerException("Error while processing HTTP Post request, Details : " +
+                        requestParams, e);
+            }
+
+            response = responseBuilder.toString();
+            if ("false".equals(response)) {
+                appFactoryHttpResponse.setRequestSuccess(false);
+                appFactoryHttpResponse.setErrorType(ErrorType.AUTHENTICATION_FAILURE);
+            } else {
+                appFactoryHttpResponse.setRequestSuccess(true);
+                appFactoryHttpResponse.setResponse(response);
+            }
+
+            //Make sure entity stream is fully consumed and closed
+            try {
+                EntityUtils.consume(responseEntity);
+                responseEntity.getContent().close();
+            } catch (IOException e) {
+                log.error("Error in closing Entity stream of App Factory login response", e);
+            }
+        } else {
+            appFactoryHttpResponse.setRequestSuccess(false);
+            appFactoryHttpResponse.setErrorType(ErrorType.CONNECTION_FAILURE);
+        }
+
+        client.getConnectionManager().closeExpiredConnections();
+
+        return appFactoryHttpResponse;
     }
 
     /**
@@ -157,7 +268,7 @@ public class HTTPAppFactoryClient {
      * @param serverURL  Server URL
      * @return Wrapped HttpClient object
      */
-    public static HttpClient wrapClient(HttpClient baseClient, String serverURL) throws AppFactoryServerException {
+    private static HttpClient wrapClient(HttpClient baseClient, String serverURL) throws AppFactoryServerException {
         SSLContext sslContext;
         try {
             sslContext = SSLContext.getInstance("TLS");
@@ -168,11 +279,9 @@ public class HTTPAppFactoryClient {
         X509TrustManager trustManager = new X509TrustManager() {
 
             public void checkClientTrusted(X509Certificate[] xcs, String string) throws CertificateException {
-                throw new UnsupportedOperationException("Unsupported trust manager operation invoked");
             }
 
             public void checkServerTrusted(X509Certificate[] xcs, String string) throws CertificateException {
-                throw new UnsupportedOperationException("Unsupported trust manager operation invoked");
             }
 
             public X509Certificate[] getAcceptedIssuers() {
@@ -199,6 +308,13 @@ public class HTTPAppFactoryClient {
         }
         int port = url.getPort();
         String protocol = url.getProtocol();
+        if (port == -1) {
+            if ("https".equals(protocol)) {
+                port = 443;
+            } else if ("http".equals(protocol)) {
+                port = 80;
+            }
+        }
         schemeRegistry.register(new Scheme(protocol, socketFactory, port));
         return new DefaultHttpClient(clientConnManager, baseClient.getParams());
     }
@@ -210,7 +326,8 @@ public class HTTPAppFactoryClient {
      * @return Populated HTTPEntity object
      * @throws java.io.UnsupportedEncodingException
      */
-    private static HttpEntity createEntityFromRequestParams(Map<String, String> requestParams) throws UnsupportedEncodingException {
+    private static HttpEntity createEntityFromRequestParams(Map<String, String> requestParams) throws
+            UnsupportedEncodingException {
         List<NameValuePair> nameValuePairs = new ArrayList<>();
         Set<String> keySet = requestParams.keySet();
 

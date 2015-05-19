@@ -48,12 +48,15 @@ public class CoreExtension {
 				(DefaultActionGroup) actionManager.getAction(IdeActions.GROUP_MAIN_MENU);
 		mainMenu.add(wso2CloudStudioActionGroup);
 
+		DefaultActionGroup wso2ActionGroup = (DefaultActionGroup) actionManager
+				.getAction(CoreExtConstants.WSO2_ACTION_GROUP_ID);
+
 		actionManager.registerAction(CoreExtConstants.WSO2_ABOUT_ACTION_ID, aboutAction);
-		wso2CloudStudioActionGroup.add(aboutAction);
+		wso2ActionGroup.add(aboutAction);
 
 		actionManager.registerAction(CoreExtConstants.WSO2_OPEN_DASHBOARD_ACTION_ID,
 		                             openDashboardAction);
-		wso2CloudStudioActionGroup.add(openDashboardAction);
+		wso2ActionGroup.add(openDashboardAction);
 
 	}
 }
