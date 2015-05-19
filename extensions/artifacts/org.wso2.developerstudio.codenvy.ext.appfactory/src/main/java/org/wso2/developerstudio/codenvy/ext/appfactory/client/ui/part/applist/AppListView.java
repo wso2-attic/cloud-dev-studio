@@ -15,9 +15,10 @@
 */
 package org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.part.applist;
 
-import com.codenvy.ide.api.mvp.View;
-import com.codenvy.ide.api.parts.base.BaseActionDelegate;
+import org.eclipse.che.ide.api.mvp.View;
+import org.eclipse.che.ide.api.parts.base.BaseActionDelegate;
 import com.google.inject.ImplementedBy;
+import org.wso2.developerstudio.codenvy.ext.appfactory.shared.model.AppInfoList;
 
 @ImplementedBy(AppListViewImpl.class)
 public interface AppListView extends View<AppListView.ActionDelegate> {
@@ -44,5 +45,31 @@ public interface AppListView extends View<AppListView.ActionDelegate> {
      * @param title part title
      */
     void setTitle(String title);
+
+    /**
+     * Set message for App list part.
+     *
+     * @param message
+     */
+    void setMessage(String message);
+
+    /**
+     * Disable refresh button once its clicked
+     *
+     * @param enable
+     */
+    void enableRefreshButton(boolean enable);
+
+    /**
+     * Set the Application Info data
+     *
+     * @param appInfoList
+     */
+    void setAppData(AppInfoList appInfoList);
+
+    /**
+     * Remove App list data
+     */
+    void removeData();
 
 }

@@ -15,18 +15,18 @@
  */
 package org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.login;
 
-import com.codenvy.ide.dto.DtoFactory;
-import com.codenvy.ide.rest.AsyncRequestCallback;
-import com.codenvy.ide.rest.AsyncRequestFactory;
-import com.codenvy.ide.rest.DtoUnmarshallerFactory;
-import com.codenvy.ide.rest.Unmarshallable;
+import org.eclipse.che.ide.api.notification.NotificationManager;
+import org.eclipse.che.ide.dto.DtoFactory;
+import org.eclipse.che.ide.rest.AsyncRequestCallback;
+import org.eclipse.che.ide.rest.AsyncRequestFactory;
+import org.eclipse.che.ide.rest.DtoUnmarshallerFactory;
+import org.eclipse.che.ide.rest.Unmarshallable;
 import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.wso2.developerstudio.codenvy.ext.appfactory.shared.AppFactoryExtensionConstants;
-import org.wso2.developerstudio.codenvy.ext.appfactory.shared.dto.AppFactoryLoginInfo;
-import org.wso2.developerstudio.codenvy.ext.appfactory.shared.dto.AppFactoryLoginResponse;
-import org.wso2.developerstudio.codenvy.ext.appfactory.shared.utils.AppFactoryExtensionUtils;
+import org.wso2.developerstudio.codenvy.ext.appfactory.shared.dto.LoginRequestInfo;
+import org.wso2.developerstudio.codenvy.ext.appfactory.shared.dto.LoginResponse;
 
 /**
  * Provides a view handler to the login dialog box used in App Factory/ App Cloud server login
@@ -34,23 +34,26 @@ import org.wso2.developerstudio.codenvy.ext.appfactory.shared.utils.AppFactoryEx
 public class LoginPresenter implements LoginView.ActionDelegate {
 
     private LoginView loginView;
-    private String hostURL;
     private final DtoFactory dtoFactory;
     private final DtoUnmarshallerFactory unmarshallerFactory;
     private final AsyncRequestFactory requestFactory;
     private final String restContext;
+    private NotificationManager notificationManager;
 
     /**
      * Creates a Login Presenter with GWT injected login view object
      */
     @Inject
-    public LoginPresenter(@Named("restContext") String restContext, LoginView loginView, DtoFactory dtoFactory, DtoUnmarshallerFactory unmarshallerFactory, AsyncRequestFactory requestFactory) {
+    public LoginPresenter(@Named("restContext") String restContext, LoginView loginView, DtoFactory dtoFactory,
+                          DtoUnmarshallerFactory unmarshallerFactory, AsyncRequestFactory requestFactory,
+                          NotificationManager notificationManager) {
         this.loginView = loginView;
         this.loginView.setDelegate(this);
         this.dtoFactory = dtoFactory;
         this.unmarshallerFactory = unmarshallerFactory;
         this.requestFactory = requestFactory;
         this.restContext = restContext;
+        this.notificationManager = notificationManager;
     }
 
     /**
@@ -91,10 +94,11 @@ public class LoginPresenter implements LoginView.ActionDelegate {
      */
     @Override
     public void onValueChanged() {
-        hostURL = loginView.getHostURL();
-        boolean isValidURL = AppFactoryExtensionUtils.isValidHostUrl(hostURL);
-        if (!isValidURL) {
-            loginView.setErrorMessage(AppFactoryExtensionConstants.INVALID_HOST_URL_ERROR_MESSAGE);
+        if (!loginView.getHostURL().trim().isEmpty() && !loginView.getUserName().trim().isEmpty() &&
+                !loginView.getPassword().trim().isEmpty()) {
+            loginView.enableLoginButton(true);
+        } else {
+            loginView.enableLoginButton(false);
         }
     }
 
@@ -103,29 +107,53 @@ public class LoginPresenter implements LoginView.ActionDelegate {
      */
     @Override
     public void onOKButtonClicked() {
-        AppFactoryLoginInfo appFactoryLoginInfo = dtoFactory.createDto(AppFactoryLoginInfo.class);
-        appFactoryLoginInfo.setServerURL(loginView.getHostURL());
-        appFactoryLoginInfo.setUserName(loginView.getUserName());
-        appFactoryLoginInfo.setPassword(loginView.getPassword());
-        appFactoryLoginInfo.setAppCloud(loginView.isAppCloudMode());
+        loginView.enableLoginButton(false);
 
-        Unmarshallable<AppFactoryLoginResponse> unmarshaller = unmarshallerFactory.newUnmarshaller(AppFactoryLoginResponse.class);
+        LoginRequestInfo loginRequestInfo = dtoFactory.createDto(LoginRequestInfo.class);
+        loginRequestInfo.setServerURL(loginView.getHostURL());
+        loginRequestInfo.setUserName(loginView.getUserName());
+        loginRequestInfo.setPassword(loginView.getPassword());
+        loginRequestInfo.setAppCloud(loginView.isAppCloudMode());
 
-        requestFactory.createPostRequest(restContext + "/" + AppFactoryExtensionConstants.AF_CLIENT_REST_SERVICE_PATH
-                + "/" + AppFactoryExtensionConstants.AF_CLIENT_LOGIN_METHOD_PATH, appFactoryLoginInfo)
-                .send(new AsyncRequestCallback<AppFactoryLoginResponse>(unmarshaller) {
+        //Setting a wait message until login completes
+        String waitMessage = "Please Wait, Logging into WSO2 "
+                + (loginView.isAppCloudMode() ? "App Cloud" : "App Factory") + "...";
+        loginView.setMessage(waitMessage);
+
+        Unmarshallable<LoginResponse> unmarshaller = unmarshallerFactory.newUnmarshaller(LoginResponse.class);
+
+        //Sending the login REST request to server side
+        requestFactory.createPostRequest(restContext + "/" + AppFactoryExtensionConstants.AF_REST_SERVICE_PATH
+                + "/" + AppFactoryExtensionConstants.AF_REST_LOGIN_PATH, loginRequestInfo)
+                .send(new AsyncRequestCallback<LoginResponse>(unmarshaller) {
                     @Override
-                    protected void onSuccess(AppFactoryLoginResponse result) {
+                    protected void onSuccess(LoginResponse loginResponse) {
                         String loginSuccessMessage = "Login success to WSO2 "
                                 + (loginView.isAppCloudMode() ? "App Cloud" : "App Factory");
-                        Window.alert(loginSuccessMessage);
+                        String loginFailureMessage = "Unable to login WSO2 "
+                                + (loginView.isAppCloudMode() ? "App Cloud" : "App Factory");
+
+                        //showing message depends on login success or not
+                        if (loginResponse.isLoggedIn()) {
+                            notificationManager.showInfo(loginSuccessMessage);
+                            loginView.closeLoginPrompt();
+                        } else {
+                            loginFailureMessage += "\n\nReason: " + loginResponse.getErrorMessage();
+                            notificationManager.showError(loginFailureMessage);
+                            loginView.setMessage(AppFactoryExtensionConstants.LOGIN_FAILED_PLEASE_TRY_AGAIN_MESSAGE);
+                        }
+                        loginView.enableLoginButton(true);
+                        loginView.setMessage(AppFactoryExtensionConstants.EMPTY_STRING);
                     }
 
                     @Override
                     protected void onFailure(Throwable exception) {
                         String loginFailureMessage = "Unable to login WSO2 "
                                 + (loginView.isAppCloudMode() ? "App Cloud" : "App Factory");
+                        //showing a window if the login failed
                         Window.alert(loginFailureMessage);
+                        loginView.enableLoginButton(true);
+                        loginView.setMessage(AppFactoryExtensionConstants.EMPTY_STRING);
                     }
                 });
     }

@@ -15,8 +15,8 @@
 */
 package org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.part.applist;
 
-import com.codenvy.ide.api.parts.PartStackUIResources;
-import com.codenvy.ide.api.parts.base.BaseView;
+import org.eclipse.che.ide.api.parts.PartStackUIResources;
+import org.eclipse.che.ide.api.parts.base.BaseView;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.resources.client.ImageResource;
@@ -26,6 +26,8 @@ import com.google.gwt.user.client.ui.*;
 import com.google.inject.Inject;
 import org.wso2.developerstudio.codenvy.ext.appfactory.client.resources.AppFactoryExtensionResources;
 import org.wso2.developerstudio.codenvy.ext.appfactory.shared.AppFactoryExtensionConstants;
+import org.wso2.developerstudio.codenvy.ext.appfactory.shared.model.AppInfo;
+import org.wso2.developerstudio.codenvy.ext.appfactory.shared.model.AppInfoList;
 
 /**
  * Class that constructs App list view for App list part using GWT components
@@ -42,7 +44,13 @@ public class AppListViewImpl extends BaseView<AppListView.ActionDelegate> implem
     @UiField
     HorizontalPanel buttonPanel;
     @UiField
-    HorizontalPanel loginIconPanel;
+    SimplePanel loginButtonPanel;
+    @UiField
+    SimplePanel refreshButtonPanel;
+    @UiField
+    VerticalPanel appListPanel;
+    @UiField
+    Label messageLabel;
     @UiField
     FlowPanel infoPanel;
     @UiField
@@ -52,7 +60,8 @@ public class AppListViewImpl extends BaseView<AppListView.ActionDelegate> implem
     @UiField
     FlowPanel dataSourcesPanel;
 
-    private ActionDelegate delegate;
+    private PushButton refreshButton;
+    private VerticalPanel appsPanel;
 
     /**
      * Creates a App list view implementation with GWT injected UI binder and resources
@@ -61,13 +70,15 @@ public class AppListViewImpl extends BaseView<AppListView.ActionDelegate> implem
     public AppListViewImpl(AppListViewImplUiBinder appListViewImplUiBinder, PartStackUIResources resources,
                            AppFactoryExtensionResources extensionResources) {
         super(resources);
-        container.add(appListViewImplUiBinder.createAndBindUi(this));
+        setContentWidget(appListViewImplUiBinder.createAndBindUi(this));
+
+        buttonPanel.setSpacing(6);
 
         ImageResource loginIcon = extensionResources.getLoginIcon();
         PushButton loginButton = new PushButton(new Image(loginIcon));
         loginButton.setPixelSize(16, 16);
         loginButton.setTitle(AppFactoryExtensionConstants.LOGIN_ACTION);
-        buttonPanel.add(loginButton);
+        loginButtonPanel.add(loginButton);
 
         //Action handler for login button in App list part
         loginButton.addClickHandler(new ClickHandler() {
@@ -78,10 +89,10 @@ public class AppListViewImpl extends BaseView<AppListView.ActionDelegate> implem
         });
 
         ImageResource refreshIcon = extensionResources.getRefreshIcon();
-        PushButton refreshButton = new PushButton(new Image(refreshIcon));
+        refreshButton = new PushButton(new Image(refreshIcon));
         refreshButton.setPixelSize(16, 16);
         refreshButton.setTitle(AppFactoryExtensionConstants.REFRESH_ACTION);
-        buttonPanel.add(refreshButton);
+        refreshButtonPanel.add(refreshButton);
 
         //Action handler for refresh button in App list part
         refreshButton.addClickHandler(new ClickHandler() {
@@ -90,15 +101,35 @@ public class AppListViewImpl extends BaseView<AppListView.ActionDelegate> implem
                 delegate.onRefreshButtonClicked();
             }
         });
-
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public void setDelegate(ActionDelegate delegate) {
-        this.delegate = delegate;
+    public void setMessage(String message) {
+        messageLabel.setText(message);
+        messageLabel.setVisible(true);
+    }
+
+    @Override
+    public void enableRefreshButton(boolean enable) {
+        refreshButton.setEnabled(enable);
+    }
+
+    @Override
+    public void setAppData(AppInfoList appInfoList) {
+        appListPanel.setSpacing(5);
+        appsPanel = new VerticalPanel();
+        appsPanel.setSpacing(5);
+        for (AppInfo appInfo : appInfoList.getAppInfoList()) {
+            appsPanel.add(new Label(appInfo.getName()));
+        }
+        appListPanel.add(appsPanel);
+    }
+
+    @Override
+    public void removeData() {
+        if (appsPanel != null) {
+            appListPanel.remove(appsPanel);
+        }
     }
 
 }

@@ -15,8 +15,8 @@
 */
 package org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.part.console;
 
-import com.codenvy.ide.api.parts.PartStackUIResources;
-import com.codenvy.ide.api.parts.base.BaseView;
+import org.eclipse.che.ide.api.parts.PartStackUIResources;
+import org.eclipse.che.ide.api.parts.base.BaseView;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -46,7 +46,7 @@ public class ConsoleViewImpl extends BaseView<ConsoleView.ActionDelegate> implem
     @Inject
     public ConsoleViewImpl(ConsoleViewImplUiBinder ourUiBinder, PartStackUIResources resources) {
         super(resources);
-        container.add(ourUiBinder.createAndBindUi(this));
+        setContentWidget(ourUiBinder.createAndBindUi(this));
     }
 
     @UiHandler("clearConsoleButton")

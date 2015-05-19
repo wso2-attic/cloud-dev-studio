@@ -15,10 +15,10 @@
 */
 package org.wso2.developerstudio.codenvy.ext.appfactory.client;
 
-import com.codenvy.ide.api.extension.Extension;
-import com.codenvy.ide.api.notification.NotificationManager;
-import com.codenvy.ide.api.action.ActionManager;
-import com.codenvy.ide.api.action.DefaultActionGroup;
+import org.eclipse.che.ide.api.extension.Extension;
+import org.eclipse.che.ide.api.notification.NotificationManager;
+import org.eclipse.che.ide.api.action.ActionManager;
+import org.eclipse.che.ide.api.action.DefaultActionGroup;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.wso2.developerstudio.codenvy.core.shared.CoreExtConstants;
@@ -27,19 +27,18 @@ import org.wso2.developerstudio.codenvy.ext.appfactory.shared.AppFactoryExtensio
 
 @Singleton
 @Extension(title = CoreExtConstants.EXT_NAME_PREFIX + AppFactoryExtensionConstants.EXT_NAME,
-        version = AppFactoryExtensionConstants.EXT_VERSION)
+        version = CoreExtConstants.EXT_VERSION)
 public class AppFactoryExtension {
 
     @Inject
     public AppFactoryExtension(ActionManager actManager, OpenPerspectiveAction openAFAction,
                                NotificationManager notificationManager) {
 
-        DefaultActionGroup wso2ActionGroup = (DefaultActionGroup) actManager
-                .getAction(CoreExtConstants.WSO2_ACTION_GROUP_ID);
-        actManager.registerAction(AppFactoryExtensionConstants.OPEN_AF_PERSPECTIVE_ACTION_ID,
-                openAFAction);
-        wso2ActionGroup.add(openAFAction);
+        DefaultActionGroup wso2CloudStudioActionGroup = (DefaultActionGroup) actManager.
+                getAction(CoreExtConstants.WSO2_ACTION_GROUP_ID);
 
+        actManager.registerAction(AppFactoryExtensionConstants.OPEN_AF_PERSPECTIVE_ACTION_ID, openAFAction);
+        wso2CloudStudioActionGroup.add(openAFAction);
     }
 }
 

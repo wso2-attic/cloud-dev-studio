@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+* Copyright (c) 2014-2015, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 */
 package org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.part.appdetails;
 
-import com.codenvy.ide.api.parts.base.BasePresenter;
+import org.eclipse.che.ide.api.parts.base.BasePresenter;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
@@ -23,39 +23,39 @@ import com.google.inject.assistedinject.Assisted;
 
 public class AppDetailsPresenter extends BasePresenter implements AppDetailsView.ActionDelegate {
 
-	private AppDetailsView appDetailsView;
-	private String title;
+    private AppDetailsView appDetailsView;
+    private String title;
 
-	@Inject
-	public AppDetailsPresenter(AppDetailsView appDetailsView, @Assisted String title) {
-		this.appDetailsView = appDetailsView;
-		this.appDetailsView.setDelegate(this);
-		this.appDetailsView.setTitle(title);
-		this.title = title;
-	}
+    @Inject
+    public AppDetailsPresenter(AppDetailsView appDetailsView, @Assisted String title) {
+        this.appDetailsView = appDetailsView;
+        this.appDetailsView.setDelegate(this);
+        this.appDetailsView.setTitle(title);
+        this.title = title;
+    }
 
-	@Override
-	public void onButtonClicked() {
-	}
+    @Override
+    public void onButtonClicked() {
+    }
 
-	@Override
-	public String getTitle() {
-		return title;
-	}
+    @Override
+    public String getTitle() {
+        return title;
+    }
 
-	@Override
-	public ImageResource getTitleImage() {
-		return null;
-	}
+    @Override
+    public ImageResource getTitleImage() {
+        return null;
+    }
 
-	@Override
-	public String getTitleToolTip() {
-		return "Tooltip";
-	}
+    @Override
+    public String getTitleToolTip() {
+        return "Tooltip";
+    }
 
-	@Override
-	public void go(AcceptsOneWidget container) {
-		container.setWidget(appDetailsView);
-	}
+    @Override
+    public void go(AcceptsOneWidget container) {
+        container.setWidget(appDetailsView);
+    }
 
 }

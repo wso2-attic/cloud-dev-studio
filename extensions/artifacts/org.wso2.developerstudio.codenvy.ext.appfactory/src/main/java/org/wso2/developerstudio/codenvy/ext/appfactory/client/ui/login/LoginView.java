@@ -17,7 +17,7 @@ package org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.login;
 
 import javax.annotation.Nonnull;
 
-import com.codenvy.ide.api.mvp.View;
+import org.eclipse.che.ide.api.mvp.View;
 import com.google.inject.ImplementedBy;
 
 /**
@@ -149,6 +149,12 @@ public interface LoginView extends View<LoginView.ActionDelegate> {
      *
      * @param errorMessage message
      */
-    void setErrorMessage(String errorMessage);
+    void setMessage(String errorMessage);
+
+    /**
+     * Enable Login button of Login window
+     *
+     */
+    void enableLoginButton(boolean enable);
 
 }

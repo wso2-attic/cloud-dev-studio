@@ -15,8 +15,8 @@
 */
 package org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.part.console;
 
-import com.codenvy.ide.api.mvp.View;
-import com.codenvy.ide.api.parts.base.BaseActionDelegate;
+import org.eclipse.che.ide.api.mvp.View;
+import org.eclipse.che.ide.api.parts.base.BaseActionDelegate;
 import com.google.inject.ImplementedBy;
 
 @ImplementedBy(ConsoleViewImpl.class)

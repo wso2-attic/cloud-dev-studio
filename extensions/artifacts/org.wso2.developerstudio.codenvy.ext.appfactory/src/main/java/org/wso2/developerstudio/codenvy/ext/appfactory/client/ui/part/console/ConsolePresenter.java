@@ -15,7 +15,7 @@
 */
 package org.wso2.developerstudio.codenvy.ext.appfactory.client.ui.part.console;
 
-import com.codenvy.ide.api.parts.base.BasePresenter;
+import org.eclipse.che.ide.api.parts.base.BasePresenter;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
