@@ -128,6 +128,14 @@ public class CloudAdminServiceClient {
         return tenants;
     }
 
+    /**
+     * Get admin authentication cookie for the given user
+     *
+     * @param userName user credentials
+     * @param password password
+     * @return cookie value
+     * @throws AppFactoryServerException
+     */
     private static String getCookie(String userName, String password) throws AppFactoryServerException {
         QName serviceName;
         QName portName;
@@ -152,6 +160,7 @@ public class CloudAdminServiceClient {
         dispatch = service.createDispatch(portName, SOAPMessage.class, Service.Mode.MESSAGE);
 
         try {
+            //Creating a SOAP request
             messageFactory = MessageFactory.newInstance(SOAPConstants.SOAP_1_1_PROTOCOL);
             request = messageFactory.createMessage();
             requestBody = request.getSOAPPart().getEnvelope().getBody();
