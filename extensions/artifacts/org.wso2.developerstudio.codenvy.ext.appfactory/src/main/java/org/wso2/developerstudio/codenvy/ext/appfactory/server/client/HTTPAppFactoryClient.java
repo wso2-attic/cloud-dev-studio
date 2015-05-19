@@ -211,7 +211,7 @@ public class HTTPAppFactoryClient {
             return appFactoryHttpResponse;
         }
 
-        if (200 == httpResponse.getStatusLine().getStatusCode()) {
+        if (HttpStatus.SC_OK == httpResponse.getStatusLine().getStatusCode()) {     //If response status is 200(OK)
             HttpEntity responseEntity = httpResponse.getEntity();
             StringBuilder responseBuilder = new StringBuilder();
             BufferedReader bufferedReader;
