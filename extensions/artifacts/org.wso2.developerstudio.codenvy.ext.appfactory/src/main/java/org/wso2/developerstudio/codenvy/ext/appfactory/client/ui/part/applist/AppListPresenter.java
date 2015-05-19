@@ -64,7 +64,9 @@ public class AppListPresenter extends BasePresenter implements AppListView.Actio
      */
     @Inject
     public AppListPresenter(@Named("restContext") String restContext, AppListView appListView, @Assisted String title,
-                            LoginPresenter loginPresenter, AppFactoryExtensionResources extensionResources, DtoFactory dtoFactory, DtoUnmarshallerFactory unmarshallerFactory, AsyncRequestFactory requestFactory, NotificationManager notificationManager) {
+                            LoginPresenter loginPresenter, AppFactoryExtensionResources extensionResources,
+                            DtoFactory dtoFactory, DtoUnmarshallerFactory unmarshallerFactory, AsyncRequestFactory
+                                    requestFactory, NotificationManager notificationManager) {
         this.appListView = appListView;
         this.appListView.setDelegate(this);
         this.appListView.setTitle(title);
@@ -134,7 +136,8 @@ public class AppListPresenter extends BasePresenter implements AppListView.Actio
         requestParams.put(AppFactoryAPIConstants.ACTION_PARAM, AppFactoryAPIConstants.GET_APP_LIST_ACTION);
         appListRequest.setRequestParams(requestParams);
 
-        Unmarshallable<AppFactoryHTTPResponse> unmarshaller = unmarshallerFactory.newUnmarshaller(AppFactoryHTTPResponse.class);
+        Unmarshallable<AppFactoryHTTPResponse> unmarshaller = unmarshallerFactory.newUnmarshaller
+                (AppFactoryHTTPResponse.class);
 
         requestFactory.createPostRequest(restContext + "/" + AppFactoryExtensionConstants.AF_REST_SERVICE_PATH
                 + "/" + AppFactoryExtensionConstants.AF_REST_APP_LIST_PATH, appListRequest)
@@ -145,7 +148,8 @@ public class AppListPresenter extends BasePresenter implements AppListView.Actio
                         if (appListResponse.isRequestSuccess()) {
                             // Instantiate the factory
                             AppFactoryAutoBeanFactory autoBeanFactory = GWT.create(AppFactoryAutoBeanFactory.class);
-                            AutoBean<AppInfoList> bean = AutoBeanCodex.decode(autoBeanFactory, AppInfoList.class, "{\"appInfoList\": " + appListResponse.getResponse() + "}");
+                            AutoBean<AppInfoList> bean = AutoBeanCodex.decode(autoBeanFactory, AppInfoList.class,
+                                    "{\"appInfoList\": " + appListResponse.getResponse() + "}");
                             AppInfoList appInfoList = bean.as();
                             appListView.setAppData(appInfoList);
                             appListView.setMessage(AppFactoryExtensionConstants.EMPTY_STRING);

@@ -34,11 +34,11 @@ public class AppFactoryExtension {
     public AppFactoryExtension(ActionManager actManager, OpenPerspectiveAction openAFAction,
                                NotificationManager notificationManager) {
 
-        DefaultActionGroup wso2CloudStudioActionGroup = (DefaultActionGroup) actManager.getAction(CoreExtConstants.WSO2_ACTION_GROUP_ID);
+        DefaultActionGroup wso2CloudStudioActionGroup = (DefaultActionGroup) actManager.
+                getAction(CoreExtConstants.WSO2_ACTION_GROUP_ID);
 
         actManager.registerAction(AppFactoryExtensionConstants.OPEN_AF_PERSPECTIVE_ACTION_ID, openAFAction);
         wso2CloudStudioActionGroup.add(openAFAction);
-
     }
 }
 

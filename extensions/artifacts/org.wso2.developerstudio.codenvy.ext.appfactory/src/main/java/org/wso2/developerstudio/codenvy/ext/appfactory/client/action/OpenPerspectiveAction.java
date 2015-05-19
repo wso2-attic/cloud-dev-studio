@@ -55,9 +55,12 @@ public class OpenPerspectiveAction extends Action {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         if (!presentersInitialized) {
-            appListPresenter = appFactoryPartsFactory.createAppListPart(AppFactoryExtensionConstants.WSO2_APP_FAC_VIEW_APP_LIST);
-            appDetailsPresenter = appFactoryPartsFactory.createAppDetailsPart(AppFactoryExtensionConstants.WSO2_APP_FAC_VIEW_APP_DETAILS);
-            consolePresenter = appFactoryPartsFactory.createConsolePart(AppFactoryExtensionConstants.WSO2_APP_FAC_VIEW_CONSOLE);
+            appListPresenter = appFactoryPartsFactory.createAppListPart(AppFactoryExtensionConstants
+                    .WSO2_APP_FAC_VIEW_APP_LIST);
+            appDetailsPresenter = appFactoryPartsFactory.createAppDetailsPart(AppFactoryExtensionConstants
+                    .WSO2_APP_FAC_VIEW_APP_DETAILS);
+            consolePresenter = appFactoryPartsFactory.createConsolePart(AppFactoryExtensionConstants
+                    .WSO2_APP_FAC_VIEW_CONSOLE);
             presentersInitialized = true;
         } else {
             workspaceAgent.removePart(appListPresenter);
