@@ -158,11 +158,11 @@ public class EclipseCheConfigurations {
 	public static boolean changeRunningPort(String startUpPort, String shutDownPort, String sdkRootDirectory,
 	                                        String currentPort) {
 		if (!modifyServerXML(sdkRootDirectory, startUpPort, shutDownPort) ||
-		    !replaceCheServerPort(sdkRootDirectory + Constants.BIN_SETENV_SH_LOC,
-		                          Constants.EXPORT_SERVER_PORT + currentPort,
-		                          Constants.EXPORT_SERVER_PORT + startUpPort) ||
-		    !replaceCheServerPort(sdkRootDirectory + Constants.BIN_SETENV_BAT_LOC,
-		                          Constants.SET_SERVER_PORT + currentPort, Constants.SET_SERVER_PORT + startUpPort)) {
+				(!replaceCheServerPort(sdkRootDirectory + Constants.BIN_SETENV_SH_LOC,
+						Constants.EXPORT_SERVER_PORT + currentPort,
+						Constants.EXPORT_SERVER_PORT + startUpPort) &&
+						!replaceCheServerPort(sdkRootDirectory + Constants.BIN_SETENV_BAT_LOC,
+								Constants.SET_SERVER_PORT + currentPort, Constants.SET_SERVER_PORT + startUpPort))) {
 			log.info("Could not change the port values configuration files for port change ");
 			return false;
 		} else {

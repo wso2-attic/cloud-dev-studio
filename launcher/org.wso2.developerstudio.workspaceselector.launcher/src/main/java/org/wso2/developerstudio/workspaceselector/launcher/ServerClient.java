@@ -48,10 +48,20 @@ public class ServerClient implements Runnable {
     private static final int CLIENT_SLEEP_TIME = 2500;
     private final int port;
     private Display splash_screen_display = null;
+    private static final File DEV_CONFIG_PROPERTY_FILE = new File(System.getProperty(
+            ConfigurationContext.DEV_STUDIO_CONF_DIR) + File.separator + ConfigurationContext
+            .DEV_STUDIO_PROPERTIES_FILE);
 
     public ServerClient(int port, Display splashScreen) {
         this.port = port;
         this.splash_screen_display = splashScreen;
+        if (!DEV_CONFIG_PROPERTY_FILE.exists()) {
+            try {
+                DEV_CONFIG_PROPERTY_FILE.createNewFile();
+            } catch (IOException e) {
+                log.error("Error while creating Developer Studio properties file", e);
+            }
+        }
     }
 
     @Override
