@@ -175,8 +175,10 @@ void SimpleHandler::CloseAllBrowsers(bool force_close) {
     return;
   }
 
-  if (browser_list_.empty())
+    if (browser_list_.empty()){
+        doclose();
     return;
+    }
 
   BrowserList::const_iterator it = browser_list_.begin();
   for (; it != browser_list_.end(); ++it)

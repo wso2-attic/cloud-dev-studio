@@ -1580,7 +1580,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				INTERMEDIATE_DIR = "$(PROJECT_DERIVED_FILE_DIR)/$(CONFIGURATION)";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx10.9;
 				SHARED_INTERMEDIATE_DIR = "$(SYMROOT)/DerivedSources/$(CONFIGURATION)";
@@ -1685,7 +1685,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				INTERMEDIATE_DIR = "$(PROJECT_DERIVED_FILE_DIR)/$(CONFIGURATION)";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx10.9;
 				SHARED_INTERMEDIATE_DIR = "$(SYMROOT)/DerivedSources/$(CONFIGURATION)";
@@ -1974,7 +1974,7 @@
 				A3A9E962B89F272D3FAB61BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 1;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		30FCE4725C646E130AA849E4 /* Build configuration list for PBXNativeTarget "devs_helper_app" */ = {
 			isa = XCConfigurationList;
@@ -1983,7 +1983,7 @@
 				D3B13EEAF8892E86DB99AB9E /* Release */,
 			);
 			defaultConfigurationIsVisible = 1;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		5627BAF721B148130D750A27 /* Build configuration list for PBXProject "DevS_Mac_IDE" */ = {
 			isa = XCConfigurationList;
@@ -1992,7 +1992,7 @@
 				50007946E25C6923B9F2C42A /* Release */,
 			);
 			defaultConfigurationIsVisible = 1;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		80D3FC2724F4CCEE26ED42D1 /* Build configuration list for PBXNativeTarget "devs" */ = {
 			isa = XCConfigurationList;
@@ -2001,7 +2001,7 @@
 				17C419B69FB30F26B0BAC933 /* Release */,
 			);
 			defaultConfigurationIsVisible = 1;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		AE11CBC890BAF7FF5998C407 /* Build configuration list for PBXAggregateTarget "All" */ = {
 			isa = XCConfigurationList;
@@ -2010,7 +2010,7 @@
 				3FC791A8E8240C180FCC4994 /* Release */,
 			);
 			defaultConfigurationIsVisible = 1;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

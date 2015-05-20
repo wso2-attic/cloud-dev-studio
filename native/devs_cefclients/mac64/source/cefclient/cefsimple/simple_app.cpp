@@ -33,6 +33,7 @@
 
 //extern  pthread_t inc_x_thread;
  char pild_killcmd[1024];
+std::string basePath;
 
  SimpleApp::SimpleApp() {
 }
@@ -52,26 +53,27 @@ void GetBasePath(){
     CFRelease(resourcesURL);
     
     chdir(path);
-    std::cout << "Current Path: " << path << std::endl;
+   // std::cout << "Current Path: " << path << std::endl;
 #endif
     
     std::string spath(path);
-    DevsApp::basePath = spath + "/../../../";
+    basePath = spath + "/../../../";
     
 }
 
 void *server_startup_che_sh(void *x_void_ptr)
 {
     
-    std::string workerpath = "../../../bin/che.sh start &";
+   // std::string workerpath = "../../../bin/che.sh start &";
+     std::string workerpath = basePath+"bin/che.sh start &";
     char worker_cpath[1024];
     strncpy(worker_cpath, workerpath.c_str(), sizeof(worker_cpath));
     
     int ret_code = system(worker_cpath);
     if (ret_code == 0) {
-        std::cout << "server started sucessfully";
+       // std::cout << "server started sucessfully";
     } else {
-        std::cerr << "Error during the server startup: please refer log files more details " << ret_code << '\n';
+       // std::cerr << "Error during the server startup: please refer log files more details " << ret_code << '\n';
     }
     return NULL;
 }
@@ -99,10 +101,10 @@ int delete_file(char file_cpath[1024]){
     int ret_code = std::remove(file_cpath);
    // std::remove(url_cpath);
     if (ret_code == 0) {
-        std::cout << "File was successfully deleted\n";
+      //  std::cout << "File was successfully deleted\n";
         return 0;
     } else {
-        std::cerr << "Error during the deletion: " << ret_code << '\n';
+      //  std::cerr << "Error during the deletion: " << ret_code << '\n';
         return 1;
     }
     
@@ -129,7 +131,8 @@ int GetServerPort(std::FILE *fp,char port_cpath[1024]){
 
 void openWorkspaceWindow(){
     
-    std::string workerpath = "../../../bin/wso2studio_mac_workspace.sh";
+   // std::string workerpath = "../../../bin/wso2studio_mac_workspace.sh";
+    std::string workerpath = basePath+"bin/wso2studio_mac_workspace.sh";
     char worker_cpath[1024];
     strncpy(worker_cpath, workerpath.c_str(), sizeof(worker_cpath));
     std::string bash_s = "/bin/bash";
@@ -151,7 +154,8 @@ void openWorkspaceWindow(){
 }
 
 int startSever(){
-    std::string portpath ="../../../bin/PORT";
+    //std::string portpath ="../../../bin/PORT";
+    std::string portpath =basePath+"bin/PORT";
     char port_cpath[1024];
     std::string server_pid;
     strncpy(port_cpath, portpath.c_str(), sizeof(port_cpath));
@@ -163,7 +167,7 @@ int startSever(){
             serverPORT = GetServerPort(fp, port_cpath);
             break;
         }else{
-            std::cout << "Waiting for PORT...";
+            //std::cout << "Waiting for PORT...";
             sleep(2);
             
         }
@@ -189,7 +193,7 @@ int startSever(){
 std::string readBrowserUrl(){
     
     std::string url;
-    std::string urlpath ="../../../bin/url.txt";
+    std::string urlpath =basePath+"bin/url.txt";
     char url_cpath[1024];
     strncpy(url_cpath, urlpath.c_str(), sizeof(url_cpath));
     while (true) {
@@ -199,7 +203,7 @@ std::string readBrowserUrl(){
             delete_file(url_cpath);
             return url;
         }else{
-            std::cout << "Waiting for URL...";
+           // std::cout << "Waiting for URL...";
             sleep(2);
         }
     }
@@ -210,6 +214,7 @@ std::string readBrowserUrl(){
 
 
 std::string GetBrowserUrl(){
+    GetBasePath();
     openWorkspaceWindow();
     startSever();
     std::string url = readBrowserUrl();
