@@ -42,16 +42,6 @@ public class ConfigurationContext {
 	public static void setServerSystemProperties(String tomcatPort){
 
 		setSystemProperty("SERVER_PORT", tomcatPort);
-
-		try {
-			setSystemProperty("WORKSPACE_ROOT",
-			                  getDevStudioProperty(WORKSPACE_ROOT_PROPERTY));
-			setSystemProperty("WORKSPACE_INDEX_ROOT",
-			                  getDevStudioProperty(WORKSPACE_ROOT_INDEX_PROPERTY));
-		} catch (IOException e) {
-			logger.error("Error setting workspace root in system properties.", e);
-		}
-
 	}
 
 	private static void setSystemProperty(String propertyKey, String propertyValue){
