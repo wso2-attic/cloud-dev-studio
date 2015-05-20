@@ -26,13 +26,18 @@ limitations under the License.
 
     <artifactId>app-factory-extension</artifactId>
     <packaging>jar</packaging>
-    <name>WSO2 Developer Studio :: App Factory Extension</name>
+    <name>WSO2 Developer Studio : App Factory Extension</name>
 
     <dependencies>
         <dependency>
-            <groupId>com.codenvy.ide</groupId>
-            <artifactId>codenvy-ide-api</artifactId>
-            <scope>provided</scope>
+            <groupId>org.eclipse.che.core</groupId>
+            <artifactId>che-core-ide-api</artifactId>
+            <version>${com.codenvy.sdk.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.che.core</groupId>
+            <artifactId>che-core-api-dto-maven-plugin</artifactId>
+            <version>${com.codenvy.sdk.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.gwt.inject</groupId>
@@ -52,12 +57,12 @@ limitations under the License.
         <dependency>
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
-            <version>1.4.0</version>
+            <version>${apache.common-validator.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.3.6</version>
+            <version>${apache.httpclient.version}</version>
         </dependency>
     </dependencies>
 
@@ -75,6 +80,7 @@ limitations under the License.
                 <directory>${project.build.directory}/generated-sources/dto/</directory>
             </resource>
         </resources>
+
         <plugins>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -97,6 +103,7 @@ limitations under the License.
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
@@ -131,10 +138,11 @@ limitations under the License.
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
-                <groupId>com.codenvy.platform-api</groupId>
-                <artifactId>codenvy-dto-maven-plugin</artifactId>
-                <version>0.30.0</version>
+                <groupId>org.eclipse.che.core</groupId>
+                <artifactId>che-core-api-dto-maven-plugin</artifactId>
+                <version>${com.codenvy.sdk.version}</version>
                 <executions>
                     <execution>
                         <id>generate-client</id>
@@ -147,7 +155,8 @@ limitations under the License.
                                 <package>org.wso2.developerstudio.codenvy.ext.appfactory.shared.dto</package>
                             </dtoPackages>
                             <outputDirectory>${project.build.directory}/generated-sources/dto/</outputDirectory>
-                            <genClassName>org.wso2.developerstudio.codenvy.ext.appfactory.client.DTOClientImpls
+                            <genClassName>
+                                org.wso2.developerstudio.codenvy.ext.appfactory.client.DTOAppFactoryClientImpls
                             </genClassName>
                             <impl>client</impl>
                         </configuration>
@@ -163,45 +172,41 @@ limitations under the License.
                                 <package>org.wso2.developerstudio.codenvy.ext.appfactory.shared.dto</package>
                             </dtoPackages>
                             <outputDirectory>${project.build.directory}/generated-sources/dto/</outputDirectory>
-                            <genClassName>org.wso2.developerstudio.codenvy.ext.appfactory.server.DtoServerImpls</genClassName>
+                            <genClassName>
+                                org.wso2.developerstudio.codenvy.ext.appfactory.server.DtoAppFactoryServerImpls
+                            </genClassName>
                             <impl>server</impl>
                         </configuration>
                     </execution>
                 </executions>
-                <!--<dependencies>
+                <dependencies>
                     <dependency>
                         <groupId>${project.groupId}</groupId>
                         <artifactId>${project.artifactId}</artifactId>
                         <version>${project.version}</version>
                     </dependency>
-                    &lt;!&ndash;
-                    Other dependencies if DTOs from current project need them.
-                    &ndash;&gt;
-                </dependencies>-->
+                </dependencies>
             </plugin>
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>pre-compile</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>com.google.code.sortpom</groupId>
                 <artifactId>maven-sortpom-plugin</artifactId>
                 <configuration>
                     <verifyFail>Warn</verifyFail>
                 </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <configuration>
-                    <tasks>
-                        <copy file="target/${project.artifactId}-${project.version}.jar"
-                              tofile="../../../distribution/org.wso2.developerstudio.distribution/resources/extensions/${com.codenvy.sdk.version}/${project.artifactId}-${project.version}.jar"/>
-                    </tasks>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
