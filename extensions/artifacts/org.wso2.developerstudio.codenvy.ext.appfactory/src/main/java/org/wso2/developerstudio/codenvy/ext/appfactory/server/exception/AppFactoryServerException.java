@@ -25,7 +25,7 @@ public class AppFactoryServerException extends Exception {
      * Constructor for creating AppFactoryServerException with an Exception and a message
      *
      * @param exception Exception to be included
-     * @param message Exception message
+     * @param message   Exception message
      */
     public AppFactoryServerException(String message, Exception exception) {
         super(message, exception);

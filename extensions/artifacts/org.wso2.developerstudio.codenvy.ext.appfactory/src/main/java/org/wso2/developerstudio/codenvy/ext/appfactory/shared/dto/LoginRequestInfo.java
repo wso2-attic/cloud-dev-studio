@@ -18,22 +18,24 @@ package org.wso2.developerstudio.codenvy.ext.appfactory.shared.dto;
 import org.eclipse.che.dto.shared.DTO;
 
 /**
- * Keeps the possible error types that can occur in App Factory server component
+ * A DTO class that keeps login information necessary to authentication related operations
  */
 @DTO
-public enum ErrorType {
+public interface LoginRequestInfo {
 
-    CONNECTION_FAILURE, AUTHENTICATION_FAILURE, NONE, INVALID_USER;
+    String getServerURL();
 
-    @Override
-    public String toString() {
-        switch(this) {
-            case CONNECTION_FAILURE: return "Connection Failure";
-            case AUTHENTICATION_FAILURE: return "Authentication Failure";
-            case INVALID_USER: return "Invalid User";
-            case NONE: return "None";
-            default: throw new IllegalArgumentException();
-        }
-    }
+    void setServerURL(String serverURL);
 
+    String getUserName();
+
+    void setUserName(String userName);
+
+    String getPassword();
+
+    void setPassword(String password);
+
+    boolean isAppCloud();
+
+    void setAppCloud(boolean isAppCloud);
 }

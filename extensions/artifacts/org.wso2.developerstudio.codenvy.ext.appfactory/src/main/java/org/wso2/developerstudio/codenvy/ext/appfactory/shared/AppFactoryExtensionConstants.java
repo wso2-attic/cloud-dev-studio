@@ -57,4 +57,5 @@ public interface AppFactoryExtensionConstants {
     String LOADING_APPLICATIONS_FAILED_MESSGE = "Loading Applications Failed...";
     String UNEXPECTED_ERROR_OCCURRED_MESSAGE = "An Unexpected Error Occurred";
     String LOADING_APPLICATIONS_MESSAGE = "Loading Applications...";
+    String APP_CLOUD_WITH_ZERO_TENANTS_ERROR_MESSAGE = "The App Cloud given has zero tenants";
 }

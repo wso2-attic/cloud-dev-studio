@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+* Copyright (c) 2015, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -13,20 +13,19 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.wso2.developerstudio.codenvy.ext.appfactory.server.inject;
+package org.wso2.developerstudio.codenvy.ext.appfactory.shared.dto;
 
-import org.eclipse.che.inject.DynaModule;
-import com.google.inject.AbstractModule;
-import org.wso2.developerstudio.codenvy.ext.appfactory.server.rest.api.AppFactoryRestService;
+import org.eclipse.che.dto.shared.DTO;
+
+import java.util.Map;
 
 /**
- * Server side injections
+ * A DTO class that keeps HTTP request information
  */
-@DynaModule
-public class ServerModule extends AbstractModule {
+@DTO
+public interface HTTPRequestInfo {
 
-    @Override
-    protected void configure() {
-        bind(AppFactoryRestService.class);
-    }
+    Map<String, String> getRequestParams();
+
+    void setRequestParams(Map<String, String> params);
 }
