@@ -411,7 +411,7 @@ ClientHandler::OnTitleChange(browser);
 bool ClientHandler::DoClose(CefRefPtr<CefBrowser> browser) {
   CEF_REQUIRE_UI_THREAD();
 
- developerStudioProcess->StopProcess();
+ 
 
   // Closing the main window requires special handling. See the DoClose()
   // documentation in the CEF header for a detailed destription of this
@@ -421,6 +421,11 @@ bool ClientHandler::DoClose(CefRefPtr<CefBrowser> browser) {
     // Set a flag to indicate that the window close should be allowed.
     is_closing_ = true;
   }
+ 
+ 
+ if (popup_browsers_.empty()){
+     developerStudioProcess->StopProcess();
+ }
 
   // Allow the close. For windowed browsers this will result in the OS close
   // event being sent.
@@ -775,6 +780,7 @@ void ClientHandler::CloseAllBrowsers(bool force_close) {
 
   if (browser_.get()) {
     // Request that the main browser close.
+    developerStudioProcess->StopProcess();
     browser_->GetHost()->CloseBrowser(force_close);
   }
 }
