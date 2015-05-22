@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+* Copyright (c) 2014-2015, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -21,42 +21,37 @@ import org.eclipse.che.ide.api.action.ActionManager;
 import org.eclipse.che.ide.api.action.DefaultActionGroup;
 import org.eclipse.che.ide.api.action.IdeActions;
 import org.eclipse.che.ide.api.extension.Extension;
-import org.eclipse.che.ide.api.parts.WorkspaceAgent;
 import org.wso2.developerstudio.codenvy.core.client.actions.AboutDialogBoxAction;
 import org.wso2.developerstudio.codenvy.core.client.actions.OpenDashboardAction;
-import org.wso2.developerstudio.codenvy.core.client.ui.dashboard.DashboardItemRegistry;
-import org.wso2.developerstudio.codenvy.core.client.ui.dashboard.page.DashboardPagePresenter;
 import org.wso2.developerstudio.codenvy.core.shared.CoreExtConstants;
 
 @Singleton
 @Extension(title = CoreExtConstants.EXT_NAME_PREFIX + CoreExtConstants.EXT_NAME,
-           version = CoreExtConstants.EXT_VERSION)
+        version = CoreExtConstants.EXT_VERSION)
 public class CoreExtension {
 
-	@Inject
-	public CoreExtension(ActionManager actionManager, AboutDialogBoxAction aboutAction,
-	                     OpenDashboardAction openDashboardAction,
-	                     WorkspaceAgent workspaceAgent,
-	                     DashboardPagePresenter dashboardPagePresenter,
-	                     DashboardItemRegistry dashboardItemRegistry) {
+    @Inject
+    public CoreExtension(ActionManager actionManager, AboutDialogBoxAction aboutAction,
+                         OpenDashboardAction openDashboardAction) {
 
-		DefaultActionGroup wso2CloudStudioActionGroup =
-				new DefaultActionGroup(CoreExtConstants.WSO2_ACTION_GROUP_NAME, true, actionManager);
-		actionManager
-				.registerAction(CoreExtConstants.WSO2_ACTION_GROUP_ID, wso2CloudStudioActionGroup);
-		DefaultActionGroup mainMenu =
-				(DefaultActionGroup) actionManager.getAction(IdeActions.GROUP_MAIN_MENU);
-		mainMenu.add(wso2CloudStudioActionGroup);
+        DefaultActionGroup wso2CloudStudioActionGroup =
+                new DefaultActionGroup(CoreExtConstants.WSO2_ACTION_GROUP_NAME, true, actionManager);
+        actionManager
+                .registerAction(CoreExtConstants.WSO2_ACTION_GROUP_ID, wso2CloudStudioActionGroup);
+        DefaultActionGroup mainMenu =
+                (DefaultActionGroup) actionManager.getAction(IdeActions.GROUP_MAIN_MENU);
+        mainMenu.add(wso2CloudStudioActionGroup);
 
-		DefaultActionGroup wso2ActionGroup = (DefaultActionGroup) actionManager
-				.getAction(CoreExtConstants.WSO2_ACTION_GROUP_ID);
+        DefaultActionGroup wso2ActionGroup = (DefaultActionGroup) actionManager
+                .getAction(CoreExtConstants.WSO2_ACTION_GROUP_ID);
 
-		actionManager.registerAction(CoreExtConstants.WSO2_ABOUT_ACTION_ID, aboutAction);
-		wso2ActionGroup.add(aboutAction);
+        actionManager.registerAction(CoreExtConstants.WSO2_ABOUT_ACTION_ID, aboutAction);
+        wso2ActionGroup.add(aboutAction);
 
-		actionManager.registerAction(CoreExtConstants.WSO2_OPEN_DASHBOARD_ACTION_ID,
-		                             openDashboardAction);
-		wso2ActionGroup.add(openDashboardAction);
+        //TODO Add open dashboard action when some actions added to dashboard
+        /*actionManager.registerAction(CoreExtConstants.WSO2_OPEN_DASHBOARD_ACTION_ID,
+                                     openDashboardAction);
+		wso2ActionGroup.add(openDashboardAction);*/
 
-	}
+    }
 }
