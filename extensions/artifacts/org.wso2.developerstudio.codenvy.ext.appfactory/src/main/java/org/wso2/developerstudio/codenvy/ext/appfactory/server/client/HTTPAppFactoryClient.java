@@ -69,6 +69,13 @@ public class HTTPAppFactoryClient {
     private static String cookie;
 
     /**
+     * Creates a HTTP client at the class initialization
+     */
+    static {
+        client = HttpClientBuilder.create().build();
+    }
+
+    /**
      * Creates an HTTP Entity using given request parameters
      *
      * @param serverURL          AppFactory/ AppCloud server URL to connect with for login request
@@ -81,10 +88,10 @@ public class HTTPAppFactoryClient {
         LoginResponse loginResponse = org.eclipse.che.dto.server.DtoFactory.getInstance().createDto(LoginResponse
                 .class);
         String successLogin;
+        HttpClient wrappedClient;
 
-        //Creating an http client and wrap it
-        client = HttpClientBuilder.create().build();
-        client = wrapClient(client, serverURL);
+        //wrap the client
+        wrappedClient = wrapClient(client, serverURL);
 
         //Creating a http post request by giving server URL
         HttpPost httpLoginRequest = new HttpPost(serverURL);
@@ -99,7 +106,7 @@ public class HTTPAppFactoryClient {
 
         //Sending HTTP post request to AppFactory/ AppCloud
         try {
-            httpLoginResponse = client.execute(httpLoginRequest);
+            httpLoginResponse = wrappedClient.execute(httpLoginRequest);
         } catch (IOException e) {
             log.error("Error while sending HTTP Post request to server, Server URL : " + serverURL
                     + ", HTTP Request : " + httpLoginRequest, e);
@@ -111,7 +118,7 @@ public class HTTPAppFactoryClient {
             cookie = httpLoginResponse.getFirstHeader("Set-Cookie").getValue().split(";")[0];
 
             HttpEntity loginResponseEntity = httpLoginResponse.getEntity();
-            BufferedReader bufferedReader;
+            BufferedReader bufferedReader = null;
             StringBuilder responseBuilder = new StringBuilder();
             String responseLine;
 
@@ -123,6 +130,14 @@ public class HTTPAppFactoryClient {
             } catch (IOException e) {
                 log.error("Unable to create an input stream from HTTP response received", e);
                 throw new AppFactoryServerException("Unable to login user, Details : " + loginRequestParams, e);
+            } finally {
+                if (bufferedReader != null) {
+                    try {
+                        bufferedReader.close();
+                    } catch (IOException e) {
+                        log.error("Error occurred while closing buffered reader", e);
+                    }
+                }
             }
 
             successLogin = responseBuilder.toString();
@@ -168,6 +183,7 @@ public class HTTPAppFactoryClient {
             throws AppFactoryServerException {
         AppFactoryHTTPResponse appFactoryHttpResponse = org.eclipse.che.dto.server.DtoFactory.getInstance()
                 .createDto(AppFactoryHTTPResponse.class);
+        HttpClient wrappedClient;
         HttpResponse httpResponse;
         String response;
 
@@ -177,6 +193,9 @@ public class HTTPAppFactoryClient {
             appFactoryHttpResponse.setErrorType(ErrorType.AUTHENTICATION_FAILURE);
             return appFactoryHttpResponse;
         }
+
+        //wrap the client
+        wrappedClient = wrapClient(client, serverURL);
 
         //Creating a http post request by giving server URL
         HttpPost httpPostRequest = new HttpPost(serverURL);
@@ -196,7 +215,7 @@ public class HTTPAppFactoryClient {
 
         //Sending HTTP post request to AppFactory/ AppCloud
         try {
-            httpResponse = client.execute(httpPostRequest);
+            httpResponse = wrappedClient.execute(httpPostRequest);
         } catch (ClientProtocolException e) {
             log.error("Error while sending HTTP Post request to server, Server URL : " + serverURL
                     + ", HTTP Request : " + httpPostRequest, e);
@@ -213,25 +232,26 @@ public class HTTPAppFactoryClient {
         if (HttpStatus.SC_OK == httpResponse.getStatusLine().getStatusCode()) {     //If response status is 200(OK)
             HttpEntity responseEntity = httpResponse.getEntity();
             StringBuilder responseBuilder = new StringBuilder();
-            BufferedReader bufferedReader;
+            BufferedReader bufferedReader = null;
             String responseLine;
 
             try {
                 bufferedReader = new BufferedReader(new InputStreamReader(responseEntity.getContent()));
-            } catch (IOException e) {
-                log.error("Unable to create an input stream from HTTP response received", e);
-                throw new AppFactoryServerException("Error while processing HTTP Post request, Details : " +
-                        requestParams, e);
-            }
-
-            try {
                 while ((responseLine = bufferedReader.readLine()) != null) {
                     responseBuilder.append(responseLine);
                 }
             } catch (IOException e) {
-                log.error("Error in reading HTTP response", e);
+                log.error("Unable to create an input stream from HTTP response received", e);
                 throw new AppFactoryServerException("Error while processing HTTP Post request, Details : " +
                         requestParams, e);
+            } finally {
+                if (bufferedReader != null) {
+                    try {
+                        bufferedReader.close();
+                    } catch (IOException e) {
+                        log.error("Error occurred while closing buffered reader", e);
+                    }
+                }
             }
 
             response = responseBuilder.toString();
@@ -255,7 +275,7 @@ public class HTTPAppFactoryClient {
             appFactoryHttpResponse.setErrorType(ErrorType.CONNECTION_FAILURE);
         }
 
-        client.getConnectionManager().closeExpiredConnections();
+        wrappedClient.getConnectionManager().closeExpiredConnections();
 
         return appFactoryHttpResponse;
     }

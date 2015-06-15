@@ -58,4 +58,9 @@ public interface AppFactoryExtensionConstants {
     String UNEXPECTED_ERROR_OCCURRED_MESSAGE = "An Unexpected Error Occurred";
     String LOADING_APPLICATIONS_MESSAGE = "Loading Applications...";
     String APP_CLOUD_WITH_ZERO_TENANTS_ERROR_MESSAGE = "The App Cloud given has zero tenants";
+    String LOGIN_WAIT_MESSAGE = "Please Wait, Logging into WSO2 ";
+    String APP_CLOUD_LABEL = "App Cloud";
+    String APP_FACTORY_LABEL = "App Factory";
+    String LOGIN_SUCCESS_MESSAGE = "Login success to WSO2 ";
+    String LOGIN_FAILED_MESSAGE = "Unable to login WSO2 ";
 }

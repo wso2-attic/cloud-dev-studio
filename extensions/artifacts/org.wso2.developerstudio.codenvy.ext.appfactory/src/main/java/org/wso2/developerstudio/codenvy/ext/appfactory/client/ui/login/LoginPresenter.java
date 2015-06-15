@@ -116,8 +116,9 @@ public class LoginPresenter implements LoginView.ActionDelegate {
         loginRequestInfo.setAppCloud(loginView.isAppCloudMode());
 
         //Setting a wait message until login completes
-        String waitMessage = "Please Wait, Logging into WSO2 "
-                + (loginView.isAppCloudMode() ? "App Cloud" : "App Factory") + "...";
+        String waitMessage = AppFactoryExtensionConstants.LOGIN_WAIT_MESSAGE
+                + (loginView.isAppCloudMode() ? AppFactoryExtensionConstants.APP_CLOUD_LABEL :
+                AppFactoryExtensionConstants.APP_FACTORY_LABEL) + "...";
         loginView.setMessage(waitMessage);
 
         Unmarshallable<LoginResponse> unmarshaller = unmarshallerFactory.newUnmarshaller(LoginResponse.class);
@@ -128,10 +129,12 @@ public class LoginPresenter implements LoginView.ActionDelegate {
                 .send(new AsyncRequestCallback<LoginResponse>(unmarshaller) {
                     @Override
                     protected void onSuccess(LoginResponse loginResponse) {
-                        String loginSuccessMessage = "Login success to WSO2 "
-                                + (loginView.isAppCloudMode() ? "App Cloud" : "App Factory");
-                        String loginFailureMessage = "Unable to login WSO2 "
-                                + (loginView.isAppCloudMode() ? "App Cloud" : "App Factory");
+                        String loginSuccessMessage = AppFactoryExtensionConstants.LOGIN_SUCCESS_MESSAGE
+                                + (loginView.isAppCloudMode() ? AppFactoryExtensionConstants.APP_CLOUD_LABEL :
+                                AppFactoryExtensionConstants.APP_FACTORY_LABEL);
+                        String loginFailureMessage = AppFactoryExtensionConstants.LOGIN_FAILED_MESSAGE
+                                + (loginView.isAppCloudMode() ? AppFactoryExtensionConstants.APP_CLOUD_LABEL :
+                                AppFactoryExtensionConstants.APP_FACTORY_LABEL);
 
                         //showing message depends on login success or not
                         if (loginResponse.isLoggedIn()) {
@@ -148,8 +151,9 @@ public class LoginPresenter implements LoginView.ActionDelegate {
 
                     @Override
                     protected void onFailure(Throwable exception) {
-                        String loginFailureMessage = "Unable to login WSO2 "
-                                + (loginView.isAppCloudMode() ? "App Cloud" : "App Factory");
+                        String loginFailureMessage = AppFactoryExtensionConstants.LOGIN_FAILED_MESSAGE
+                                + (loginView.isAppCloudMode() ? AppFactoryExtensionConstants.APP_CLOUD_LABEL :
+                                AppFactoryExtensionConstants.APP_FACTORY_LABEL);
                         //showing a window if the login failed
                         Window.alert(loginFailureMessage);
                         loginView.enableLoginButton(true);
