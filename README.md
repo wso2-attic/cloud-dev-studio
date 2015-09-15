@@ -6,17 +6,15 @@ Welcome to the WSO2 Developer Studio
 
 Cloud-dev-studio is an Eclipse Che based Development Tool, and is a standalone version for the cloud based Eclipse Che.This standalone version is built by using Apache tomcat & Embedded Chromium Framework(CEF)
 
-
 ## Requirements
-   ==================
 
 * Needs maven 3.1.x or higher to build
 * Needs JDK 1.7.xx to run developer studio
 * libudev.so file - Linux startup may fail on first attempt due to libudev.so file not  being instaled in the OS.In this case please run the install.sh file shipped with the pack in the bin folder and retry
 * libgtkglext-x11-1.0.so.0 in Ubuntu
 
-Cloud-dev-studio directory structure
-   =============================================
+## Cloud-dev-studio directory structure
+
 	developer-studio home
 		|- bin
         |- conf
@@ -86,20 +84,13 @@ Cloud-dev-studio directory structure
 
 
 ## How to run
-=============================================
 
 1) Extract the content of the zip file
-
 2) Go to bin folder
-
 3) In linux environment execute the wso2 wso2studio.sh file as sh wso2devstudio
-
    In windows environment execute the Developerstudio.exe file
-
    In mac os environment run the devs app file in the wso2-developerstudio-mac extraction (outside bin folder)
-
-               This will open the WSO2 Developer Studio.
-
+This will open the WSO2 Developer Studio.
 
 ## How to Contribute
 
