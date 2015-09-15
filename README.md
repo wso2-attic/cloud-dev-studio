@@ -1,22 +1,22 @@
 ===================================================================
-  Cloud-dev-studio : WSO2 Developer Studio 4.0.0 - M0
+  Cloud-dev-studio : WSO2 Developer Studio
 =====================================================================
 
-Welcome to the WSO2 Developer Studio 4.0.0 - M0
+Welcome to the WSO2 Developer Studio
 
-Developer Studio 4.0.0 is an Eclipse Che based Development Tool, and is a standalone version for the cloud based Eclipse Che.
-
-
-Requirements
-==================
-
- Needs maven 3.1.x or higher to build
-
- Needs JDK 1.7.xx to run developer studio
+Cloud-dev-studio is an Eclipse Che based Development Tool, and is a standalone version for the cloud based Eclipse Che.This standalone version is built by using Apache tomcat & Embedded Chromium Framework(CEF)
 
 
-WSO2 ESB 4.8.1 distribution directory structure
-=============================================
+## Requirements
+   ==================
+
+* Needs maven 3.1.x or higher to build
+* Needs JDK 1.7.xx to run developer studio
+* libudev.so file - Linux startup may fail on first attempt due to libudev.so file not  being instaled in the OS.In this case please run the install.sh file shipped with the pack in the bin folder and retry
+* libgtkglext-x11-1.0.so.0 in Ubuntu
+
+Cloud-dev-studio directory structure
+   =============================================
 	developer-studio home
 		|- bin
         |- conf
@@ -85,8 +85,7 @@ WSO2 ESB 4.8.1 distribution directory structure
 	   This document.
 
 
-
-How to run Developer Studio 4.0.0
+## How to run
 =============================================
 
 1) Extract the content of the zip file
@@ -102,30 +101,14 @@ How to run Developer Studio 4.0.0
                This will open the WSO2 Developer Studio.
 
 
+## How to Contribute
 
-Known issues of WSO2 Developer Studio - 4.0.0
-==========================================
+* WSO2 Cloud-dev-studio code is hosted in [GitHub](https://github.com/wso2/cloud-dev-studio.git).
+* Please report issues at[JIRA](https://wso2.org/jira/browse/TOOLS)
 
+## Contact us
 
-Linux startup may fail on first attempt due to libudev.so file not being instaled in the OS.
- In this case please run the install.sh file shipped with the pack in the bin folder and retry
+  WSO2 developers can be contacted via the mailing lists:
 
-New Project types under Codenvy in the project creation window are not working in the Che-SDK 3.7.3 which is distributed in Develoepr Studio 4.0.0
-
-
-
-Issue Tracker
-==========================================
-
-  https://wso2.org/jira/browse/TOOLS
-
-Other known issues
-==========================================
-
-  * There exist a known Ubuntu issue in running WSO2 Developer Studio which says missing libgtkglext-x11-1.0.so.0
-
---------------------------------------------------------------------------------
-(c) Copyright 2014 WSO2 Inc.
-
-
-
+  * Developers List : dev@wso2.org
+  * Architecture List : architecture@wso2.org
